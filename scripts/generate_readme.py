@@ -119,9 +119,9 @@ def render_card(card: dict, heading_id: bool = True) -> str:
     title = html.escape(card["title"])
     slug = card["slug"]
     heading = (
-        f'<h4 id="card-{slug}">{title}</h4>'
+        f'<h4 id="card-{slug}" align="center">{title}</h4>'
         if heading_id
-        else f"<h4>{title}</h4>"
+        else f'<h4 align="center">{title}</h4>'
     )
     chips = f"<code>{html.escape(card['level'])}</code> · <code>{html.escape(card['freq'])}</code>"
     if card["kind"] == "Practice":
