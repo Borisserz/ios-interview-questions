@@ -34,7 +34,7 @@ The questions that show up across sources. Open a topic, say the answer, then re
 </td></tr>
 <tr><td>
 
-<h4 align="center">== vs ===</h4>
+<p align="center"><strong>== vs ===</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#identity-vs-equality)
 
@@ -71,7 +71,7 @@ a === c   // false
 </td></tr>
 <tr><td>
 
-<h4 align="center">Access control</h4>
+<p align="center"><strong>Access control</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#access-control)
 
@@ -112,7 +112,7 @@ open class Plugin {           // only if clients must subclass
 </td></tr>
 <tr><td>
 
-<h4 align="center">Any vs AnyObject</h4>
+<p align="center"><strong>Any vs AnyObject</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#any-vs-anyobject)
 
@@ -145,7 +145,7 @@ let objects: [AnyObject] = [UIView(), NSString(string: "x")]
 </td></tr>
 <tr><td>
 
-<h4 align="center">Array vs set</h4>
+<p align="center"><strong>Array vs set</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#array-vs-set)
 
@@ -185,7 +185,7 @@ func uniqued(_ values: [String]) -> [String] {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Classes vs structs</h4>
+<p align="center"><strong>Classes vs structs</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#classes-vs-structs)
 
@@ -229,7 +229,7 @@ also.size.width = 20  // box.size.width is 20
 </td></tr>
 <tr><td>
 
-<h4 align="center">Closures</h4>
+<p align="center"><strong>Closures</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#closures)
 
@@ -269,7 +269,7 @@ func makeCounter() -> () -> Int {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Dictionary vs array</h4>
+<p align="center"><strong>Dictionary vs array</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#dictionary-vs-array)
 
@@ -305,7 +305,7 @@ let ada = byID["1"]
 </td></tr>
 <tr><td>
 
-<h4 align="center">Enums</h4>
+<p align="center"><strong>Enums</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#enums)
 
@@ -343,7 +343,7 @@ enum LoadState<Value> {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Float vs Double vs CGFloat</h4>
+<p align="center"><strong>Float vs Double vs CGFloat</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#float-double-cgfloat)
 
@@ -380,7 +380,7 @@ let compact = Float(temperature)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Hashable, Equatable, Comparable</h4>
+<p align="center"><strong>Hashable, Equatable, Comparable</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#hashable-equatable)
 
@@ -417,7 +417,7 @@ struct UserID: Hashable, Comparable {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Higher-order functions</h4>
+<p align="center"><strong>Higher-order functions</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#higher-order-functions)
 
@@ -451,7 +451,7 @@ let evenSum = raw.compactMap(Int.init).filter { $0.isMultiple(of: 2) }.reduce(0,
 </td></tr>
 <tr><td>
 
-<h4 align="center">Identifiable</h4>
+<p align="center"><strong>Identifiable</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#identifiable)
 
@@ -490,7 +490,7 @@ ForEach(teams) { team in
 </td></tr>
 <tr><td>
 
-<h4 align="center">Implicit vs explicit types</h4>
+<p align="center"><strong>Implicit vs explicit types</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#implicit-vs-explicit)
 
@@ -525,7 +525,7 @@ var items: [User] = []               // explicit — [] alone is ambiguous
 </td></tr>
 <tr><td>
 
-<h4 align="center">Nil coalescing</h4>
+<p align="center"><strong>Nil coalescing</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#nil-coalescing)
 
@@ -561,7 +561,7 @@ let taps = counts["home"] ?? 0
 </td></tr>
 <tr><td>
 
-<h4 align="center">Optional chaining</h4>
+<p align="center"><strong>Optional chaining</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#optional-chaining)
 
@@ -600,7 +600,7 @@ head.next?.value = "child"
 </td></tr>
 <tr><td>
 
-<h4 align="center">Property observers</h4>
+<p align="center"><strong>Property observers</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#property-observers)
 
@@ -637,7 +637,7 @@ score = 10
 </td></tr>
 <tr><td>
 
-<h4 align="center">Protocols</h4>
+<p align="center"><strong>Protocols</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#protocols)
 
@@ -680,7 +680,7 @@ func printSummary(_ item: any Describable) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Stored vs computed properties</h4>
+<p align="center"><strong>Stored vs computed properties</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#stored-vs-computed)
 
@@ -716,7 +716,7 @@ struct Size {
 </td></tr>
 <tr><td>
 
-<h4 align="center">String? vs String!</h4>
+<p align="center"><strong>String? vs String!</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#string-optional-vs-iuo)
 
@@ -753,7 +753,7 @@ title = nil
 </td></tr>
 <tr><td>
 
-<h4 align="center">Swift collections</h4>
+<p align="center"><strong>Swift collections</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#collections)
 
@@ -789,7 +789,7 @@ let ordered = [3, 1, 2]
 </td></tr>
 <tr><td>
 
-<h4 align="center">Type safety</h4>
+<p align="center"><strong>Type safety</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#type-safety)
 
@@ -823,7 +823,7 @@ let parsed = Int("3") // Int?, not Int
 </td></tr>
 <tr><td>
 
-<h4 align="center">Value type vs reference type</h4>
+<p align="center"><strong>Value type vs reference type</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#value-vs-reference)
 
@@ -865,7 +865,7 @@ r2.n = 2                 // r1.n == 2
 </td></tr>
 <tr><td>
 
-<h4 align="center">What is an optional</h4>
+<p align="center"><strong>What is an optional</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#optionals)
 
@@ -906,7 +906,7 @@ print(n.map { $0 * 2 } ?? 0)
 </td></tr>
 <tr><td>
 
-<h4 align="center">deinit</h4>
+<p align="center"><strong>deinit</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#deinit)
 
@@ -948,7 +948,7 @@ final class Ticker {
 </td></tr>
 <tr><td>
 
-<h4 align="center">guard</h4>
+<p align="center"><strong>guard</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#guard)
 
@@ -983,7 +983,7 @@ func firstWord(in text: String?) -> String? {
 </td></tr>
 <tr><td>
 
-<h4 align="center">if let vs guard let</h4>
+<p align="center"><strong>if let vs guard let</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#if-let-vs-guard-let)
 
@@ -1025,7 +1025,7 @@ func label(_ name: String?) -> String {
 </td></tr>
 <tr><td>
 
-<h4 align="center">lazy</h4>
+<p align="center"><strong>lazy</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#lazy)
 
@@ -1064,7 +1064,7 @@ final class Report {
 </td></tr>
 <tr><td>
 
-<h4 align="center">let vs var</h4>
+<p align="center"><strong>let vs var</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#let-vs-var)
 
@@ -1104,7 +1104,7 @@ box.value = 2 // ok
 </td></tr>
 <tr><td>
 
-<h4 align="center">map vs compactMap</h4>
+<p align="center"><strong>map vs compactMap</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#map-vs-compactmap)
 
@@ -1141,7 +1141,7 @@ let flat = nested.flatMap { $0 }       // [1, 2, 3]
 </td></tr>
 <tr><td>
 
-<h4 align="center">mutating</h4>
+<p align="center"><strong>mutating</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#mutating)
 
@@ -1180,7 +1180,7 @@ c.bump()
 </td></tr>
 <tr><td>
 
-<h4 align="center">static</h4>
+<p align="center"><strong>static</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#static)
 
@@ -1217,7 +1217,7 @@ Theme.label("button")
 </td></tr>
 <tr><td>
 
-<h4 align="center">switch</h4>
+<p align="center"><strong>switch</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#switch)
 
@@ -1254,7 +1254,7 @@ case .failed: showRetry()
 </td></tr>
 <tr><td>
 
-<h4 align="center">try vs try? vs try!</h4>
+<p align="center"><strong>try vs try? vs try!</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#try-try-try)
 
@@ -1296,7 +1296,7 @@ let no = try? checked(-1)     // nil
 </td></tr>
 <tr><td>
 
-<h4 align="center">Associated types</h4>
+<p align="center"><strong>Associated types</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#associated-types)
 
@@ -1340,7 +1340,7 @@ func peekCount<S: Stack>(_ stack: S) -> String { "stack" }
 </td></tr>
 <tr><td>
 
-<h4 align="center">Copy-on-Write</h4>
+<p align="center"><strong>Copy-on-Write</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#copy-on-write)
 
@@ -1386,7 +1386,7 @@ struct List {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Custom property wrappers</h4>
+<p align="center"><strong>Custom property wrappers</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#property-wrappers)
 
@@ -1432,7 +1432,7 @@ struct Game {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Enum associated values</h4>
+<p align="center"><strong>Enum associated values</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#enum-associated-values)
 
@@ -1476,7 +1476,7 @@ func title(for state: LoadState) -> String {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Escaping vs non-escaping closures</h4>
+<p align="center"><strong>Escaping vs non-escaping closures</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#escaping-closures)
 
@@ -1517,7 +1517,7 @@ func runNow(_ handler: () -> Void) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Extension vs protocol extension</h4>
+<p align="center"><strong>Extension vs protocol extension</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#extension-vs-protocol-extension)
 
@@ -1564,7 +1564,7 @@ speaker.wave()    // wave — static if only on the extension
 </td></tr>
 <tr><td>
 
-<h4 align="center">Generics</h4>
+<p align="center"><strong>Generics</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#generics)
 
@@ -1602,7 +1602,7 @@ struct Stack<Element> {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Method dispatch</h4>
+<p align="center"><strong>Method dispatch</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#method-dispatch)
 
@@ -1645,7 +1645,7 @@ func paint(_ item: any Drawable) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Opaque return types</h4>
+<p align="center"><strong>Opaque return types</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#opaque-return-types)
 
@@ -1683,7 +1683,7 @@ func label(highlighted: Bool) -> some Equatable {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Result builders</h4>
+<p align="center"><strong>Result builders</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#result-builders)
 
@@ -1728,7 +1728,7 @@ func title() -> String {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Result type</h4>
+<p align="center"><strong>Result type</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#result-type)
 
@@ -1769,7 +1769,7 @@ case .failure(let error): print(error)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Why immutability matters</h4>
+<p align="center"><strong>Why immutability matters</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#immutability)
 
@@ -1809,7 +1809,7 @@ working.balance += 5
 </td></tr>
 <tr><td>
 
-<h4 align="center">defer</h4>
+<p align="center"><strong>defer</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#defer)
 
@@ -1849,7 +1849,7 @@ func parse() -> Int {
 </td></tr>
 <tr><td>
 
-<h4 align="center">final keyword</h4>
+<p align="center"><strong>final keyword</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#final)
 
@@ -1885,7 +1885,7 @@ final class ImageCache {
 </td></tr>
 <tr><td>
 
-<h4 align="center">self vs Self</h4>
+<p align="center"><strong>self vs Self</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#self-vs-self)
 
@@ -1930,7 +1930,7 @@ extension Point {
 </td></tr>
 <tr><td>
 
-<h4 align="center">some vs any</h4>
+<p align="center"><strong>some vs any</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#some-vs-any)
 
@@ -1966,7 +1966,7 @@ var items: [any Equatable] = [1, "x"]
 </td></tr>
 <tr><td>
 
-<h4 align="center">Struct memory layout</h4>
+<p align="center"><strong>Struct memory layout</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/swift.md#struct-memory-layout)
 
@@ -2009,7 +2009,7 @@ MemoryLayout<Tight>.stride  // often 16 still on 64-bit, but size can differ
 </td></tr>
 <tr><td>
 
-<h4 align="center">Type erasure</h4>
+<p align="center"><strong>Type erasure</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/swift.md#type-erasure)
 
@@ -2059,7 +2059,7 @@ struct AnyStore<Item>: Store {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Explain ARC</h4>
+<p align="center"><strong>Explain ARC</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/memory.md#explain-arc)
 
@@ -2102,7 +2102,7 @@ mirror = nil                       // count = 0, deinit runs
 </td></tr>
 <tr><td>
 
-<h4 align="center">How Swift handles memory</h4>
+<p align="center"><strong>How Swift handles memory</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/memory.md#swift-memory-management)
 
@@ -2153,7 +2153,7 @@ box2.value = 2
 </td></tr>
 <tr><td>
 
-<h4 align="center">ARC vs garbage collection</h4>
+<p align="center"><strong>ARC vs garbage collection</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#arc-vs-gc)
 
@@ -2217,7 +2217,7 @@ do {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Identify and resolve a memory leak</h4>
+<p align="center"><strong>Identify and resolve a memory leak</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#memory-leak)
 
@@ -2280,7 +2280,7 @@ final class Ticker {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Identify and resolve a retain cycle</h4>
+<p align="center"><strong>Identify and resolve a retain cycle</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#retain-cycle)
 
@@ -2327,7 +2327,7 @@ final class ProfileLoader {
 </td></tr>
 <tr><td>
 
-<h4 align="center">autoreleasepool</h4>
+<p align="center"><strong>autoreleasepool</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#autoreleasepool)
 
@@ -2365,7 +2365,7 @@ func thumbnails(from data: [Data]) -> [UIImage] {
 </td></tr>
 <tr><td>
 
-<h4 align="center">weak vs unowned</h4>
+<p align="center"><strong>weak vs unowned</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#weak-vs-unowned)
 
@@ -2417,7 +2417,7 @@ final class Field {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Concurrency vs parallelism</h4>
+<p align="center"><strong>Concurrency vs parallelism</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/concurrency.md#concurrency-vs-parallelism)
 
@@ -2455,7 +2455,7 @@ let (l, r) = await (a, b)
 </td></tr>
 <tr><td>
 
-<h4 align="center">@MainActor</h4>
+<p align="center"><strong>@MainActor</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#main-actor)
 
@@ -2504,7 +2504,7 @@ func fetch() async {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Actor vs serial DispatchQueue</h4>
+<p align="center"><strong>Actor vs serial DispatchQueue</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#actor-vs-serial-queue)
 
@@ -2545,7 +2545,7 @@ actor SessionStore {
 </td></tr>
 <tr><td>
 
-<h4 align="center">AsyncSequence</h4>
+<p align="center"><strong>AsyncSequence</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#async-sequence)
 
@@ -2579,7 +2579,7 @@ for await note in NotificationCenter.default.notifications(named: .NSSystemTimeZ
 </td></tr>
 <tr><td>
 
-<h4 align="center">Checked continuations</h4>
+<p align="center"><strong>Checked continuations</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#checked-continuation)
 
@@ -2620,7 +2620,7 @@ func token() async throws -> String {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Concurrency problems</h4>
+<p align="center"><strong>Concurrency problems</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#concurrency-problems)
 
@@ -2664,7 +2664,7 @@ actor Counter {
 </td></tr>
 <tr><td>
 
-<h4 align="center">DispatchGroup</h4>
+<p align="center"><strong>DispatchGroup</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#dispatch-group)
 
@@ -2704,7 +2704,7 @@ group.notify(queue: .main) { table.reloadData() }
 </td></tr>
 <tr><td>
 
-<h4 align="center">DispatchSemaphore</h4>
+<p align="center"><strong>DispatchSemaphore</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#dispatch-semaphore)
 
@@ -2744,7 +2744,7 @@ final class Gate {
 </td></tr>
 <tr><td>
 
-<h4 align="center">GCD</h4>
+<p align="center"><strong>GCD</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#gcd)
 
@@ -2793,7 +2793,7 @@ func updateTitle(_ text: String) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">GCD vs OperationQueue</h4>
+<p align="center"><strong>GCD vs OperationQueue</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#gcd-vs-operationqueue)
 
@@ -2834,7 +2834,7 @@ queue.addOperations([decode, upload], waitUntilFinished: false)
 </td></tr>
 <tr><td>
 
-<h4 align="center">GCD vs async/await</h4>
+<p align="center"><strong>GCD vs async/await</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#gcd-vs-async-await)
 
@@ -2877,7 +2877,7 @@ func load() async throws -> UIImage {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Locks</h4>
+<p align="center"><strong>Locks</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#locks)
 
@@ -2920,7 +2920,7 @@ final class Counter {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Quality of Service</h4>
+<p align="center"><strong>Quality of Service</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#qos)
 
@@ -2956,7 +2956,7 @@ DispatchQueue.global(qos: .userInitiated).async {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Sendable</h4>
+<p align="center"><strong>Sendable</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#sendable)
 
@@ -2999,7 +2999,7 @@ final class UnsafeCache {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Task cancellation</h4>
+<p align="center"><strong>Task cancellation</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#task-cancellation)
 
@@ -3040,7 +3040,7 @@ func loadAll(_ urls: [URL]) async throws -> [Data] {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Task groups vs async let</h4>
+<p align="center"><strong>Task groups vs async let</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#taskgroup-vs-async-let)
 
@@ -3080,7 +3080,7 @@ func profile() async throws -> (User, [Post]) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Task vs Task.detached vs TaskGroup</h4>
+<p align="center"><strong>Task vs Task.detached vs TaskGroup</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#task-detached-taskgroup)
 
@@ -3126,7 +3126,7 @@ func thumbnails(for urls: [URL]) async -> [URL: Data] {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Thread-safe shared state</h4>
+<p align="center"><strong>Thread-safe shared state</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#thread-safe-state)
 
@@ -3166,7 +3166,7 @@ actor ImageStore {
 </td></tr>
 <tr><td>
 
-<h4 align="center">main.async vs main.sync</h4>
+<p align="center"><strong>main.async vs main.sync</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#main-async-vs-sync)
 
@@ -3209,7 +3209,7 @@ func applyTitle(_ text: String) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Actor reentrancy</h4>
+<p align="center"><strong>Actor reentrancy</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/concurrency.md#actor-reentrancy)
 
@@ -3258,7 +3258,7 @@ actor ImageLoader {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Isolation domains</h4>
+<p align="center"><strong>Isolation domains</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/concurrency.md#isolation)
 
@@ -3298,7 +3298,7 @@ func show(_ row: String) { /* UI */ }
 </td></tr>
 <tr><td>
 
-<h4 align="center">Swift 6 strict concurrency</h4>
+<p align="center"><strong>Swift 6 strict concurrency</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/concurrency.md#swift-6-concurrency)
 
@@ -3342,7 +3342,7 @@ final class FeedViewModel {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Thread explosion</h4>
+<p align="center"><strong>Thread explosion</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/concurrency.md#thread-explosion)
 
@@ -3392,7 +3392,7 @@ await withTaskGroup(of: Void.self) { group in
 </td></tr>
 <tr><td>
 
-<h4 align="center">Delegates</h4>
+<p align="center"><strong>Delegates</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/architecture.md#delegates)
 
@@ -3436,7 +3436,7 @@ final class SearchService {
 </td></tr>
 <tr><td>
 
-<h4 align="center">MVC</h4>
+<p align="center"><strong>MVC</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/architecture.md#mvc)
 
@@ -3482,7 +3482,7 @@ final class NoteViewController {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Dependency injection</h4>
+<p align="center"><strong>Dependency injection</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#dependency-injection)
 
@@ -3529,7 +3529,7 @@ final class Session {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design patterns in iOS</h4>
+<p align="center"><strong>Design patterns in iOS</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#design-patterns)
 
@@ -3577,7 +3577,7 @@ final class FeedViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Feature flags</h4>
+<p align="center"><strong>Feature flags</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#feature-flags)
 
@@ -3615,7 +3615,7 @@ func makeFeed(flags: Flagging) -> any FeedServing {
 </td></tr>
 <tr><td>
 
-<h4 align="center">MVVM</h4>
+<p align="center"><strong>MVVM</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#mvvm)
 
@@ -3660,7 +3660,7 @@ enum LoginError: Error { case tooShort }
 </td></tr>
 <tr><td>
 
-<h4 align="center">Protocol-oriented programming</h4>
+<p align="center"><strong>Protocol-oriented programming</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#protocol-oriented-programming)
 
@@ -3705,7 +3705,7 @@ struct LiveClient: Fetching {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Repository pattern</h4>
+<p align="center"><strong>Repository pattern</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#repository)
 
@@ -3747,7 +3747,7 @@ struct RemoteUserRepository: UserRepository {
 </td></tr>
 <tr><td>
 
-<h4 align="center">SOLID</h4>
+<p align="center"><strong>SOLID</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#solid)
 
@@ -3785,7 +3785,7 @@ struct Checkout {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Singletons — when they help</h4>
+<p align="center"><strong>Singletons — when they help</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#singletons)
 
@@ -3835,7 +3835,7 @@ final class Checkout {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Clean Architecture</h4>
+<p align="center"><strong>Clean Architecture</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/architecture.md#clean-architecture)
 
@@ -3877,7 +3877,7 @@ struct LoginUseCase {
 </td></tr>
 <tr><td>
 
-<h4 align="center">MVVM-C</h4>
+<p align="center"><strong>MVVM-C</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/architecture.md#mvvm-c)
 
@@ -3915,7 +3915,7 @@ final class LoginViewModel {
 </td></tr>
 <tr><td>
 
-<h4 align="center">VIPER</h4>
+<p align="center"><strong>VIPER</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/architecture.md#viper)
 
@@ -3960,7 +3960,7 @@ final class LoginPresenter {
 </td></tr>
 <tr><td>
 
-<h4 align="center">@IBOutlet vs @IBAction</h4>
+<p align="center"><strong>@IBOutlet vs @IBAction</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#iboutlet-vs-ibaction)
 
@@ -4000,7 +4000,7 @@ final class LoginViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Aspect fill vs aspect fit</h4>
+<p align="center"><strong>Aspect fill vs aspect fit</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#aspect-fill-vs-fit)
 
@@ -4036,7 +4036,7 @@ logoView.clipsToBounds = false
 </td></tr>
 <tr><td>
 
-<h4 align="center">Auto Layout anchors</h4>
+<p align="center"><strong>Auto Layout anchors</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#auto-layout-anchors)
 
@@ -4075,7 +4075,7 @@ NSLayoutConstraint.activate([
 </td></tr>
 <tr><td>
 
-<h4 align="center">Auto Layout formula</h4>
+<p align="center"><strong>Auto Layout formula</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#autolayout-formula)
 
@@ -4108,7 +4108,7 @@ box.widthAnchor.constraint(equalTo: box.heightAnchor, multiplier: 2)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Cell reuse identifiers</h4>
+<p align="center"><strong>Cell reuse identifiers</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#reuse-identifiers)
 
@@ -4150,7 +4150,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 </td></tr>
 <tr><td>
 
-<h4 align="center">Dark mode</h4>
+<p align="center"><strong>Dark mode</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#dark-mode)
 
@@ -4191,7 +4191,7 @@ override func traitCollectionDidChange(_ previous: UITraitCollection?) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Modal vs push</h4>
+<p align="center"><strong>Modal vs push</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#modal-vs-push)
 
@@ -4229,7 +4229,7 @@ present(compose, animated: true)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Safe area</h4>
+<p align="center"><strong>Safe area</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#safe-area)
 
@@ -4265,7 +4265,7 @@ NSLayoutConstraint.activate([
 </td></tr>
 <tr><td>
 
-<h4 align="center">Storyboards vs code layouts</h4>
+<p align="center"><strong>Storyboards vs code layouts</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#storyboards-vs-code)
 
@@ -4309,7 +4309,7 @@ final class ProfileViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 align="center">UIImage vs UIImageView</h4>
+<p align="center"><strong>UIImage vs UIImageView</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#uiimage-vs-uiimageview)
 
@@ -4345,7 +4345,7 @@ view.addSubview(imageView)
 </td></tr>
 <tr><td>
 
-<h4 align="center">UINavigationController</h4>
+<p align="center"><strong>UINavigationController</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#navigation-controller)
 
@@ -4378,7 +4378,7 @@ navigationController?.pushViewController(detail, animated: true)
 </td></tr>
 <tr><td>
 
-<h4 align="center">UIStackView</h4>
+<p align="center"><strong>UIStackView</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#stack-view)
 
@@ -4414,7 +4414,7 @@ stack.distribution = .fill
 </td></tr>
 <tr><td>
 
-<h4 align="center">UIViewController lifecycle</h4>
+<p align="center"><strong>UIViewController lifecycle</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#viewcontroller-lifecycle)
 
@@ -4465,7 +4465,7 @@ final class ProfileViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 align="center">frame vs bounds</h4>
+<p align="center"><strong>frame vs bounds</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#frame-vs-bounds)
 
@@ -4502,7 +4502,7 @@ child.transform = CGAffineTransform(rotationAngle: .pi / 8)
 </td></tr>
 <tr><td>
 
-<h4 align="center">prepareForReuse</h4>
+<p align="center"><strong>prepareForReuse</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#prepare-for-reuse)
 
@@ -4544,7 +4544,7 @@ final class PhotoCell: UITableViewCell {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Collection view vs table view</h4>
+<p align="center"><strong>Collection view vs table view</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#collection-vs-table)
 
@@ -4588,7 +4588,7 @@ let grid = UICollectionView(frame: .zero, collectionViewLayout: layout)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Diffable data source</h4>
+<p align="center"><strong>Diffable data source</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#diffable-data-source)
 
@@ -4631,7 +4631,7 @@ dataSource.apply(snapshot, animatingDifferences: true)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Intrinsic content size</h4>
+<p align="center"><strong>Intrinsic content size</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#intrinsic-content-size)
 
@@ -4672,7 +4672,7 @@ final class BadgeView: UIView {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Passing data in iOS</h4>
+<p align="center"><strong>Passing data in iOS</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#passing-data)
 
@@ -4711,7 +4711,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Responder chain</h4>
+<p align="center"><strong>Responder chain</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#responder-chain)
 
@@ -4749,7 +4749,7 @@ final class EditorViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Size classes</h4>
+<p align="center"><strong>Size classes</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#size-classes)
 
@@ -4787,7 +4787,7 @@ override func traitCollectionDidChange(_ previous: UITraitCollection?) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Table view with remote images</h4>
+<p align="center"><strong>Table view with remote images</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#remote-images-table)
 
@@ -4824,7 +4824,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 </td></tr>
 <tr><td>
 
-<h4 align="center">setNeedsLayout vs layoutIfNeeded</h4>
+<p align="center"><strong>setNeedsLayout vs layoutIfNeeded</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#setneedslayout)
 
@@ -4865,7 +4865,7 @@ UIView.animate(withDuration: 0.25) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">@Binding</h4>
+<p align="center"><strong>@Binding</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swiftui.md#binding)
 
@@ -4905,7 +4905,7 @@ struct Parent: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">@State</h4>
+<p align="center"><strong>@State</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swiftui.md#state)
 
@@ -4943,7 +4943,7 @@ struct Counter: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">@Published</h4>
+<p align="center"><strong>@Published</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#published)
 
@@ -4982,7 +4982,7 @@ final class SearchModel: ObservableObject {
 </td></tr>
 <tr><td>
 
-<h4 align="center">@StateObject vs @ObservedObject</h4>
+<p align="center"><strong>@StateObject vs @ObservedObject</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#stateobject-vs-observedobject)
 
@@ -5026,7 +5026,7 @@ struct CartButton: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Choosing SwiftUI property wrappers</h4>
+<p align="center"><strong>Choosing SwiftUI property wrappers</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-property-wrappers)
 
@@ -5071,7 +5071,7 @@ struct SearchField: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Environment object vs observed object</h4>
+<p align="center"><strong>Environment object vs observed object</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#environmentobject-vs-observedobject)
 
@@ -5118,7 +5118,7 @@ struct ProfileBadge: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">GeometryReader</h4>
+<p align="center"><strong>GeometryReader</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#geometry-reader)
 
@@ -5169,7 +5169,7 @@ private struct WidthKey: PreferenceKey {
 </td></tr>
 <tr><td>
 
-<h4 align="center">How an observable object announces changes</h4>
+<p align="center"><strong>How an observable object announces changes</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#observable-object-changes)
 
@@ -5212,7 +5212,7 @@ final class Clock: ObservableObject {
 </td></tr>
 <tr><td>
 
-<h4 align="center">LazyVStack vs VStack</h4>
+<p align="center"><strong>LazyVStack vs VStack</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#lazyvstack-vs-vstack)
 
@@ -5251,7 +5251,7 @@ ScrollView {
 </td></tr>
 <tr><td>
 
-<h4 align="center">MV vs MVVM in SwiftUI</h4>
+<p align="center"><strong>MV vs MVVM in SwiftUI</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-mv)
 
@@ -5295,7 +5295,7 @@ final class SearchModel {
 </td></tr>
 <tr><td>
 
-<h4 align="center">MVVM in SwiftUI</h4>
+<p align="center"><strong>MVVM in SwiftUI</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-mvvm)
 
@@ -5349,7 +5349,7 @@ struct ProfileView: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">ObservableObject vs @Observable</h4>
+<p align="center"><strong>ObservableObject vs @Observable</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#observableobject-vs-observable)
 
@@ -5389,7 +5389,7 @@ struct Badge: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">PreferenceKey</h4>
+<p align="center"><strong>PreferenceKey</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#preference-key)
 
@@ -5430,7 +5430,7 @@ Text("Hi")
 </td></tr>
 <tr><td>
 
-<h4 align="center">Programmatic navigation</h4>
+<p align="center"><strong>Programmatic navigation</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#programmatic-navigation)
 
@@ -5479,7 +5479,7 @@ struct Inbox: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">SwiftUI environment</h4>
+<p align="center"><strong>SwiftUI environment</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#environment)
 
@@ -5526,7 +5526,7 @@ struct Card: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">SwiftUI view lifecycle</h4>
+<p align="center"><strong>SwiftUI view lifecycle</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-lifecycle)
 
@@ -5570,7 +5570,7 @@ struct FeedView: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">SwiftUI vs UIKit</h4>
+<p align="center"><strong>SwiftUI vs UIKit</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-vs-uikit)
 
@@ -5614,7 +5614,7 @@ struct RatingBadge: UIViewRepresentable {
 </td></tr>
 <tr><td>
 
-<h4 align="center">UIKit in SwiftUI</h4>
+<p align="center"><strong>UIKit in SwiftUI</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#uikit-representable)
 
@@ -5652,7 +5652,7 @@ struct Web: UIViewRepresentable {
 </td></tr>
 <tr><td>
 
-<h4 align="center">View initializer vs onAppear</h4>
+<p align="center"><strong>View initializer vs onAppear</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#init-vs-onappear)
 
@@ -5699,7 +5699,7 @@ struct ProfileView: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">When SwiftUI re-renders a view</h4>
+<p align="center"><strong>When SwiftUI re-renders a view</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-rerender)
 
@@ -5736,7 +5736,7 @@ struct Row: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Why SwiftUI views are structs</h4>
+<p align="center"><strong>Why SwiftUI views are structs</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#views-are-structs)
 
@@ -5775,7 +5775,7 @@ struct PriceLabel: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">AttributeGraph</h4>
+<p align="center"><strong>AttributeGraph</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/swiftui.md#attribute-graph)
 
@@ -5809,7 +5809,7 @@ Cause & Effect: gesture → State → YourView.body (count of updates on the edg
 </td></tr>
 <tr><td>
 
-<h4 align="center">View identity vs a ViewBuilder property</h4>
+<p align="center"><strong>View identity vs a ViewBuilder property</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/swiftui.md#view-identity)
 
@@ -5854,7 +5854,7 @@ struct Screen: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Combine and reactive programming</h4>
+<p align="center"><strong>Combine and reactive programming</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/combine.md#combine)
 
@@ -5891,7 +5891,7 @@ cancellable = NotificationCenter.default.publisher(for: UIApplication.didBecomeA
 </td></tr>
 <tr><td>
 
-<h4 align="center">Combining publishers</h4>
+<p align="center"><strong>Combining publishers</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/combine.md#combine-operators)
 
@@ -5935,7 +5935,7 @@ query
 </td></tr>
 <tr><td>
 
-<h4 align="center">HTTP methods</h4>
+<p align="center"><strong>HTTP methods</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#http-methods)
 
@@ -5971,7 +5971,7 @@ replace.httpMethod = "PUT"
 </td></tr>
 <tr><td>
 
-<h4 align="center">HTTP status codes</h4>
+<p align="center"><strong>HTTP status codes</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#http-status)
 
@@ -6009,7 +6009,7 @@ default: throw URLError(.badServerResponse)
 </td></tr>
 <tr><td>
 
-<h4 align="center">JSON</h4>
+<p align="center"><strong>JSON</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#json)
 
@@ -6042,7 +6042,7 @@ let tweets = try JSONDecoder().decode([Tweet].self, from: data)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Making a network request</h4>
+<p align="center"><strong>Making a network request</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#network-request)
 
@@ -6082,7 +6082,7 @@ func loadUsers() async throws -> [User] {
 </td></tr>
 <tr><td>
 
-<h4 align="center">NotificationCenter</h4>
+<p align="center"><strong>NotificationCenter</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#notification-center)
 
@@ -6126,7 +6126,7 @@ NotificationCenter.default.post(name: .accountDidChange, object: nil)
 </td></tr>
 <tr><td>
 
-<h4 align="center">URL vs URLRequest</h4>
+<p align="center"><strong>URL vs URLRequest</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#url-vs-urlrequest)
 
@@ -6162,7 +6162,7 @@ let (data, _) = try await URLSession.shared.data(for: request)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Push notifications</h4>
+<p align="center"><strong>Push notifications</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#push-notifications)
 
@@ -6205,7 +6205,7 @@ func application(_ app: UIApplication,
 </td></tr>
 <tr><td>
 
-<h4 align="center">REST</h4>
+<p align="center"><strong>REST</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#rest)
 
@@ -6239,7 +6239,7 @@ DELETE /v1/tweets/12/likes
 </td></tr>
 <tr><td>
 
-<h4 align="center">Retry with backoff</h4>
+<p align="center"><strong>Retry with backoff</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#retry-backoff)
 
@@ -6284,7 +6284,7 @@ func get(_ url: URL) async throws -> Data {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Token authentication</h4>
+<p align="center"><strong>Token authentication</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#token-auth)
 
@@ -6324,7 +6324,7 @@ actor AuthHeader {
 </td></tr>
 <tr><td>
 
-<h4 align="center">URLSession</h4>
+<p align="center"><strong>URLSession</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#urlsession)
 
@@ -6371,7 +6371,7 @@ func load(_ url: URL) async throws -> Data {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Codable</h4>
+<p align="center"><strong>Codable</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/persistence.md#codable)
 
@@ -6416,7 +6416,7 @@ let data = try JSONEncoder().encode(user)
 </td></tr>
 <tr><td>
 
-<h4 align="center">How you persist data on iOS</h4>
+<p align="center"><strong>How you persist data on iOS</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/persistence.md#persist-options)
 
@@ -6452,7 +6452,7 @@ shared shopping list → CloudKit or your API
 </td></tr>
 <tr><td>
 
-<h4 align="center">UserDefaults — good and bad uses</h4>
+<p align="center"><strong>UserDefaults — good and bad uses</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/persistence.md#userdefaults)
 
@@ -6492,7 +6492,7 @@ let seen = defaults.bool(forKey: "hasSeenOnboarding")
 </td></tr>
 <tr><td>
 
-<h4 align="center">CloudKit vs Core Data</h4>
+<p align="center"><strong>CloudKit vs Core Data</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#cloudkit-vs-core-data)
 
@@ -6532,7 +6532,7 @@ mirrored.loadPersistentStores { _, error in
 </td></tr>
 <tr><td>
 
-<h4 align="center">Core Data</h4>
+<p align="center"><strong>Core Data</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#core-data)
 
@@ -6574,7 +6574,7 @@ let notes = try container.viewContext.fetch(request)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Core Data migration</h4>
+<p align="center"><strong>Core Data migration</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#core-data-migration)
 
@@ -6615,7 +6615,7 @@ try container.persistentStoreCoordinator.addPersistentStore(
 </td></tr>
 <tr><td>
 
-<h4 align="center">Key decoding strategies</h4>
+<p align="center"><strong>Key decoding strategies</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#key-decoding-strategies)
 
@@ -6655,7 +6655,7 @@ let payload = try decoder.decode(Payload.self, from: jsonData)
 </td></tr>
 <tr><td>
 
-<h4 align="center">SwiftData</h4>
+<p align="center"><strong>SwiftData</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#swiftdata)
 
@@ -6706,7 +6706,7 @@ struct NotesView: View {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Debugging on iOS</h4>
+<p align="center"><strong>Debugging on iOS</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/performance.md#debugging)
 
@@ -6742,7 +6742,7 @@ log.debug("page \(cursor, privacy: .public)")
 </td></tr>
 <tr><td>
 
-<h4 align="center">Hang vs hitch vs crash</h4>
+<p align="center"><strong>Hang vs hitch vs crash</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#hang-hitch-crash)
 
@@ -6782,7 +6782,7 @@ Task.detached {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Identify and resolve crashes</h4>
+<p align="center"><strong>Identify and resolve crashes</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#crashes)
 
@@ -6826,7 +6826,7 @@ func decodeFeed(from data: Data) throws -> [Item] {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Identify and resolve performance issues</h4>
+<p align="center"><strong>Identify and resolve performance issues</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#performance-issues)
 
@@ -6870,7 +6870,7 @@ func loadFeed() async {
 </td></tr>
 <tr><td>
 
-<h4 align="center">In-memory cache</h4>
+<p align="center"><strong>In-memory cache</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#in-memory-cache)
 
@@ -6920,7 +6920,7 @@ final class ImageCache {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Instruments</h4>
+<p align="center"><strong>Instruments</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#instruments)
 
@@ -6956,7 +6956,7 @@ deinit never fires → Memory Graph first; Leaks if the graph is clean but the h
 </td></tr>
 <tr><td>
 
-<h4 align="center">LRU cache</h4>
+<p align="center"><strong>LRU cache</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#lru-cache)
 
@@ -7015,7 +7015,7 @@ final class LRUCache<Key: Hashable, Value> {
 </td></tr>
 <tr><td>
 
-<h4 align="center">NSCache vs Dictionary</h4>
+<p align="center"><strong>NSCache vs Dictionary</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#nscache-vs-dictionary)
 
@@ -7063,7 +7063,7 @@ final class ImageCache {
 </td></tr>
 <tr><td>
 
-<h4 align="center">dSYM</h4>
+<p align="center"><strong>dSYM</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#dsym)
 
@@ -7097,7 +7097,7 @@ dwarfdump -u App.app.dSYM
 </td></tr>
 <tr><td>
 
-<h4 align="center">Binary / IPA size</h4>
+<p align="center"><strong>Binary / IPA size</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/performance.md#binary-size)
 
@@ -7130,7 +7130,7 @@ Build Settings → Write Link Map File = YES
 </td></tr>
 <tr><td>
 
-<h4 align="center">Launch time</h4>
+<p align="center"><strong>Launch time</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/performance.md#launch-time)
 
@@ -7174,7 +7174,7 @@ func application(_ app: UIApplication,
 </td></tr>
 <tr><td>
 
-<h4 align="center">App Transport Security</h4>
+<p align="center"><strong>App Transport Security</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/security.md#ats)
 
@@ -7221,7 +7221,7 @@ ATS is the OS rule that App Transport / `URLSession` must use HTTPS with modern 
 </td></tr>
 <tr><td>
 
-<h4 align="center">API keys</h4>
+<p align="center"><strong>API keys</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/security.md#api-keys)
 
@@ -7257,7 +7257,7 @@ enum Config {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Encoding vs encryption vs hashing</h4>
+<p align="center"><strong>Encoding vs encryption vs hashing</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/security.md#encoding-vs-encryption)
 
@@ -7294,7 +7294,7 @@ let box = try AES.GCM.seal(bytes, using: key)      // secret if the key is
 </td></tr>
 <tr><td>
 
-<h4 align="center">Face ID / Touch ID</h4>
+<p align="center"><strong>Face ID / Touch ID</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/security.md#biometrics)
 
@@ -7340,7 +7340,7 @@ func unlockLocalSecret() async throws {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Keychain</h4>
+<p align="center"><strong>Keychain</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/security.md#keychain)
 
@@ -7385,7 +7385,7 @@ func saveToken(_ token: String) throws {
 </td></tr>
 <tr><td>
 
-<h4 align="center">SSL pinning</h4>
+<p align="center"><strong>SSL pinning</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/security.md#ssl-pinning)
 
@@ -7430,7 +7430,7 @@ func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationCh
 </td></tr>
 <tr><td>
 
-<h4 align="center">Dynamic Type</h4>
+<p align="center"><strong>Dynamic Type</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/accessibility.md#dynamic-type)
 
@@ -7470,7 +7470,7 @@ Text(title)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Accessibility focus in SwiftUI</h4>
+<p align="center"><strong>Accessibility focus in SwiftUI</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/accessibility.md#accessibility-focus)
 
@@ -7511,7 +7511,7 @@ TextField("Email", text: $email)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Main accessibility problems to solve</h4>
+<p align="center"><strong>Main accessibility problems to solve</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/accessibility.md#accessibility-problems)
 
@@ -7547,7 +7547,7 @@ Spoken audit of one screen:
 </td></tr>
 <tr><td>
 
-<h4 align="center">Testing with VoiceOver</h4>
+<p align="center"><strong>Testing with VoiceOver</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/accessibility.md#voiceover)
 
@@ -7596,7 +7596,7 @@ Spoken pass: turn VoiceOver on, swipe through the screen, and confirm order, nam
 </td></tr>
 <tr><td>
 
-<h4 align="center">StoreKit</h4>
+<p align="center"><strong>StoreKit</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/frameworks.md#storekit)
 
@@ -7648,7 +7648,7 @@ func buy(_ id: String) async throws {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Messaging and nil</h4>
+<p align="center"><strong>Messaging and nil</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#objc-messaging)
 
@@ -7681,7 +7681,7 @@ NSString *name = [obj description]; // nil, no crash
 </td></tr>
 <tr><td>
 
-<h4 align="center">RunLoop</h4>
+<p align="center"><strong>RunLoop</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#runloop)
 
@@ -7715,7 +7715,7 @@ RunLoop.main.add(timer, forMode: .common)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Timer pauses while scrolling</h4>
+<p align="center"><strong>Timer pauses while scrolling</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#timer-runloop)
 
@@ -7749,7 +7749,7 @@ RunLoop.main.add(timer, forMode: .common)
 </td></tr>
 <tr><td>
 
-<h4 align="center">+load vs +initialize</h4>
+<p align="center"><strong>+load vs +initialize</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#load-vs-initialize)
 
@@ -7784,7 +7784,7 @@ RunLoop.main.add(timer, forMode: .common)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Mach-O and dyld</h4>
+<p align="center"><strong>Mach-O and dyld</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#mach-o)
 
@@ -7817,7 +7817,7 @@ DYLD_PRINT_STATISTICS=1
 </td></tr>
 <tr><td>
 
-<h4 align="center">isa and object layout</h4>
+<p align="center"><strong>isa and object layout</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#isa)
 
@@ -7854,7 +7854,7 @@ NSLog(@"%@", NSStringFromClass(object_getClass(obj)));
 </td></tr>
 <tr><td>
 
-<h4 align="center">Build a checkout UI in 60 minutes</h4>
+<p align="center"><strong>Build a checkout UI in 60 minutes</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#checkout-ui)
 
@@ -7880,7 +7880,7 @@ Build a **checkout screen** in 60 minutes from a starter or a mock API: line ite
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a short match / score simulator</h4>
+<p align="center"><strong>Design a short match / score simulator</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#match-simulator)
 
@@ -7906,7 +7906,7 @@ Build a **small match simulator** in 90 minutes: pick two sides from a bundled J
 </td></tr>
 <tr><td>
 
-<h4 align="center">Real-time ETA polling</h4>
+<p align="center"><strong>Real-time ETA polling</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#eta-polling)
 
@@ -7932,7 +7932,7 @@ A ride-sharing screen must show a **live ETA** that refreshes about every 10 sec
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design Notes / Gmail / Facebook (iOS client)</h4>
+<p align="center"><strong>Design Notes / Gmail / Facebook (iOS client)</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#design-client-app)
 
@@ -7960,7 +7960,7 @@ Design the **iOS client** for Notes, Gmail, or Facebook. Ask scope first (offlin
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a caching library</h4>
+<p align="center"><strong>Design a caching library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#caching-library)
 
@@ -7987,7 +7987,7 @@ Design a generic cache (memory, optional disk). Public API, eviction (LRU / cost
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a chat app</h4>
+<p align="center"><strong>Design a chat app</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#chat-app)
 
@@ -8022,7 +8022,7 @@ Design a messaging client. Pick 1:1 or group, then 3–5 features: send/receive,
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a file downloader</h4>
+<p align="center"><strong>Design a file downloader</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#file-downloader)
 
@@ -8049,7 +8049,7 @@ Design a library that downloads large files: queue, pause/resume, progress, disk
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a home screen of rails</h4>
+<p align="center"><strong>Design a home screen of rails</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#home-rails)
 
@@ -8075,7 +8075,7 @@ Design a **Home** of independent rails (hero, continue, trending, ads). Scope: e
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a live delivery tracker</h4>
+<p align="center"><strong>Design a live delivery tracker</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#delivery-tracker)
 
@@ -8103,7 +8103,7 @@ Design a DoorDash / Uber Eats “your order is arriving” screen. Scope: order 
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a location sharing library</h4>
+<p align="center"><strong>Design a location sharing library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#location-sharing)
 
@@ -8131,7 +8131,7 @@ Design a library that publishes the user’s location to a backend and draws oth
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a networking library</h4>
+<p align="center"><strong>Design a networking library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#network-library)
 
@@ -8158,7 +8158,7 @@ Design a thin HTTP client over `URLSession`: request builder, auth plugin, retri
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a news feed</h4>
+<p align="center"><strong>Design a news feed</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#news-feed)
 
@@ -8185,7 +8185,7 @@ Design an infinite Twitter / Instagram / Facebook-style feed. Default scope: scr
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a pagination library</h4>
+<p align="center"><strong>Design a pagination library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#pagination)
 
@@ -8212,7 +8212,7 @@ Design a pager that a feed can bind to: next/previous page, refresh, local cache
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a payment checkout</h4>
+<p align="center"><strong>Design a payment checkout</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#payment-checkout)
 
@@ -8238,7 +8238,7 @@ Design a checkout screen that charges a card (or Apple Pay). Scope: tokenize on 
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a push notification system</h4>
+<p align="center"><strong>Design a push notification system</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#push-system)
 
@@ -8266,7 +8266,7 @@ Design the client + server path for remote push: permission, device token, APNs,
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a server-driven UI engine</h4>
+<p align="center"><strong>Design a server-driven UI engine</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#sdui)
 
@@ -8292,7 +8292,7 @@ Design a client that renders screens from a JSON (or proto) component tree. Scop
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a short-form video feed</h4>
+<p align="center"><strong>Design a short-form video feed</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#short-video-feed)
 
@@ -8318,7 +8318,7 @@ Design a Reels / TikTok-style vertical feed. Scope: swipe, autoplay the on-scree
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design a video streaming player</h4>
+<p align="center"><strong>Design a video streaming player</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#video-streaming)
 
@@ -8345,7 +8345,7 @@ Design a long-form player (Netflix / YouTube). Scope: HLS playback, adaptive bit
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design an A/B experiment library</h4>
+<p align="center"><strong>Design an A/B experiment library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#ab-experiments)
 
@@ -8373,7 +8373,7 @@ Design a client that fetches assignments, caches them, exposes `variant(for: fla
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design an analytics library</h4>
+<p align="center"><strong>Design an analytics library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#analytics-library)
 
@@ -8401,7 +8401,7 @@ Design an event pipeline: `track(name, props)` from any thread, batching, disk b
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design an audio player</h4>
+<p align="center"><strong>Design an audio player</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#audio-player)
 
@@ -8430,7 +8430,7 @@ Design a Spotify / Apple Music **client**. Default scope is three screens: **lib
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design an image loading library</h4>
+<p align="center"><strong>Design an image loading library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#image-loader)
 
@@ -8457,7 +8457,7 @@ Design a Kingfisher-style image loader: `url → UIImage` for a feed. Cover requ
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design an image upload pipeline</h4>
+<p align="center"><strong>Design an image upload pipeline</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/system-design.md#image-upload)
 
@@ -8500,7 +8500,7 @@ struct Draft {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design an offline media catalog</h4>
+<p align="center"><strong>Design an offline media catalog</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#offline-media)
 
@@ -8526,7 +8526,7 @@ Design **offline downloads** for a streaming catalog (video or audio). Scope: re
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design an offline-first sync engine</h4>
+<p align="center"><strong>Design an offline-first sync engine</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#offline-sync)
 
@@ -8554,7 +8554,7 @@ Design a local-first store that syncs when the network returns. Scope: dirty fla
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design deep links</h4>
+<p align="center"><strong>Design deep links</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#deep-links)
 
@@ -8580,7 +8580,7 @@ Design Universal Links + custom URL schemes for an app that is sometimes not ins
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design iCloud-style device sync</h4>
+<p align="center"><strong>Design iCloud-style device sync</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#icloud-sync)
 
@@ -8608,7 +8608,7 @@ Design **cross-device sync** for notes or photos. Scope: the **phone is the sour
 </td></tr>
 <tr><td>
 
-<h4 align="center">Design search with autocomplete</h4>
+<p align="center"><strong>Design search with autocomplete</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#search-autocomplete)
 
@@ -8634,7 +8634,7 @@ Design in-app search with typeahead. Scope: debounce, cancel the in-flight reque
 </td></tr>
 <tr><td>
 
-<h4 align="center">Edge-first mobile design</h4>
+<p align="center"><strong>Edge-first mobile design</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/system-design.md#edge-first)
 
@@ -8669,7 +8669,7 @@ Some mobile SD rooms are not “draw Kafka.” They score **who owns the write**
 </td></tr>
 <tr><td>
 
-<h4 align="center">How to run a mobile system design interview</h4>
+<p align="center"><strong>How to run a mobile system design interview</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/system-design.md#sd-interview)
 
@@ -8723,7 +8723,7 @@ struct Brief {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Unread count / badge</h4>
+<p align="center"><strong>Unread count / badge</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#unread-badge)
 
@@ -8755,7 +8755,7 @@ Design the unread-message (or unread-notification) counter: tab badge, chat-list
 </td></tr>
 <tr><td>
 
-<h4 align="center">Big-O</h4>
+<p align="center"><strong>Big-O</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/algorithms.md#big-o)
 
@@ -8794,7 +8794,7 @@ func hasOverlap(_ ids: [Int]) -> Bool {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Fibonacci</h4>
+<p align="center"><strong>Fibonacci</strong></p>
 
 <code>Junior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#fibonacci)
 
@@ -8820,7 +8820,7 @@ Given `n`, return the `n`th Fibonacci number (or the first `n` terms). Talk thro
 </td></tr>
 <tr><td>
 
-<h4 align="center">Merge two sorted lists</h4>
+<p align="center"><strong>Merge two sorted lists</strong></p>
 
 <code>Junior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#merge-lists)
 
@@ -8846,7 +8846,7 @@ Merge two sorted singly linked lists into one sorted list. Dummy head + two poin
 </td></tr>
 <tr><td>
 
-<h4 align="center">Reverse a linked list</h4>
+<p align="center"><strong>Reverse a linked list</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#reverse-list)
 
@@ -8872,7 +8872,7 @@ Reverse a singly linked list in place. Speak the three-pointer walk (`prev`, `cu
 </td></tr>
 <tr><td>
 
-<h4 align="center">Sliding window</h4>
+<p align="center"><strong>Sliding window</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#sliding-window)
 
@@ -8898,7 +8898,7 @@ A string (or array) and a constraint: longest substring with ≤ K distinct char
 </td></tr>
 <tr><td>
 
-<h4 align="center">Two-sum</h4>
+<p align="center"><strong>Two-sum</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#two-sum)
 
@@ -8929,7 +8929,7 @@ Given an array of integers and a target sum, return the indices of two numbers t
 </td></tr>
 <tr><td>
 
-<h4 align="center">App and scene lifecycle</h4>
+<p align="center"><strong>App and scene lifecycle</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/behavioral.md#app-lifecycle)
 
@@ -8976,7 +8976,7 @@ struct AppMain: App {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Swift Package Manager</h4>
+<p align="center"><strong>Swift Package Manager</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/behavioral.md#spm)
 
@@ -9022,7 +9022,7 @@ let package = Package(
 </td></tr>
 <tr><td>
 
-<h4 align="center">Test types</h4>
+<p align="center"><strong>Test types</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/behavioral.md#test-types)
 
@@ -9058,7 +9058,7 @@ UI: tap Checkout, see Receipt
 </td></tr>
 <tr><td>
 
-<h4 align="center">Background tasks</h4>
+<p align="center"><strong>Background tasks</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#background-tasks)
 
@@ -9096,7 +9096,7 @@ UIApplication.shared.endBackgroundTask(task)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Code review process</h4>
+<p align="center"><strong>Code review process</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#code-review)
 
@@ -9132,7 +9132,7 @@ Spoken outline for a 200-line networking PR:
 </td></tr>
 <tr><td>
 
-<h4 align="center">Code signing</h4>
+<p align="center"><strong>Code signing</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#code-signing)
 
@@ -9169,7 +9169,7 @@ Spoken outline when a device install fails:
 </td></tr>
 <tr><td>
 
-<h4 align="center">Continuous integration</h4>
+<p align="center"><strong>Continuous integration</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#ci)
 
@@ -9203,7 +9203,7 @@ CI is a machine that runs your checks on every push: build, unit tests, sometime
 </td></tr>
 <tr><td>
 
-<h4 align="center">Improve an existing take-home app</h4>
+<p align="center"><strong>Improve an existing take-home app</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/behavioral.md#improve-existing-app)
 
@@ -9229,7 +9229,7 @@ You get a **working starter** (search a word, show a definition, or a thin list)
 </td></tr>
 <tr><td>
 
-<h4 align="center">Minimum deployment target</h4>
+<p align="center"><strong>Minimum deployment target</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#deployment-target)
 
@@ -9271,7 +9271,7 @@ func showStoreKit2Paywall() { /* Product.products(for:) */ }
 </td></tr>
 <tr><td>
 
-<h4 align="center">STAR stories</h4>
+<p align="center"><strong>STAR stories</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#star)
 
@@ -9307,7 +9307,7 @@ R: Error rate back under 0.2% the same day; we kept the flag for the next API mi
 </td></tr>
 <tr><td>
 
-<h4 align="center">Screening OA / assessment platform</h4>
+<p align="center"><strong>Screening OA / assessment platform</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#screening-oa)
 
@@ -9341,7 +9341,7 @@ Contest OA: 2–3 timed problems, then a human room if you pass.
 </td></tr>
 <tr><td>
 
-<h4 align="center">Snapshot tests</h4>
+<p align="center"><strong>Snapshot tests</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#snapshot-tests)
 
@@ -9379,7 +9379,7 @@ func testEmptyCartLayout() {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Swift Testing</h4>
+<p align="center"><strong>Swift Testing</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#swift-testing)
 
@@ -9428,7 +9428,7 @@ func quantity(_ n: Int) {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Take-home interview</h4>
+<p align="center"><strong>Take-home interview</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#take-home)
 
@@ -9474,7 +9474,7 @@ I skipped pagination to stay in the time box; the list is a `UITableView` + MVVM
 </td></tr>
 <tr><td>
 
-<h4 align="center">Test doubles</h4>
+<p align="center"><strong>Test doubles</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#test-doubles)
 
@@ -9519,7 +9519,7 @@ final class ListViewModel {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Testing async code</h4>
+<p align="center"><strong>Testing async code</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#test-async)
 
@@ -9555,7 +9555,7 @@ func testLoadSetsTitle() async throws {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Third-party vs custom</h4>
+<p align="center"><strong>Third-party vs custom</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#third-party-vs-custom)
 
@@ -9589,7 +9589,7 @@ Need JSON → Codable first.
 </td></tr>
 <tr><td>
 
-<h4 align="center">XCTest and UI tests</h4>
+<p align="center"><strong>XCTest and UI tests</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#xctest)
 
@@ -9639,7 +9639,7 @@ final class CheckoutUITests: XCTestCase {
 </td></tr>
 <tr><td>
 
-<h4 align="center">Brazil product-company iOS loop</h4>
+<p align="center"><strong>Brazil product-company iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#brazil-ios-loop)
 
@@ -9675,7 +9675,7 @@ Large Brazil product companies (and remote US/EU loops that hire from there) usu
 </td></tr>
 <tr><td>
 
-<h4 align="center">CIS product-company iOS loop</h4>
+<p align="center"><strong>CIS product-company iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#cis-ios-loop)
 
@@ -9711,7 +9711,7 @@ Large CIS product companies (banks, classifieds, super-apps) usually run **HR �
 </td></tr>
 <tr><td>
 
-<h4 align="center">FAANG iOS loop</h4>
+<p align="center"><strong>FAANG iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#faang-ios-loop)
 
@@ -9752,7 +9752,7 @@ Google L4 iOS: DSA (sometimes in Swift) + a short iOS-concepts tail; team match 
 </td></tr>
 <tr><td>
 
-<h4 align="center">India product-company iOS loop</h4>
+<p align="center"><strong>India product-company iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#india-ios-loop)
 
@@ -9787,7 +9787,7 @@ Large India product companies often run **OA / DSA → a machine-coding room →
 </td></tr>
 <tr><td>
 
-<h4 align="center">Marketplace iOS loop</h4>
+<p align="center"><strong>Marketplace iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#marketplace-ios-loop)
 
@@ -9833,7 +9833,7 @@ SD: offline cart, stale GPS, what you persist across a kill.
 </td></tr>
 <tr><td>
 
-<h4 id="card-identity-vs-equality" align="center">== vs ===</h4>
+<p id="card-identity-vs-equality" align="center"><strong>== vs ===</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#identity-vs-equality)
 
@@ -9870,7 +9870,7 @@ a === c   // false
 </td></tr>
 <tr><td>
 
-<h4 id="card-access-control" align="center">Access control</h4>
+<p id="card-access-control" align="center"><strong>Access control</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#access-control)
 
@@ -9911,7 +9911,7 @@ open class Plugin {           // only if clients must subclass
 </td></tr>
 <tr><td>
 
-<h4 id="card-any-vs-anyobject" align="center">Any vs AnyObject</h4>
+<p id="card-any-vs-anyobject" align="center"><strong>Any vs AnyObject</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#any-vs-anyobject)
 
@@ -9944,7 +9944,7 @@ let objects: [AnyObject] = [UIView(), NSString(string: "x")]
 </td></tr>
 <tr><td>
 
-<h4 id="card-array-vs-set" align="center">Array vs set</h4>
+<p id="card-array-vs-set" align="center"><strong>Array vs set</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#array-vs-set)
 
@@ -9984,7 +9984,7 @@ func uniqued(_ values: [String]) -> [String] {
 </td></tr>
 <tr><td>
 
-<h4 id="card-classes-vs-structs" align="center">Classes vs structs</h4>
+<p id="card-classes-vs-structs" align="center"><strong>Classes vs structs</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#classes-vs-structs)
 
@@ -10028,7 +10028,7 @@ also.size.width = 20  // box.size.width is 20
 </td></tr>
 <tr><td>
 
-<h4 id="card-closures" align="center">Closures</h4>
+<p id="card-closures" align="center"><strong>Closures</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#closures)
 
@@ -10068,7 +10068,7 @@ func makeCounter() -> () -> Int {
 </td></tr>
 <tr><td>
 
-<h4 id="card-dictionary-vs-array" align="center">Dictionary vs array</h4>
+<p id="card-dictionary-vs-array" align="center"><strong>Dictionary vs array</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#dictionary-vs-array)
 
@@ -10104,7 +10104,7 @@ let ada = byID["1"]
 </td></tr>
 <tr><td>
 
-<h4 id="card-enums" align="center">Enums</h4>
+<p id="card-enums" align="center"><strong>Enums</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#enums)
 
@@ -10142,7 +10142,7 @@ enum LoadState<Value> {
 </td></tr>
 <tr><td>
 
-<h4 id="card-float-double-cgfloat" align="center">Float vs Double vs CGFloat</h4>
+<p id="card-float-double-cgfloat" align="center"><strong>Float vs Double vs CGFloat</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#float-double-cgfloat)
 
@@ -10179,7 +10179,7 @@ let compact = Float(temperature)
 </td></tr>
 <tr><td>
 
-<h4 id="card-hashable-equatable" align="center">Hashable, Equatable, Comparable</h4>
+<p id="card-hashable-equatable" align="center"><strong>Hashable, Equatable, Comparable</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#hashable-equatable)
 
@@ -10216,7 +10216,7 @@ struct UserID: Hashable, Comparable {
 </td></tr>
 <tr><td>
 
-<h4 id="card-higher-order-functions" align="center">Higher-order functions</h4>
+<p id="card-higher-order-functions" align="center"><strong>Higher-order functions</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#higher-order-functions)
 
@@ -10250,7 +10250,7 @@ let evenSum = raw.compactMap(Int.init).filter { $0.isMultiple(of: 2) }.reduce(0,
 </td></tr>
 <tr><td>
 
-<h4 id="card-identifiable" align="center">Identifiable</h4>
+<p id="card-identifiable" align="center"><strong>Identifiable</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#identifiable)
 
@@ -10289,7 +10289,7 @@ ForEach(teams) { team in
 </td></tr>
 <tr><td>
 
-<h4 id="card-implicit-vs-explicit" align="center">Implicit vs explicit types</h4>
+<p id="card-implicit-vs-explicit" align="center"><strong>Implicit vs explicit types</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#implicit-vs-explicit)
 
@@ -10324,7 +10324,7 @@ var items: [User] = []               // explicit — [] alone is ambiguous
 </td></tr>
 <tr><td>
 
-<h4 id="card-nil-coalescing" align="center">Nil coalescing</h4>
+<p id="card-nil-coalescing" align="center"><strong>Nil coalescing</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#nil-coalescing)
 
@@ -10360,7 +10360,7 @@ let taps = counts["home"] ?? 0
 </td></tr>
 <tr><td>
 
-<h4 id="card-optional-chaining" align="center">Optional chaining</h4>
+<p id="card-optional-chaining" align="center"><strong>Optional chaining</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#optional-chaining)
 
@@ -10399,7 +10399,7 @@ head.next?.value = "child"
 </td></tr>
 <tr><td>
 
-<h4 id="card-property-observers" align="center">Property observers</h4>
+<p id="card-property-observers" align="center"><strong>Property observers</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#property-observers)
 
@@ -10436,7 +10436,7 @@ score = 10
 </td></tr>
 <tr><td>
 
-<h4 id="card-protocols" align="center">Protocols</h4>
+<p id="card-protocols" align="center"><strong>Protocols</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#protocols)
 
@@ -10479,7 +10479,7 @@ func printSummary(_ item: any Describable) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-stored-vs-computed" align="center">Stored vs computed properties</h4>
+<p id="card-stored-vs-computed" align="center"><strong>Stored vs computed properties</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#stored-vs-computed)
 
@@ -10515,7 +10515,7 @@ struct Size {
 </td></tr>
 <tr><td>
 
-<h4 id="card-string-optional-vs-iuo" align="center">String? vs String!</h4>
+<p id="card-string-optional-vs-iuo" align="center"><strong>String? vs String!</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#string-optional-vs-iuo)
 
@@ -10552,7 +10552,7 @@ title = nil
 </td></tr>
 <tr><td>
 
-<h4 id="card-collections" align="center">Swift collections</h4>
+<p id="card-collections" align="center"><strong>Swift collections</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#collections)
 
@@ -10588,7 +10588,7 @@ let ordered = [3, 1, 2]
 </td></tr>
 <tr><td>
 
-<h4 id="card-type-safety" align="center">Type safety</h4>
+<p id="card-type-safety" align="center"><strong>Type safety</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#type-safety)
 
@@ -10622,7 +10622,7 @@ let parsed = Int("3") // Int?, not Int
 </td></tr>
 <tr><td>
 
-<h4 id="card-value-vs-reference" align="center">Value type vs reference type</h4>
+<p id="card-value-vs-reference" align="center"><strong>Value type vs reference type</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#value-vs-reference)
 
@@ -10664,7 +10664,7 @@ r2.n = 2                 // r1.n == 2
 </td></tr>
 <tr><td>
 
-<h4 id="card-optionals" align="center">What is an optional</h4>
+<p id="card-optionals" align="center"><strong>What is an optional</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#optionals)
 
@@ -10705,7 +10705,7 @@ print(n.map { $0 * 2 } ?? 0)
 </td></tr>
 <tr><td>
 
-<h4 id="card-deinit" align="center">deinit</h4>
+<p id="card-deinit" align="center"><strong>deinit</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#deinit)
 
@@ -10747,7 +10747,7 @@ final class Ticker {
 </td></tr>
 <tr><td>
 
-<h4 id="card-guard" align="center">guard</h4>
+<p id="card-guard" align="center"><strong>guard</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#guard)
 
@@ -10782,7 +10782,7 @@ func firstWord(in text: String?) -> String? {
 </td></tr>
 <tr><td>
 
-<h4 id="card-if-let-vs-guard-let" align="center">if let vs guard let</h4>
+<p id="card-if-let-vs-guard-let" align="center"><strong>if let vs guard let</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#if-let-vs-guard-let)
 
@@ -10824,7 +10824,7 @@ func label(_ name: String?) -> String {
 </td></tr>
 <tr><td>
 
-<h4 id="card-lazy" align="center">lazy</h4>
+<p id="card-lazy" align="center"><strong>lazy</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#lazy)
 
@@ -10863,7 +10863,7 @@ final class Report {
 </td></tr>
 <tr><td>
 
-<h4 id="card-let-vs-var" align="center">let vs var</h4>
+<p id="card-let-vs-var" align="center"><strong>let vs var</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#let-vs-var)
 
@@ -10903,7 +10903,7 @@ box.value = 2 // ok
 </td></tr>
 <tr><td>
 
-<h4 id="card-map-vs-compactmap" align="center">map vs compactMap</h4>
+<p id="card-map-vs-compactmap" align="center"><strong>map vs compactMap</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#map-vs-compactmap)
 
@@ -10940,7 +10940,7 @@ let flat = nested.flatMap { $0 }       // [1, 2, 3]
 </td></tr>
 <tr><td>
 
-<h4 id="card-mutating" align="center">mutating</h4>
+<p id="card-mutating" align="center"><strong>mutating</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#mutating)
 
@@ -10979,7 +10979,7 @@ c.bump()
 </td></tr>
 <tr><td>
 
-<h4 id="card-static" align="center">static</h4>
+<p id="card-static" align="center"><strong>static</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#static)
 
@@ -11016,7 +11016,7 @@ Theme.label("button")
 </td></tr>
 <tr><td>
 
-<h4 id="card-switch" align="center">switch</h4>
+<p id="card-switch" align="center"><strong>switch</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#switch)
 
@@ -11053,7 +11053,7 @@ case .failed: showRetry()
 </td></tr>
 <tr><td>
 
-<h4 id="card-try-try-try" align="center">try vs try? vs try!</h4>
+<p id="card-try-try-try" align="center"><strong>try vs try? vs try!</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swift.md#try-try-try)
 
@@ -11095,7 +11095,7 @@ let no = try? checked(-1)     // nil
 </td></tr>
 <tr><td>
 
-<h4 id="card-available" align="center">#available</h4>
+<p id="card-available" align="center"><strong>#available</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#available)
 
@@ -11136,7 +11136,7 @@ func shimmer() {}
 </td></tr>
 <tr><td>
 
-<h4 id="card-discardable-result" align="center">@discardableResult</h4>
+<p id="card-discardable-result" align="center"><strong>@discardableResult</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#discardable-result)
 
@@ -11175,7 +11175,7 @@ updateTitle("Hi")
 </td></tr>
 <tr><td>
 
-<h4 id="card-main-attribute" align="center">@main</h4>
+<p id="card-main-attribute" align="center"><strong>@main</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#main-attribute)
 
@@ -11212,7 +11212,7 @@ struct InterviewApp {
 </td></tr>
 <tr><td>
 
-<h4 id="card-caseiterable" align="center">CaseIterable</h4>
+<p id="card-caseiterable" align="center"><strong>CaseIterable</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#caseiterable)
 
@@ -11248,7 +11248,7 @@ let titles = Tab.allCases.map(String.init(describing:))
 </td></tr>
 <tr><td>
 
-<h4 id="card-class-vs-object" align="center">Class vs object</h4>
+<p id="card-class-vs-object" align="center"><strong>Class vs object</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#class-vs-object)
 
@@ -11283,7 +11283,7 @@ a === b  // false — two objects, one class
 </td></tr>
 <tr><td>
 
-<h4 id="card-downcasting" align="center">Downcasting</h4>
+<p id="card-downcasting" align="center"><strong>Downcasting</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#downcasting)
 
@@ -11318,7 +11318,7 @@ func tap(_ sender: Any) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-functions-vs-methods" align="center">Functions vs methods</h4>
+<p id="card-functions-vs-methods" align="center"><strong>Functions vs methods</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#functions-vs-methods)
 
@@ -11356,7 +11356,7 @@ extension Int {
 </td></tr>
 <tr><td>
 
-<h4 id="card-multiple-inheritance" align="center">Multiple inheritance</h4>
+<p id="card-multiple-inheritance" align="center"><strong>Multiple inheritance</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#multiple-inheritance)
 
@@ -11393,7 +11393,7 @@ struct Bird: Flying, Named {
 </td></tr>
 <tr><td>
 
-<h4 id="card-stored-properties-on-enum" align="center">Stored properties on an enum</h4>
+<p id="card-stored-properties-on-enum" align="center"><strong>Stored properties on an enum</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#stored-properties-on-enum)
 
@@ -11432,7 +11432,7 @@ enum Load<Value> {
 </td></tr>
 <tr><td>
 
-<h4 id="card-strings-are-collections" align="center">Strings are collections</h4>
+<p id="card-strings-are-collections" align="center"><strong>Strings are collections</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#strings-are-collections)
 
@@ -11470,7 +11470,7 @@ let second = word[word.index(after: start)]
 </td></tr>
 <tr><td>
 
-<h4 id="card-subscripts" align="center">Subscripts</h4>
+<p id="card-subscripts" align="center"><strong>Subscripts</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#subscripts)
 
@@ -11509,7 +11509,7 @@ struct Grid {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swift-module" align="center">Swift module</h4>
+<p id="card-swift-module" align="center"><strong>Swift module</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#swift-module)
 
@@ -11543,7 +11543,7 @@ internal struct Signer { }   // app cannot see this
 </td></tr>
 <tr><td>
 
-<h4 id="card-tuples" align="center">Tuples</h4>
+<p id="card-tuples" align="center"><strong>Tuples</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#tuples)
 
@@ -11581,7 +11581,7 @@ print(person.first)
 </td></tr>
 <tr><td>
 
-<h4 id="card-uuid" align="center">UUID</h4>
+<p id="card-uuid" align="center"><strong>UUID</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#uuid)
 
@@ -11619,7 +11619,7 @@ let parsed = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")
 </td></tr>
 <tr><td>
 
-<h4 id="card-variadic" align="center">Variadic functions</h4>
+<p id="card-variadic" align="center"><strong>Variadic functions</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#variadic)
 
@@ -11656,7 +11656,7 @@ let mean = average(1, 2, 3, 4)
 </td></tr>
 <tr><td>
 
-<h4 id="card-assert" align="center">assert()</h4>
+<p id="card-assert" align="center"><strong>assert()</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#assert)
 
@@ -11691,7 +11691,7 @@ func element(at index: Int, in values: [Int]) -> Int {
 </td></tr>
 <tr><td>
 
-<h4 id="card-inout" align="center">inout</h4>
+<p id="card-inout" align="center"><strong>inout</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#inout)
 
@@ -11726,7 +11726,7 @@ bump(&x) // x == 2
 </td></tr>
 <tr><td>
 
-<h4 id="card-private-set" align="center">private(set)</h4>
+<p id="card-private-set" align="center"><strong>private(set)</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#private-set)
 
@@ -11761,7 +11761,7 @@ struct Counter {
 </td></tr>
 <tr><td>
 
-<h4 id="card-typealias" align="center">typealias</h4>
+<p id="card-typealias" align="center"><strong>typealias</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swift.md#typealias)
 
@@ -11796,7 +11796,7 @@ func load(then: Done) { /* … */ }
 </td></tr>
 <tr><td>
 
-<h4 id="card-compare-tuples" align="center">Compare two tuples</h4>
+<p id="card-compare-tuples" align="center"><strong>Compare two tuples</strong></p>
 
 <code>Junior</code> · <code>Low</code><br>[Full card](topics/swift.md#compare-tuples)
 
@@ -11830,7 +11830,7 @@ Tuples compare **lexicographically** when every element is `Comparable` and both
 </td></tr>
 <tr><td>
 
-<h4 id="card-one-sided-ranges" align="center">One-sided ranges</h4>
+<p id="card-one-sided-ranges" align="center"><strong>One-sided ranges</strong></p>
 
 <code>Junior</code> · <code>Low</code><br>[Full card](topics/swift.md#one-sided-ranges)
 
@@ -11869,7 +11869,7 @@ default: break
 </td></tr>
 <tr><td>
 
-<h4 id="card-raw-strings" align="center">Raw strings</h4>
+<p id="card-raw-strings" align="center"><strong>Raw strings</strong></p>
 
 <code>Junior</code> · <code>Low</code><br>[Full card](topics/swift.md#raw-strings)
 
@@ -11904,7 +11904,7 @@ let line = #"Hello \#(name)"#
 </td></tr>
 <tr><td>
 
-<h4 id="card-omit-return" align="center">When functions omit return</h4>
+<p id="card-omit-return" align="center"><strong>When functions omit return</strong></p>
 
 <code>Junior</code> · <code>Low</code><br>[Full card](topics/swift.md#omit-return)
 
@@ -11942,7 +11942,7 @@ func label(for count: Int) -> String {
 </td></tr>
 <tr><td>
 
-<h4 id="card-print-vs-debugprint" align="center">print vs debugPrint</h4>
+<p id="card-print-vs-debugprint" align="center"><strong>print vs debugPrint</strong></p>
 
 <code>Junior</code> · <code>Low</code><br>[Full card](topics/swift.md#print-vs-debugprint)
 
@@ -11978,7 +11978,7 @@ debugPrint(words)  // ["a", "b c"]
 </td></tr>
 <tr><td>
 
-<h4 id="card-associated-types" align="center">Associated types</h4>
+<p id="card-associated-types" align="center"><strong>Associated types</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#associated-types)
 
@@ -12022,7 +12022,7 @@ func peekCount<S: Stack>(_ stack: S) -> String { "stack" }
 </td></tr>
 <tr><td>
 
-<h4 id="card-copy-on-write" align="center">Copy-on-Write</h4>
+<p id="card-copy-on-write" align="center"><strong>Copy-on-Write</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#copy-on-write)
 
@@ -12068,7 +12068,7 @@ struct List {
 </td></tr>
 <tr><td>
 
-<h4 id="card-property-wrappers" align="center">Custom property wrappers</h4>
+<p id="card-property-wrappers" align="center"><strong>Custom property wrappers</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#property-wrappers)
 
@@ -12114,7 +12114,7 @@ struct Game {
 </td></tr>
 <tr><td>
 
-<h4 id="card-enum-associated-values" align="center">Enum associated values</h4>
+<p id="card-enum-associated-values" align="center"><strong>Enum associated values</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#enum-associated-values)
 
@@ -12158,7 +12158,7 @@ func title(for state: LoadState) -> String {
 </td></tr>
 <tr><td>
 
-<h4 id="card-escaping-closures" align="center">Escaping vs non-escaping closures</h4>
+<p id="card-escaping-closures" align="center"><strong>Escaping vs non-escaping closures</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#escaping-closures)
 
@@ -12199,7 +12199,7 @@ func runNow(_ handler: () -> Void) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-extension-vs-protocol-extension" align="center">Extension vs protocol extension</h4>
+<p id="card-extension-vs-protocol-extension" align="center"><strong>Extension vs protocol extension</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#extension-vs-protocol-extension)
 
@@ -12246,7 +12246,7 @@ speaker.wave()    // wave — static if only on the extension
 </td></tr>
 <tr><td>
 
-<h4 id="card-generics" align="center">Generics</h4>
+<p id="card-generics" align="center"><strong>Generics</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#generics)
 
@@ -12284,7 +12284,7 @@ struct Stack<Element> {
 </td></tr>
 <tr><td>
 
-<h4 id="card-method-dispatch" align="center">Method dispatch</h4>
+<p id="card-method-dispatch" align="center"><strong>Method dispatch</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#method-dispatch)
 
@@ -12327,7 +12327,7 @@ func paint(_ item: any Drawable) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-opaque-return-types" align="center">Opaque return types</h4>
+<p id="card-opaque-return-types" align="center"><strong>Opaque return types</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#opaque-return-types)
 
@@ -12365,7 +12365,7 @@ func label(highlighted: Bool) -> some Equatable {
 </td></tr>
 <tr><td>
 
-<h4 id="card-result-builders" align="center">Result builders</h4>
+<p id="card-result-builders" align="center"><strong>Result builders</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#result-builders)
 
@@ -12410,7 +12410,7 @@ func title() -> String {
 </td></tr>
 <tr><td>
 
-<h4 id="card-result-type" align="center">Result type</h4>
+<p id="card-result-type" align="center"><strong>Result type</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#result-type)
 
@@ -12451,7 +12451,7 @@ case .failure(let error): print(error)
 </td></tr>
 <tr><td>
 
-<h4 id="card-immutability" align="center">Why immutability matters</h4>
+<p id="card-immutability" align="center"><strong>Why immutability matters</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#immutability)
 
@@ -12491,7 +12491,7 @@ working.balance += 5
 </td></tr>
 <tr><td>
 
-<h4 id="card-defer" align="center">defer</h4>
+<p id="card-defer" align="center"><strong>defer</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#defer)
 
@@ -12531,7 +12531,7 @@ func parse() -> Int {
 </td></tr>
 <tr><td>
 
-<h4 id="card-final" align="center">final keyword</h4>
+<p id="card-final" align="center"><strong>final keyword</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#final)
 
@@ -12567,7 +12567,7 @@ final class ImageCache {
 </td></tr>
 <tr><td>
 
-<h4 id="card-self-vs-self" align="center">self vs Self</h4>
+<p id="card-self-vs-self" align="center"><strong>self vs Self</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#self-vs-self)
 
@@ -12612,7 +12612,7 @@ extension Point {
 </td></tr>
 <tr><td>
 
-<h4 id="card-some-vs-any" align="center">some vs any</h4>
+<p id="card-some-vs-any" align="center"><strong>some vs any</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swift.md#some-vs-any)
 
@@ -12648,7 +12648,7 @@ var items: [any Equatable] = [1, "x"]
 </td></tr>
 <tr><td>
 
-<h4 id="card-autoclosure" align="center">@autoclosure</h4>
+<p id="card-autoclosure" align="center"><strong>@autoclosure</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#autoclosure)
 
@@ -12687,7 +12687,7 @@ expect(count > 0, "expensive \(Array(repeating: "!", count: 1000).joined())")
 </td></tr>
 <tr><td>
 
-<h4 id="card-frozen" align="center">@frozen</h4>
+<p id="card-frozen" align="center"><strong>@frozen</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#frozen)
 
@@ -12729,7 +12729,7 @@ func label<Value>(_ load: Load<Value>) -> String {
 </td></tr>
 <tr><td>
 
-<h4 id="card-abstract-class" align="center">Abstract class in Swift</h4>
+<p id="card-abstract-class" align="center"><strong>Abstract class in Swift</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#abstract-class)
 
@@ -12769,7 +12769,7 @@ extension Feed {
 </td></tr>
 <tr><td>
 
-<h4 id="card-composition-over-inheritance" align="center">Composition over inheritance</h4>
+<p id="card-composition-over-inheritance" align="center"><strong>Composition over inheritance</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#composition-over-inheritance)
 
@@ -12802,7 +12802,7 @@ struct Player { var health: Health; var name: String }
 </td></tr>
 <tr><td>
 
-<h4 id="card-conditional-conformances" align="center">Conditional conformances</h4>
+<p id="card-conditional-conformances" align="center"><strong>Conditional conformances</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#conditional-conformances)
 
@@ -12842,7 +12842,7 @@ _ = a == b
 </td></tr>
 <tr><td>
 
-<h4 id="card-designated-convenience-init" align="center">Designated vs convenience initializers</h4>
+<p id="card-designated-convenience-init" align="center"><strong>Designated vs convenience initializers</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#designated-convenience-init)
 
@@ -12878,7 +12878,7 @@ class Vehicle {
 </td></tr>
 <tr><td>
 
-<h4 id="card-failable-throwing-init" align="center">Failable and throwing initializers</h4>
+<p id="card-failable-throwing-init" align="center"><strong>Failable and throwing initializers</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#failable-throwing-init)
 
@@ -12916,7 +12916,7 @@ struct Port {
 </td></tr>
 <tr><td>
 
-<h4 id="card-key-paths" align="center">Key paths</h4>
+<p id="card-key-paths" align="center"><strong>Key paths</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#key-paths)
 
@@ -12955,7 +12955,7 @@ let oldest = users.sorted(by: \.age).last
 </td></tr>
 <tr><td>
 
-<h4 id="card-macros" align="center">Macros</h4>
+<p id="card-macros" align="center"><strong>Macros</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#macros)
 
@@ -12994,7 +12994,7 @@ final class Cart {
 </td></tr>
 <tr><td>
 
-<h4 id="card-mirror" align="center">Mirror and reflection</h4>
+<p id="card-mirror" align="center"><strong>Mirror and reflection</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#mirror)
 
@@ -13029,7 +13029,7 @@ for child in Mirror(reflecting: User(name: "Ada", age: 36)).children {
 </td></tr>
 <tr><td>
 
-<h4 id="card-never" align="center">Never</h4>
+<p id="card-never" align="center"><strong>Never</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#never)
 
@@ -13065,7 +13065,7 @@ let taps = PassthroughSubject<Void, Never>()
 </td></tr>
 <tr><td>
 
-<h4 id="card-string-count" align="center">String.count complexity</h4>
+<p id="card-string-count" align="center"><strong>String.count complexity</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#string-count)
 
@@ -13100,7 +13100,7 @@ s.utf16.count    // 11
 </td></tr>
 <tr><td>
 
-<h4 id="card-typed-throws" align="center">Typed throws</h4>
+<p id="card-typed-throws" align="center"><strong>Typed throws</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swift.md#typed-throws)
 
@@ -13144,7 +13144,7 @@ do {
 </td></tr>
 <tr><td>
 
-<h4 id="card-error-directive" align="center">#error directive</h4>
+<p id="card-error-directive" align="center"><strong>#error directive</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/swift.md#error-directive)
 
@@ -13179,7 +13179,7 @@ do {
 </td></tr>
 <tr><td>
 
-<h4 id="card-if-swift" align="center">#if swift</h4>
+<p id="card-if-swift" align="center"><strong>#if swift</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/swift.md#if-swift)
 
@@ -13215,7 +13215,7 @@ func featureFlag() -> String { "older Swift" }
 </td></tr>
 <tr><td>
 
-<h4 id="card-multi-pattern-catch" align="center">Multi-pattern catch</h4>
+<p id="card-multi-pattern-catch" align="center"><strong>Multi-pattern catch</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/swift.md#multi-pattern-catch)
 
@@ -13257,7 +13257,7 @@ func handle(_ work: () throws -> Void) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-operator-overloading" align="center">Operator overloading</h4>
+<p id="card-operator-overloading" align="center"><strong>Operator overloading</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/swift.md#operator-overloading)
 
@@ -13297,7 +13297,7 @@ let total = Seconds(value: 10) + Seconds(value: 5)
 </td></tr>
 <tr><td>
 
-<h4 id="card-can-import" align="center">canImport()</h4>
+<p id="card-can-import" align="center"><strong>canImport()</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/swift.md#can-import)
 
@@ -13335,7 +13335,7 @@ typealias NativeColor = NSColor
 </td></tr>
 <tr><td>
 
-<h4 id="card-target-environment" align="center">targetEnvironment()</h4>
+<p id="card-target-environment" align="center"><strong>targetEnvironment()</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/swift.md#target-environment)
 
@@ -13375,7 +13375,7 @@ func analyticsEndpoint() -> String {
 </td></tr>
 <tr><td>
 
-<h4 id="card-struct-memory-layout" align="center">Struct memory layout</h4>
+<p id="card-struct-memory-layout" align="center"><strong>Struct memory layout</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/swift.md#struct-memory-layout)
 
@@ -13418,7 +13418,7 @@ MemoryLayout<Tight>.stride  // often 16 still on 64-bit, but size can differ
 </td></tr>
 <tr><td>
 
-<h4 id="card-type-erasure" align="center">Type erasure</h4>
+<p id="card-type-erasure" align="center"><strong>Type erasure</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/swift.md#type-erasure)
 
@@ -13463,7 +13463,7 @@ struct AnyStore<Item>: Store {
 </td></tr>
 <tr><td>
 
-<h4 id="card-abi-stability" align="center">ABI and module stability</h4>
+<p id="card-abi-stability" align="center"><strong>ABI and module stability</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/swift.md#abi-stability)
 
@@ -13510,7 +13510,7 @@ BUILD_LIBRARY_FOR_DISTRIBUTION = YES
 </td></tr>
 <tr><td>
 
-<h4 id="card-explain-arc" align="center">Explain ARC</h4>
+<p id="card-explain-arc" align="center"><strong>Explain ARC</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/memory.md#explain-arc)
 
@@ -13553,7 +13553,7 @@ mirror = nil                       // count = 0, deinit runs
 </td></tr>
 <tr><td>
 
-<h4 id="card-swift-memory-management" align="center">How Swift handles memory</h4>
+<p id="card-swift-memory-management" align="center"><strong>How Swift handles memory</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/memory.md#swift-memory-management)
 
@@ -13606,7 +13606,7 @@ box2.value = 2
 </td></tr>
 <tr><td>
 
-<h4 id="card-arc-vs-gc" align="center">ARC vs garbage collection</h4>
+<p id="card-arc-vs-gc" align="center"><strong>ARC vs garbage collection</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#arc-vs-gc)
 
@@ -13670,7 +13670,7 @@ do {
 </td></tr>
 <tr><td>
 
-<h4 id="card-memory-leak" align="center">Identify and resolve a memory leak</h4>
+<p id="card-memory-leak" align="center"><strong>Identify and resolve a memory leak</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#memory-leak)
 
@@ -13733,7 +13733,7 @@ final class Ticker {
 </td></tr>
 <tr><td>
 
-<h4 id="card-retain-cycle" align="center">Identify and resolve a retain cycle</h4>
+<p id="card-retain-cycle" align="center"><strong>Identify and resolve a retain cycle</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#retain-cycle)
 
@@ -13780,7 +13780,7 @@ final class ProfileLoader {
 </td></tr>
 <tr><td>
 
-<h4 id="card-autoreleasepool" align="center">autoreleasepool</h4>
+<p id="card-autoreleasepool" align="center"><strong>autoreleasepool</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#autoreleasepool)
 
@@ -13818,7 +13818,7 @@ func thumbnails(from data: [Data]) -> [UIImage] {
 </td></tr>
 <tr><td>
 
-<h4 id="card-weak-vs-unowned" align="center">weak vs unowned</h4>
+<p id="card-weak-vs-unowned" align="center"><strong>weak vs unowned</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/memory.md#weak-vs-unowned)
 
@@ -13865,7 +13865,7 @@ final class Field {
 </td></tr>
 <tr><td>
 
-<h4 id="card-deep-vs-shallow" align="center">Deep vs shallow copy</h4>
+<p id="card-deep-vs-shallow" align="center"><strong>Deep vs shallow copy</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/memory.md#deep-vs-shallow)
 
@@ -13900,7 +13900,7 @@ let deep = a.map { b in Box(); /* copy fields */ }
 </td></tr>
 <tr><td>
 
-<h4 id="card-stack-vs-heap" align="center">Stack vs heap</h4>
+<p id="card-stack-vs-heap" align="center"><strong>Stack vs heap</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/memory.md#stack-vs-heap)
 
@@ -13938,7 +13938,7 @@ func demo() {
 </td></tr>
 <tr><td>
 
-<h4 id="card-side-tables" align="center">Side tables</h4>
+<p id="card-side-tables" align="center"><strong>Side tables</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/memory.md#side-tables)
 
@@ -13985,7 +13985,7 @@ final class Node {
 </td></tr>
 <tr><td>
 
-<h4 id="card-concurrency-vs-parallelism" align="center">Concurrency vs parallelism</h4>
+<p id="card-concurrency-vs-parallelism" align="center"><strong>Concurrency vs parallelism</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/concurrency.md#concurrency-vs-parallelism)
 
@@ -14025,7 +14025,7 @@ let (l, r) = await (a, b)
 </td></tr>
 <tr><td>
 
-<h4 id="card-main-actor" align="center">@MainActor</h4>
+<p id="card-main-actor" align="center"><strong>@MainActor</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#main-actor)
 
@@ -14074,7 +14074,7 @@ func fetch() async {
 </td></tr>
 <tr><td>
 
-<h4 id="card-actor-vs-serial-queue" align="center">Actor vs serial DispatchQueue</h4>
+<p id="card-actor-vs-serial-queue" align="center"><strong>Actor vs serial DispatchQueue</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#actor-vs-serial-queue)
 
@@ -14115,7 +14115,7 @@ actor SessionStore {
 </td></tr>
 <tr><td>
 
-<h4 id="card-async-sequence" align="center">AsyncSequence</h4>
+<p id="card-async-sequence" align="center"><strong>AsyncSequence</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#async-sequence)
 
@@ -14149,7 +14149,7 @@ for await note in NotificationCenter.default.notifications(named: .NSSystemTimeZ
 </td></tr>
 <tr><td>
 
-<h4 id="card-checked-continuation" align="center">Checked continuations</h4>
+<p id="card-checked-continuation" align="center"><strong>Checked continuations</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#checked-continuation)
 
@@ -14190,7 +14190,7 @@ func token() async throws -> String {
 </td></tr>
 <tr><td>
 
-<h4 id="card-concurrency-problems" align="center">Concurrency problems</h4>
+<p id="card-concurrency-problems" align="center"><strong>Concurrency problems</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#concurrency-problems)
 
@@ -14234,7 +14234,7 @@ actor Counter {
 </td></tr>
 <tr><td>
 
-<h4 id="card-dispatch-group" align="center">DispatchGroup</h4>
+<p id="card-dispatch-group" align="center"><strong>DispatchGroup</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#dispatch-group)
 
@@ -14274,7 +14274,7 @@ group.notify(queue: .main) { table.reloadData() }
 </td></tr>
 <tr><td>
 
-<h4 id="card-dispatch-semaphore" align="center">DispatchSemaphore</h4>
+<p id="card-dispatch-semaphore" align="center"><strong>DispatchSemaphore</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#dispatch-semaphore)
 
@@ -14314,7 +14314,7 @@ final class Gate {
 </td></tr>
 <tr><td>
 
-<h4 id="card-gcd" align="center">GCD</h4>
+<p id="card-gcd" align="center"><strong>GCD</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#gcd)
 
@@ -14363,7 +14363,7 @@ func updateTitle(_ text: String) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-gcd-vs-operationqueue" align="center">GCD vs OperationQueue</h4>
+<p id="card-gcd-vs-operationqueue" align="center"><strong>GCD vs OperationQueue</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#gcd-vs-operationqueue)
 
@@ -14404,7 +14404,7 @@ queue.addOperations([decode, upload], waitUntilFinished: false)
 </td></tr>
 <tr><td>
 
-<h4 id="card-gcd-vs-async-await" align="center">GCD vs async/await</h4>
+<p id="card-gcd-vs-async-await" align="center"><strong>GCD vs async/await</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#gcd-vs-async-await)
 
@@ -14447,7 +14447,7 @@ func load() async throws -> UIImage {
 </td></tr>
 <tr><td>
 
-<h4 id="card-locks" align="center">Locks</h4>
+<p id="card-locks" align="center"><strong>Locks</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#locks)
 
@@ -14490,7 +14490,7 @@ final class Counter {
 </td></tr>
 <tr><td>
 
-<h4 id="card-qos" align="center">Quality of Service</h4>
+<p id="card-qos" align="center"><strong>Quality of Service</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#qos)
 
@@ -14526,7 +14526,7 @@ DispatchQueue.global(qos: .userInitiated).async {
 </td></tr>
 <tr><td>
 
-<h4 id="card-sendable" align="center">Sendable</h4>
+<p id="card-sendable" align="center"><strong>Sendable</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#sendable)
 
@@ -14569,7 +14569,7 @@ final class UnsafeCache {
 </td></tr>
 <tr><td>
 
-<h4 id="card-task-cancellation" align="center">Task cancellation</h4>
+<p id="card-task-cancellation" align="center"><strong>Task cancellation</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#task-cancellation)
 
@@ -14610,7 +14610,7 @@ func loadAll(_ urls: [URL]) async throws -> [Data] {
 </td></tr>
 <tr><td>
 
-<h4 id="card-taskgroup-vs-async-let" align="center">Task groups vs async let</h4>
+<p id="card-taskgroup-vs-async-let" align="center"><strong>Task groups vs async let</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#taskgroup-vs-async-let)
 
@@ -14650,7 +14650,7 @@ func profile() async throws -> (User, [Post]) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-task-detached-taskgroup" align="center">Task vs Task.detached vs TaskGroup</h4>
+<p id="card-task-detached-taskgroup" align="center"><strong>Task vs Task.detached vs TaskGroup</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#task-detached-taskgroup)
 
@@ -14696,7 +14696,7 @@ func thumbnails(for urls: [URL]) async -> [URL: Data] {
 </td></tr>
 <tr><td>
 
-<h4 id="card-thread-safe-state" align="center">Thread-safe shared state</h4>
+<p id="card-thread-safe-state" align="center"><strong>Thread-safe shared state</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#thread-safe-state)
 
@@ -14736,7 +14736,7 @@ actor ImageStore {
 </td></tr>
 <tr><td>
 
-<h4 id="card-main-async-vs-sync" align="center">main.async vs main.sync</h4>
+<p id="card-main-async-vs-sync" align="center"><strong>main.async vs main.sync</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/concurrency.md#main-async-vs-sync)
 
@@ -14779,7 +14779,7 @@ func applyTitle(_ text: String) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-dispatch-work-item" align="center">DispatchWorkItem</h4>
+<p id="card-dispatch-work-item" align="center"><strong>DispatchWorkItem</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/concurrency.md#dispatch-work-item)
 
@@ -14814,7 +14814,7 @@ item.cancel()
 </td></tr>
 <tr><td>
 
-<h4 id="card-async-timeout" align="center">Timeout on an await</h4>
+<p id="card-async-timeout" align="center"><strong>Timeout on an await</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/concurrency.md#async-timeout)
 
@@ -14857,7 +14857,7 @@ func withTimeout<T>(seconds: Double, _ work: @escaping @Sendable () async throws
 </td></tr>
 <tr><td>
 
-<h4 id="card-deinit-thread" align="center">Which thread runs deinit</h4>
+<p id="card-deinit-thread" align="center"><strong>Which thread runs deinit</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/concurrency.md#deinit-thread)
 
@@ -14901,7 +14901,7 @@ Task.detached {
 </td></tr>
 <tr><td>
 
-<h4 id="card-actor-reentrancy" align="center">Actor reentrancy</h4>
+<p id="card-actor-reentrancy" align="center"><strong>Actor reentrancy</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/concurrency.md#actor-reentrancy)
 
@@ -14950,7 +14950,7 @@ actor ImageLoader {
 </td></tr>
 <tr><td>
 
-<h4 id="card-isolation" align="center">Isolation domains</h4>
+<p id="card-isolation" align="center"><strong>Isolation domains</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/concurrency.md#isolation)
 
@@ -14990,7 +14990,7 @@ func show(_ row: String) { /* UI */ }
 </td></tr>
 <tr><td>
 
-<h4 id="card-swift-6-concurrency" align="center">Swift 6 strict concurrency</h4>
+<p id="card-swift-6-concurrency" align="center"><strong>Swift 6 strict concurrency</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/concurrency.md#swift-6-concurrency)
 
@@ -15034,7 +15034,7 @@ final class FeedViewModel {
 </td></tr>
 <tr><td>
 
-<h4 id="card-thread-explosion" align="center">Thread explosion</h4>
+<p id="card-thread-explosion" align="center"><strong>Thread explosion</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/concurrency.md#thread-explosion)
 
@@ -15079,7 +15079,7 @@ await withTaskGroup(of: Void.self) { group in
 </td></tr>
 <tr><td>
 
-<h4 id="card-global-actor" align="center">Global actors</h4>
+<p id="card-global-actor" align="center"><strong>Global actors</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/concurrency.md#global-actor)
 
@@ -15131,7 +15131,7 @@ final class PreferencesStore {
 </td></tr>
 <tr><td>
 
-<h4 id="card-delegates" align="center">Delegates</h4>
+<p id="card-delegates" align="center"><strong>Delegates</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/architecture.md#delegates)
 
@@ -15175,7 +15175,7 @@ final class SearchService {
 </td></tr>
 <tr><td>
 
-<h4 id="card-mvc" align="center">MVC</h4>
+<p id="card-mvc" align="center"><strong>MVC</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/architecture.md#mvc)
 
@@ -15221,7 +15221,7 @@ final class NoteViewController {
 </td></tr>
 <tr><td>
 
-<h4 id="card-global-variables" align="center">Global variables</h4>
+<p id="card-global-variables" align="center"><strong>Global variables</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/architecture.md#global-variables)
 
@@ -15264,7 +15264,7 @@ final class ProfileViewModel {
 </td></tr>
 <tr><td>
 
-<h4 id="card-oop-pillars" align="center">OOP pillars</h4>
+<p id="card-oop-pillars" align="center"><strong>OOP pillars</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/architecture.md#oop-pillars)
 
@@ -15302,7 +15302,7 @@ func render(_ items: [any Drawable]) { items.forEach { $0.draw() } }
 </td></tr>
 <tr><td>
 
-<h4 id="card-dependency-injection" align="center">Dependency injection</h4>
+<p id="card-dependency-injection" align="center"><strong>Dependency injection</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#dependency-injection)
 
@@ -15349,7 +15349,7 @@ final class Session {
 </td></tr>
 <tr><td>
 
-<h4 id="card-design-patterns" align="center">Design patterns in iOS</h4>
+<p id="card-design-patterns" align="center"><strong>Design patterns in iOS</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#design-patterns)
 
@@ -15397,7 +15397,7 @@ final class FeedViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 id="card-feature-flags" align="center">Feature flags</h4>
+<p id="card-feature-flags" align="center"><strong>Feature flags</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#feature-flags)
 
@@ -15435,7 +15435,7 @@ func makeFeed(flags: Flagging) -> any FeedServing {
 </td></tr>
 <tr><td>
 
-<h4 id="card-mvvm" align="center">MVVM</h4>
+<p id="card-mvvm" align="center"><strong>MVVM</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#mvvm)
 
@@ -15480,7 +15480,7 @@ enum LoginError: Error { case tooShort }
 </td></tr>
 <tr><td>
 
-<h4 id="card-protocol-oriented-programming" align="center">Protocol-oriented programming</h4>
+<p id="card-protocol-oriented-programming" align="center"><strong>Protocol-oriented programming</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#protocol-oriented-programming)
 
@@ -15525,7 +15525,7 @@ struct LiveClient: Fetching {
 </td></tr>
 <tr><td>
 
-<h4 id="card-repository" align="center">Repository pattern</h4>
+<p id="card-repository" align="center"><strong>Repository pattern</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#repository)
 
@@ -15567,7 +15567,7 @@ struct RemoteUserRepository: UserRepository {
 </td></tr>
 <tr><td>
 
-<h4 id="card-solid" align="center">SOLID</h4>
+<p id="card-solid" align="center"><strong>SOLID</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#solid)
 
@@ -15605,7 +15605,7 @@ struct Checkout {
 </td></tr>
 <tr><td>
 
-<h4 id="card-singletons" align="center">Singletons — when they help</h4>
+<p id="card-singletons" align="center"><strong>Singletons — when they help</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/architecture.md#singletons)
 
@@ -15655,7 +15655,7 @@ final class Checkout {
 </td></tr>
 <tr><td>
 
-<h4 id="card-functional-programming" align="center">Functional programming in Swift</h4>
+<p id="card-functional-programming" align="center"><strong>Functional programming in Swift</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/architecture.md#functional-programming)
 
@@ -15693,7 +15693,7 @@ let taxedTotal = prices
 </td></tr>
 <tr><td>
 
-<h4 id="card-kvc" align="center">KVC</h4>
+<p id="card-kvc" align="center"><strong>KVC</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/architecture.md#kvc)
 
@@ -15727,7 +15727,7 @@ let text = label.value(forKey: "text") as? String
 </td></tr>
 <tr><td>
 
-<h4 id="card-mvp" align="center">MVP</h4>
+<p id="card-mvp" align="center"><strong>MVP</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/architecture.md#mvp)
 
@@ -15768,7 +15768,7 @@ final class LoginPresenter {
 </td></tr>
 <tr><td>
 
-<h4 id="card-atomic-nonatomic" align="center">atomic vs nonatomic vs copy</h4>
+<p id="card-atomic-nonatomic" align="center"><strong>atomic vs nonatomic vs copy</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/architecture.md#atomic-nonatomic)
 
@@ -15802,7 +15802,7 @@ These are **Objective-C property attributes**, not Swift keywords. `atomic` (the
 </td></tr>
 <tr><td>
 
-<h4 id="card-kvo" align="center">KVO</h4>
+<p id="card-kvo" align="center"><strong>KVO</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/architecture.md#kvo)
 
@@ -15848,7 +15848,7 @@ transport.rate = 1
 </td></tr>
 <tr><td>
 
-<h4 id="card-clean-architecture" align="center">Clean Architecture</h4>
+<p id="card-clean-architecture" align="center"><strong>Clean Architecture</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/architecture.md#clean-architecture)
 
@@ -15890,7 +15890,7 @@ struct LoginUseCase {
 </td></tr>
 <tr><td>
 
-<h4 id="card-mvvm-c" align="center">MVVM-C</h4>
+<p id="card-mvvm-c" align="center"><strong>MVVM-C</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/architecture.md#mvvm-c)
 
@@ -15928,7 +15928,7 @@ final class LoginViewModel {
 </td></tr>
 <tr><td>
 
-<h4 id="card-viper" align="center">VIPER</h4>
+<p id="card-viper" align="center"><strong>VIPER</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/architecture.md#viper)
 
@@ -15968,7 +15968,7 @@ final class LoginPresenter {
 </td></tr>
 <tr><td>
 
-<h4 id="card-kmp" align="center">Kotlin Multiplatform from iOS</h4>
+<p id="card-kmp" align="center"><strong>Kotlin Multiplatform from iOS</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/architecture.md#kmp)
 
@@ -16001,7 +16001,7 @@ iosApp/ imports Shared, maps SharedUser → Swift User in one adapter
 </td></tr>
 <tr><td>
 
-<h4 id="card-modular-architecture" align="center">Modular architecture</h4>
+<p id="card-modular-architecture" align="center"><strong>Modular architecture</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/architecture.md#modular-architecture)
 
@@ -16044,7 +16044,7 @@ public struct CheckoutFactory {
 </td></tr>
 <tr><td>
 
-<h4 id="card-optimistic-updates" align="center">Optimistic updates</h4>
+<p id="card-optimistic-updates" align="center"><strong>Optimistic updates</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/architecture.md#optimistic-updates)
 
@@ -16084,7 +16084,7 @@ func toggleLike(_ post: Post) async {
 </td></tr>
 <tr><td>
 
-<h4 id="card-tca" align="center">TCA</h4>
+<p id="card-tca" align="center"><strong>TCA</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/architecture.md#tca)
 
@@ -16118,7 +16118,7 @@ enum CounterAction { case increment }
 </td></tr>
 <tr><td>
 
-<h4 id="card-phantom-types" align="center">Phantom types</h4>
+<p id="card-phantom-types" align="center"><strong>Phantom types</strong></p>
 
 <code>Senior</code> · <code>Low</code><br>[Full card](topics/architecture.md#phantom-types)
 
@@ -16173,7 +16173,7 @@ loadUser(user)
 </td></tr>
 <tr><td>
 
-<h4 id="card-iboutlet-vs-ibaction" align="center">@IBOutlet vs @IBAction</h4>
+<p id="card-iboutlet-vs-ibaction" align="center"><strong>@IBOutlet vs @IBAction</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#iboutlet-vs-ibaction)
 
@@ -16213,7 +16213,7 @@ final class LoginViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 id="card-aspect-fill-vs-fit" align="center">Aspect fill vs aspect fit</h4>
+<p id="card-aspect-fill-vs-fit" align="center"><strong>Aspect fill vs aspect fit</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#aspect-fill-vs-fit)
 
@@ -16249,7 +16249,7 @@ logoView.clipsToBounds = false
 </td></tr>
 <tr><td>
 
-<h4 id="card-auto-layout-anchors" align="center">Auto Layout anchors</h4>
+<p id="card-auto-layout-anchors" align="center"><strong>Auto Layout anchors</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#auto-layout-anchors)
 
@@ -16288,7 +16288,7 @@ NSLayoutConstraint.activate([
 </td></tr>
 <tr><td>
 
-<h4 id="card-autolayout-formula" align="center">Auto Layout formula</h4>
+<p id="card-autolayout-formula" align="center"><strong>Auto Layout formula</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#autolayout-formula)
 
@@ -16321,7 +16321,7 @@ box.widthAnchor.constraint(equalTo: box.heightAnchor, multiplier: 2)
 </td></tr>
 <tr><td>
 
-<h4 id="card-reuse-identifiers" align="center">Cell reuse identifiers</h4>
+<p id="card-reuse-identifiers" align="center"><strong>Cell reuse identifiers</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#reuse-identifiers)
 
@@ -16363,7 +16363,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 </td></tr>
 <tr><td>
 
-<h4 id="card-dark-mode" align="center">Dark mode</h4>
+<p id="card-dark-mode" align="center"><strong>Dark mode</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#dark-mode)
 
@@ -16404,7 +16404,7 @@ override func traitCollectionDidChange(_ previous: UITraitCollection?) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-modal-vs-push" align="center">Modal vs push</h4>
+<p id="card-modal-vs-push" align="center"><strong>Modal vs push</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#modal-vs-push)
 
@@ -16442,7 +16442,7 @@ present(compose, animated: true)
 </td></tr>
 <tr><td>
 
-<h4 id="card-safe-area" align="center">Safe area</h4>
+<p id="card-safe-area" align="center"><strong>Safe area</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#safe-area)
 
@@ -16478,7 +16478,7 @@ NSLayoutConstraint.activate([
 </td></tr>
 <tr><td>
 
-<h4 id="card-storyboards-vs-code" align="center">Storyboards vs code layouts</h4>
+<p id="card-storyboards-vs-code" align="center"><strong>Storyboards vs code layouts</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#storyboards-vs-code)
 
@@ -16522,7 +16522,7 @@ final class ProfileViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 id="card-uiimage-vs-uiimageview" align="center">UIImage vs UIImageView</h4>
+<p id="card-uiimage-vs-uiimageview" align="center"><strong>UIImage vs UIImageView</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#uiimage-vs-uiimageview)
 
@@ -16558,7 +16558,7 @@ view.addSubview(imageView)
 </td></tr>
 <tr><td>
 
-<h4 id="card-navigation-controller" align="center">UINavigationController</h4>
+<p id="card-navigation-controller" align="center"><strong>UINavigationController</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#navigation-controller)
 
@@ -16591,7 +16591,7 @@ navigationController?.pushViewController(detail, animated: true)
 </td></tr>
 <tr><td>
 
-<h4 id="card-stack-view" align="center">UIStackView</h4>
+<p id="card-stack-view" align="center"><strong>UIStackView</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#stack-view)
 
@@ -16627,7 +16627,7 @@ stack.distribution = .fill
 </td></tr>
 <tr><td>
 
-<h4 id="card-viewcontroller-lifecycle" align="center">UIViewController lifecycle</h4>
+<p id="card-viewcontroller-lifecycle" align="center"><strong>UIViewController lifecycle</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#viewcontroller-lifecycle)
 
@@ -16678,7 +16678,7 @@ final class ProfileViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 id="card-frame-vs-bounds" align="center">frame vs bounds</h4>
+<p id="card-frame-vs-bounds" align="center"><strong>frame vs bounds</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#frame-vs-bounds)
 
@@ -16715,7 +16715,7 @@ child.transform = CGAffineTransform(rotationAngle: .pi / 8)
 </td></tr>
 <tr><td>
 
-<h4 id="card-prepare-for-reuse" align="center">prepareForReuse</h4>
+<p id="card-prepare-for-reuse" align="center"><strong>prepareForReuse</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/uikit.md#prepare-for-reuse)
 
@@ -16757,7 +16757,7 @@ final class PhotoCell: UITableViewCell {
 </td></tr>
 <tr><td>
 
-<h4 id="card-view-shadow" align="center">Add a shadow to a view</h4>
+<p id="card-view-shadow" align="center"><strong>Add a shadow to a view</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#view-shadow)
 
@@ -16798,7 +16798,7 @@ func applyCardShadow(to view: UIView) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-gesture-recognizers" align="center">Gesture recognizers</h4>
+<p id="card-gesture-recognizers" align="center"><strong>Gesture recognizers</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#gesture-recognizers)
 
@@ -16833,7 +16833,7 @@ imageView.addGestureRecognizer(tap)
 </td></tr>
 <tr><td>
 
-<h4 id="card-launch-screen" align="center">Launch screen</h4>
+<p id="card-launch-screen" align="center"><strong>Launch screen</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#launch-screen)
 
@@ -16867,7 +16867,7 @@ The launch screen is a **static** storyboard (`UILaunchStoryboardName`) the syst
 </td></tr>
 <tr><td>
 
-<h4 id="card-points-vs-pixels" align="center">Points vs pixels</h4>
+<p id="card-points-vs-pixels" align="center"><strong>Points vs pixels</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#points-vs-pixels)
 
@@ -16900,7 +16900,7 @@ let pixels = CGSize(width: view.bounds.width * scale, height: view.bounds.height
 </td></tr>
 <tr><td>
 
-<h4 id="card-round-corners" align="center">Round view corners</h4>
+<p id="card-round-corners" align="center"><strong>Round view corners</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#round-corners)
 
@@ -16935,7 +16935,7 @@ imageView.clipsToBounds = true
 </td></tr>
 <tr><td>
 
-<h4 id="card-storyboard-identifiers" align="center">Storyboard identifiers</h4>
+<p id="card-storyboard-identifiers" align="center"><strong>Storyboard identifiers</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#storyboard-identifiers)
 
@@ -16974,7 +16974,7 @@ let profile = storyboard.instantiateViewController(
 </td></tr>
 <tr><td>
 
-<h4 id="card-activity-view-controller" align="center">UIActivityViewController</h4>
+<p id="card-activity-view-controller" align="center"><strong>UIActivityViewController</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#activity-view-controller)
 
@@ -17010,7 +17010,7 @@ present(sheet, animated: true)
 </td></tr>
 <tr><td>
 
-<h4 id="card-tab-bar-controller" align="center">UITabBarController</h4>
+<p id="card-tab-bar-controller" align="center"><strong>UITabBarController</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#tab-bar-controller)
 
@@ -17045,7 +17045,7 @@ tabs.viewControllers = [feed, profile]
 </td></tr>
 <tr><td>
 
-<h4 id="card-uiview-lifecycle" align="center">UIView lifecycle</h4>
+<p id="card-uiview-lifecycle" align="center"><strong>UIView lifecycle</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#uiview-lifecycle)
 
@@ -17082,7 +17082,7 @@ final class Badge: UIView {
 </td></tr>
 <tr><td>
 
-<h4 id="card-visual-effect-view" align="center">UIVisualEffectView</h4>
+<p id="card-visual-effect-view" align="center"><strong>UIVisualEffectView</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#visual-effect-view)
 
@@ -17120,7 +17120,7 @@ blur.contentView.addSubview(label)
 </td></tr>
 <tr><td>
 
-<h4 id="card-view-hierarchy" align="center">UIWindow and the view hierarchy</h4>
+<p id="card-view-hierarchy" align="center"><strong>UIWindow and the view hierarchy</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#view-hierarchy)
 
@@ -17159,7 +17159,7 @@ window.makeKeyAndVisible()
 </td></tr>
 <tr><td>
 
-<h4 id="card-xib-vs-storyboard" align="center">XIBs vs storyboards</h4>
+<p id="card-xib-vs-storyboard" align="center"><strong>XIBs vs storyboards</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/uikit.md#xib-vs-storyboard)
 
@@ -17195,7 +17195,7 @@ let view = Bundle.main.loadNibNamed("EmptyStateView", owner: self, options: nil)
 </td></tr>
 <tr><td>
 
-<h4 id="card-segues" align="center">Segues</h4>
+<p id="card-segues" align="center"><strong>Segues</strong></p>
 
 <code>Junior</code> · <code>Low</code><br>[Full card](topics/uikit.md#segues)
 
@@ -17236,7 +17236,7 @@ func open(_ item: Item) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-view-with-tag" align="center">viewWithTag() pros and cons</h4>
+<p id="card-view-with-tag" align="center"><strong>viewWithTag() pros and cons</strong></p>
 
 <code>Junior</code> · <code>Low</code><br>[Full card](topics/uikit.md#view-with-tag)
 
@@ -17278,7 +17278,7 @@ final class ItemCell: UITableViewCell {
 </td></tr>
 <tr><td>
 
-<h4 id="card-collection-vs-table" align="center">Collection view vs table view</h4>
+<p id="card-collection-vs-table" align="center"><strong>Collection view vs table view</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#collection-vs-table)
 
@@ -17322,7 +17322,7 @@ let grid = UICollectionView(frame: .zero, collectionViewLayout: layout)
 </td></tr>
 <tr><td>
 
-<h4 id="card-diffable-data-source" align="center">Diffable data source</h4>
+<p id="card-diffable-data-source" align="center"><strong>Diffable data source</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#diffable-data-source)
 
@@ -17365,7 +17365,7 @@ dataSource.apply(snapshot, animatingDifferences: true)
 </td></tr>
 <tr><td>
 
-<h4 id="card-intrinsic-content-size" align="center">Intrinsic content size</h4>
+<p id="card-intrinsic-content-size" align="center"><strong>Intrinsic content size</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#intrinsic-content-size)
 
@@ -17406,7 +17406,7 @@ final class BadgeView: UIView {
 </td></tr>
 <tr><td>
 
-<h4 id="card-passing-data" align="center">Passing data in iOS</h4>
+<p id="card-passing-data" align="center"><strong>Passing data in iOS</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#passing-data)
 
@@ -17445,7 +17445,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-responder-chain" align="center">Responder chain</h4>
+<p id="card-responder-chain" align="center"><strong>Responder chain</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#responder-chain)
 
@@ -17483,7 +17483,7 @@ final class EditorViewController: UIViewController {
 </td></tr>
 <tr><td>
 
-<h4 id="card-size-classes" align="center">Size classes</h4>
+<p id="card-size-classes" align="center"><strong>Size classes</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#size-classes)
 
@@ -17521,7 +17521,7 @@ override func traitCollectionDidChange(_ previous: UITraitCollection?) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-remote-images-table" align="center">Table view with remote images</h4>
+<p id="card-remote-images-table" align="center"><strong>Table view with remote images</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#remote-images-table)
 
@@ -17558,7 +17558,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 </td></tr>
 <tr><td>
 
-<h4 id="card-setneedslayout" align="center">setNeedsLayout vs layoutIfNeeded</h4>
+<p id="card-setneedslayout" align="center"><strong>setNeedsLayout vs layoutIfNeeded</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/uikit.md#setneedslayout)
 
@@ -17594,7 +17594,7 @@ UIView.animate(withDuration: 0.25) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-child-view-controllers" align="center">Child view controllers</h4>
+<p id="card-child-view-controllers" align="center"><strong>Child view controllers</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/uikit.md#child-view-controllers)
 
@@ -17637,7 +17637,7 @@ func embed(_ child: UIViewController, in container: UIView) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-nested-collection" align="center">Collection view inside a table cell</h4>
+<p id="card-nested-collection" align="center"><strong>Collection view inside a table cell</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/uikit.md#nested-collection)
 
@@ -17679,7 +17679,7 @@ final class RailCell: UITableViewCell {
 </td></tr>
 <tr><td>
 
-<h4 id="card-orientation" align="center">Device orientation</h4>
+<p id="card-orientation" align="center"><strong>Device orientation</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/uikit.md#orientation)
 
@@ -17717,7 +17717,7 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 </td></tr>
 <tr><td>
 
-<h4 id="card-file-owner" align="center">File’s Owner</h4>
+<p id="card-file-owner" align="center"><strong>File’s Owner</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/uikit.md#file-owner)
 
@@ -17750,7 +17750,7 @@ let vc = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
 </td></tr>
 <tr><td>
 
-<h4 id="card-ibdesignable" align="center">IBDesignable</h4>
+<p id="card-ibdesignable" align="center"><strong>IBDesignable</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/uikit.md#ibdesignable)
 
@@ -17792,7 +17792,7 @@ final class DottedCircleView: UIView {
 </td></tr>
 <tr><td>
 
-<h4 id="card-memory-warning" align="center">Memory warning</h4>
+<p id="card-memory-warning" align="center"><strong>Memory warning</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/uikit.md#memory-warning)
 
@@ -17827,7 +17827,7 @@ override func didReceiveMemoryWarning() {
 </td></tr>
 <tr><td>
 
-<h4 id="card-color-out-of-range" align="center">Color values outside 0...1</h4>
+<p id="card-color-out-of-range" align="center"><strong>Color values outside 0...1</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/uikit.md#color-out-of-range)
 
@@ -17861,7 +17861,7 @@ let p3 = UIColor(displayP3Red: 1, green: 0, blue: 0, alpha: 1)
 </td></tr>
 <tr><td>
 
-<h4 id="card-uicontrol-target-nil" align="center">UIControl target is nil</h4>
+<p id="card-uicontrol-target-nil" align="center"><strong>UIControl target is nil</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/uikit.md#uicontrol-target-nil)
 
@@ -17893,7 +17893,7 @@ button.addTarget(nil, action: #selector(EditorViewController.save), for: .touchU
 </td></tr>
 <tr><td>
 
-<h4 id="card-menu-controller" align="center">UIMenuController</h4>
+<p id="card-menu-controller" align="center"><strong>UIMenuController</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/uikit.md#menu-controller)
 
@@ -17946,7 +17946,7 @@ final class CopyableLabel: UILabel {
 </td></tr>
 <tr><td>
 
-<h4 id="card-binding" align="center">@Binding</h4>
+<p id="card-binding" align="center"><strong>@Binding</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swiftui.md#binding)
 
@@ -17986,7 +17986,7 @@ struct Parent: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-state" align="center">@State</h4>
+<p id="card-state" align="center"><strong>@State</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/swiftui.md#state)
 
@@ -18024,7 +18024,7 @@ struct Counter: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-appstorage" align="center">@AppStorage</h4>
+<p id="card-appstorage" align="center"><strong>@AppStorage</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swiftui.md#appstorage)
 
@@ -18056,7 +18056,7 @@ struct Counter: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-button-style" align="center">ButtonStyle</h4>
+<p id="card-button-style" align="center"><strong>ButtonStyle</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/swiftui.md#button-style)
 
@@ -18099,7 +18099,7 @@ Button("Save") { save() }
 </td></tr>
 <tr><td>
 
-<h4 id="card-published" align="center">@Published</h4>
+<p id="card-published" align="center"><strong>@Published</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#published)
 
@@ -18138,7 +18138,7 @@ final class SearchModel: ObservableObject {
 </td></tr>
 <tr><td>
 
-<h4 id="card-stateobject-vs-observedobject" align="center">@StateObject vs @ObservedObject</h4>
+<p id="card-stateobject-vs-observedobject" align="center"><strong>@StateObject vs @ObservedObject</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#stateobject-vs-observedobject)
 
@@ -18182,7 +18182,7 @@ struct CartButton: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swiftui-property-wrappers" align="center">Choosing SwiftUI property wrappers</h4>
+<p id="card-swiftui-property-wrappers" align="center"><strong>Choosing SwiftUI property wrappers</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-property-wrappers)
 
@@ -18227,7 +18227,7 @@ struct SearchField: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-environmentobject-vs-observedobject" align="center">Environment object vs observed object</h4>
+<p id="card-environmentobject-vs-observedobject" align="center"><strong>Environment object vs observed object</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#environmentobject-vs-observedobject)
 
@@ -18274,7 +18274,7 @@ struct ProfileBadge: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-geometry-reader" align="center">GeometryReader</h4>
+<p id="card-geometry-reader" align="center"><strong>GeometryReader</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#geometry-reader)
 
@@ -18325,7 +18325,7 @@ private struct WidthKey: PreferenceKey {
 </td></tr>
 <tr><td>
 
-<h4 id="card-observable-object-changes" align="center">How an observable object announces changes</h4>
+<p id="card-observable-object-changes" align="center"><strong>How an observable object announces changes</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#observable-object-changes)
 
@@ -18368,7 +18368,7 @@ final class Clock: ObservableObject {
 </td></tr>
 <tr><td>
 
-<h4 id="card-lazyvstack-vs-vstack" align="center">LazyVStack vs VStack</h4>
+<p id="card-lazyvstack-vs-vstack" align="center"><strong>LazyVStack vs VStack</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#lazyvstack-vs-vstack)
 
@@ -18407,7 +18407,7 @@ ScrollView {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swiftui-mv" align="center">MV vs MVVM in SwiftUI</h4>
+<p id="card-swiftui-mv" align="center"><strong>MV vs MVVM in SwiftUI</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-mv)
 
@@ -18451,7 +18451,7 @@ final class SearchModel {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swiftui-mvvm" align="center">MVVM in SwiftUI</h4>
+<p id="card-swiftui-mvvm" align="center"><strong>MVVM in SwiftUI</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-mvvm)
 
@@ -18505,7 +18505,7 @@ struct ProfileView: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-observableobject-vs-observable" align="center">ObservableObject vs @Observable</h4>
+<p id="card-observableobject-vs-observable" align="center"><strong>ObservableObject vs @Observable</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#observableobject-vs-observable)
 
@@ -18545,7 +18545,7 @@ struct Badge: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-preference-key" align="center">PreferenceKey</h4>
+<p id="card-preference-key" align="center"><strong>PreferenceKey</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#preference-key)
 
@@ -18586,7 +18586,7 @@ Text("Hi")
 </td></tr>
 <tr><td>
 
-<h4 id="card-programmatic-navigation" align="center">Programmatic navigation</h4>
+<p id="card-programmatic-navigation" align="center"><strong>Programmatic navigation</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#programmatic-navigation)
 
@@ -18635,7 +18635,7 @@ struct Inbox: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-environment" align="center">SwiftUI environment</h4>
+<p id="card-environment" align="center"><strong>SwiftUI environment</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#environment)
 
@@ -18682,7 +18682,7 @@ struct Card: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swiftui-lifecycle" align="center">SwiftUI view lifecycle</h4>
+<p id="card-swiftui-lifecycle" align="center"><strong>SwiftUI view lifecycle</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-lifecycle)
 
@@ -18726,7 +18726,7 @@ struct FeedView: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swiftui-vs-uikit" align="center">SwiftUI vs UIKit</h4>
+<p id="card-swiftui-vs-uikit" align="center"><strong>SwiftUI vs UIKit</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-vs-uikit)
 
@@ -18770,7 +18770,7 @@ struct RatingBadge: UIViewRepresentable {
 </td></tr>
 <tr><td>
 
-<h4 id="card-uikit-representable" align="center">UIKit in SwiftUI</h4>
+<p id="card-uikit-representable" align="center"><strong>UIKit in SwiftUI</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#uikit-representable)
 
@@ -18808,7 +18808,7 @@ struct Web: UIViewRepresentable {
 </td></tr>
 <tr><td>
 
-<h4 id="card-init-vs-onappear" align="center">View initializer vs onAppear</h4>
+<p id="card-init-vs-onappear" align="center"><strong>View initializer vs onAppear</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#init-vs-onappear)
 
@@ -18855,7 +18855,7 @@ struct ProfileView: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swiftui-rerender" align="center">When SwiftUI re-renders a view</h4>
+<p id="card-swiftui-rerender" align="center"><strong>When SwiftUI re-renders a view</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#swiftui-rerender)
 
@@ -18892,7 +18892,7 @@ struct Row: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-views-are-structs" align="center">Why SwiftUI views are structs</h4>
+<p id="card-views-are-structs" align="center"><strong>Why SwiftUI views are structs</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/swiftui.md#views-are-structs)
 
@@ -18931,7 +18931,7 @@ struct PriceLabel: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-anyview" align="center">AnyView</h4>
+<p id="card-anyview" align="center"><strong>AnyView</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swiftui.md#anyview)
 
@@ -18969,7 +18969,7 @@ func badge(isOn: Bool) -> some View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-lazyvgrid" align="center">LazyVGrid</h4>
+<p id="card-lazyvgrid" align="center"><strong>LazyVGrid</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swiftui.md#lazyvgrid)
 
@@ -19007,7 +19007,7 @@ LazyVGrid(columns: columns, spacing: 8) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-view-modifier" align="center">ViewModifier</h4>
+<p id="card-view-modifier" align="center"><strong>ViewModifier</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swiftui.md#view-modifier)
 
@@ -19049,7 +19049,7 @@ extension View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-matched-geometry" align="center">matchedGeometryEffect</h4>
+<p id="card-matched-geometry" align="center"><strong>matchedGeometryEffect</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/swiftui.md#matched-geometry)
 
@@ -19096,7 +19096,7 @@ struct Gallery: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-attribute-graph" align="center">AttributeGraph</h4>
+<p id="card-attribute-graph" align="center"><strong>AttributeGraph</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/swiftui.md#attribute-graph)
 
@@ -19130,7 +19130,7 @@ Cause & Effect: gesture → State → YourView.body (count of updates on the edg
 </td></tr>
 <tr><td>
 
-<h4 id="card-view-identity" align="center">View identity vs a ViewBuilder property</h4>
+<p id="card-view-identity" align="center"><strong>View identity vs a ViewBuilder property</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/swiftui.md#view-identity)
 
@@ -19170,7 +19170,7 @@ struct Screen: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-equatable-view" align="center">EquatableView</h4>
+<p id="card-equatable-view" align="center"><strong>EquatableView</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/swiftui.md#equatable-view)
 
@@ -19219,7 +19219,7 @@ Row(title: item.title).equatable()
 </td></tr>
 <tr><td>
 
-<h4 id="card-combine" align="center">Combine and reactive programming</h4>
+<p id="card-combine" align="center"><strong>Combine and reactive programming</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/combine.md#combine)
 
@@ -19256,7 +19256,7 @@ cancellable = NotificationCenter.default.publisher(for: UIApplication.didBecomeA
 </td></tr>
 <tr><td>
 
-<h4 id="card-combine-operators" align="center">Combining publishers</h4>
+<p id="card-combine-operators" align="center"><strong>Combining publishers</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/combine.md#combine-operators)
 
@@ -19295,7 +19295,7 @@ query
 </td></tr>
 <tr><td>
 
-<h4 id="card-combine-subjects" align="center">Subjects in Combine</h4>
+<p id="card-combine-subjects" align="center"><strong>Subjects in Combine</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/combine.md#combine-subjects)
 
@@ -19341,7 +19341,7 @@ name.send("Ada")
 </td></tr>
 <tr><td>
 
-<h4 id="card-http-methods" align="center">HTTP methods</h4>
+<p id="card-http-methods" align="center"><strong>HTTP methods</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#http-methods)
 
@@ -19377,7 +19377,7 @@ replace.httpMethod = "PUT"
 </td></tr>
 <tr><td>
 
-<h4 id="card-http-status" align="center">HTTP status codes</h4>
+<p id="card-http-status" align="center"><strong>HTTP status codes</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#http-status)
 
@@ -19415,7 +19415,7 @@ default: throw URLError(.badServerResponse)
 </td></tr>
 <tr><td>
 
-<h4 id="card-json" align="center">JSON</h4>
+<p id="card-json" align="center"><strong>JSON</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#json)
 
@@ -19448,7 +19448,7 @@ let tweets = try JSONDecoder().decode([Tweet].self, from: data)
 </td></tr>
 <tr><td>
 
-<h4 id="card-network-request" align="center">Making a network request</h4>
+<p id="card-network-request" align="center"><strong>Making a network request</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#network-request)
 
@@ -19488,7 +19488,7 @@ func loadUsers() async throws -> [User] {
 </td></tr>
 <tr><td>
 
-<h4 id="card-notification-center" align="center">NotificationCenter</h4>
+<p id="card-notification-center" align="center"><strong>NotificationCenter</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#notification-center)
 
@@ -19532,7 +19532,7 @@ NotificationCenter.default.post(name: .accountDidChange, object: nil)
 </td></tr>
 <tr><td>
 
-<h4 id="card-url-vs-urlrequest" align="center">URL vs URLRequest</h4>
+<p id="card-url-vs-urlrequest" align="center"><strong>URL vs URLRequest</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/networking.md#url-vs-urlrequest)
 
@@ -19568,7 +19568,7 @@ let (data, _) = try await URLSession.shared.data(for: request)
 </td></tr>
 <tr><td>
 
-<h4 id="card-local-notifications" align="center">Local vs remote notifications</h4>
+<p id="card-local-notifications" align="center"><strong>Local vs remote notifications</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/networking.md#local-notifications)
 
@@ -19606,7 +19606,7 @@ try await UNUserNotificationCenter.current().add(request)
 </td></tr>
 <tr><td>
 
-<h4 id="card-web-content" align="center">Showing web content</h4>
+<p id="card-web-content" align="center"><strong>Showing web content</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/networking.md#web-content)
 
@@ -19647,7 +19647,7 @@ present(safari, animated: true)
 </td></tr>
 <tr><td>
 
-<h4 id="card-push-notifications" align="center">Push notifications</h4>
+<p id="card-push-notifications" align="center"><strong>Push notifications</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#push-notifications)
 
@@ -19690,7 +19690,7 @@ func application(_ app: UIApplication,
 </td></tr>
 <tr><td>
 
-<h4 id="card-rest" align="center">REST</h4>
+<p id="card-rest" align="center"><strong>REST</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#rest)
 
@@ -19724,7 +19724,7 @@ DELETE /v1/tweets/12/likes
 </td></tr>
 <tr><td>
 
-<h4 id="card-retry-backoff" align="center">Retry with backoff</h4>
+<p id="card-retry-backoff" align="center"><strong>Retry with backoff</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#retry-backoff)
 
@@ -19769,7 +19769,7 @@ func get(_ url: URL) async throws -> Data {
 </td></tr>
 <tr><td>
 
-<h4 id="card-token-auth" align="center">Token authentication</h4>
+<p id="card-token-auth" align="center"><strong>Token authentication</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#token-auth)
 
@@ -19809,7 +19809,7 @@ actor AuthHeader {
 </td></tr>
 <tr><td>
 
-<h4 id="card-urlsession" align="center">URLSession</h4>
+<p id="card-urlsession" align="center"><strong>URLSession</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/networking.md#urlsession)
 
@@ -19851,7 +19851,7 @@ func load(_ url: URL) async throws -> Data {
 </td></tr>
 <tr><td>
 
-<h4 id="card-rest-vs-graphql" align="center">REST vs GraphQL</h4>
+<p id="card-rest-vs-graphql" align="center"><strong>REST vs GraphQL</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/networking.md#rest-vs-graphql)
 
@@ -19884,7 +19884,7 @@ GraphQL: { user(id: 1) { name posts { title } } }
 </td></tr>
 <tr><td>
 
-<h4 id="card-rest-vs-rpc" align="center">REST vs RPC</h4>
+<p id="card-rest-vs-rpc" align="center"><strong>REST vs RPC</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/networking.md#rest-vs-rpc)
 
@@ -19918,7 +19918,7 @@ gRPC:  Orders.Get(OrderId) → Order   // generated client
 </td></tr>
 <tr><td>
 
-<h4 id="card-reachability" align="center">Reachability</h4>
+<p id="card-reachability" align="center"><strong>Reachability</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/networking.md#reachability)
 
@@ -19955,7 +19955,7 @@ monitor.start(queue: .global(qos: .utility))
 </td></tr>
 <tr><td>
 
-<h4 id="card-url-cache" align="center">URLCache</h4>
+<p id="card-url-cache" align="center"><strong>URLCache</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/networking.md#url-cache)
 
@@ -19990,7 +19990,7 @@ let session = URLSession(configuration: config)
 </td></tr>
 <tr><td>
 
-<h4 id="card-websocket" align="center">WebSocket</h4>
+<p id="card-websocket" align="center"><strong>WebSocket</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/networking.md#websocket)
 
@@ -20035,7 +20035,7 @@ let message = try await task.receive()
 </td></tr>
 <tr><td>
 
-<h4 id="card-codable" align="center">Codable</h4>
+<p id="card-codable" align="center"><strong>Codable</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/persistence.md#codable)
 
@@ -20080,7 +20080,7 @@ let data = try JSONEncoder().encode(user)
 </td></tr>
 <tr><td>
 
-<h4 id="card-persist-options" align="center">How you persist data on iOS</h4>
+<p id="card-persist-options" align="center"><strong>How you persist data on iOS</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/persistence.md#persist-options)
 
@@ -20116,7 +20116,7 @@ shared shopping list → CloudKit or your API
 </td></tr>
 <tr><td>
 
-<h4 id="card-userdefaults" align="center">UserDefaults — good and bad uses</h4>
+<p id="card-userdefaults" align="center"><strong>UserDefaults — good and bad uses</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/persistence.md#userdefaults)
 
@@ -20156,7 +20156,7 @@ let seen = defaults.bool(forKey: "hasSeenOnboarding")
 </td></tr>
 <tr><td>
 
-<h4 id="card-list-directory" align="center">Listing files in a directory</h4>
+<p id="card-list-directory" align="center"><strong>Listing files in a directory</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/persistence.md#list-directory)
 
@@ -20195,7 +20195,7 @@ let files = try FileManager.default.contentsOfDirectory(
 </td></tr>
 <tr><td>
 
-<h4 id="card-cloudkit-vs-core-data" align="center">CloudKit vs Core Data</h4>
+<p id="card-cloudkit-vs-core-data" align="center"><strong>CloudKit vs Core Data</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#cloudkit-vs-core-data)
 
@@ -20235,7 +20235,7 @@ mirrored.loadPersistentStores { _, error in
 </td></tr>
 <tr><td>
 
-<h4 id="card-core-data" align="center">Core Data</h4>
+<p id="card-core-data" align="center"><strong>Core Data</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#core-data)
 
@@ -20277,7 +20277,7 @@ let notes = try container.viewContext.fetch(request)
 </td></tr>
 <tr><td>
 
-<h4 id="card-core-data-migration" align="center">Core Data migration</h4>
+<p id="card-core-data-migration" align="center"><strong>Core Data migration</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#core-data-migration)
 
@@ -20318,7 +20318,7 @@ try container.persistentStoreCoordinator.addPersistentStore(
 </td></tr>
 <tr><td>
 
-<h4 id="card-key-decoding-strategies" align="center">Key decoding strategies</h4>
+<p id="card-key-decoding-strategies" align="center"><strong>Key decoding strategies</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#key-decoding-strategies)
 
@@ -20358,7 +20358,7 @@ let payload = try decoder.decode(Payload.self, from: jsonData)
 </td></tr>
 <tr><td>
 
-<h4 id="card-swiftdata" align="center">SwiftData</h4>
+<p id="card-swiftdata" align="center"><strong>SwiftData</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/persistence.md#swiftdata)
 
@@ -20404,7 +20404,7 @@ struct NotesView: View {
 </td></tr>
 <tr><td>
 
-<h4 id="card-core-data-delete-rules" align="center">Core Data delete rules</h4>
+<p id="card-core-data-delete-rules" align="center"><strong>Core Data delete rules</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/persistence.md#core-data-delete-rules)
 
@@ -20438,7 +20438,7 @@ User.profile = Deny if a profile must not exist without a user
 </td></tr>
 <tr><td>
 
-<h4 id="card-core-data-vs-sqlite" align="center">Core Data vs SQLite vs Realm</h4>
+<p id="card-core-data-vs-sqlite" align="center"><strong>Core Data vs SQLite vs Realm</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/persistence.md#core-data-vs-sqlite)
 
@@ -20473,7 +20473,7 @@ Need encryption at rest  → say so; none of these is magic
 </td></tr>
 <tr><td>
 
-<h4 id="card-nsfetchrequest" align="center">NSFetchRequest</h4>
+<p id="card-nsfetchrequest" align="center"><strong>NSFetchRequest</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/persistence.md#nsfetchrequest)
 
@@ -20509,7 +20509,7 @@ let notes = try context.fetch(request)
 </td></tr>
 <tr><td>
 
-<h4 id="card-fetched-results-controller" align="center">NSFetchedResultsController</h4>
+<p id="card-fetched-results-controller" align="center"><strong>NSFetchedResultsController</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/persistence.md#fetched-results-controller)
 
@@ -20547,7 +20547,7 @@ try frc.performFetch()
 </td></tr>
 <tr><td>
 
-<h4 id="card-nspredicate" align="center">NSPredicate</h4>
+<p id="card-nspredicate" align="center"><strong>NSPredicate</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/persistence.md#nspredicate)
 
@@ -20580,7 +20580,7 @@ request.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", #keyPath(Note.titl
 </td></tr>
 <tr><td>
 
-<h4 id="card-nscoding" align="center">NSCoding and archiving</h4>
+<p id="card-nscoding" align="center"><strong>NSCoding and archiving</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/persistence.md#nscoding)
 
@@ -20613,7 +20613,7 @@ let colors = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, UI
 </td></tr>
 <tr><td>
 
-<h4 id="card-sort-descriptor" align="center">NSSortDescriptor</h4>
+<p id="card-sort-descriptor" align="center"><strong>NSSortDescriptor</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/persistence.md#sort-descriptor)
 
@@ -20662,7 +20662,7 @@ request.sortDescriptors = [byName, byDate]
 </td></tr>
 <tr><td>
 
-<h4 id="card-debugging" align="center">Debugging on iOS</h4>
+<p id="card-debugging" align="center"><strong>Debugging on iOS</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/performance.md#debugging)
 
@@ -20700,7 +20700,7 @@ log.debug("page \(cursor, privacy: .public)")
 </td></tr>
 <tr><td>
 
-<h4 id="card-hang-hitch-crash" align="center">Hang vs hitch vs crash</h4>
+<p id="card-hang-hitch-crash" align="center"><strong>Hang vs hitch vs crash</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#hang-hitch-crash)
 
@@ -20740,7 +20740,7 @@ Task.detached {
 </td></tr>
 <tr><td>
 
-<h4 id="card-crashes" align="center">Identify and resolve crashes</h4>
+<p id="card-crashes" align="center"><strong>Identify and resolve crashes</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#crashes)
 
@@ -20784,7 +20784,7 @@ func decodeFeed(from data: Data) throws -> [Item] {
 </td></tr>
 <tr><td>
 
-<h4 id="card-performance-issues" align="center">Identify and resolve performance issues</h4>
+<p id="card-performance-issues" align="center"><strong>Identify and resolve performance issues</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#performance-issues)
 
@@ -20828,7 +20828,7 @@ func loadFeed() async {
 </td></tr>
 <tr><td>
 
-<h4 id="card-in-memory-cache" align="center">In-memory cache</h4>
+<p id="card-in-memory-cache" align="center"><strong>In-memory cache</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#in-memory-cache)
 
@@ -20878,7 +20878,7 @@ final class ImageCache {
 </td></tr>
 <tr><td>
 
-<h4 id="card-instruments" align="center">Instruments</h4>
+<p id="card-instruments" align="center"><strong>Instruments</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#instruments)
 
@@ -20914,7 +20914,7 @@ deinit never fires → Memory Graph first; Leaks if the graph is clean but the h
 </td></tr>
 <tr><td>
 
-<h4 id="card-lru-cache" align="center">LRU cache</h4>
+<p id="card-lru-cache" align="center"><strong>LRU cache</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#lru-cache)
 
@@ -20973,7 +20973,7 @@ final class LRUCache<Key: Hashable, Value> {
 </td></tr>
 <tr><td>
 
-<h4 id="card-nscache-vs-dictionary" align="center">NSCache vs Dictionary</h4>
+<p id="card-nscache-vs-dictionary" align="center"><strong>NSCache vs Dictionary</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#nscache-vs-dictionary)
 
@@ -21021,7 +21021,7 @@ final class ImageCache {
 </td></tr>
 <tr><td>
 
-<h4 id="card-dsym" align="center">dSYM</h4>
+<p id="card-dsym" align="center"><strong>dSYM</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/performance.md#dsym)
 
@@ -21055,7 +21055,7 @@ dwarfdump -u App.app.dSYM
 </td></tr>
 <tr><td>
 
-<h4 id="card-app-thinning" align="center">App Thinning</h4>
+<p id="card-app-thinning" align="center"><strong>App Thinning</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/performance.md#app-thinning)
 
@@ -21089,7 +21089,7 @@ On-Demand: NSBundleResourceRequest(tags: ["level3"])
 </td></tr>
 <tr><td>
 
-<h4 id="card-battery" align="center">Battery life issues</h4>
+<p id="card-battery" align="center"><strong>Battery life issues</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/performance.md#battery)
 
@@ -21135,7 +21135,7 @@ func sceneDidEnterBackground() {
 </td></tr>
 <tr><td>
 
-<h4 id="card-binary-size" align="center">Binary / IPA size</h4>
+<p id="card-binary-size" align="center"><strong>Binary / IPA size</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/performance.md#binary-size)
 
@@ -21168,7 +21168,7 @@ Build Settings → Write Link Map File = YES
 </td></tr>
 <tr><td>
 
-<h4 id="card-launch-time" align="center">Launch time</h4>
+<p id="card-launch-time" align="center"><strong>Launch time</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/performance.md#launch-time)
 
@@ -21207,7 +21207,7 @@ func application(_ app: UIApplication,
 </td></tr>
 <tr><td>
 
-<h4 id="card-compile-time" align="center">Compile time</h4>
+<p id="card-compile-time" align="center"><strong>Compile time</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/performance.md#compile-time)
 
@@ -21255,7 +21255,7 @@ let enabled: AnyPublisher<Bool, Never> = email
 </td></tr>
 <tr><td>
 
-<h4 id="card-ats" align="center">App Transport Security</h4>
+<p id="card-ats" align="center"><strong>App Transport Security</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/security.md#ats)
 
@@ -21302,7 +21302,7 @@ ATS is the OS rule that App Transport / `URLSession` must use HTTPS with modern 
 </td></tr>
 <tr><td>
 
-<h4 id="card-app-sandbox" align="center">App Sandbox</h4>
+<p id="card-app-sandbox" align="center"><strong>App Sandbox</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/security.md#app-sandbox)
 
@@ -21339,7 +21339,7 @@ try data.write(to: file, options: .atomic)
 </td></tr>
 <tr><td>
 
-<h4 id="card-api-keys" align="center">API keys</h4>
+<p id="card-api-keys" align="center"><strong>API keys</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/security.md#api-keys)
 
@@ -21375,7 +21375,7 @@ enum Config {
 </td></tr>
 <tr><td>
 
-<h4 id="card-encoding-vs-encryption" align="center">Encoding vs encryption vs hashing</h4>
+<p id="card-encoding-vs-encryption" align="center"><strong>Encoding vs encryption vs hashing</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/security.md#encoding-vs-encryption)
 
@@ -21412,7 +21412,7 @@ let box = try AES.GCM.seal(bytes, using: key)      // secret if the key is
 </td></tr>
 <tr><td>
 
-<h4 id="card-biometrics" align="center">Face ID / Touch ID</h4>
+<p id="card-biometrics" align="center"><strong>Face ID / Touch ID</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/security.md#biometrics)
 
@@ -21458,7 +21458,7 @@ func unlockLocalSecret() async throws {
 </td></tr>
 <tr><td>
 
-<h4 id="card-keychain" align="center">Keychain</h4>
+<p id="card-keychain" align="center"><strong>Keychain</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/security.md#keychain)
 
@@ -21503,7 +21503,7 @@ func saveToken(_ token: String) throws {
 </td></tr>
 <tr><td>
 
-<h4 id="card-secure-hash" align="center">Secure hash</h4>
+<p id="card-secure-hash" align="center"><strong>Secure hash</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/security.md#secure-hash)
 
@@ -21548,7 +21548,7 @@ func hmac(_ data: Data, key: SymmetricKey) -> String {
 </td></tr>
 <tr><td>
 
-<h4 id="card-ssl-pinning" align="center">SSL pinning</h4>
+<p id="card-ssl-pinning" align="center"><strong>SSL pinning</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/security.md#ssl-pinning)
 
@@ -21599,7 +21599,7 @@ func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationCh
 </td></tr>
 <tr><td>
 
-<h4 id="card-dynamic-type" align="center">Dynamic Type</h4>
+<p id="card-dynamic-type" align="center"><strong>Dynamic Type</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/accessibility.md#dynamic-type)
 
@@ -21641,7 +21641,7 @@ Text(title)
 </td></tr>
 <tr><td>
 
-<h4 id="card-accessibility-focus" align="center">Accessibility focus in SwiftUI</h4>
+<p id="card-accessibility-focus" align="center"><strong>Accessibility focus in SwiftUI</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/accessibility.md#accessibility-focus)
 
@@ -21682,7 +21682,7 @@ TextField("Email", text: $email)
 </td></tr>
 <tr><td>
 
-<h4 id="card-accessibility-problems" align="center">Main accessibility problems to solve</h4>
+<p id="card-accessibility-problems" align="center"><strong>Main accessibility problems to solve</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/accessibility.md#accessibility-problems)
 
@@ -21718,7 +21718,7 @@ Spoken audit of one screen:
 </td></tr>
 <tr><td>
 
-<h4 id="card-voiceover" align="center">Testing with VoiceOver</h4>
+<p id="card-voiceover" align="center"><strong>Testing with VoiceOver</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/accessibility.md#voiceover)
 
@@ -21762,7 +21762,7 @@ Spoken pass: turn VoiceOver on, swipe through the screen, and confirm order, nam
 </td></tr>
 <tr><td>
 
-<h4 id="card-accessibility-accommodations" align="center">Accessibility accommodations</h4>
+<p id="card-accessibility-accommodations" align="center"><strong>Accessibility accommodations</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/accessibility.md#accessibility-accommodations)
 
@@ -21816,7 +21816,7 @@ func playHero() {
 </td></tr>
 <tr><td>
 
-<h4 id="card-attributed-string" align="center">NSAttributedString</h4>
+<p id="card-attributed-string" align="center"><strong>NSAttributedString</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#attributed-string)
 
@@ -21853,7 +21853,7 @@ label.attributedText = text
 </td></tr>
 <tr><td>
 
-<h4 id="card-custom-sound" align="center">Playing a custom sound</h4>
+<p id="card-custom-sound" align="center"><strong>Playing a custom sound</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#custom-sound)
 
@@ -21902,7 +21902,7 @@ final class TapSound {
 </td></tr>
 <tr><td>
 
-<h4 id="card-storekit" align="center">StoreKit</h4>
+<p id="card-storekit" align="center"><strong>StoreKit</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/frameworks.md#storekit)
 
@@ -21949,7 +21949,7 @@ func buy(_ id: String) async throws {
 </td></tr>
 <tr><td>
 
-<h4 id="card-app-intents" align="center">App Intents</h4>
+<p id="card-app-intents" align="center"><strong>App Intents</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#app-intents)
 
@@ -21989,7 +21989,7 @@ struct LogWater: AppIntent {
 </td></tr>
 <tr><td>
 
-<h4 id="card-cadisplaylink" align="center">CADisplayLink</h4>
+<p id="card-cadisplaylink" align="center"><strong>CADisplayLink</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#cadisplaylink)
 
@@ -22038,7 +22038,7 @@ final class Pulse {
 </td></tr>
 <tr><td>
 
-<h4 id="card-calayer-subclasses" align="center">CALayer subclasses</h4>
+<p id="card-calayer-subclasses" align="center"><strong>CALayer subclasses</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#calayer-subclasses)
 
@@ -22081,7 +22081,7 @@ view.layer.insertSublayer(gradient, at: 0)
 </td></tr>
 <tr><td>
 
-<h4 id="card-affine-transform" align="center">CGAffineTransform</h4>
+<p id="card-affine-transform" align="center"><strong>CGAffineTransform</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#affine-transform)
 
@@ -22120,7 +22120,7 @@ path.apply(CGAffineTransform(rotationAngle: .pi / 4))
 </td></tr>
 <tr><td>
 
-<h4 id="card-core-graphics" align="center">Core Graphics</h4>
+<p id="card-core-graphics" align="center"><strong>Core Graphics</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#core-graphics)
 
@@ -22157,7 +22157,7 @@ let image = renderer.image { ctx in
 </td></tr>
 <tr><td>
 
-<h4 id="card-core-location" align="center">Core Location</h4>
+<p id="card-core-location" align="center"><strong>Core Location</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#core-location)
 
@@ -22192,7 +22192,7 @@ manager.startUpdatingLocation()
 </td></tr>
 <tr><td>
 
-<h4 id="card-healthkit" align="center">HealthKit</h4>
+<p id="card-healthkit" align="center"><strong>HealthKit</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#healthkit)
 
@@ -22230,7 +22230,7 @@ let predicate = HKQuery.predicateForSamples(withStart: start, end: now)
 </td></tr>
 <tr><td>
 
-<h4 id="card-live-activities" align="center">Live Activities</h4>
+<p id="card-live-activities" align="center"><strong>Live Activities</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#live-activities)
 
@@ -22265,7 +22265,7 @@ struct OrderAttributes: ActivityAttributes {
 </td></tr>
 <tr><td>
 
-<h4 id="card-widgetkit" align="center">WidgetKit</h4>
+<p id="card-widgetkit" align="center"><strong>WidgetKit</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#widgetkit)
 
@@ -22310,7 +22310,7 @@ struct Provider: TimelineProvider {
 </td></tr>
 <tr><td>
 
-<h4 id="card-app-clips" align="center">App Clips</h4>
+<p id="card-app-clips" align="center"><strong>App Clips</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/frameworks.md#app-clips)
 
@@ -22342,7 +22342,7 @@ Clip target → one screen (pay / order) → “Get the full app” → same tea
 </td></tr>
 <tr><td>
 
-<h4 id="card-core-image" align="center">Core Image</h4>
+<p id="card-core-image" align="center"><strong>Core Image</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/frameworks.md#core-image)
 
@@ -22380,7 +22380,7 @@ let output = context.createCGImage(filter.outputImage!, from: ciImage.extent)
 </td></tr>
 <tr><td>
 
-<h4 id="card-gameplaykit" align="center">GameplayKit</h4>
+<p id="card-gameplaykit" align="center"><strong>GameplayKit</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/frameworks.md#gameplaykit)
 
@@ -22420,7 +22420,7 @@ machine.enter(LoadingState.self)
 </td></tr>
 <tr><td>
 
-<h4 id="card-replaykit" align="center">ReplayKit</h4>
+<p id="card-replaykit" align="center"><strong>ReplayKit</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/frameworks.md#replaykit)
 
@@ -22466,7 +22466,7 @@ func toggleRecording() {
 </td></tr>
 <tr><td>
 
-<h4 id="card-spritekit-vs-scenekit" align="center">SpriteKit vs SceneKit</h4>
+<p id="card-spritekit-vs-scenekit" align="center"><strong>SpriteKit vs SceneKit</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/frameworks.md#spritekit-vs-scenekit)
 
@@ -22508,7 +22508,7 @@ scnView.scene = scn
 </td></tr>
 <tr><td>
 
-<h4 id="card-ibeacons" align="center">iBeacons</h4>
+<p id="card-ibeacons" align="center"><strong>iBeacons</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/frameworks.md#ibeacons)
 
@@ -22547,7 +22547,7 @@ manager.startRangingBeacons(satisfying: constraint)
 </td></tr>
 <tr><td>
 
-<h4 id="card-foundation-models" align="center">Foundation Models</h4>
+<p id="card-foundation-models" align="center"><strong>Foundation Models</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/frameworks.md#foundation-models)
 
@@ -22596,7 +22596,7 @@ struct RecipeDraft {
 </td></tr>
 <tr><td>
 
-<h4 id="card-nserror" align="center">NSError</h4>
+<p id="card-nserror" align="center"><strong>NSError</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#nserror)
 
@@ -22633,7 +22633,7 @@ do {
 </td></tr>
 <tr><td>
 
-<h4 id="card-iskindof-vs-ismember" align="center">isKindOfClass vs isMemberOfClass</h4>
+<p id="card-iskindof-vs-ismember" align="center"><strong>isKindOfClass vs isMemberOfClass</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#iskindof-vs-ismember)
 
@@ -22666,7 +22666,7 @@ do {
 </td></tr>
 <tr><td>
 
-<h4 id="card-nil-null" align="center">nil, Nil, NULL, NSNull</h4>
+<p id="card-nil-null" align="center"><strong>nil, Nil, NULL, NSNull</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#nil-null)
 
@@ -22702,7 +22702,7 @@ NSArray *a = @[ [NSNull null] ];
 </td></tr>
 <tr><td>
 
-<h4 id="card-objc-messaging" align="center">Messaging and nil</h4>
+<p id="card-objc-messaging" align="center"><strong>Messaging and nil</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#objc-messaging)
 
@@ -22735,7 +22735,7 @@ NSString *name = [obj description]; // nil, no crash
 </td></tr>
 <tr><td>
 
-<h4 id="card-runloop" align="center">RunLoop</h4>
+<p id="card-runloop" align="center"><strong>RunLoop</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#runloop)
 
@@ -22769,7 +22769,7 @@ RunLoop.main.add(timer, forMode: .common)
 </td></tr>
 <tr><td>
 
-<h4 id="card-timer-runloop" align="center">Timer pauses while scrolling</h4>
+<p id="card-timer-runloop" align="center"><strong>Timer pauses while scrolling</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#timer-runloop)
 
@@ -22803,7 +22803,7 @@ RunLoop.main.add(timer, forMode: .common)
 </td></tr>
 <tr><td>
 
-<h4 id="card-dynamic" align="center">@dynamic</h4>
+<p id="card-dynamic" align="center"><strong>@dynamic</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#dynamic)
 
@@ -22840,7 +22840,7 @@ RunLoop.main.add(timer, forMode: .common)
 </td></tr>
 <tr><td>
 
-<h4 id="card-category-vs-extension" align="center">Category vs class extension</h4>
+<p id="card-category-vs-extension" align="center"><strong>Category vs class extension</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#category-vs-extension)
 
@@ -22875,7 +22875,7 @@ A **category** (`@interface Foo (Bar)`) can be in another file and can target cl
 </td></tr>
 <tr><td>
 
-<h4 id="card-category-vs-inheritance" align="center">Category vs inheritance</h4>
+<p id="card-category-vs-inheritance" align="center"><strong>Category vs inheritance</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#category-vs-inheritance)
 
@@ -22909,7 +22909,7 @@ A **category** (Swift: extension) adds methods to an existing class you may not 
 </td></tr>
 <tr><td>
 
-<h4 id="card-underscore-vs-self" align="center">_ vs self.</h4>
+<p id="card-underscore-vs-self" align="center"><strong>_ vs self.</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#underscore-vs-self)
 
@@ -22947,7 +22947,7 @@ In ObjC, `_title` is the **ivar**; `self.title` goes through the **accessor** (K
 </td></tr>
 <tr><td>
 
-<h4 id="card-ivar-in-category" align="center">ivar in a category</h4>
+<p id="card-ivar-in-category" align="center"><strong>ivar in a category</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#ivar-in-category)
 
@@ -22981,7 +22981,7 @@ NSString *name = objc_getAssociatedObject(self, Key);
 </td></tr>
 <tr><td>
 
-<h4 id="card-unrecognized-selector" align="center">unrecognized selector</h4>
+<p id="card-unrecognized-selector" align="center"><strong>unrecognized selector</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#unrecognized-selector)
 
@@ -23014,7 +23014,7 @@ The runtime throws when it cannot find an IMP and **message forwarding** also fa
 </td></tr>
 <tr><td>
 
-<h4 id="card-synthesize" align="center">@synthesize</h4>
+<p id="card-synthesize" align="center"><strong>@synthesize</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/objc-runtime.md#synthesize)
 
@@ -23050,7 +23050,7 @@ The runtime throws when it cannot find an IMP and **message forwarding** also fa
 </td></tr>
 <tr><td>
 
-<h4 id="card-load-vs-initialize" align="center">+load vs +initialize</h4>
+<p id="card-load-vs-initialize" align="center"><strong>+load vs +initialize</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#load-vs-initialize)
 
@@ -23085,7 +23085,7 @@ The runtime throws when it cannot find an IMP and **message forwarding** also fa
 </td></tr>
 <tr><td>
 
-<h4 id="card-mach-o" align="center">Mach-O and dyld</h4>
+<p id="card-mach-o" align="center"><strong>Mach-O and dyld</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#mach-o)
 
@@ -23118,7 +23118,7 @@ DYLD_PRINT_STATISTICS=1
 </td></tr>
 <tr><td>
 
-<h4 id="card-isa" align="center">isa and object layout</h4>
+<p id="card-isa" align="center"><strong>isa and object layout</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/objc-runtime.md#isa)
 
@@ -23150,7 +23150,7 @@ NSLog(@"%@", NSStringFromClass(object_getClass(obj)));
 </td></tr>
 <tr><td>
 
-<h4 id="card-resident-thread" align="center">Keep-alive thread</h4>
+<p id="card-resident-thread" align="center"><strong>Keep-alive thread</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#resident-thread)
 
@@ -23185,7 +23185,7 @@ A background `NSThread` **exits when its start block returns**. To keep it for t
 </td></tr>
 <tr><td>
 
-<h4 id="card-method-swizzling" align="center">Method swizzling</h4>
+<p id="card-method-swizzling" align="center"><strong>Method swizzling</strong></p>
 
 <code>Senior</code> · <code>Medium</code><br>[Full card](topics/objc-runtime.md#method-swizzling)
 
@@ -23231,7 +23231,7 @@ static void swizzle(Class c, SEL a, SEL b) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-checkout-ui" align="center">Build a checkout UI in 60 minutes</h4>
+<p id="card-checkout-ui" align="center"><strong>Build a checkout UI in 60 minutes</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#checkout-ui)
 
@@ -23257,7 +23257,7 @@ Build a **checkout screen** in 60 minutes from a starter or a mock API: line ite
 </td></tr>
 <tr><td>
 
-<h4 id="card-match-simulator" align="center">Design a short match / score simulator</h4>
+<p id="card-match-simulator" align="center"><strong>Design a short match / score simulator</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#match-simulator)
 
@@ -23283,7 +23283,7 @@ Build a **small match simulator** in 90 minutes: pick two sides from a bundled J
 </td></tr>
 <tr><td>
 
-<h4 id="card-eta-polling" align="center">Real-time ETA polling</h4>
+<p id="card-eta-polling" align="center"><strong>Real-time ETA polling</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#eta-polling)
 
@@ -23309,7 +23309,7 @@ A ride-sharing screen must show a **live ETA** that refreshes about every 10 sec
 </td></tr>
 <tr><td>
 
-<h4 id="card-recently-deleted" align="center">Design a Recently Deleted album</h4>
+<p id="card-recently-deleted" align="center"><strong>Design a Recently Deleted album</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#recently-deleted)
 
@@ -23335,7 +23335,7 @@ Design **Recently Deleted** for a Photos-style library. Scope: 30-day tombstones
 </td></tr>
 <tr><td>
 
-<h4 id="card-clock-app" align="center">Design a clock app</h4>
+<p id="card-clock-app" align="center"><strong>Design a clock app</strong></p>
 
 <code>Mid</code> · <code>Low</code> · <code>Practice</code><br>[Full card](topics/system-design.md#clock-app)
 
@@ -23362,7 +23362,7 @@ Design Clock: local time, world clocks, alarms, timers. Focus on scheduling, tim
 </td></tr>
 <tr><td>
 
-<h4 id="card-live-wallpaper" align="center">Design a live wallpaper app</h4>
+<p id="card-live-wallpaper" align="center"><strong>Design a live wallpaper app</strong></p>
 
 <code>Mid</code> · <code>Low</code> · <code>Practice</code><br>[Full card](topics/system-design.md#live-wallpaper)
 
@@ -23389,7 +23389,7 @@ Design an app that shows animated wallpapers. iOS has no third-party live lock s
 </td></tr>
 <tr><td>
 
-<h4 id="card-recipe-app" align="center">Design a recipe app</h4>
+<p id="card-recipe-app" align="center"><strong>Design a recipe app</strong></p>
 
 <code>Mid</code> · <code>Low</code> · <code>Practice</code><br>[Full card](topics/system-design.md#recipe-app)
 
@@ -23417,7 +23417,7 @@ Design a recipe catalog: browse, search, favorites, offline pack. Images and a s
 </td></tr>
 <tr><td>
 
-<h4 id="card-design-client-app" align="center">Design Notes / Gmail / Facebook (iOS client)</h4>
+<p id="card-design-client-app" align="center"><strong>Design Notes / Gmail / Facebook (iOS client)</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#design-client-app)
 
@@ -23445,7 +23445,7 @@ Design the **iOS client** for Notes, Gmail, or Facebook. Ask scope first (offlin
 </td></tr>
 <tr><td>
 
-<h4 id="card-caching-library" align="center">Design a caching library</h4>
+<p id="card-caching-library" align="center"><strong>Design a caching library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#caching-library)
 
@@ -23472,7 +23472,7 @@ Design a generic cache (memory, optional disk). Public API, eviction (LRU / cost
 </td></tr>
 <tr><td>
 
-<h4 id="card-chat-app" align="center">Design a chat app</h4>
+<p id="card-chat-app" align="center"><strong>Design a chat app</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#chat-app)
 
@@ -23507,7 +23507,7 @@ Design a messaging client. Pick 1:1 or group, then 3–5 features: send/receive,
 </td></tr>
 <tr><td>
 
-<h4 id="card-file-downloader" align="center">Design a file downloader</h4>
+<p id="card-file-downloader" align="center"><strong>Design a file downloader</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#file-downloader)
 
@@ -23534,7 +23534,7 @@ Design a library that downloads large files: queue, pause/resume, progress, disk
 </td></tr>
 <tr><td>
 
-<h4 id="card-home-rails" align="center">Design a home screen of rails</h4>
+<p id="card-home-rails" align="center"><strong>Design a home screen of rails</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#home-rails)
 
@@ -23560,7 +23560,7 @@ Design a **Home** of independent rails (hero, continue, trending, ads). Scope: e
 </td></tr>
 <tr><td>
 
-<h4 id="card-delivery-tracker" align="center">Design a live delivery tracker</h4>
+<p id="card-delivery-tracker" align="center"><strong>Design a live delivery tracker</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#delivery-tracker)
 
@@ -23588,7 +23588,7 @@ Design a DoorDash / Uber Eats “your order is arriving” screen. Scope: order 
 </td></tr>
 <tr><td>
 
-<h4 id="card-location-sharing" align="center">Design a location sharing library</h4>
+<p id="card-location-sharing" align="center"><strong>Design a location sharing library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#location-sharing)
 
@@ -23616,7 +23616,7 @@ Design a library that publishes the user’s location to a backend and draws oth
 </td></tr>
 <tr><td>
 
-<h4 id="card-network-library" align="center">Design a networking library</h4>
+<p id="card-network-library" align="center"><strong>Design a networking library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#network-library)
 
@@ -23643,7 +23643,7 @@ Design a thin HTTP client over `URLSession`: request builder, auth plugin, retri
 </td></tr>
 <tr><td>
 
-<h4 id="card-news-feed" align="center">Design a news feed</h4>
+<p id="card-news-feed" align="center"><strong>Design a news feed</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#news-feed)
 
@@ -23670,7 +23670,7 @@ Design an infinite Twitter / Instagram / Facebook-style feed. Default scope: scr
 </td></tr>
 <tr><td>
 
-<h4 id="card-pagination" align="center">Design a pagination library</h4>
+<p id="card-pagination" align="center"><strong>Design a pagination library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#pagination)
 
@@ -23697,7 +23697,7 @@ Design a pager that a feed can bind to: next/previous page, refresh, local cache
 </td></tr>
 <tr><td>
 
-<h4 id="card-payment-checkout" align="center">Design a payment checkout</h4>
+<p id="card-payment-checkout" align="center"><strong>Design a payment checkout</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#payment-checkout)
 
@@ -23723,7 +23723,7 @@ Design a checkout screen that charges a card (or Apple Pay). Scope: tokenize on 
 </td></tr>
 <tr><td>
 
-<h4 id="card-push-system" align="center">Design a push notification system</h4>
+<p id="card-push-system" align="center"><strong>Design a push notification system</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#push-system)
 
@@ -23751,7 +23751,7 @@ Design the client + server path for remote push: permission, device token, APNs,
 </td></tr>
 <tr><td>
 
-<h4 id="card-sdui" align="center">Design a server-driven UI engine</h4>
+<p id="card-sdui" align="center"><strong>Design a server-driven UI engine</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#sdui)
 
@@ -23777,7 +23777,7 @@ Design a client that renders screens from a JSON (or proto) component tree. Scop
 </td></tr>
 <tr><td>
 
-<h4 id="card-short-video-feed" align="center">Design a short-form video feed</h4>
+<p id="card-short-video-feed" align="center"><strong>Design a short-form video feed</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#short-video-feed)
 
@@ -23803,7 +23803,7 @@ Design a Reels / TikTok-style vertical feed. Scope: swipe, autoplay the on-scree
 </td></tr>
 <tr><td>
 
-<h4 id="card-video-streaming" align="center">Design a video streaming player</h4>
+<p id="card-video-streaming" align="center"><strong>Design a video streaming player</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#video-streaming)
 
@@ -23830,7 +23830,7 @@ Design a long-form player (Netflix / YouTube). Scope: HLS playback, adaptive bit
 </td></tr>
 <tr><td>
 
-<h4 id="card-ab-experiments" align="center">Design an A/B experiment library</h4>
+<p id="card-ab-experiments" align="center"><strong>Design an A/B experiment library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#ab-experiments)
 
@@ -23858,7 +23858,7 @@ Design a client that fetches assignments, caches them, exposes `variant(for: fla
 </td></tr>
 <tr><td>
 
-<h4 id="card-analytics-library" align="center">Design an analytics library</h4>
+<p id="card-analytics-library" align="center"><strong>Design an analytics library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#analytics-library)
 
@@ -23886,7 +23886,7 @@ Design an event pipeline: `track(name, props)` from any thread, batching, disk b
 </td></tr>
 <tr><td>
 
-<h4 id="card-audio-player" align="center">Design an audio player</h4>
+<p id="card-audio-player" align="center"><strong>Design an audio player</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#audio-player)
 
@@ -23915,7 +23915,7 @@ Design a Spotify / Apple Music **client**. Default scope is three screens: **lib
 </td></tr>
 <tr><td>
 
-<h4 id="card-image-loader" align="center">Design an image loading library</h4>
+<p id="card-image-loader" align="center"><strong>Design an image loading library</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#image-loader)
 
@@ -23942,7 +23942,7 @@ Design a Kingfisher-style image loader: `url → UIImage` for a feed. Cover requ
 </td></tr>
 <tr><td>
 
-<h4 id="card-image-upload" align="center">Design an image upload pipeline</h4>
+<p id="card-image-upload" align="center"><strong>Design an image upload pipeline</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/system-design.md#image-upload)
 
@@ -23985,7 +23985,7 @@ struct Draft {
 </td></tr>
 <tr><td>
 
-<h4 id="card-offline-media" align="center">Design an offline media catalog</h4>
+<p id="card-offline-media" align="center"><strong>Design an offline media catalog</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#offline-media)
 
@@ -24011,7 +24011,7 @@ Design **offline downloads** for a streaming catalog (video or audio). Scope: re
 </td></tr>
 <tr><td>
 
-<h4 id="card-offline-sync" align="center">Design an offline-first sync engine</h4>
+<p id="card-offline-sync" align="center"><strong>Design an offline-first sync engine</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#offline-sync)
 
@@ -24039,7 +24039,7 @@ Design a local-first store that syncs when the network returns. Scope: dirty fla
 </td></tr>
 <tr><td>
 
-<h4 id="card-deep-links" align="center">Design deep links</h4>
+<p id="card-deep-links" align="center"><strong>Design deep links</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#deep-links)
 
@@ -24065,7 +24065,7 @@ Design Universal Links + custom URL schemes for an app that is sometimes not ins
 </td></tr>
 <tr><td>
 
-<h4 id="card-icloud-sync" align="center">Design iCloud-style device sync</h4>
+<p id="card-icloud-sync" align="center"><strong>Design iCloud-style device sync</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#icloud-sync)
 
@@ -24093,7 +24093,7 @@ Design **cross-device sync** for notes or photos. Scope: the **phone is the sour
 </td></tr>
 <tr><td>
 
-<h4 id="card-search-autocomplete" align="center">Design search with autocomplete</h4>
+<p id="card-search-autocomplete" align="center"><strong>Design search with autocomplete</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#search-autocomplete)
 
@@ -24119,7 +24119,7 @@ Design in-app search with typeahead. Scope: debounce, cancel the in-flight reque
 </td></tr>
 <tr><td>
 
-<h4 id="card-edge-first" align="center">Edge-first mobile design</h4>
+<p id="card-edge-first" align="center"><strong>Edge-first mobile design</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/system-design.md#edge-first)
 
@@ -24154,7 +24154,7 @@ Some mobile SD rooms are not “draw Kafka.” They score **who owns the write**
 </td></tr>
 <tr><td>
 
-<h4 id="card-sd-interview" align="center">How to run a mobile system design interview</h4>
+<p id="card-sd-interview" align="center"><strong>How to run a mobile system design interview</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/system-design.md#sd-interview)
 
@@ -24208,7 +24208,7 @@ struct Brief {
 </td></tr>
 <tr><td>
 
-<h4 id="card-unread-badge" align="center">Unread count / badge</h4>
+<p id="card-unread-badge" align="center"><strong>Unread count / badge</strong></p>
 
 <code>Senior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/system-design.md#unread-badge)
 
@@ -24235,7 +24235,7 @@ Design the unread-message (or unread-notification) counter: tab badge, chat-list
 </td></tr>
 <tr><td>
 
-<h4 id="card-airbnb-booking" align="center">Design Airbnb search and booking</h4>
+<p id="card-airbnb-booking" align="center"><strong>Design Airbnb search and booking</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#airbnb-booking)
 
@@ -24262,7 +24262,7 @@ Design search + book for stays. Scope: map and list stay in sync, debounce the q
 </td></tr>
 <tr><td>
 
-<h4 id="card-stories" align="center">Design Instagram / Facebook stories</h4>
+<p id="card-stories" align="center"><strong>Design Instagram / Facebook stories</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#stories)
 
@@ -24289,7 +24289,7 @@ Design stories: 24h expiry, tap-through, preload the next clip, seen-state, and 
 </td></tr>
 <tr><td>
 
-<h4 id="card-chatgpt-app" align="center">Design a ChatGPT-style client</h4>
+<p id="card-chatgpt-app" align="center"><strong>Design a ChatGPT-style client</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#chatgpt-app)
 
@@ -24316,7 +24316,7 @@ Design a ChatGPT-like iOS client (cloud model, not on-device). Scope: compose, s
 </td></tr>
 <tr><td>
 
-<h4 id="card-calendar-client" align="center">Design a calendar client</h4>
+<p id="card-calendar-client" align="center"><strong>Design a calendar client</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#calendar-client)
 
@@ -24342,7 +24342,7 @@ Design a Google / Apple Calendar iOS client. Scope: month + day, create an event
 </td></tr>
 <tr><td>
 
-<h4 id="card-collaborative-editor" align="center">Design a collaborative editor</h4>
+<p id="card-collaborative-editor" align="center"><strong>Design a collaborative editor</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#collaborative-editor)
 
@@ -24369,7 +24369,7 @@ Design a Notes / Docs client where two devices edit one document. Scope: local t
 </td></tr>
 <tr><td>
 
-<h4 id="card-crash-reporter" align="center">Design a crash reporter</h4>
+<p id="card-crash-reporter" align="center"><strong>Design a crash reporter</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#crash-reporter)
 
@@ -24395,7 +24395,7 @@ Design a Crashlytics-style client SDK. Scope: catch a fatal, persist a minidump 
 </td></tr>
 <tr><td>
 
-<h4 id="card-file-uploader" align="center">Design a file uploader library</h4>
+<p id="card-file-uploader" align="center"><strong>Design a file uploader library</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#file-uploader)
 
@@ -24421,7 +24421,7 @@ Design a reusable **uploader API** (any file, not only photos): enqueue, progres
 </td></tr>
 <tr><td>
 
-<h4 id="card-flight-booking" align="center">Design a flight booking flow</h4>
+<p id="card-flight-booking" align="center"><strong>Design a flight booking flow</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#flight-booking)
 
@@ -24448,7 +24448,7 @@ Design search → fare → seat → pay. Call out cache of search results, resto
 </td></tr>
 <tr><td>
 
-<h4 id="card-maps" align="center">Design a maps / navigation client</h4>
+<p id="card-maps" align="center"><strong>Design a maps / navigation client</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#maps)
 
@@ -24475,7 +24475,7 @@ Design a Maps-style **client**: search a place, show it on a map, start turn-by-
 </td></tr>
 <tr><td>
 
-<h4 id="card-ecommerce-catalog" align="center">Design a product catalog</h4>
+<p id="card-ecommerce-catalog" align="center"><strong>Design a product catalog</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#ecommerce-catalog)
 
@@ -24501,7 +24501,7 @@ Design an Amazon / Shopify-style catalog: search or browse grid, PDP, cart. Scop
 </td></tr>
 <tr><td>
 
-<h4 id="card-restaurant-ordering" align="center">Design a restaurant ordering app</h4>
+<p id="card-restaurant-ordering" align="center"><strong>Design a restaurant ordering app</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#restaurant-ordering)
 
@@ -24527,7 +24527,7 @@ Design a discovery + order + pay app (DoorDash merchant side, or a single-restau
 </td></tr>
 <tr><td>
 
-<h4 id="card-wallet" align="center">Design a wallet / balances screen</h4>
+<p id="card-wallet" align="center"><strong>Design a wallet / balances screen</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#wallet)
 
@@ -24553,7 +24553,7 @@ Design a **wallet** home: several balances (cards, deposits, points) from **diff
 </td></tr>
 <tr><td>
 
-<h4 id="card-on-device-llm" align="center">Design an on-device LLM assistant</h4>
+<p id="card-on-device-llm" align="center"><strong>Design an on-device LLM assistant</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#on-device-llm)
 
@@ -24581,7 +24581,7 @@ Design an on-device assistant (summarize this thread, answer from local notes). 
 </td></tr>
 <tr><td>
 
-<h4 id="card-clipboard-sync" align="center">Design clipboard / proximity sync</h4>
+<p id="card-clipboard-sync" align="center"><strong>Design clipboard / proximity sync</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#clipboard-sync)
 
@@ -24607,7 +24607,7 @@ Design **copy on phone, paste on laptop** (and the reverse). Scope: same iCloud 
 </td></tr>
 <tr><td>
 
-<h4 id="card-video-calling" align="center">Design video calling</h4>
+<p id="card-video-calling" align="center"><strong>Design video calling</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/system-design.md#video-calling)
 
@@ -24633,7 +24633,7 @@ Design a FaceTime / Meet / Zoom client. Scope: 1:1 call, camera + mic permission
 </td></tr>
 <tr><td>
 
-<h4 id="card-json-parser" align="center">Design a JSON parsing library</h4>
+<p id="card-json-parser" align="center"><strong>Design a JSON parsing library</strong></p>
 
 <code>Senior</code> · <code>Low</code> · <code>Practice</code><br>[Full card](topics/system-design.md#json-parser)
 
@@ -24660,7 +24660,7 @@ Design a Codable-class parser API (think Moshi/Gson): decode `Data` → `T`, cus
 </td></tr>
 <tr><td>
 
-<h4 id="card-contacts-realtime" align="center">Design a contacts app with live status</h4>
+<p id="card-contacts-realtime" align="center"><strong>Design a contacts app with live status</strong></p>
 
 <code>Senior</code> · <code>Low</code> · <code>Practice</code><br>[Full card](topics/system-design.md#contacts-realtime)
 
@@ -24687,7 +24687,7 @@ Design a contacts list plus presence (online / last seen). Local address book vs
 </td></tr>
 <tr><td>
 
-<h4 id="card-photo-editing" align="center">Design a photo editor</h4>
+<p id="card-photo-editing" align="center"><strong>Design a photo editor</strong></p>
 
 <code>Senior</code> · <code>Low</code> · <code>Practice</code><br>[Full card](topics/system-design.md#photo-editing)
 
@@ -24714,7 +24714,7 @@ Design an editor: crop, filters, export. Memory for a 12 MP bitmap, undo stack, 
 </td></tr>
 <tr><td>
 
-<h4 id="card-e-reader" align="center">Design an e-reader</h4>
+<p id="card-e-reader" align="center"><strong>Design an e-reader</strong></p>
 
 <code>Senior</code> · <code>Low</code> · <code>Practice</code><br>[Full card](topics/system-design.md#e-reader)
 
@@ -24751,7 +24751,7 @@ Design an iBooks / Kindle-style reader. Scope: open a book, paginate or scroll, 
 </td></tr>
 <tr><td>
 
-<h4 id="card-big-o" align="center">Big-O</h4>
+<p id="card-big-o" align="center"><strong>Big-O</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/algorithms.md#big-o)
 
@@ -24790,7 +24790,7 @@ func hasOverlap(_ ids: [Int]) -> Bool {
 </td></tr>
 <tr><td>
 
-<h4 id="card-fibonacci" align="center">Fibonacci</h4>
+<p id="card-fibonacci" align="center"><strong>Fibonacci</strong></p>
 
 <code>Junior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#fibonacci)
 
@@ -24816,7 +24816,7 @@ Given `n`, return the `n`th Fibonacci number (or the first `n` terms). Talk thro
 </td></tr>
 <tr><td>
 
-<h4 id="card-merge-lists" align="center">Merge two sorted lists</h4>
+<p id="card-merge-lists" align="center"><strong>Merge two sorted lists</strong></p>
 
 <code>Junior</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#merge-lists)
 
@@ -24842,7 +24842,7 @@ Merge two sorted singly linked lists into one sorted list. Dummy head + two poin
 </td></tr>
 <tr><td>
 
-<h4 id="card-anagram" align="center">Anagram</h4>
+<p id="card-anagram" align="center"><strong>Anagram</strong></p>
 
 <code>Junior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#anagram)
 
@@ -24868,7 +24868,7 @@ Decide if two strings are anagrams (same characters, same counts, order ignored)
 </td></tr>
 <tr><td>
 
-<h4 id="card-palindrome" align="center">Palindrome</h4>
+<p id="card-palindrome" align="center"><strong>Palindrome</strong></p>
 
 <code>Junior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#palindrome)
 
@@ -24894,7 +24894,7 @@ Decide if an integer (or a string) reads the same forwards and backwards. For an
 </td></tr>
 <tr><td>
 
-<h4 id="card-recursion" align="center">Recursion</h4>
+<p id="card-recursion" align="center"><strong>Recursion</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/algorithms.md#recursion)
 
@@ -24929,7 +24929,7 @@ func depth(_ node: Node?) -> Int {
 </td></tr>
 <tr><td>
 
-<h4 id="card-reverse-integer" align="center">Reverse an integer</h4>
+<p id="card-reverse-integer" align="center"><strong>Reverse an integer</strong></p>
 
 <code>Junior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#reverse-integer)
 
@@ -24955,7 +24955,7 @@ Given a signed 32-bit integer, reverse its digits (`1234 → 4321`, `-120 → -2
 </td></tr>
 <tr><td>
 
-<h4 id="card-second-largest" align="center">Second largest</h4>
+<p id="card-second-largest" align="center"><strong>Second largest</strong></p>
 
 <code>Junior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#second-largest)
 
@@ -24983,7 +24983,7 @@ One pass over `[Int]`: keep `largest` and `second`. Define ties (two copies of t
 </td></tr>
 <tr><td>
 
-<h4 id="card-reverse-list" align="center">Reverse a linked list</h4>
+<p id="card-reverse-list" align="center"><strong>Reverse a linked list</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#reverse-list)
 
@@ -25009,7 +25009,7 @@ Reverse a singly linked list in place. Speak the three-pointer walk (`prev`, `cu
 </td></tr>
 <tr><td>
 
-<h4 id="card-sliding-window" align="center">Sliding window</h4>
+<p id="card-sliding-window" align="center"><strong>Sliding window</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#sliding-window)
 
@@ -25035,7 +25035,7 @@ A string (or array) and a constraint: longest substring with ≤ K distinct char
 </td></tr>
 <tr><td>
 
-<h4 id="card-two-sum" align="center">Two-sum</h4>
+<p id="card-two-sum" align="center"><strong>Two-sum</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#two-sum)
 
@@ -25061,7 +25061,7 @@ Given an array of integers and a target sum, return the indices of two numbers t
 </td></tr>
 <tr><td>
 
-<h4 id="card-balanced-parens" align="center">Balanced parentheses</h4>
+<p id="card-balanced-parens" align="center"><strong>Balanced parentheses</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#balanced-parens)
 
@@ -25087,7 +25087,7 @@ Given a string of brackets `()[]{}`, decide if every opener has a matching close
 </td></tr>
 <tr><td>
 
-<h4 id="card-circular-buffer" align="center">Circular buffer</h4>
+<p id="card-circular-buffer" align="center"><strong>Circular buffer</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/algorithms.md#circular-buffer)
 
@@ -25138,7 +25138,7 @@ struct RingBuffer<T> {
 </td></tr>
 <tr><td>
 
-<h4 id="card-graph-traversal" align="center">Graph traversal</h4>
+<p id="card-graph-traversal" align="center"><strong>Graph traversal</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#graph-traversal)
 
@@ -25164,7 +25164,7 @@ An acyclic connected graph (or a tree with extra edges). Walk BFS vs DFS in Swif
 </td></tr>
 <tr><td>
 
-<h4 id="card-linked-list-cycle" align="center">Linked-list cycle</h4>
+<p id="card-linked-list-cycle" align="center"><strong>Linked-list cycle</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#linked-list-cycle)
 
@@ -25190,7 +25190,7 @@ Detect whether a singly linked list has a cycle. Speak Floyd: slow +1, fast +2; 
 </td></tr>
 <tr><td>
 
-<h4 id="card-merge-intervals" align="center">Merge intervals</h4>
+<p id="card-merge-intervals" align="center"><strong>Merge intervals</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#merge-intervals)
 
@@ -25216,7 +25216,7 @@ Given half-open or closed intervals `[start, end]`, return the merged set. Sort 
 </td></tr>
 <tr><td>
 
-<h4 id="card-merge-k-lists" align="center">Merge k sorted lists</h4>
+<p id="card-merge-k-lists" align="center"><strong>Merge k sorted lists</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#merge-k-lists)
 
@@ -25242,7 +25242,7 @@ Merge `k` sorted singly linked lists into one sorted list. Heap of the current h
 </td></tr>
 <tr><td>
 
-<h4 id="card-odd-even-list" align="center">Odd-even linked list</h4>
+<p id="card-odd-even-list" align="center"><strong>Odd-even linked list</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#odd-even-list)
 
@@ -25268,7 +25268,7 @@ Group a singly linked list as **odd-index nodes, then even-index nodes**, relati
 </td></tr>
 <tr><td>
 
-<h4 id="card-peak-element" align="center">Peak element</h4>
+<p id="card-peak-element" align="center"><strong>Peak element</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#peak-element)
 
@@ -25294,7 +25294,7 @@ A peak is an index whose value is strictly greater than its neighbors (ends comp
 </td></tr>
 <tr><td>
 
-<h4 id="card-phone-keypad" align="center">Phone keypad combinations</h4>
+<p id="card-phone-keypad" align="center"><strong>Phone keypad combinations</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#phone-keypad)
 
@@ -25320,7 +25320,7 @@ Given a digit string (`"23"`), return all letter combinations from the phone key
 </td></tr>
 <tr><td>
 
-<h4 id="card-trie" align="center">Prefix trie</h4>
+<p id="card-trie" align="center"><strong>Prefix trie</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#trie)
 
@@ -25346,7 +25346,7 @@ Implement a prefix tree: `insert`, `contains`, and `autocomplete(prefix, limit)`
 </td></tr>
 <tr><td>
 
-<h4 id="card-product-except-self" align="center">Product except self</h4>
+<p id="card-product-except-self" align="center"><strong>Product except self</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#product-except-self)
 
@@ -25372,7 +25372,7 @@ Given `[Int]`, return an array where `out[i]` is the product of every element ex
 </td></tr>
 <tr><td>
 
-<h4 id="card-rate-limiter" align="center">Rate limiter</h4>
+<p id="card-rate-limiter" align="center"><strong>Rate limiter</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#rate-limiter)
 
@@ -25398,7 +25398,7 @@ Allow at most `N` events per key in a sliding window of `W` seconds. Speak a deq
 </td></tr>
 <tr><td>
 
-<h4 id="card-sorted-list-dups" align="center">Remove duplicates from a sorted list</h4>
+<p id="card-sorted-list-dups" align="center"><strong>Remove duplicates from a sorted list</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#sorted-list-dups)
 
@@ -25424,7 +25424,7 @@ Given the head of a **sorted** singly linked list, delete duplicates so each val
 </td></tr>
 <tr><td>
 
-<h4 id="card-serialize-tree" align="center">Serialize a binary tree</h4>
+<p id="card-serialize-tree" align="center"><strong>Serialize a binary tree</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#serialize-tree)
 
@@ -25450,7 +25450,7 @@ Turn a binary tree into a string (or array) and rebuild the same shape. Preorder
 </td></tr>
 <tr><td>
 
-<h4 id="card-three-sum" align="center">Three-sum</h4>
+<p id="card-three-sum" align="center"><strong>Three-sum</strong></p>
 
 <code>Mid</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#three-sum)
 
@@ -25478,7 +25478,7 @@ Find all unique triplets in an `Int` array that sum to zero (or to a target). Sc
 </td></tr>
 <tr><td>
 
-<h4 id="card-in-memory-fs" align="center">In-memory file system</h4>
+<p id="card-in-memory-fs" align="center"><strong>In-memory file system</strong></p>
 
 <code>Senior</code> · <code>Medium</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#in-memory-fs)
 
@@ -25505,7 +25505,7 @@ Implement `mkdir`, `addContent` (append), `readContent`, and `ls` on a path tree
 </td></tr>
 <tr><td>
 
-<h4 id="card-tree-columns" align="center">Binary tree by column</h4>
+<p id="card-tree-columns" align="center"><strong>Binary tree by column</strong></p>
 
 <code>Senior</code> · <code>Low</code> · <code>Practice</code><br>[Full card](topics/algorithms.md#tree-columns)
 
@@ -25543,7 +25543,7 @@ Print (or return) a binary tree in **column order**: nodes with the same horizon
 </td></tr>
 <tr><td>
 
-<h4 id="card-app-lifecycle" align="center">App and scene lifecycle</h4>
+<p id="card-app-lifecycle" align="center"><strong>App and scene lifecycle</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/behavioral.md#app-lifecycle)
 
@@ -25590,7 +25590,7 @@ struct AppMain: App {
 </td></tr>
 <tr><td>
 
-<h4 id="card-spm" align="center">Swift Package Manager</h4>
+<p id="card-spm" align="center"><strong>Swift Package Manager</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/behavioral.md#spm)
 
@@ -25636,7 +25636,7 @@ let package = Package(
 </td></tr>
 <tr><td>
 
-<h4 id="card-test-types" align="center">Test types</h4>
+<p id="card-test-types" align="center"><strong>Test types</strong></p>
 
 <code>Junior</code> · <code>High</code><br>[Full card](topics/behavioral.md#test-types)
 
@@ -25672,7 +25672,7 @@ UI: tap Checkout, see Receipt
 </td></tr>
 <tr><td>
 
-<h4 id="card-app-store-review" align="center">App Store review</h4>
+<p id="card-app-store-review" align="center"><strong>App Store review</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#app-store-review)
 
@@ -25709,7 +25709,7 @@ Checklist before upload:
 </td></tr>
 <tr><td>
 
-<h4 id="card-arrange-act-assert" align="center">Arrange-Act-Assert</h4>
+<p id="card-arrange-act-assert" align="center"><strong>Arrange-Act-Assert</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#arrange-act-assert)
 
@@ -25745,7 +25745,7 @@ func testCheckoutDisabledWhenEmpty() {
 </td></tr>
 <tr><td>
 
-<h4 id="card-git-flow" align="center">Git Flow</h4>
+<p id="card-git-flow" align="center"><strong>Git Flow</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#git-flow)
 
@@ -25781,7 +25781,7 @@ feature/pay  •——•
 </td></tr>
 <tr><td>
 
-<h4 id="card-git-merge-rebase" align="center">Git merge vs rebase</h4>
+<p id="card-git-merge-rebase" align="center"><strong>Git merge vs rebase</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#git-merge-rebase)
 
@@ -25817,7 +25817,7 @@ git rebase origin/main    # your branch, not shared main
 </td></tr>
 <tr><td>
 
-<h4 id="card-info-plist" align="center">Info.plist settings</h4>
+<p id="card-info-plist" align="center"><strong>Info.plist settings</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#info-plist)
 
@@ -25861,7 +25861,7 @@ Info.plist is the app’s declared contract with the OS: bundle ID, version, usa
 </td></tr>
 <tr><td>
 
-<h4 id="card-scheme-vs-target" align="center">Scheme vs target</h4>
+<p id="card-scheme-vs-target" align="center"><strong>Scheme vs target</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#scheme-vs-target)
 
@@ -25894,7 +25894,7 @@ Scheme "MyApp Staging" → build MyApp (Staging xcconfig) + tests
 </td></tr>
 <tr><td>
 
-<h4 id="card-testflight" align="center">TestFlight</h4>
+<p id="card-testflight" align="center"><strong>TestFlight</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#testflight)
 
@@ -25927,7 +25927,7 @@ External: 10k waitlist, after beta review
 </td></tr>
 <tr><td>
 
-<h4 id="card-waterfall-vs-agile" align="center">Waterfall vs Agile</h4>
+<p id="card-waterfall-vs-agile" align="center"><strong>Waterfall vs Agile</strong></p>
 
 <code>Junior</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#waterfall-vs-agile)
 
@@ -25962,7 +25962,7 @@ Agile: ship onboarding this sprint, feed next, change the feed when review data 
 </td></tr>
 <tr><td>
 
-<h4 id="card-background-tasks" align="center">Background tasks</h4>
+<p id="card-background-tasks" align="center"><strong>Background tasks</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#background-tasks)
 
@@ -26000,7 +26000,7 @@ UIApplication.shared.endBackgroundTask(task)
 </td></tr>
 <tr><td>
 
-<h4 id="card-code-review" align="center">Code review process</h4>
+<p id="card-code-review" align="center"><strong>Code review process</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#code-review)
 
@@ -26036,7 +26036,7 @@ Spoken outline for a 200-line networking PR:
 </td></tr>
 <tr><td>
 
-<h4 id="card-code-signing" align="center">Code signing</h4>
+<p id="card-code-signing" align="center"><strong>Code signing</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#code-signing)
 
@@ -26073,7 +26073,7 @@ Spoken outline when a device install fails:
 </td></tr>
 <tr><td>
 
-<h4 id="card-ci" align="center">Continuous integration</h4>
+<p id="card-ci" align="center"><strong>Continuous integration</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#ci)
 
@@ -26107,7 +26107,7 @@ CI is a machine that runs your checks on every push: build, unit tests, sometime
 </td></tr>
 <tr><td>
 
-<h4 id="card-improve-existing-app" align="center">Improve an existing take-home app</h4>
+<p id="card-improve-existing-app" align="center"><strong>Improve an existing take-home app</strong></p>
 
 <code>Mid</code> · <code>High</code> · <code>Practice</code><br>[Full card](topics/behavioral.md#improve-existing-app)
 
@@ -26133,7 +26133,7 @@ You get a **working starter** (search a word, show a definition, or a thin list)
 </td></tr>
 <tr><td>
 
-<h4 id="card-deployment-target" align="center">Minimum deployment target</h4>
+<p id="card-deployment-target" align="center"><strong>Minimum deployment target</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#deployment-target)
 
@@ -26175,7 +26175,7 @@ func showStoreKit2Paywall() { /* Product.products(for:) */ }
 </td></tr>
 <tr><td>
 
-<h4 id="card-star" align="center">STAR stories</h4>
+<p id="card-star" align="center"><strong>STAR stories</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#star)
 
@@ -26211,7 +26211,7 @@ R: Error rate back under 0.2% the same day; we kept the flag for the next API mi
 </td></tr>
 <tr><td>
 
-<h4 id="card-screening-oa" align="center">Screening OA / assessment platform</h4>
+<p id="card-screening-oa" align="center"><strong>Screening OA / assessment platform</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#screening-oa)
 
@@ -26245,7 +26245,7 @@ Contest OA: 2–3 timed problems, then a human room if you pass.
 </td></tr>
 <tr><td>
 
-<h4 id="card-snapshot-tests" align="center">Snapshot tests</h4>
+<p id="card-snapshot-tests" align="center"><strong>Snapshot tests</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#snapshot-tests)
 
@@ -26283,7 +26283,7 @@ func testEmptyCartLayout() {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swift-testing" align="center">Swift Testing</h4>
+<p id="card-swift-testing" align="center"><strong>Swift Testing</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#swift-testing)
 
@@ -26332,7 +26332,7 @@ func quantity(_ n: Int) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-take-home" align="center">Take-home interview</h4>
+<p id="card-take-home" align="center"><strong>Take-home interview</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#take-home)
 
@@ -26378,7 +26378,7 @@ I skipped pagination to stay in the time box; the list is a `UITableView` + MVVM
 </td></tr>
 <tr><td>
 
-<h4 id="card-test-doubles" align="center">Test doubles</h4>
+<p id="card-test-doubles" align="center"><strong>Test doubles</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#test-doubles)
 
@@ -26423,7 +26423,7 @@ final class ListViewModel {
 </td></tr>
 <tr><td>
 
-<h4 id="card-test-async" align="center">Testing async code</h4>
+<p id="card-test-async" align="center"><strong>Testing async code</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#test-async)
 
@@ -26459,7 +26459,7 @@ func testLoadSetsTitle() async throws {
 </td></tr>
 <tr><td>
 
-<h4 id="card-third-party-vs-custom" align="center">Third-party vs custom</h4>
+<p id="card-third-party-vs-custom" align="center"><strong>Third-party vs custom</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#third-party-vs-custom)
 
@@ -26493,7 +26493,7 @@ Need JSON → Codable first.
 </td></tr>
 <tr><td>
 
-<h4 id="card-xctest" align="center">XCTest and UI tests</h4>
+<p id="card-xctest" align="center"><strong>XCTest and UI tests</strong></p>
 
 <code>Mid</code> · <code>High</code><br>[Full card](topics/behavioral.md#xctest)
 
@@ -26543,7 +26543,7 @@ final class CheckoutUITests: XCTestCase {
 </td></tr>
 <tr><td>
 
-<h4 id="card-binary-framework" align="center">Binary framework vs SDK</h4>
+<p id="card-binary-framework" align="center"><strong>Binary framework vs SDK</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#binary-framework)
 
@@ -26581,7 +26581,7 @@ xcodebuild -create-xcframework \
 </td></tr>
 <tr><td>
 
-<h4 id="card-code-coverage" align="center">Code coverage</h4>
+<p id="card-code-coverage" align="center"><strong>Code coverage</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#code-coverage)
 
@@ -26616,7 +26616,7 @@ func canCheckout(items: Int, total: Decimal) -> Bool {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swift-since-2014" align="center">How Swift has changed since 2014</h4>
+<p id="card-swift-since-2014" align="center"><strong>How Swift has changed since 2014</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#swift-since-2014)
 
@@ -26652,7 +26652,7 @@ Spoken outline:
 </td></tr>
 <tr><td>
 
-<h4 id="card-learn-framework" align="center">Learning a new framework</h4>
+<p id="card-learn-framework" align="center"><strong>Learning a new framework</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#learn-framework)
 
@@ -26684,7 +26684,7 @@ Need offline notes → SwiftData sample → spike: insert, fetch, fail on disk f
 </td></tr>
 <tr><td>
 
-<h4 id="card-objc-to-swift" align="center">Porting ObjC to Swift</h4>
+<p id="card-objc-to-swift" align="center"><strong>Porting ObjC to Swift</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#objc-to-swift)
 
@@ -26718,7 +26718,7 @@ Do not freeze the app for a rewrite. Keep the ObjC target building. Add Swift fi
 </td></tr>
 <tr><td>
 
-<h4 id="card-state-restoration" align="center">State restoration</h4>
+<p id="card-state-restoration" align="center"><strong>State restoration</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#state-restoration)
 
@@ -26754,7 +26754,7 @@ func sceneDidEnterBackground(_ scene: UIScene) {
 </td></tr>
 <tr><td>
 
-<h4 id="card-swift-vs-objc" align="center">Swift vs Objective-C</h4>
+<p id="card-swift-vs-objc" align="center"><strong>Swift vs Objective-C</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#swift-vs-objc)
 
@@ -26790,7 +26790,7 @@ Spoken outline:
 </td></tr>
 <tr><td>
 
-<h4 id="card-tdd" align="center">Test-driven development</h4>
+<p id="card-tdd" align="center"><strong>Test-driven development</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#tdd)
 
@@ -26826,7 +26826,7 @@ Spoken outline:
 </td></tr>
 <tr><td>
 
-<h4 id="card-xcconfig" align="center">xcconfig and environments</h4>
+<p id="card-xcconfig" align="center"><strong>xcconfig and environments</strong></p>
 
 <code>Mid</code> · <code>Medium</code><br>[Full card](topics/behavioral.md#xcconfig)
 
@@ -26860,7 +26860,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGING
 </td></tr>
 <tr><td>
 
-<h4 id="card-objc-interop" align="center">Objective-C interop</h4>
+<p id="card-objc-interop" align="center"><strong>Objective-C interop</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/behavioral.md#objc-interop)
 
@@ -26906,7 +26906,7 @@ final class SessionClient: NSObject {
 </td></tr>
 <tr><td>
 
-<h4 id="card-multiplatform" align="center">Working across Apple platforms</h4>
+<p id="card-multiplatform" align="center"><strong>Working across Apple platforms</strong></p>
 
 <code>Mid</code> · <code>Low</code><br>[Full card](topics/behavioral.md#multiplatform)
 
@@ -26944,7 +26944,7 @@ Spoken outline:
 </td></tr>
 <tr><td>
 
-<h4 id="card-brazil-ios-loop" align="center">Brazil product-company iOS loop</h4>
+<p id="card-brazil-ios-loop" align="center"><strong>Brazil product-company iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#brazil-ios-loop)
 
@@ -26980,7 +26980,7 @@ Large Brazil product companies (and remote US/EU loops that hire from there) usu
 </td></tr>
 <tr><td>
 
-<h4 id="card-cis-ios-loop" align="center">CIS product-company iOS loop</h4>
+<p id="card-cis-ios-loop" align="center"><strong>CIS product-company iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#cis-ios-loop)
 
@@ -27016,7 +27016,7 @@ Large CIS product companies (banks, classifieds, super-apps) usually run **HR �
 </td></tr>
 <tr><td>
 
-<h4 id="card-faang-ios-loop" align="center">FAANG iOS loop</h4>
+<p id="card-faang-ios-loop" align="center"><strong>FAANG iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#faang-ios-loop)
 
@@ -27057,7 +27057,7 @@ Google L4 iOS: DSA (sometimes in Swift) + a short iOS-concepts tail; team match 
 </td></tr>
 <tr><td>
 
-<h4 id="card-india-ios-loop" align="center">India product-company iOS loop</h4>
+<p id="card-india-ios-loop" align="center"><strong>India product-company iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#india-ios-loop)
 
@@ -27092,7 +27092,7 @@ Large India product companies often run **OA / DSA → a machine-coding room →
 </td></tr>
 <tr><td>
 
-<h4 id="card-marketplace-ios-loop" align="center">Marketplace iOS loop</h4>
+<p id="card-marketplace-ios-loop" align="center"><strong>Marketplace iOS loop</strong></p>
 
 <code>Senior</code> · <code>High</code><br>[Full card](topics/behavioral.md#marketplace-ios-loop)
 

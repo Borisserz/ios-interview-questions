@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: I was asked this in an interview
+    url: https://github.com/Borisserz/ios-interview-questions/discussions/new?category=q-a
+    about: Recap a question you heard. Not a bug, not a PR.
+  - name: How we add a card
+    url: https://github.com/Borisserz/ios-interview-questions/blob/main/CONTRIBUTING.md
+    about: Ritual, template, and rules before you file anything.

@@ -1,0 +1,72 @@
+name: Propose a question or source
+description: Suggest a new interview question, or a source we have not processed yet.
+title: "[Propose] "
+labels: ["propose"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Same meaning = one card. We rewrite answers in our own words — do not paste a course, blog, or another repo.
+
+        If you only heard a question in an interview and have no source URL, use [Discussions](https://github.com/Borisserz/ios-interview-questions/discussions/new?category=q-a) instead.
+
+        Read [CONTRIBUTING.md](https://github.com/Borisserz/ios-interview-questions/blob/main/CONTRIBUTING.md) first.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What are you sending
+      options:
+        - A specific question
+        - A source to process (article, talk, repo)
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: The question
+      description: English wording if you can. One question per issue when possible.
+      placeholder: What is the difference between weak and unowned?
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      options:
+        - Swift
+        - Memory
+        - Concurrency
+        - Architecture
+        - UIKit
+        - SwiftUI
+        - Combine
+        - Networking
+        - Persistence
+        - Performance
+        - Security
+        - Accessibility
+        - Frameworks
+        - Objective-C runtime
+        - System design
+        - Algorithms
+        - Behavioral / process
+        - Not sure
+  - type: dropdown
+    id: level
+    attributes:
+      label: Level (if you know)
+      options:
+        - Junior
+        - Mid
+        - Senior
+        - Not sure
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: Public URL, or where you heard it. No paywalled dump, no company tag on the card.
+      placeholder: https://
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Follow-up they asked, what a weak answer sounds like, or why this is common. Optional.
