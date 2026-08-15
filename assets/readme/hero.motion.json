@@ -1,0 +1,41 @@
+{
+  "width": 1200,
+  "fps": 12,
+  "duration": 5.0,
+  "colors": 128,
+  "dither": "none",
+  "clip_to_base_alpha": true,
+  "max_size_mb": 2.0,
+  "layers": [
+    {
+      "id": "card-slug",
+      "enter": {"start": 0.25, "end": 0.85, "from": [0, 18]},
+      "exit": {"start": 4.15, "end": 4.92, "to": [0, 18]}
+    },
+    {
+      "id": "card-title",
+      "enter": {"start": 0.40, "end": 1.00, "from": [0, 18]},
+      "exit": {"start": 4.15, "end": 4.92, "to": [0, 18]}
+    },
+    {
+      "id": "card-meta",
+      "enter": {"start": 0.70, "end": 1.30, "from": [24, 0]},
+      "exit": {"start": 4.15, "end": 4.92, "to": [24, 0]}
+    },
+    {
+      "id": "layer-answer",
+      "enter": {"start": 1.10, "end": 1.80, "from": [0, 20]},
+      "exit": {"start": 4.15, "end": 4.92, "to": [0, 20]}
+    },
+    {
+      "id": "layer-example",
+      "enter": {"start": 1.50, "end": 2.20, "from": [0, 20]},
+      "exit": {"start": 4.15, "end": 4.92, "to": [0, 20]}
+    },
+    {
+      "id": "layer-followups",
+      "enter": {"start": 1.90, "end": 2.60, "from": [0, 20]},
+      "exit": {"start": 4.15, "end": 4.92, "to": [0, 20]}
+    }
+  ]
+}

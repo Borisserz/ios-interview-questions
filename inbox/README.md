@@ -1,7 +1,6 @@
 # Inbox
 
-Drop a source here only when you need to keep the original nearby while we extract questions.
+This folder stays local (gitignored except this README). See [CONTRIBUTING.md](../CONTRIBUTING.md) for the source ritual.
 
-Do not commit long third-party text. The public repo keeps rewritten answers, not copied lists.
-
-After a source is processed, delete the raw file.
+- [sources.md](sources.md) — every source we have seen. Check it before processing a new one.
+- Raw dumps — only while extracting. Delete after. Do not commit long third-party text.

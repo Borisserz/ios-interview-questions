@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="400" viewBox="0 0 1200 400"
+     role="img" aria-labelledby="title desc">
+  <title id="title">iOS Interview Questions</title>
+  <desc id="desc">Spoken-answer notes for iOS interviews: one question, a full rewritten answer, a Swift example, and follow-ups. 458 cards across 17 topics.</desc>
+
+  <defs>
+    <clipPath id="frame">
+      <rect width="1200" height="400" rx="28"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect id="base" width="1200" height="400" fill="#12141A"/>
+
+    <g id="title-block" transform="translate(56 48)">
+      <text x="0" y="22"
+            font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="16" letter-spacing="2.4" fill="#8B9099">SPOKEN INTERVIEW NOTES</text>
+      <text x="0" y="92"
+            font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+            font-size="48" font-weight="700" fill="#F3EEE4">iOS Interview</text>
+      <text x="0" y="148"
+            font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+            font-size="48" font-weight="700" fill="#F3EEE4">Questions</text>
+      <text x="0" y="198"
+            font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+            font-size="22" fill="#C6C2B8">Question. Full answer. Swift. Follow-ups.</text>
+
+      <g id="stats" transform="translate(0 236)">
+        <text id="stat-cards" x="0" y="36"
+              font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+              font-size="36" font-weight="700" fill="#F05A28">458</text>
+        <text x="0" y="62"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="16" fill="#8B9099">cards</text>
+        <text id="stat-practice" x="148" y="36"
+              font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+              font-size="36" font-weight="700" fill="#F3EEE4">77</text>
+        <text x="148" y="62"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="16" fill="#8B9099">practice</text>
+        <text id="stat-topics" x="296" y="36"
+              font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+              font-size="36" font-weight="700" fill="#F3EEE4">17</text>
+        <text x="296" y="62"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="16" fill="#8B9099">topics</text>
+      </g>
+    </g>
+
+    <g id="project-card" transform="translate(620 36)">
+      <rect id="card-face" width="536" height="328" rx="18" fill="#FBF7EF"/>
+      <path d="M18 0 H80 L64 22 H18 Q18 0 18 0 Z" fill="#F05A28"/>
+      <text x="28" y="16"
+            font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="11" fill="#FBF7EF">CARD</text>
+
+      <g id="card-slug" transform="translate(28 44)">
+        <rect width="168" height="28" rx="8" fill="#EDE6D8"/>
+        <text x="12" y="19"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="14" fill="#5C616A">{#arc-vs-gc}</text>
+      </g>
+
+      <text id="card-title" x="28" y="108"
+            font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+            font-size="24" font-weight="700" fill="#12141A">ARC vs garbage collection</text>
+
+      <g id="card-meta" transform="translate(28 124)">
+        <rect width="72" height="28" rx="8" fill="#12141A"/>
+        <text x="14" y="19"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="13" fill="#F3EEE4">MID</text>
+        <rect x="80" width="84" height="28" rx="8" fill="#F05A28"/>
+        <text x="96" y="19"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="13" fill="#FBF7EF">HIGH</text>
+      </g>
+
+      <g id="layer-answer" transform="translate(28 172)">
+        <rect width="480" height="40" rx="10" fill="#F3EEE4"/>
+        <text x="14" y="16"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="12" letter-spacing="1.2" fill="#8B9099">ANSWER</text>
+        <text x="14" y="32"
+              font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+              font-size="18" fill="#12141A">Swift uses ARC, not a tracing GC.</text>
+      </g>
+
+      <g id="layer-example" transform="translate(28 220)">
+        <rect width="480" height="40" rx="10" fill="#F3EEE4"/>
+        <text x="14" y="16"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="12" letter-spacing="1.2" fill="#8B9099">EXAMPLE</text>
+        <text x="14" y="32"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="18" fill="#12141A">weak var owner: Owner?</text>
+      </g>
+
+      <g id="layer-followups" transform="translate(28 268)">
+        <rect width="480" height="40" rx="10" fill="#F3EEE4"/>
+        <text x="14" y="16"
+              font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+              font-size="12" letter-spacing="1.2" fill="#8B9099">FOLLOW-UPS</text>
+        <text x="14" y="32"
+              font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+              font-size="18" fill="#12141A">Weak vs unowned — which, and when?</text>
+      </g>
+    </g>
+  </g>
+</svg>
