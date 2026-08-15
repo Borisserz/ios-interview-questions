@@ -146,7 +146,7 @@ def render(cards: list[dict]) -> str:
     return f"""# iOS Interview Questions
 
 <p align="center">
-  <a href="./assets/readme/hero.svg"><img src="./assets/readme/hero.gif" width="100%" alt="iOS Interview Questions: spoken-answer notes. A sample card for ARC vs garbage collection shows Level, Frequency, Answer, Example, and Follow-ups."></a>
+  <img src="./assets/readme/hero.png" width="100%" alt="iOS Interview Questions: spoken-answer notes. A handwritten ARC card on paper, with counts for cards, practice prompts, and topics.">
 </p>
 
 <p align="center">
@@ -229,23 +229,26 @@ The local source log lives in `inbox/` and stays out of git.
 
 
 def sync_hero_counts(total: int, practice: int, topic_count: int) -> None:
-    svg_path = ROOT / "assets/readme/hero.svg"
-    if not svg_path.is_file():
-        return
-    text = svg_path.read_text(encoding="utf-8")
     replacements = {
         "stat-cards": str(total),
         "stat-practice": str(practice),
         "stat-topics": str(topic_count),
     }
-    for element_id, value in replacements.items():
-        text = re.sub(
-            rf'(id="{element_id}"[^>]*>)[^<]+',
-            rf"\g<1>{value}",
-            text,
-            count=1,
-        )
-    svg_path.write_text(text, encoding="utf-8")
+    for svg_path in (
+        ROOT / "assets/readme/hero.svg",
+        ROOT / "assets/readme/hero-left.svg",
+    ):
+        if not svg_path.is_file():
+            continue
+        text = svg_path.read_text(encoding="utf-8")
+        for element_id, value in replacements.items():
+            text = re.sub(
+                rf'(id="{element_id}"[^>]*>)[^<]+',
+                rf"\g<1>{value}",
+                text,
+                count=1,
+            )
+        svg_path.write_text(text, encoding="utf-8")
 
 
 def main() -> None:

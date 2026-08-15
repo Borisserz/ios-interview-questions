@@ -1,7 +1,7 @@
 # iOS Interview Questions
 
 <p align="center">
-  <a href="./assets/readme/hero.svg"><img src="./assets/readme/hero.gif" width="100%" alt="iOS Interview Questions: spoken-answer notes. A sample card for ARC vs garbage collection shows Level, Frequency, Answer, Example, and Follow-ups."></a>
+  <img src="./assets/readme/hero.png" width="100%" alt="iOS Interview Questions: spoken-answer notes. A handwritten ARC card on paper, with counts for cards, practice prompts, and topics.">
 </p>
 
 <p align="center">
