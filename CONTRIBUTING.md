@@ -10,7 +10,7 @@ One source at a time. Rewrite in our own words. Same meaning = one card.
 4. Write a full English answer, a short Swift example, and follow-ups. **Exception:** a system-design / algorithm / take-home **practice** prompt may skip Answer and Example — use `Kind: Practice` and a short Prompt plus follow-ups.
 5. Place the card in the matching `topics/*.md` file. Create the topic file if this is the first question in that topic.
 6. Update that file’s table of contents.
-7. Regenerate the homepage catalogs:
+7. Regenerate the homepage study decks (topics, High frequency, Show answer):
 
 ```bash
 python3 scripts/generate_readme.py
