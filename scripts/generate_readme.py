@@ -142,7 +142,11 @@ def render_card(card: dict, heading_id: bool = True) -> str:
     source = f"[Full card](topics/{card['file']}#{slug})"
     return "\n".join(
         [
-            '<table width="100%"><tr><td width="100%">',
+            "<table>",
+            "<tr><td>",
+            '<img src="./assets/readme/stretch.png" width="1200" height="1" alt="full width">',
+            "</td></tr>",
+            "<tr><td>",
             "",
             heading,
             "",
