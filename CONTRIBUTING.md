@@ -2,6 +2,8 @@
 
 One source at a time. Rewrite in our own words. Same meaning = one card.
 
+To suggest a question or a source from the website: **Issues → New issue → Propose a question or source**, or open [this form](https://github.com/Borisserz/ios-interview-questions/issues/new?template=propose-question.yml). Interview recaps without a URL go to [Discussions](https://github.com/Borisserz/ios-interview-questions/discussions/new?category=q-a).
+
 ## Ritual
 
 1. Check the local `inbox/sources.md` log (not in git) so the same source is not processed twice. Drop the source in chat. Put a raw copy in `inbox/` only if you need it while extracting. After processing, append the source to that log.
