@@ -28,7 +28,7 @@ The questions that show up across sources. Open a topic, say the answer, then re
 <details>
 <summary><strong>Swift</strong> · 51 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>== vs ===</h4>
 
@@ -61,7 +61,7 @@ a === c   // false
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Access control</h4>
 
@@ -98,7 +98,7 @@ open class Plugin {           // only if clients must subclass
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Any vs AnyObject</h4>
 
@@ -127,7 +127,7 @@ let objects: [AnyObject] = [UIView(), NSString(string: "x")]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Array vs set</h4>
 
@@ -163,7 +163,7 @@ func uniqued(_ values: [String]) -> [String] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Classes vs structs</h4>
 
@@ -203,7 +203,7 @@ also.size.width = 20  // box.size.width is 20
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Closures</h4>
 
@@ -239,7 +239,7 @@ func makeCounter() -> () -> Int {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Dictionary vs array</h4>
 
@@ -271,7 +271,7 @@ let ada = byID["1"]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Enums</h4>
 
@@ -305,7 +305,7 @@ enum LoadState<Value> {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Float vs Double vs CGFloat</h4>
 
@@ -338,7 +338,7 @@ let compact = Float(temperature)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Hashable, Equatable, Comparable</h4>
 
@@ -371,7 +371,7 @@ struct UserID: Hashable, Comparable {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Higher-order functions</h4>
 
@@ -401,7 +401,7 @@ let evenSum = raw.compactMap(Int.init).filter { $0.isMultiple(of: 2) }.reduce(0,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Identifiable</h4>
 
@@ -436,7 +436,7 @@ ForEach(teams) { team in
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Implicit vs explicit types</h4>
 
@@ -467,7 +467,7 @@ var items: [User] = []               // explicit — [] alone is ambiguous
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Nil coalescing</h4>
 
@@ -499,7 +499,7 @@ let taps = counts["home"] ?? 0
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Optional chaining</h4>
 
@@ -534,7 +534,7 @@ head.next?.value = "child"
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Property observers</h4>
 
@@ -567,7 +567,7 @@ score = 10
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Protocols</h4>
 
@@ -606,7 +606,7 @@ func printSummary(_ item: any Describable) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Stored vs computed properties</h4>
 
@@ -638,7 +638,7 @@ struct Size {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>String? vs String!</h4>
 
@@ -671,7 +671,7 @@ title = nil
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Swift collections</h4>
 
@@ -703,7 +703,7 @@ let ordered = [3, 1, 2]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Type safety</h4>
 
@@ -733,7 +733,7 @@ let parsed = Int("3") // Int?, not Int
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Value type vs reference type</h4>
 
@@ -771,7 +771,7 @@ r2.n = 2                 // r1.n == 2
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>What is an optional</h4>
 
@@ -808,7 +808,7 @@ print(n.map { $0 * 2 } ?? 0)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>deinit</h4>
 
@@ -846,7 +846,7 @@ final class Ticker {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>guard</h4>
 
@@ -877,7 +877,7 @@ func firstWord(in text: String?) -> String? {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>if let vs guard let</h4>
 
@@ -915,7 +915,7 @@ func label(_ name: String?) -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>lazy</h4>
 
@@ -950,7 +950,7 @@ final class Report {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>let vs var</h4>
 
@@ -986,7 +986,7 @@ box.value = 2 // ok
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>map vs compactMap</h4>
 
@@ -1019,7 +1019,7 @@ let flat = nested.flatMap { $0 }       // [1, 2, 3]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>mutating</h4>
 
@@ -1054,7 +1054,7 @@ c.bump()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>static</h4>
 
@@ -1087,7 +1087,7 @@ Theme.label("button")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>switch</h4>
 
@@ -1120,7 +1120,7 @@ case .failed: showRetry()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>try vs try? vs try!</h4>
 
@@ -1158,7 +1158,7 @@ let no = try? checked(-1)     // nil
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Associated types</h4>
 
@@ -1198,7 +1198,7 @@ func peekCount<S: Stack>(_ stack: S) -> String { "stack" }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Copy-on-Write</h4>
 
@@ -1240,7 +1240,7 @@ struct List {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Custom property wrappers</h4>
 
@@ -1282,7 +1282,7 @@ struct Game {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Enum associated values</h4>
 
@@ -1322,7 +1322,7 @@ func title(for state: LoadState) -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Escaping vs non-escaping closures</h4>
 
@@ -1359,7 +1359,7 @@ func runNow(_ handler: () -> Void) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Extension vs protocol extension</h4>
 
@@ -1402,7 +1402,7 @@ speaker.wave()    // wave — static if only on the extension
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Generics</h4>
 
@@ -1436,7 +1436,7 @@ struct Stack<Element> {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Method dispatch</h4>
 
@@ -1475,7 +1475,7 @@ func paint(_ item: any Drawable) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Opaque return types</h4>
 
@@ -1509,7 +1509,7 @@ func label(highlighted: Bool) -> some Equatable {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Result builders</h4>
 
@@ -1550,7 +1550,7 @@ func title() -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Result type</h4>
 
@@ -1587,7 +1587,7 @@ case .failure(let error): print(error)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Why immutability matters</h4>
 
@@ -1623,7 +1623,7 @@ working.balance += 5
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>defer</h4>
 
@@ -1659,7 +1659,7 @@ func parse() -> Int {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>final keyword</h4>
 
@@ -1691,7 +1691,7 @@ final class ImageCache {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>self vs Self</h4>
 
@@ -1732,7 +1732,7 @@ extension Point {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>some vs any</h4>
 
@@ -1764,7 +1764,7 @@ var items: [any Equatable] = [1, "x"]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Struct memory layout</h4>
 
@@ -1803,7 +1803,7 @@ MemoryLayout<Tight>.stride  // often 16 still on 64-bit, but size can differ
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Type erasure</h4>
 
@@ -1849,7 +1849,7 @@ struct AnyStore<Item>: Store {
 <details>
 <summary><strong>Memory</strong> · 7 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Explain ARC</h4>
 
@@ -1888,7 +1888,7 @@ mirror = nil                       // count = 0, deinit runs
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>How Swift handles memory</h4>
 
@@ -1935,7 +1935,7 @@ box2.value = 2
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>ARC vs garbage collection</h4>
 
@@ -1995,7 +1995,7 @@ do {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Identify and resolve a memory leak</h4>
 
@@ -2054,7 +2054,7 @@ final class Ticker {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Identify and resolve a retain cycle</h4>
 
@@ -2097,7 +2097,7 @@ final class ProfileLoader {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>autoreleasepool</h4>
 
@@ -2131,7 +2131,7 @@ func thumbnails(from data: [Data]) -> [UIImage] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>weak vs unowned</h4>
 
@@ -2179,7 +2179,7 @@ final class Field {
 <details>
 <summary><strong>Concurrency</strong> · 23 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Concurrency vs parallelism</h4>
 
@@ -2213,7 +2213,7 @@ let (l, r) = await (a, b)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>@MainActor</h4>
 
@@ -2258,7 +2258,7 @@ func fetch() async {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Actor vs serial DispatchQueue</h4>
 
@@ -2295,7 +2295,7 @@ actor SessionStore {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>AsyncSequence</h4>
 
@@ -2325,7 +2325,7 @@ for await note in NotificationCenter.default.notifications(named: .NSSystemTimeZ
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Checked continuations</h4>
 
@@ -2362,7 +2362,7 @@ func token() async throws -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Concurrency problems</h4>
 
@@ -2402,7 +2402,7 @@ actor Counter {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>DispatchGroup</h4>
 
@@ -2438,7 +2438,7 @@ group.notify(queue: .main) { table.reloadData() }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>DispatchSemaphore</h4>
 
@@ -2474,7 +2474,7 @@ final class Gate {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>GCD</h4>
 
@@ -2519,7 +2519,7 @@ func updateTitle(_ text: String) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>GCD vs OperationQueue</h4>
 
@@ -2556,7 +2556,7 @@ queue.addOperations([decode, upload], waitUntilFinished: false)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>GCD vs async/await</h4>
 
@@ -2595,7 +2595,7 @@ func load() async throws -> UIImage {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Locks</h4>
 
@@ -2634,7 +2634,7 @@ final class Counter {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Quality of Service</h4>
 
@@ -2666,7 +2666,7 @@ DispatchQueue.global(qos: .userInitiated).async {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Sendable</h4>
 
@@ -2705,7 +2705,7 @@ final class UnsafeCache {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Task cancellation</h4>
 
@@ -2742,7 +2742,7 @@ func loadAll(_ urls: [URL]) async throws -> [Data] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Task groups vs async let</h4>
 
@@ -2778,7 +2778,7 @@ func profile() async throws -> (User, [Post]) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Task vs Task.detached vs TaskGroup</h4>
 
@@ -2820,7 +2820,7 @@ func thumbnails(for urls: [URL]) async -> [URL: Data] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Thread-safe shared state</h4>
 
@@ -2856,7 +2856,7 @@ actor ImageStore {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>main.async vs main.sync</h4>
 
@@ -2895,7 +2895,7 @@ func applyTitle(_ text: String) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Actor reentrancy</h4>
 
@@ -2940,7 +2940,7 @@ actor ImageLoader {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Isolation domains</h4>
 
@@ -2976,7 +2976,7 @@ func show(_ row: String) { /* UI */ }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Swift 6 strict concurrency</h4>
 
@@ -3016,7 +3016,7 @@ final class FeedViewModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Thread explosion</h4>
 
@@ -3062,7 +3062,7 @@ await withTaskGroup(of: Void.self) { group in
 <details>
 <summary><strong>Architecture</strong> · 13 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Delegates</h4>
 
@@ -3102,7 +3102,7 @@ final class SearchService {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>MVC</h4>
 
@@ -3144,7 +3144,7 @@ final class NoteViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Dependency injection</h4>
 
@@ -3187,7 +3187,7 @@ final class Session {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design patterns in iOS</h4>
 
@@ -3231,7 +3231,7 @@ final class FeedViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Feature flags</h4>
 
@@ -3265,7 +3265,7 @@ func makeFeed(flags: Flagging) -> any FeedServing {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>MVVM</h4>
 
@@ -3306,7 +3306,7 @@ enum LoginError: Error { case tooShort }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Protocol-oriented programming</h4>
 
@@ -3347,7 +3347,7 @@ struct LiveClient: Fetching {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Repository pattern</h4>
 
@@ -3385,7 +3385,7 @@ struct RemoteUserRepository: UserRepository {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>SOLID</h4>
 
@@ -3419,7 +3419,7 @@ struct Checkout {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Singletons — when they help</h4>
 
@@ -3465,7 +3465,7 @@ final class Checkout {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Clean Architecture</h4>
 
@@ -3503,7 +3503,7 @@ struct LoginUseCase {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>MVVM-C</h4>
 
@@ -3537,7 +3537,7 @@ final class LoginViewModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>VIPER</h4>
 
@@ -3578,7 +3578,7 @@ final class LoginPresenter {
 <details>
 <summary><strong>UIKit</strong> · 23 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>@IBOutlet vs @IBAction</h4>
 
@@ -3614,7 +3614,7 @@ final class LoginViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Aspect fill vs aspect fit</h4>
 
@@ -3646,7 +3646,7 @@ logoView.clipsToBounds = false
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Auto Layout anchors</h4>
 
@@ -3681,7 +3681,7 @@ NSLayoutConstraint.activate([
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Auto Layout formula</h4>
 
@@ -3710,7 +3710,7 @@ box.widthAnchor.constraint(equalTo: box.heightAnchor, multiplier: 2)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Cell reuse identifiers</h4>
 
@@ -3748,7 +3748,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Dark mode</h4>
 
@@ -3785,7 +3785,7 @@ override func traitCollectionDidChange(_ previous: UITraitCollection?) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Modal vs push</h4>
 
@@ -3819,7 +3819,7 @@ present(compose, animated: true)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Safe area</h4>
 
@@ -3851,7 +3851,7 @@ NSLayoutConstraint.activate([
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Storyboards vs code layouts</h4>
 
@@ -3891,7 +3891,7 @@ final class ProfileViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>UIImage vs UIImageView</h4>
 
@@ -3923,7 +3923,7 @@ view.addSubview(imageView)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>UINavigationController</h4>
 
@@ -3952,7 +3952,7 @@ navigationController?.pushViewController(detail, animated: true)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>UIStackView</h4>
 
@@ -3984,7 +3984,7 @@ stack.distribution = .fill
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>UIViewController lifecycle</h4>
 
@@ -4031,7 +4031,7 @@ final class ProfileViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>frame vs bounds</h4>
 
@@ -4064,7 +4064,7 @@ child.transform = CGAffineTransform(rotationAngle: .pi / 8)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>prepareForReuse</h4>
 
@@ -4102,7 +4102,7 @@ final class PhotoCell: UITableViewCell {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Collection view vs table view</h4>
 
@@ -4142,7 +4142,7 @@ let grid = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Diffable data source</h4>
 
@@ -4181,7 +4181,7 @@ dataSource.apply(snapshot, animatingDifferences: true)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Intrinsic content size</h4>
 
@@ -4218,7 +4218,7 @@ final class BadgeView: UIView {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Passing data in iOS</h4>
 
@@ -4253,7 +4253,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Responder chain</h4>
 
@@ -4287,7 +4287,7 @@ final class EditorViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Size classes</h4>
 
@@ -4321,7 +4321,7 @@ override func traitCollectionDidChange(_ previous: UITraitCollection?) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Table view with remote images</h4>
 
@@ -4354,7 +4354,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>setNeedsLayout vs layoutIfNeeded</h4>
 
@@ -4391,7 +4391,7 @@ UIView.animate(withDuration: 0.25) {
 <details>
 <summary><strong>SwiftUI</strong> · 23 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>@Binding</h4>
 
@@ -4427,7 +4427,7 @@ struct Parent: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>@State</h4>
 
@@ -4461,7 +4461,7 @@ struct Counter: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>@Published</h4>
 
@@ -4496,7 +4496,7 @@ final class SearchModel: ObservableObject {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>@StateObject vs @ObservedObject</h4>
 
@@ -4536,7 +4536,7 @@ struct CartButton: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Choosing SwiftUI property wrappers</h4>
 
@@ -4577,7 +4577,7 @@ struct SearchField: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Environment object vs observed object</h4>
 
@@ -4620,7 +4620,7 @@ struct ProfileBadge: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>GeometryReader</h4>
 
@@ -4667,7 +4667,7 @@ private struct WidthKey: PreferenceKey {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>How an observable object announces changes</h4>
 
@@ -4706,7 +4706,7 @@ final class Clock: ObservableObject {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>LazyVStack vs VStack</h4>
 
@@ -4741,7 +4741,7 @@ ScrollView {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>MV vs MVVM in SwiftUI</h4>
 
@@ -4781,7 +4781,7 @@ final class SearchModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>MVVM in SwiftUI</h4>
 
@@ -4831,7 +4831,7 @@ struct ProfileView: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>ObservableObject vs @Observable</h4>
 
@@ -4867,7 +4867,7 @@ struct Badge: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>PreferenceKey</h4>
 
@@ -4904,7 +4904,7 @@ Text("Hi")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Programmatic navigation</h4>
 
@@ -4949,7 +4949,7 @@ struct Inbox: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>SwiftUI environment</h4>
 
@@ -4992,7 +4992,7 @@ struct Card: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>SwiftUI view lifecycle</h4>
 
@@ -5032,7 +5032,7 @@ struct FeedView: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>SwiftUI vs UIKit</h4>
 
@@ -5072,7 +5072,7 @@ struct RatingBadge: UIViewRepresentable {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>UIKit in SwiftUI</h4>
 
@@ -5106,7 +5106,7 @@ struct Web: UIViewRepresentable {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>View initializer vs onAppear</h4>
 
@@ -5149,7 +5149,7 @@ struct ProfileView: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>When SwiftUI re-renders a view</h4>
 
@@ -5182,7 +5182,7 @@ struct Row: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Why SwiftUI views are structs</h4>
 
@@ -5217,7 +5217,7 @@ struct PriceLabel: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>AttributeGraph</h4>
 
@@ -5247,7 +5247,7 @@ Cause & Effect: gesture → State → YourView.body (count of updates on the edg
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>View identity vs a ViewBuilder property</h4>
 
@@ -5288,7 +5288,7 @@ struct Screen: View {
 <details>
 <summary><strong>Combine</strong> · 2 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Combine and reactive programming</h4>
 
@@ -5321,7 +5321,7 @@ cancellable = NotificationCenter.default.publisher(for: UIApplication.didBecomeA
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Combining publishers</h4>
 
@@ -5361,7 +5361,7 @@ query
 <details>
 <summary><strong>Networking</strong> · 11 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>HTTP methods</h4>
 
@@ -5393,7 +5393,7 @@ replace.httpMethod = "PUT"
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>HTTP status codes</h4>
 
@@ -5427,7 +5427,7 @@ default: throw URLError(.badServerResponse)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>JSON</h4>
 
@@ -5456,7 +5456,7 @@ let tweets = try JSONDecoder().decode([Tweet].self, from: data)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Making a network request</h4>
 
@@ -5492,7 +5492,7 @@ func loadUsers() async throws -> [User] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>NotificationCenter</h4>
 
@@ -5532,7 +5532,7 @@ NotificationCenter.default.post(name: .accountDidChange, object: nil)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>URL vs URLRequest</h4>
 
@@ -5564,7 +5564,7 @@ let (data, _) = try await URLSession.shared.data(for: request)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Push notifications</h4>
 
@@ -5603,7 +5603,7 @@ func application(_ app: UIApplication,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>REST</h4>
 
@@ -5633,7 +5633,7 @@ DELETE /v1/tweets/12/likes
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Retry with backoff</h4>
 
@@ -5674,7 +5674,7 @@ func get(_ url: URL) async throws -> Data {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Token authentication</h4>
 
@@ -5710,7 +5710,7 @@ actor AuthHeader {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>URLSession</h4>
 
@@ -5753,7 +5753,7 @@ func load(_ url: URL) async throws -> Data {
 <details>
 <summary><strong>Persistence</strong> · 8 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Codable</h4>
 
@@ -5794,7 +5794,7 @@ let data = try JSONEncoder().encode(user)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>How you persist data on iOS</h4>
 
@@ -5826,7 +5826,7 @@ shared shopping list → CloudKit or your API
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>UserDefaults — good and bad uses</h4>
 
@@ -5862,7 +5862,7 @@ let seen = defaults.bool(forKey: "hasSeenOnboarding")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>CloudKit vs Core Data</h4>
 
@@ -5898,7 +5898,7 @@ mirrored.loadPersistentStores { _, error in
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Core Data</h4>
 
@@ -5936,7 +5936,7 @@ let notes = try container.viewContext.fetch(request)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Core Data migration</h4>
 
@@ -5973,7 +5973,7 @@ try container.persistentStoreCoordinator.addPersistentStore(
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Key decoding strategies</h4>
 
@@ -6009,7 +6009,7 @@ let payload = try decoder.decode(Payload.self, from: jsonData)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>SwiftData</h4>
 
@@ -6056,7 +6056,7 @@ struct NotesView: View {
 <details>
 <summary><strong>Performance</strong> · 11 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Debugging on iOS</h4>
 
@@ -6088,7 +6088,7 @@ log.debug("page \(cursor, privacy: .public)")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Hang vs hitch vs crash</h4>
 
@@ -6124,7 +6124,7 @@ Task.detached {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Identify and resolve crashes</h4>
 
@@ -6164,7 +6164,7 @@ func decodeFeed(from data: Data) throws -> [Item] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Identify and resolve performance issues</h4>
 
@@ -6204,7 +6204,7 @@ func loadFeed() async {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>In-memory cache</h4>
 
@@ -6250,7 +6250,7 @@ final class ImageCache {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Instruments</h4>
 
@@ -6282,7 +6282,7 @@ deinit never fires → Memory Graph first; Leaks if the graph is clean but the h
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>LRU cache</h4>
 
@@ -6337,7 +6337,7 @@ final class LRUCache<Key: Hashable, Value> {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>NSCache vs Dictionary</h4>
 
@@ -6381,7 +6381,7 @@ final class ImageCache {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>dSYM</h4>
 
@@ -6411,7 +6411,7 @@ dwarfdump -u App.app.dSYM
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Binary / IPA size</h4>
 
@@ -6440,7 +6440,7 @@ Build Settings → Write Link Map File = YES
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Launch time</h4>
 
@@ -6480,7 +6480,7 @@ func application(_ app: UIApplication,
 <details>
 <summary><strong>Security</strong> · 6 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>App Transport Security</h4>
 
@@ -6523,7 +6523,7 @@ ATS is the OS rule that App Transport / `URLSession` must use HTTPS with modern 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>API keys</h4>
 
@@ -6555,7 +6555,7 @@ enum Config {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Encoding vs encryption vs hashing</h4>
 
@@ -6588,7 +6588,7 @@ let box = try AES.GCM.seal(bytes, using: key)      // secret if the key is
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Face ID / Touch ID</h4>
 
@@ -6630,7 +6630,7 @@ func unlockLocalSecret() async throws {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Keychain</h4>
 
@@ -6671,7 +6671,7 @@ func saveToken(_ token: String) throws {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>SSL pinning</h4>
 
@@ -6712,7 +6712,7 @@ func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationCh
 <details>
 <summary><strong>Accessibility</strong> · 4 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Dynamic Type</h4>
 
@@ -6748,7 +6748,7 @@ Text(title)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Accessibility focus in SwiftUI</h4>
 
@@ -6785,7 +6785,7 @@ TextField("Email", text: $email)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Main accessibility problems to solve</h4>
 
@@ -6817,7 +6817,7 @@ Spoken audit of one screen:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Testing with VoiceOver</h4>
 
@@ -6862,7 +6862,7 @@ Spoken pass: turn VoiceOver on, swipe through the screen, and confirm order, nam
 <details>
 <summary><strong>Frameworks</strong> · 1 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>StoreKit</h4>
 
@@ -6910,7 +6910,7 @@ func buy(_ id: String) async throws {
 <details>
 <summary><strong>Objective-C runtime</strong> · 6 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Messaging and nil</h4>
 
@@ -6939,7 +6939,7 @@ NSString *name = [obj description]; // nil, no crash
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>RunLoop</h4>
 
@@ -6969,7 +6969,7 @@ RunLoop.main.add(timer, forMode: .common)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Timer pauses while scrolling</h4>
 
@@ -6999,7 +6999,7 @@ RunLoop.main.add(timer, forMode: .common)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>+load vs +initialize</h4>
 
@@ -7030,7 +7030,7 @@ RunLoop.main.add(timer, forMode: .common)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Mach-O and dyld</h4>
 
@@ -7059,7 +7059,7 @@ DYLD_PRINT_STATISTICS=1
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>isa and object layout</h4>
 
@@ -7092,7 +7092,7 @@ NSLog(@"%@", NSStringFromClass(object_getClass(obj)));
 <details>
 <summary><strong>System design</strong> · 31 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Build a checkout UI in 60 minutes</h4>
 
@@ -7114,7 +7114,7 @@ Build a **checkout screen** in 60 minutes from a starter or a mock API: line ite
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a short match / score simulator</h4>
 
@@ -7136,7 +7136,7 @@ Build a **small match simulator** in 90 minutes: pick two sides from a bundled J
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Real-time ETA polling</h4>
 
@@ -7158,7 +7158,7 @@ A ride-sharing screen must show a **live ETA** that refreshes about every 10 sec
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design Notes / Gmail / Facebook (iOS client)</h4>
 
@@ -7182,7 +7182,7 @@ Design the **iOS client** for Notes, Gmail, or Facebook. Ask scope first (offlin
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a caching library</h4>
 
@@ -7205,7 +7205,7 @@ Design a generic cache (memory, optional disk). Public API, eviction (LRU / cost
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a chat app</h4>
 
@@ -7236,7 +7236,7 @@ Design a messaging client. Pick 1:1 or group, then 3–5 features: send/receive,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a file downloader</h4>
 
@@ -7259,7 +7259,7 @@ Design a library that downloads large files: queue, pause/resume, progress, disk
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a home screen of rails</h4>
 
@@ -7281,7 +7281,7 @@ Design a **Home** of independent rails (hero, continue, trending, ads). Scope: e
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a live delivery tracker</h4>
 
@@ -7305,7 +7305,7 @@ Design a DoorDash / Uber Eats “your order is arriving” screen. Scope: order 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a location sharing library</h4>
 
@@ -7329,7 +7329,7 @@ Design a library that publishes the user’s location to a backend and draws oth
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a networking library</h4>
 
@@ -7352,7 +7352,7 @@ Design a thin HTTP client over `URLSession`: request builder, auth plugin, retri
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a news feed</h4>
 
@@ -7375,7 +7375,7 @@ Design an infinite Twitter / Instagram / Facebook-style feed. Default scope: scr
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a pagination library</h4>
 
@@ -7398,7 +7398,7 @@ Design a pager that a feed can bind to: next/previous page, refresh, local cache
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a payment checkout</h4>
 
@@ -7420,7 +7420,7 @@ Design a checkout screen that charges a card (or Apple Pay). Scope: tokenize on 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a push notification system</h4>
 
@@ -7444,7 +7444,7 @@ Design the client + server path for remote push: permission, device token, APNs,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a server-driven UI engine</h4>
 
@@ -7466,7 +7466,7 @@ Design a client that renders screens from a JSON (or proto) component tree. Scop
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a short-form video feed</h4>
 
@@ -7488,7 +7488,7 @@ Design a Reels / TikTok-style vertical feed. Scope: swipe, autoplay the on-scree
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design a video streaming player</h4>
 
@@ -7511,7 +7511,7 @@ Design a long-form player (Netflix / YouTube). Scope: HLS playback, adaptive bit
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design an A/B experiment library</h4>
 
@@ -7535,7 +7535,7 @@ Design a client that fetches assignments, caches them, exposes `variant(for: fla
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design an analytics library</h4>
 
@@ -7559,7 +7559,7 @@ Design an event pipeline: `track(name, props)` from any thread, batching, disk b
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design an audio player</h4>
 
@@ -7584,7 +7584,7 @@ Design a Spotify / Apple Music **client**. Default scope is three screens: **lib
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design an image loading library</h4>
 
@@ -7607,7 +7607,7 @@ Design a Kingfisher-style image loader: `url → UIImage` for a feed. Cover requ
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design an image upload pipeline</h4>
 
@@ -7646,7 +7646,7 @@ struct Draft {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design an offline media catalog</h4>
 
@@ -7668,7 +7668,7 @@ Design **offline downloads** for a streaming catalog (video or audio). Scope: re
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design an offline-first sync engine</h4>
 
@@ -7692,7 +7692,7 @@ Design a local-first store that syncs when the network returns. Scope: dirty fla
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design deep links</h4>
 
@@ -7714,7 +7714,7 @@ Design Universal Links + custom URL schemes for an app that is sometimes not ins
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design iCloud-style device sync</h4>
 
@@ -7738,7 +7738,7 @@ Design **cross-device sync** for notes or photos. Scope: the **phone is the sour
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Design search with autocomplete</h4>
 
@@ -7760,7 +7760,7 @@ Design in-app search with typeahead. Scope: debounce, cancel the in-flight reque
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Edge-first mobile design</h4>
 
@@ -7791,7 +7791,7 @@ Some mobile SD rooms are not “draw Kafka.” They score **who owns the write**
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>How to run a mobile system design interview</h4>
 
@@ -7841,7 +7841,7 @@ struct Brief {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Unread count / badge</h4>
 
@@ -7869,7 +7869,7 @@ Design the unread-message (or unread-notification) counter: tab badge, chat-list
 <details>
 <summary><strong>Algorithms</strong> · 6 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Big-O</h4>
 
@@ -7904,7 +7904,7 @@ func hasOverlap(_ ids: [Int]) -> Bool {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Fibonacci</h4>
 
@@ -7926,7 +7926,7 @@ Given `n`, return the `n`th Fibonacci number (or the first `n` terms). Talk thro
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Merge two sorted lists</h4>
 
@@ -7948,7 +7948,7 @@ Merge two sorted singly linked lists into one sorted list. Dummy head + two poin
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Reverse a linked list</h4>
 
@@ -7970,7 +7970,7 @@ Reverse a singly linked list in place. Speak the three-pointer walk (`prev`, `cu
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Sliding window</h4>
 
@@ -7992,7 +7992,7 @@ A string (or array) and a constraint: longest substring with ≤ K distinct char
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Two-sum</h4>
 
@@ -8019,7 +8019,7 @@ Given an array of integers and a target sum, return the indices of two numbers t
 <details>
 <summary><strong>Behavioral / process</strong> · 23 often asked</summary>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>App and scene lifecycle</h4>
 
@@ -8062,7 +8062,7 @@ struct AppMain: App {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Swift Package Manager</h4>
 
@@ -8104,7 +8104,7 @@ let package = Package(
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Test types</h4>
 
@@ -8136,7 +8136,7 @@ UI: tap Checkout, see Receipt
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Background tasks</h4>
 
@@ -8170,7 +8170,7 @@ UIApplication.shared.endBackgroundTask(task)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Code review process</h4>
 
@@ -8202,7 +8202,7 @@ Spoken outline for a 200-line networking PR:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Code signing</h4>
 
@@ -8235,7 +8235,7 @@ Spoken outline when a device install fails:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Continuous integration</h4>
 
@@ -8265,7 +8265,7 @@ CI is a machine that runs your checks on every push: build, unit tests, sometime
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Improve an existing take-home app</h4>
 
@@ -8287,7 +8287,7 @@ You get a **working starter** (search a word, show a definition, or a thin list)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Minimum deployment target</h4>
 
@@ -8325,7 +8325,7 @@ func showStoreKit2Paywall() { /* Product.products(for:) */ }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>STAR stories</h4>
 
@@ -8357,7 +8357,7 @@ R: Error rate back under 0.2% the same day; we kept the flag for the next API mi
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Screening OA / assessment platform</h4>
 
@@ -8387,7 +8387,7 @@ Contest OA: 2–3 timed problems, then a human room if you pass.
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Snapshot tests</h4>
 
@@ -8421,7 +8421,7 @@ func testEmptyCartLayout() {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Swift Testing</h4>
 
@@ -8466,7 +8466,7 @@ func quantity(_ n: Int) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Take-home interview</h4>
 
@@ -8508,7 +8508,7 @@ I skipped pagination to stay in the time box; the list is a `UITableView` + MVVM
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Test doubles</h4>
 
@@ -8549,7 +8549,7 @@ final class ListViewModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Testing async code</h4>
 
@@ -8581,7 +8581,7 @@ func testLoadSetsTitle() async throws {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Third-party vs custom</h4>
 
@@ -8611,7 +8611,7 @@ Need JSON → Codable first.
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>XCTest and UI tests</h4>
 
@@ -8657,7 +8657,7 @@ final class CheckoutUITests: XCTestCase {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Brazil product-company iOS loop</h4>
 
@@ -8689,7 +8689,7 @@ Large Brazil product companies (and remote US/EU loops that hire from there) usu
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>CIS product-company iOS loop</h4>
 
@@ -8721,7 +8721,7 @@ Large CIS product companies (banks, classifieds, super-apps) usually run **HR �
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>FAANG iOS loop</h4>
 
@@ -8758,7 +8758,7 @@ Google L4 iOS: DSA (sometimes in Swift) + a short iOS-concepts tail; team match 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>India product-company iOS loop</h4>
 
@@ -8789,7 +8789,7 @@ Large India product companies often run **OA / DSA → a machine-coding room →
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4>Marketplace iOS loop</h4>
 
@@ -8831,7 +8831,7 @@ SD: offline cart, stale GPS, what you persist across a kill.
 
 ### Swift · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-identity-vs-equality">== vs ===</h4>
 
@@ -8864,7 +8864,7 @@ a === c   // false
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-access-control">Access control</h4>
 
@@ -8901,7 +8901,7 @@ open class Plugin {           // only if clients must subclass
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-any-vs-anyobject">Any vs AnyObject</h4>
 
@@ -8930,7 +8930,7 @@ let objects: [AnyObject] = [UIView(), NSString(string: "x")]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-array-vs-set">Array vs set</h4>
 
@@ -8966,7 +8966,7 @@ func uniqued(_ values: [String]) -> [String] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-classes-vs-structs">Classes vs structs</h4>
 
@@ -9006,7 +9006,7 @@ also.size.width = 20  // box.size.width is 20
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-closures">Closures</h4>
 
@@ -9042,7 +9042,7 @@ func makeCounter() -> () -> Int {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dictionary-vs-array">Dictionary vs array</h4>
 
@@ -9074,7 +9074,7 @@ let ada = byID["1"]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-enums">Enums</h4>
 
@@ -9108,7 +9108,7 @@ enum LoadState<Value> {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-float-double-cgfloat">Float vs Double vs CGFloat</h4>
 
@@ -9141,7 +9141,7 @@ let compact = Float(temperature)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-hashable-equatable">Hashable, Equatable, Comparable</h4>
 
@@ -9174,7 +9174,7 @@ struct UserID: Hashable, Comparable {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-higher-order-functions">Higher-order functions</h4>
 
@@ -9204,7 +9204,7 @@ let evenSum = raw.compactMap(Int.init).filter { $0.isMultiple(of: 2) }.reduce(0,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-identifiable">Identifiable</h4>
 
@@ -9239,7 +9239,7 @@ ForEach(teams) { team in
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-implicit-vs-explicit">Implicit vs explicit types</h4>
 
@@ -9270,7 +9270,7 @@ var items: [User] = []               // explicit — [] alone is ambiguous
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-nil-coalescing">Nil coalescing</h4>
 
@@ -9302,7 +9302,7 @@ let taps = counts["home"] ?? 0
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-optional-chaining">Optional chaining</h4>
 
@@ -9337,7 +9337,7 @@ head.next?.value = "child"
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-property-observers">Property observers</h4>
 
@@ -9370,7 +9370,7 @@ score = 10
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-protocols">Protocols</h4>
 
@@ -9409,7 +9409,7 @@ func printSummary(_ item: any Describable) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-stored-vs-computed">Stored vs computed properties</h4>
 
@@ -9441,7 +9441,7 @@ struct Size {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-string-optional-vs-iuo">String? vs String!</h4>
 
@@ -9474,7 +9474,7 @@ title = nil
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-collections">Swift collections</h4>
 
@@ -9506,7 +9506,7 @@ let ordered = [3, 1, 2]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-type-safety">Type safety</h4>
 
@@ -9536,7 +9536,7 @@ let parsed = Int("3") // Int?, not Int
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-value-vs-reference">Value type vs reference type</h4>
 
@@ -9574,7 +9574,7 @@ r2.n = 2                 // r1.n == 2
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-optionals">What is an optional</h4>
 
@@ -9611,7 +9611,7 @@ print(n.map { $0 * 2 } ?? 0)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-deinit">deinit</h4>
 
@@ -9649,7 +9649,7 @@ final class Ticker {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-guard">guard</h4>
 
@@ -9680,7 +9680,7 @@ func firstWord(in text: String?) -> String? {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-if-let-vs-guard-let">if let vs guard let</h4>
 
@@ -9718,7 +9718,7 @@ func label(_ name: String?) -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-lazy">lazy</h4>
 
@@ -9753,7 +9753,7 @@ final class Report {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-let-vs-var">let vs var</h4>
 
@@ -9789,7 +9789,7 @@ box.value = 2 // ok
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-map-vs-compactmap">map vs compactMap</h4>
 
@@ -9822,7 +9822,7 @@ let flat = nested.flatMap { $0 }       // [1, 2, 3]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-mutating">mutating</h4>
 
@@ -9857,7 +9857,7 @@ c.bump()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-static">static</h4>
 
@@ -9890,7 +9890,7 @@ Theme.label("button")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-switch">switch</h4>
 
@@ -9923,7 +9923,7 @@ case .failed: showRetry()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-try-try-try">try vs try? vs try!</h4>
 
@@ -9961,7 +9961,7 @@ let no = try? checked(-1)     // nil
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-available">#available</h4>
 
@@ -9998,7 +9998,7 @@ func shimmer() {}
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-discardable-result">@discardableResult</h4>
 
@@ -10033,7 +10033,7 @@ updateTitle("Hi")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-main-attribute">@main</h4>
 
@@ -10066,7 +10066,7 @@ struct InterviewApp {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-caseiterable">CaseIterable</h4>
 
@@ -10098,7 +10098,7 @@ let titles = Tab.allCases.map(String.init(describing:))
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-class-vs-object">Class vs object</h4>
 
@@ -10129,7 +10129,7 @@ a === b  // false — two objects, one class
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-downcasting">Downcasting</h4>
 
@@ -10160,7 +10160,7 @@ func tap(_ sender: Any) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-functions-vs-methods">Functions vs methods</h4>
 
@@ -10194,7 +10194,7 @@ extension Int {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-multiple-inheritance">Multiple inheritance</h4>
 
@@ -10227,7 +10227,7 @@ struct Bird: Flying, Named {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-stored-properties-on-enum">Stored properties on an enum</h4>
 
@@ -10262,7 +10262,7 @@ enum Load<Value> {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-strings-are-collections">Strings are collections</h4>
 
@@ -10296,7 +10296,7 @@ let second = word[word.index(after: start)]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-subscripts">Subscripts</h4>
 
@@ -10331,7 +10331,7 @@ struct Grid {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swift-module">Swift module</h4>
 
@@ -10361,7 +10361,7 @@ internal struct Signer { }   // app cannot see this
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-tuples">Tuples</h4>
 
@@ -10395,7 +10395,7 @@ print(person.first)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-uuid">UUID</h4>
 
@@ -10429,7 +10429,7 @@ let parsed = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-variadic">Variadic functions</h4>
 
@@ -10462,7 +10462,7 @@ let mean = average(1, 2, 3, 4)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-assert">assert()</h4>
 
@@ -10493,7 +10493,7 @@ func element(at index: Int, in values: [Int]) -> Int {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-inout">inout</h4>
 
@@ -10524,7 +10524,7 @@ bump(&x) // x == 2
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-private-set">private(set)</h4>
 
@@ -10555,7 +10555,7 @@ struct Counter {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-typealias">typealias</h4>
 
@@ -10586,7 +10586,7 @@ func load(then: Done) { /* … */ }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-compare-tuples">Compare two tuples</h4>
 
@@ -10616,7 +10616,7 @@ Tuples compare **lexicographically** when every element is `Comparable` and both
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-one-sided-ranges">One-sided ranges</h4>
 
@@ -10651,7 +10651,7 @@ default: break
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-raw-strings">Raw strings</h4>
 
@@ -10682,7 +10682,7 @@ let line = #"Hello \#(name)"#
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-omit-return">When functions omit return</h4>
 
@@ -10716,7 +10716,7 @@ func label(for count: Int) -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-print-vs-debugprint">print vs debugPrint</h4>
 
@@ -10748,7 +10748,7 @@ debugPrint(words)  // ["a", "b c"]
 
 ### Swift · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-associated-types">Associated types</h4>
 
@@ -10788,7 +10788,7 @@ func peekCount<S: Stack>(_ stack: S) -> String { "stack" }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-copy-on-write">Copy-on-Write</h4>
 
@@ -10830,7 +10830,7 @@ struct List {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-property-wrappers">Custom property wrappers</h4>
 
@@ -10872,7 +10872,7 @@ struct Game {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-enum-associated-values">Enum associated values</h4>
 
@@ -10912,7 +10912,7 @@ func title(for state: LoadState) -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-escaping-closures">Escaping vs non-escaping closures</h4>
 
@@ -10949,7 +10949,7 @@ func runNow(_ handler: () -> Void) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-extension-vs-protocol-extension">Extension vs protocol extension</h4>
 
@@ -10992,7 +10992,7 @@ speaker.wave()    // wave — static if only on the extension
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-generics">Generics</h4>
 
@@ -11026,7 +11026,7 @@ struct Stack<Element> {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-method-dispatch">Method dispatch</h4>
 
@@ -11065,7 +11065,7 @@ func paint(_ item: any Drawable) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-opaque-return-types">Opaque return types</h4>
 
@@ -11099,7 +11099,7 @@ func label(highlighted: Bool) -> some Equatable {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-result-builders">Result builders</h4>
 
@@ -11140,7 +11140,7 @@ func title() -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-result-type">Result type</h4>
 
@@ -11177,7 +11177,7 @@ case .failure(let error): print(error)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-immutability">Why immutability matters</h4>
 
@@ -11213,7 +11213,7 @@ working.balance += 5
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-defer">defer</h4>
 
@@ -11249,7 +11249,7 @@ func parse() -> Int {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-final">final keyword</h4>
 
@@ -11281,7 +11281,7 @@ final class ImageCache {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-self-vs-self">self vs Self</h4>
 
@@ -11322,7 +11322,7 @@ extension Point {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-some-vs-any">some vs any</h4>
 
@@ -11354,7 +11354,7 @@ var items: [any Equatable] = [1, "x"]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-autoclosure">@autoclosure</h4>
 
@@ -11389,7 +11389,7 @@ expect(count > 0, "expensive \(Array(repeating: "!", count: 1000).joined())")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-frozen">@frozen</h4>
 
@@ -11427,7 +11427,7 @@ func label<Value>(_ load: Load<Value>) -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-abstract-class">Abstract class in Swift</h4>
 
@@ -11463,7 +11463,7 @@ extension Feed {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-composition-over-inheritance">Composition over inheritance</h4>
 
@@ -11492,7 +11492,7 @@ struct Player { var health: Health; var name: String }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-conditional-conformances">Conditional conformances</h4>
 
@@ -11528,7 +11528,7 @@ _ = a == b
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-designated-convenience-init">Designated vs convenience initializers</h4>
 
@@ -11560,7 +11560,7 @@ class Vehicle {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-failable-throwing-init">Failable and throwing initializers</h4>
 
@@ -11594,7 +11594,7 @@ struct Port {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-key-paths">Key paths</h4>
 
@@ -11629,7 +11629,7 @@ let oldest = users.sorted(by: \.age).last
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-macros">Macros</h4>
 
@@ -11664,7 +11664,7 @@ final class Cart {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-mirror">Mirror and reflection</h4>
 
@@ -11695,7 +11695,7 @@ for child in Mirror(reflecting: User(name: "Ada", age: 36)).children {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-never">Never</h4>
 
@@ -11727,7 +11727,7 @@ let taps = PassthroughSubject<Void, Never>()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-string-count">String.count complexity</h4>
 
@@ -11758,7 +11758,7 @@ s.utf16.count    // 11
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-typed-throws">Typed throws</h4>
 
@@ -11798,7 +11798,7 @@ do {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-error-directive">#error directive</h4>
 
@@ -11829,7 +11829,7 @@ do {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-if-swift">#if swift</h4>
 
@@ -11861,7 +11861,7 @@ func featureFlag() -> String { "older Swift" }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-multi-pattern-catch">Multi-pattern catch</h4>
 
@@ -11899,7 +11899,7 @@ func handle(_ work: () throws -> Void) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-operator-overloading">Operator overloading</h4>
 
@@ -11935,7 +11935,7 @@ let total = Seconds(value: 10) + Seconds(value: 5)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-can-import">canImport()</h4>
 
@@ -11969,7 +11969,7 @@ typealias NativeColor = NSColor
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-target-environment">targetEnvironment()</h4>
 
@@ -12005,7 +12005,7 @@ func analyticsEndpoint() -> String {
 
 ### Swift · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-struct-memory-layout">Struct memory layout</h4>
 
@@ -12044,7 +12044,7 @@ MemoryLayout<Tight>.stride  // often 16 still on 64-bit, but size can differ
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-type-erasure">Type erasure</h4>
 
@@ -12085,7 +12085,7 @@ struct AnyStore<Item>: Store {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-abi-stability">ABI and module stability</h4>
 
@@ -12128,7 +12128,7 @@ BUILD_LIBRARY_FOR_DISTRIBUTION = YES
 
 ### Memory · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-explain-arc">Explain ARC</h4>
 
@@ -12167,7 +12167,7 @@ mirror = nil                       // count = 0, deinit runs
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swift-memory-management">How Swift handles memory</h4>
 
@@ -12216,7 +12216,7 @@ box2.value = 2
 
 ### Memory · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-arc-vs-gc">ARC vs garbage collection</h4>
 
@@ -12276,7 +12276,7 @@ do {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-memory-leak">Identify and resolve a memory leak</h4>
 
@@ -12335,7 +12335,7 @@ final class Ticker {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-retain-cycle">Identify and resolve a retain cycle</h4>
 
@@ -12378,7 +12378,7 @@ final class ProfileLoader {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-autoreleasepool">autoreleasepool</h4>
 
@@ -12412,7 +12412,7 @@ func thumbnails(from data: [Data]) -> [UIImage] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-weak-vs-unowned">weak vs unowned</h4>
 
@@ -12455,7 +12455,7 @@ final class Field {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-deep-vs-shallow">Deep vs shallow copy</h4>
 
@@ -12486,7 +12486,7 @@ let deep = a.map { b in Box(); /* copy fields */ }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-stack-vs-heap">Stack vs heap</h4>
 
@@ -12520,7 +12520,7 @@ func demo() {
 
 ### Memory · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-side-tables">Side tables</h4>
 
@@ -12563,7 +12563,7 @@ final class Node {
 
 ### Concurrency · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-concurrency-vs-parallelism">Concurrency vs parallelism</h4>
 
@@ -12599,7 +12599,7 @@ let (l, r) = await (a, b)
 
 ### Concurrency · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-main-actor">@MainActor</h4>
 
@@ -12644,7 +12644,7 @@ func fetch() async {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-actor-vs-serial-queue">Actor vs serial DispatchQueue</h4>
 
@@ -12681,7 +12681,7 @@ actor SessionStore {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-async-sequence">AsyncSequence</h4>
 
@@ -12711,7 +12711,7 @@ for await note in NotificationCenter.default.notifications(named: .NSSystemTimeZ
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-checked-continuation">Checked continuations</h4>
 
@@ -12748,7 +12748,7 @@ func token() async throws -> String {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-concurrency-problems">Concurrency problems</h4>
 
@@ -12788,7 +12788,7 @@ actor Counter {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dispatch-group">DispatchGroup</h4>
 
@@ -12824,7 +12824,7 @@ group.notify(queue: .main) { table.reloadData() }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dispatch-semaphore">DispatchSemaphore</h4>
 
@@ -12860,7 +12860,7 @@ final class Gate {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-gcd">GCD</h4>
 
@@ -12905,7 +12905,7 @@ func updateTitle(_ text: String) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-gcd-vs-operationqueue">GCD vs OperationQueue</h4>
 
@@ -12942,7 +12942,7 @@ queue.addOperations([decode, upload], waitUntilFinished: false)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-gcd-vs-async-await">GCD vs async/await</h4>
 
@@ -12981,7 +12981,7 @@ func load() async throws -> UIImage {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-locks">Locks</h4>
 
@@ -13020,7 +13020,7 @@ final class Counter {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-qos">Quality of Service</h4>
 
@@ -13052,7 +13052,7 @@ DispatchQueue.global(qos: .userInitiated).async {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-sendable">Sendable</h4>
 
@@ -13091,7 +13091,7 @@ final class UnsafeCache {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-task-cancellation">Task cancellation</h4>
 
@@ -13128,7 +13128,7 @@ func loadAll(_ urls: [URL]) async throws -> [Data] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-taskgroup-vs-async-let">Task groups vs async let</h4>
 
@@ -13164,7 +13164,7 @@ func profile() async throws -> (User, [Post]) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-task-detached-taskgroup">Task vs Task.detached vs TaskGroup</h4>
 
@@ -13206,7 +13206,7 @@ func thumbnails(for urls: [URL]) async -> [URL: Data] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-thread-safe-state">Thread-safe shared state</h4>
 
@@ -13242,7 +13242,7 @@ actor ImageStore {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-main-async-vs-sync">main.async vs main.sync</h4>
 
@@ -13281,7 +13281,7 @@ func applyTitle(_ text: String) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dispatch-work-item">DispatchWorkItem</h4>
 
@@ -13312,7 +13312,7 @@ item.cancel()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-async-timeout">Timeout on an await</h4>
 
@@ -13351,7 +13351,7 @@ func withTimeout<T>(seconds: Double, _ work: @escaping @Sendable () async throws
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-deinit-thread">Which thread runs deinit</h4>
 
@@ -13391,7 +13391,7 @@ Task.detached {
 
 ### Concurrency · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-actor-reentrancy">Actor reentrancy</h4>
 
@@ -13436,7 +13436,7 @@ actor ImageLoader {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-isolation">Isolation domains</h4>
 
@@ -13472,7 +13472,7 @@ func show(_ row: String) { /* UI */ }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swift-6-concurrency">Swift 6 strict concurrency</h4>
 
@@ -13512,7 +13512,7 @@ final class FeedViewModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-thread-explosion">Thread explosion</h4>
 
@@ -13553,7 +13553,7 @@ await withTaskGroup(of: Void.self) { group in
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-global-actor">Global actors</h4>
 
@@ -13601,7 +13601,7 @@ final class PreferencesStore {
 
 ### Architecture · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-delegates">Delegates</h4>
 
@@ -13641,7 +13641,7 @@ final class SearchService {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-mvc">MVC</h4>
 
@@ -13683,7 +13683,7 @@ final class NoteViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-global-variables">Global variables</h4>
 
@@ -13722,7 +13722,7 @@ final class ProfileViewModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-oop-pillars">OOP pillars</h4>
 
@@ -13756,7 +13756,7 @@ func render(_ items: [any Drawable]) { items.forEach { $0.draw() } }
 
 ### Architecture · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dependency-injection">Dependency injection</h4>
 
@@ -13799,7 +13799,7 @@ final class Session {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-design-patterns">Design patterns in iOS</h4>
 
@@ -13843,7 +13843,7 @@ final class FeedViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-feature-flags">Feature flags</h4>
 
@@ -13877,7 +13877,7 @@ func makeFeed(flags: Flagging) -> any FeedServing {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-mvvm">MVVM</h4>
 
@@ -13918,7 +13918,7 @@ enum LoginError: Error { case tooShort }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-protocol-oriented-programming">Protocol-oriented programming</h4>
 
@@ -13959,7 +13959,7 @@ struct LiveClient: Fetching {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-repository">Repository pattern</h4>
 
@@ -13997,7 +13997,7 @@ struct RemoteUserRepository: UserRepository {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-solid">SOLID</h4>
 
@@ -14031,7 +14031,7 @@ struct Checkout {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-singletons">Singletons — when they help</h4>
 
@@ -14077,7 +14077,7 @@ final class Checkout {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-functional-programming">Functional programming in Swift</h4>
 
@@ -14111,7 +14111,7 @@ let taxedTotal = prices
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-kvc">KVC</h4>
 
@@ -14141,7 +14141,7 @@ let text = label.value(forKey: "text") as? String
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-mvp">MVP</h4>
 
@@ -14178,7 +14178,7 @@ final class LoginPresenter {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-atomic-nonatomic">atomic vs nonatomic vs copy</h4>
 
@@ -14208,7 +14208,7 @@ These are **Objective-C property attributes**, not Swift keywords. `atomic` (the
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-kvo">KVO</h4>
 
@@ -14250,7 +14250,7 @@ transport.rate = 1
 
 ### Architecture · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-clean-architecture">Clean Architecture</h4>
 
@@ -14288,7 +14288,7 @@ struct LoginUseCase {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-mvvm-c">MVVM-C</h4>
 
@@ -14322,7 +14322,7 @@ final class LoginViewModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-viper">VIPER</h4>
 
@@ -14358,7 +14358,7 @@ final class LoginPresenter {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-kmp">Kotlin Multiplatform from iOS</h4>
 
@@ -14387,7 +14387,7 @@ iosApp/ imports Shared, maps SharedUser → Swift User in one adapter
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-modular-architecture">Modular architecture</h4>
 
@@ -14426,7 +14426,7 @@ public struct CheckoutFactory {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-optimistic-updates">Optimistic updates</h4>
 
@@ -14462,7 +14462,7 @@ func toggleLike(_ post: Post) async {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-tca">TCA</h4>
 
@@ -14492,7 +14492,7 @@ enum CounterAction { case increment }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-phantom-types">Phantom types</h4>
 
@@ -14543,7 +14543,7 @@ loadUser(user)
 
 ### UIKit · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-iboutlet-vs-ibaction">@IBOutlet vs @IBAction</h4>
 
@@ -14579,7 +14579,7 @@ final class LoginViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-aspect-fill-vs-fit">Aspect fill vs aspect fit</h4>
 
@@ -14611,7 +14611,7 @@ logoView.clipsToBounds = false
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-auto-layout-anchors">Auto Layout anchors</h4>
 
@@ -14646,7 +14646,7 @@ NSLayoutConstraint.activate([
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-autolayout-formula">Auto Layout formula</h4>
 
@@ -14675,7 +14675,7 @@ box.widthAnchor.constraint(equalTo: box.heightAnchor, multiplier: 2)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-reuse-identifiers">Cell reuse identifiers</h4>
 
@@ -14713,7 +14713,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dark-mode">Dark mode</h4>
 
@@ -14750,7 +14750,7 @@ override func traitCollectionDidChange(_ previous: UITraitCollection?) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-modal-vs-push">Modal vs push</h4>
 
@@ -14784,7 +14784,7 @@ present(compose, animated: true)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-safe-area">Safe area</h4>
 
@@ -14816,7 +14816,7 @@ NSLayoutConstraint.activate([
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-storyboards-vs-code">Storyboards vs code layouts</h4>
 
@@ -14856,7 +14856,7 @@ final class ProfileViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-uiimage-vs-uiimageview">UIImage vs UIImageView</h4>
 
@@ -14888,7 +14888,7 @@ view.addSubview(imageView)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-navigation-controller">UINavigationController</h4>
 
@@ -14917,7 +14917,7 @@ navigationController?.pushViewController(detail, animated: true)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-stack-view">UIStackView</h4>
 
@@ -14949,7 +14949,7 @@ stack.distribution = .fill
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-viewcontroller-lifecycle">UIViewController lifecycle</h4>
 
@@ -14996,7 +14996,7 @@ final class ProfileViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-frame-vs-bounds">frame vs bounds</h4>
 
@@ -15029,7 +15029,7 @@ child.transform = CGAffineTransform(rotationAngle: .pi / 8)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-prepare-for-reuse">prepareForReuse</h4>
 
@@ -15067,7 +15067,7 @@ final class PhotoCell: UITableViewCell {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-view-shadow">Add a shadow to a view</h4>
 
@@ -15104,7 +15104,7 @@ func applyCardShadow(to view: UIView) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-gesture-recognizers">Gesture recognizers</h4>
 
@@ -15135,7 +15135,7 @@ imageView.addGestureRecognizer(tap)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-launch-screen">Launch screen</h4>
 
@@ -15165,7 +15165,7 @@ The launch screen is a **static** storyboard (`UILaunchStoryboardName`) the syst
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-points-vs-pixels">Points vs pixels</h4>
 
@@ -15194,7 +15194,7 @@ let pixels = CGSize(width: view.bounds.width * scale, height: view.bounds.height
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-round-corners">Round view corners</h4>
 
@@ -15225,7 +15225,7 @@ imageView.clipsToBounds = true
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-storyboard-identifiers">Storyboard identifiers</h4>
 
@@ -15260,7 +15260,7 @@ let profile = storyboard.instantiateViewController(
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-activity-view-controller">UIActivityViewController</h4>
 
@@ -15292,7 +15292,7 @@ present(sheet, animated: true)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-tab-bar-controller">UITabBarController</h4>
 
@@ -15323,7 +15323,7 @@ tabs.viewControllers = [feed, profile]
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-uiview-lifecycle">UIView lifecycle</h4>
 
@@ -15356,7 +15356,7 @@ final class Badge: UIView {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-visual-effect-view">UIVisualEffectView</h4>
 
@@ -15390,7 +15390,7 @@ blur.contentView.addSubview(label)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-view-hierarchy">UIWindow and the view hierarchy</h4>
 
@@ -15425,7 +15425,7 @@ window.makeKeyAndVisible()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-xib-vs-storyboard">XIBs vs storyboards</h4>
 
@@ -15457,7 +15457,7 @@ let view = Bundle.main.loadNibNamed("EmptyStateView", owner: self, options: nil)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-segues">Segues</h4>
 
@@ -15494,7 +15494,7 @@ func open(_ item: Item) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-view-with-tag">viewWithTag() pros and cons</h4>
 
@@ -15532,7 +15532,7 @@ final class ItemCell: UITableViewCell {
 
 ### UIKit · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-collection-vs-table">Collection view vs table view</h4>
 
@@ -15572,7 +15572,7 @@ let grid = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-diffable-data-source">Diffable data source</h4>
 
@@ -15611,7 +15611,7 @@ dataSource.apply(snapshot, animatingDifferences: true)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-intrinsic-content-size">Intrinsic content size</h4>
 
@@ -15648,7 +15648,7 @@ final class BadgeView: UIView {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-passing-data">Passing data in iOS</h4>
 
@@ -15683,7 +15683,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-responder-chain">Responder chain</h4>
 
@@ -15717,7 +15717,7 @@ final class EditorViewController: UIViewController {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-size-classes">Size classes</h4>
 
@@ -15751,7 +15751,7 @@ override func traitCollectionDidChange(_ previous: UITraitCollection?) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-remote-images-table">Table view with remote images</h4>
 
@@ -15784,7 +15784,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-setneedslayout">setNeedsLayout vs layoutIfNeeded</h4>
 
@@ -15816,7 +15816,7 @@ UIView.animate(withDuration: 0.25) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-child-view-controllers">Child view controllers</h4>
 
@@ -15855,7 +15855,7 @@ func embed(_ child: UIViewController, in container: UIView) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-nested-collection">Collection view inside a table cell</h4>
 
@@ -15893,7 +15893,7 @@ final class RailCell: UITableViewCell {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-orientation">Device orientation</h4>
 
@@ -15927,7 +15927,7 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-file-owner">File’s Owner</h4>
 
@@ -15956,7 +15956,7 @@ let vc = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-ibdesignable">IBDesignable</h4>
 
@@ -15994,7 +15994,7 @@ final class DottedCircleView: UIView {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-memory-warning">Memory warning</h4>
 
@@ -16025,7 +16025,7 @@ override func didReceiveMemoryWarning() {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-color-out-of-range">Color values outside 0...1</h4>
 
@@ -16055,7 +16055,7 @@ let p3 = UIColor(displayP3Red: 1, green: 0, blue: 0, alpha: 1)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-uicontrol-target-nil">UIControl target is nil</h4>
 
@@ -16083,7 +16083,7 @@ button.addTarget(nil, action: #selector(EditorViewController.save), for: .touchU
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-menu-controller">UIMenuController</h4>
 
@@ -16132,7 +16132,7 @@ final class CopyableLabel: UILabel {
 
 ### SwiftUI · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-binding">@Binding</h4>
 
@@ -16168,7 +16168,7 @@ struct Parent: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-state">@State</h4>
 
@@ -16202,7 +16202,7 @@ struct Counter: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-appstorage">@AppStorage</h4>
 
@@ -16230,7 +16230,7 @@ struct Counter: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-button-style">ButtonStyle</h4>
 
@@ -16269,7 +16269,7 @@ Button("Save") { save() }
 
 ### SwiftUI · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-published">@Published</h4>
 
@@ -16304,7 +16304,7 @@ final class SearchModel: ObservableObject {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-stateobject-vs-observedobject">@StateObject vs @ObservedObject</h4>
 
@@ -16344,7 +16344,7 @@ struct CartButton: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swiftui-property-wrappers">Choosing SwiftUI property wrappers</h4>
 
@@ -16385,7 +16385,7 @@ struct SearchField: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-environmentobject-vs-observedobject">Environment object vs observed object</h4>
 
@@ -16428,7 +16428,7 @@ struct ProfileBadge: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-geometry-reader">GeometryReader</h4>
 
@@ -16475,7 +16475,7 @@ private struct WidthKey: PreferenceKey {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-observable-object-changes">How an observable object announces changes</h4>
 
@@ -16514,7 +16514,7 @@ final class Clock: ObservableObject {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-lazyvstack-vs-vstack">LazyVStack vs VStack</h4>
 
@@ -16549,7 +16549,7 @@ ScrollView {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swiftui-mv">MV vs MVVM in SwiftUI</h4>
 
@@ -16589,7 +16589,7 @@ final class SearchModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swiftui-mvvm">MVVM in SwiftUI</h4>
 
@@ -16639,7 +16639,7 @@ struct ProfileView: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-observableobject-vs-observable">ObservableObject vs @Observable</h4>
 
@@ -16675,7 +16675,7 @@ struct Badge: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-preference-key">PreferenceKey</h4>
 
@@ -16712,7 +16712,7 @@ Text("Hi")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-programmatic-navigation">Programmatic navigation</h4>
 
@@ -16757,7 +16757,7 @@ struct Inbox: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-environment">SwiftUI environment</h4>
 
@@ -16800,7 +16800,7 @@ struct Card: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swiftui-lifecycle">SwiftUI view lifecycle</h4>
 
@@ -16840,7 +16840,7 @@ struct FeedView: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swiftui-vs-uikit">SwiftUI vs UIKit</h4>
 
@@ -16880,7 +16880,7 @@ struct RatingBadge: UIViewRepresentable {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-uikit-representable">UIKit in SwiftUI</h4>
 
@@ -16914,7 +16914,7 @@ struct Web: UIViewRepresentable {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-init-vs-onappear">View initializer vs onAppear</h4>
 
@@ -16957,7 +16957,7 @@ struct ProfileView: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swiftui-rerender">When SwiftUI re-renders a view</h4>
 
@@ -16990,7 +16990,7 @@ struct Row: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-views-are-structs">Why SwiftUI views are structs</h4>
 
@@ -17025,7 +17025,7 @@ struct PriceLabel: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-anyview">AnyView</h4>
 
@@ -17059,7 +17059,7 @@ func badge(isOn: Bool) -> some View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-lazyvgrid">LazyVGrid</h4>
 
@@ -17093,7 +17093,7 @@ LazyVGrid(columns: columns, spacing: 8) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-view-modifier">ViewModifier</h4>
 
@@ -17131,7 +17131,7 @@ extension View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-matched-geometry">matchedGeometryEffect</h4>
 
@@ -17174,7 +17174,7 @@ struct Gallery: View {
 
 ### SwiftUI · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-attribute-graph">AttributeGraph</h4>
 
@@ -17204,7 +17204,7 @@ Cause & Effect: gesture → State → YourView.body (count of updates on the edg
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-view-identity">View identity vs a ViewBuilder property</h4>
 
@@ -17240,7 +17240,7 @@ struct Screen: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-equatable-view">EquatableView</h4>
 
@@ -17285,7 +17285,7 @@ Row(title: item.title).equatable()
 
 ### Combine · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-combine">Combine and reactive programming</h4>
 
@@ -17318,7 +17318,7 @@ cancellable = NotificationCenter.default.publisher(for: UIApplication.didBecomeA
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-combine-operators">Combining publishers</h4>
 
@@ -17353,7 +17353,7 @@ query
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-combine-subjects">Subjects in Combine</h4>
 
@@ -17395,7 +17395,7 @@ name.send("Ada")
 
 ### Networking · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-http-methods">HTTP methods</h4>
 
@@ -17427,7 +17427,7 @@ replace.httpMethod = "PUT"
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-http-status">HTTP status codes</h4>
 
@@ -17461,7 +17461,7 @@ default: throw URLError(.badServerResponse)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-json">JSON</h4>
 
@@ -17490,7 +17490,7 @@ let tweets = try JSONDecoder().decode([Tweet].self, from: data)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-network-request">Making a network request</h4>
 
@@ -17526,7 +17526,7 @@ func loadUsers() async throws -> [User] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-notification-center">NotificationCenter</h4>
 
@@ -17566,7 +17566,7 @@ NotificationCenter.default.post(name: .accountDidChange, object: nil)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-url-vs-urlrequest">URL vs URLRequest</h4>
 
@@ -17598,7 +17598,7 @@ let (data, _) = try await URLSession.shared.data(for: request)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-local-notifications">Local vs remote notifications</h4>
 
@@ -17632,7 +17632,7 @@ try await UNUserNotificationCenter.current().add(request)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-web-content">Showing web content</h4>
 
@@ -17669,7 +17669,7 @@ present(safari, animated: true)
 
 ### Networking · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-push-notifications">Push notifications</h4>
 
@@ -17708,7 +17708,7 @@ func application(_ app: UIApplication,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-rest">REST</h4>
 
@@ -17738,7 +17738,7 @@ DELETE /v1/tweets/12/likes
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-retry-backoff">Retry with backoff</h4>
 
@@ -17779,7 +17779,7 @@ func get(_ url: URL) async throws -> Data {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-token-auth">Token authentication</h4>
 
@@ -17815,7 +17815,7 @@ actor AuthHeader {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-urlsession">URLSession</h4>
 
@@ -17853,7 +17853,7 @@ func load(_ url: URL) async throws -> Data {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-rest-vs-graphql">REST vs GraphQL</h4>
 
@@ -17882,7 +17882,7 @@ GraphQL: { user(id: 1) { name posts { title } } }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-rest-vs-rpc">REST vs RPC</h4>
 
@@ -17912,7 +17912,7 @@ gRPC:  Orders.Get(OrderId) → Order   // generated client
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-reachability">Reachability</h4>
 
@@ -17945,7 +17945,7 @@ monitor.start(queue: .global(qos: .utility))
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-url-cache">URLCache</h4>
 
@@ -17976,7 +17976,7 @@ let session = URLSession(configuration: config)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-websocket">WebSocket</h4>
 
@@ -18017,7 +18017,7 @@ let message = try await task.receive()
 
 ### Persistence · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-codable">Codable</h4>
 
@@ -18058,7 +18058,7 @@ let data = try JSONEncoder().encode(user)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-persist-options">How you persist data on iOS</h4>
 
@@ -18090,7 +18090,7 @@ shared shopping list → CloudKit or your API
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-userdefaults">UserDefaults — good and bad uses</h4>
 
@@ -18126,7 +18126,7 @@ let seen = defaults.bool(forKey: "hasSeenOnboarding")
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-list-directory">Listing files in a directory</h4>
 
@@ -18161,7 +18161,7 @@ let files = try FileManager.default.contentsOfDirectory(
 
 ### Persistence · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-cloudkit-vs-core-data">CloudKit vs Core Data</h4>
 
@@ -18197,7 +18197,7 @@ mirrored.loadPersistentStores { _, error in
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-core-data">Core Data</h4>
 
@@ -18235,7 +18235,7 @@ let notes = try container.viewContext.fetch(request)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-core-data-migration">Core Data migration</h4>
 
@@ -18272,7 +18272,7 @@ try container.persistentStoreCoordinator.addPersistentStore(
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-key-decoding-strategies">Key decoding strategies</h4>
 
@@ -18308,7 +18308,7 @@ let payload = try decoder.decode(Payload.self, from: jsonData)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swiftdata">SwiftData</h4>
 
@@ -18350,7 +18350,7 @@ struct NotesView: View {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-core-data-delete-rules">Core Data delete rules</h4>
 
@@ -18380,7 +18380,7 @@ User.profile = Deny if a profile must not exist without a user
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-core-data-vs-sqlite">Core Data vs SQLite vs Realm</h4>
 
@@ -18411,7 +18411,7 @@ Need encryption at rest  → say so; none of these is magic
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-nsfetchrequest">NSFetchRequest</h4>
 
@@ -18443,7 +18443,7 @@ let notes = try context.fetch(request)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-fetched-results-controller">NSFetchedResultsController</h4>
 
@@ -18477,7 +18477,7 @@ try frc.performFetch()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-nspredicate">NSPredicate</h4>
 
@@ -18506,7 +18506,7 @@ request.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", #keyPath(Note.titl
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-nscoding">NSCoding and archiving</h4>
 
@@ -18535,7 +18535,7 @@ let colors = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, UI
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-sort-descriptor">NSSortDescriptor</h4>
 
@@ -18580,7 +18580,7 @@ request.sortDescriptors = [byName, byDate]
 
 ### Performance · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-debugging">Debugging on iOS</h4>
 
@@ -18614,7 +18614,7 @@ log.debug("page \(cursor, privacy: .public)")
 
 ### Performance · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-hang-hitch-crash">Hang vs hitch vs crash</h4>
 
@@ -18650,7 +18650,7 @@ Task.detached {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-crashes">Identify and resolve crashes</h4>
 
@@ -18690,7 +18690,7 @@ func decodeFeed(from data: Data) throws -> [Item] {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-performance-issues">Identify and resolve performance issues</h4>
 
@@ -18730,7 +18730,7 @@ func loadFeed() async {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-in-memory-cache">In-memory cache</h4>
 
@@ -18776,7 +18776,7 @@ final class ImageCache {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-instruments">Instruments</h4>
 
@@ -18808,7 +18808,7 @@ deinit never fires → Memory Graph first; Leaks if the graph is clean but the h
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-lru-cache">LRU cache</h4>
 
@@ -18863,7 +18863,7 @@ final class LRUCache<Key: Hashable, Value> {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-nscache-vs-dictionary">NSCache vs Dictionary</h4>
 
@@ -18907,7 +18907,7 @@ final class ImageCache {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dsym">dSYM</h4>
 
@@ -18937,7 +18937,7 @@ dwarfdump -u App.app.dSYM
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-app-thinning">App Thinning</h4>
 
@@ -18967,7 +18967,7 @@ On-Demand: NSBundleResourceRequest(tags: ["level3"])
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-battery">Battery life issues</h4>
 
@@ -19009,7 +19009,7 @@ func sceneDidEnterBackground() {
 
 ### Performance · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-binary-size">Binary / IPA size</h4>
 
@@ -19038,7 +19038,7 @@ Build Settings → Write Link Map File = YES
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-launch-time">Launch time</h4>
 
@@ -19073,7 +19073,7 @@ func application(_ app: UIApplication,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-compile-time">Compile time</h4>
 
@@ -19117,7 +19117,7 @@ let enabled: AnyPublisher<Bool, Never> = email
 
 ### Security · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-ats">App Transport Security</h4>
 
@@ -19160,7 +19160,7 @@ ATS is the OS rule that App Transport / `URLSession` must use HTTPS with modern 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-app-sandbox">App Sandbox</h4>
 
@@ -19193,7 +19193,7 @@ try data.write(to: file, options: .atomic)
 
 ### Security · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-api-keys">API keys</h4>
 
@@ -19225,7 +19225,7 @@ enum Config {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-encoding-vs-encryption">Encoding vs encryption vs hashing</h4>
 
@@ -19258,7 +19258,7 @@ let box = try AES.GCM.seal(bytes, using: key)      // secret if the key is
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-biometrics">Face ID / Touch ID</h4>
 
@@ -19300,7 +19300,7 @@ func unlockLocalSecret() async throws {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-keychain">Keychain</h4>
 
@@ -19341,7 +19341,7 @@ func saveToken(_ token: String) throws {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-secure-hash">Secure hash</h4>
 
@@ -19382,7 +19382,7 @@ func hmac(_ data: Data, key: SymmetricKey) -> String {
 
 ### Security · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-ssl-pinning">SSL pinning</h4>
 
@@ -19429,7 +19429,7 @@ func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationCh
 
 ### Accessibility · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dynamic-type">Dynamic Type</h4>
 
@@ -19467,7 +19467,7 @@ Text(title)
 
 ### Accessibility · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-accessibility-focus">Accessibility focus in SwiftUI</h4>
 
@@ -19504,7 +19504,7 @@ TextField("Email", text: $email)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-accessibility-problems">Main accessibility problems to solve</h4>
 
@@ -19536,7 +19536,7 @@ Spoken audit of one screen:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-voiceover">Testing with VoiceOver</h4>
 
@@ -19576,7 +19576,7 @@ Spoken pass: turn VoiceOver on, swipe through the screen, and confirm order, nam
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-accessibility-accommodations">Accessibility accommodations</h4>
 
@@ -19626,7 +19626,7 @@ func playHero() {
 
 ### Frameworks · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-attributed-string">NSAttributedString</h4>
 
@@ -19659,7 +19659,7 @@ label.attributedText = text
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-custom-sound">Playing a custom sound</h4>
 
@@ -19704,7 +19704,7 @@ final class TapSound {
 
 ### Frameworks · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-storekit">StoreKit</h4>
 
@@ -19747,7 +19747,7 @@ func buy(_ id: String) async throws {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-app-intents">App Intents</h4>
 
@@ -19783,7 +19783,7 @@ struct LogWater: AppIntent {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-cadisplaylink">CADisplayLink</h4>
 
@@ -19828,7 +19828,7 @@ final class Pulse {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-calayer-subclasses">CALayer subclasses</h4>
 
@@ -19867,7 +19867,7 @@ view.layer.insertSublayer(gradient, at: 0)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-affine-transform">CGAffineTransform</h4>
 
@@ -19902,7 +19902,7 @@ path.apply(CGAffineTransform(rotationAngle: .pi / 4))
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-core-graphics">Core Graphics</h4>
 
@@ -19935,7 +19935,7 @@ let image = renderer.image { ctx in
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-core-location">Core Location</h4>
 
@@ -19966,7 +19966,7 @@ manager.startUpdatingLocation()
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-healthkit">HealthKit</h4>
 
@@ -20000,7 +20000,7 @@ let predicate = HKQuery.predicateForSamples(withStart: start, end: now)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-live-activities">Live Activities</h4>
 
@@ -20031,7 +20031,7 @@ struct OrderAttributes: ActivityAttributes {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-widgetkit">WidgetKit</h4>
 
@@ -20072,7 +20072,7 @@ struct Provider: TimelineProvider {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-app-clips">App Clips</h4>
 
@@ -20100,7 +20100,7 @@ Clip target → one screen (pay / order) → “Get the full app” → same tea
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-core-image">Core Image</h4>
 
@@ -20134,7 +20134,7 @@ let output = context.createCGImage(filter.outputImage!, from: ciImage.extent)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-gameplaykit">GameplayKit</h4>
 
@@ -20170,7 +20170,7 @@ machine.enter(LoadingState.self)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-replaykit">ReplayKit</h4>
 
@@ -20212,7 +20212,7 @@ func toggleRecording() {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-spritekit-vs-scenekit">SpriteKit vs SceneKit</h4>
 
@@ -20250,7 +20250,7 @@ scnView.scene = scn
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-ibeacons">iBeacons</h4>
 
@@ -20285,7 +20285,7 @@ manager.startRangingBeacons(satisfying: constraint)
 
 ### Frameworks · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-foundation-models">Foundation Models</h4>
 
@@ -20330,7 +20330,7 @@ struct RecipeDraft {
 
 ### Objective-C runtime · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-nserror">NSError</h4>
 
@@ -20363,7 +20363,7 @@ do {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-iskindof-vs-ismember">isKindOfClass vs isMemberOfClass</h4>
 
@@ -20392,7 +20392,7 @@ do {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-nil-null">nil, Nil, NULL, NSNull</h4>
 
@@ -20424,7 +20424,7 @@ NSArray *a = @[ [NSNull null] ];
 
 ### Objective-C runtime · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-objc-messaging">Messaging and nil</h4>
 
@@ -20453,7 +20453,7 @@ NSString *name = [obj description]; // nil, no crash
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-runloop">RunLoop</h4>
 
@@ -20483,7 +20483,7 @@ RunLoop.main.add(timer, forMode: .common)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-timer-runloop">Timer pauses while scrolling</h4>
 
@@ -20513,7 +20513,7 @@ RunLoop.main.add(timer, forMode: .common)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-dynamic">@dynamic</h4>
 
@@ -20546,7 +20546,7 @@ RunLoop.main.add(timer, forMode: .common)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-category-vs-extension">Category vs class extension</h4>
 
@@ -20577,7 +20577,7 @@ A **category** (`@interface Foo (Bar)`) can be in another file and can target cl
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-category-vs-inheritance">Category vs inheritance</h4>
 
@@ -20607,7 +20607,7 @@ A **category** (Swift: extension) adds methods to an existing class you may not 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-underscore-vs-self">_ vs self.</h4>
 
@@ -20641,7 +20641,7 @@ In ObjC, `_title` is the **ivar**; `self.title` goes through the **accessor** (K
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-ivar-in-category">ivar in a category</h4>
 
@@ -20671,7 +20671,7 @@ NSString *name = objc_getAssociatedObject(self, Key);
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-unrecognized-selector">unrecognized selector</h4>
 
@@ -20700,7 +20700,7 @@ The runtime throws when it cannot find an IMP and **message forwarding** also fa
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-synthesize">@synthesize</h4>
 
@@ -20732,7 +20732,7 @@ The runtime throws when it cannot find an IMP and **message forwarding** also fa
 
 ### Objective-C runtime · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-load-vs-initialize">+load vs +initialize</h4>
 
@@ -20763,7 +20763,7 @@ The runtime throws when it cannot find an IMP and **message forwarding** also fa
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-mach-o">Mach-O and dyld</h4>
 
@@ -20792,7 +20792,7 @@ DYLD_PRINT_STATISTICS=1
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-isa">isa and object layout</h4>
 
@@ -20820,7 +20820,7 @@ NSLog(@"%@", NSStringFromClass(object_getClass(obj)));
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-resident-thread">Keep-alive thread</h4>
 
@@ -20851,7 +20851,7 @@ A background `NSThread` **exits when its start block returns**. To keep it for t
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-method-swizzling">Method swizzling</h4>
 
@@ -20893,7 +20893,7 @@ static void swizzle(Class c, SEL a, SEL b) {
 
 ### System design · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-checkout-ui">Build a checkout UI in 60 minutes</h4>
 
@@ -20915,7 +20915,7 @@ Build a **checkout screen** in 60 minutes from a starter or a mock API: line ite
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-match-simulator">Design a short match / score simulator</h4>
 
@@ -20937,7 +20937,7 @@ Build a **small match simulator** in 90 minutes: pick two sides from a bundled J
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-eta-polling">Real-time ETA polling</h4>
 
@@ -20959,7 +20959,7 @@ A ride-sharing screen must show a **live ETA** that refreshes about every 10 sec
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-recently-deleted">Design a Recently Deleted album</h4>
 
@@ -20981,7 +20981,7 @@ Design **Recently Deleted** for a Photos-style library. Scope: 30-day tombstones
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-clock-app">Design a clock app</h4>
 
@@ -21004,7 +21004,7 @@ Design Clock: local time, world clocks, alarms, timers. Focus on scheduling, tim
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-live-wallpaper">Design a live wallpaper app</h4>
 
@@ -21027,7 +21027,7 @@ Design an app that shows animated wallpapers. iOS has no third-party live lock s
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-recipe-app">Design a recipe app</h4>
 
@@ -21051,7 +21051,7 @@ Design a recipe catalog: browse, search, favorites, offline pack. Images and a s
 
 ### System design · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-design-client-app">Design Notes / Gmail / Facebook (iOS client)</h4>
 
@@ -21075,7 +21075,7 @@ Design the **iOS client** for Notes, Gmail, or Facebook. Ask scope first (offlin
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-caching-library">Design a caching library</h4>
 
@@ -21098,7 +21098,7 @@ Design a generic cache (memory, optional disk). Public API, eviction (LRU / cost
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-chat-app">Design a chat app</h4>
 
@@ -21129,7 +21129,7 @@ Design a messaging client. Pick 1:1 or group, then 3–5 features: send/receive,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-file-downloader">Design a file downloader</h4>
 
@@ -21152,7 +21152,7 @@ Design a library that downloads large files: queue, pause/resume, progress, disk
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-home-rails">Design a home screen of rails</h4>
 
@@ -21174,7 +21174,7 @@ Design a **Home** of independent rails (hero, continue, trending, ads). Scope: e
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-delivery-tracker">Design a live delivery tracker</h4>
 
@@ -21198,7 +21198,7 @@ Design a DoorDash / Uber Eats “your order is arriving” screen. Scope: order 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-location-sharing">Design a location sharing library</h4>
 
@@ -21222,7 +21222,7 @@ Design a library that publishes the user’s location to a backend and draws oth
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-network-library">Design a networking library</h4>
 
@@ -21245,7 +21245,7 @@ Design a thin HTTP client over `URLSession`: request builder, auth plugin, retri
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-news-feed">Design a news feed</h4>
 
@@ -21268,7 +21268,7 @@ Design an infinite Twitter / Instagram / Facebook-style feed. Default scope: scr
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-pagination">Design a pagination library</h4>
 
@@ -21291,7 +21291,7 @@ Design a pager that a feed can bind to: next/previous page, refresh, local cache
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-payment-checkout">Design a payment checkout</h4>
 
@@ -21313,7 +21313,7 @@ Design a checkout screen that charges a card (or Apple Pay). Scope: tokenize on 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-push-system">Design a push notification system</h4>
 
@@ -21337,7 +21337,7 @@ Design the client + server path for remote push: permission, device token, APNs,
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-sdui">Design a server-driven UI engine</h4>
 
@@ -21359,7 +21359,7 @@ Design a client that renders screens from a JSON (or proto) component tree. Scop
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-short-video-feed">Design a short-form video feed</h4>
 
@@ -21381,7 +21381,7 @@ Design a Reels / TikTok-style vertical feed. Scope: swipe, autoplay the on-scree
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-video-streaming">Design a video streaming player</h4>
 
@@ -21404,7 +21404,7 @@ Design a long-form player (Netflix / YouTube). Scope: HLS playback, adaptive bit
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-ab-experiments">Design an A/B experiment library</h4>
 
@@ -21428,7 +21428,7 @@ Design a client that fetches assignments, caches them, exposes `variant(for: fla
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-analytics-library">Design an analytics library</h4>
 
@@ -21452,7 +21452,7 @@ Design an event pipeline: `track(name, props)` from any thread, batching, disk b
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-audio-player">Design an audio player</h4>
 
@@ -21477,7 +21477,7 @@ Design a Spotify / Apple Music **client**. Default scope is three screens: **lib
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-image-loader">Design an image loading library</h4>
 
@@ -21500,7 +21500,7 @@ Design a Kingfisher-style image loader: `url → UIImage` for a feed. Cover requ
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-image-upload">Design an image upload pipeline</h4>
 
@@ -21539,7 +21539,7 @@ struct Draft {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-offline-media">Design an offline media catalog</h4>
 
@@ -21561,7 +21561,7 @@ Design **offline downloads** for a streaming catalog (video or audio). Scope: re
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-offline-sync">Design an offline-first sync engine</h4>
 
@@ -21585,7 +21585,7 @@ Design a local-first store that syncs when the network returns. Scope: dirty fla
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-deep-links">Design deep links</h4>
 
@@ -21607,7 +21607,7 @@ Design Universal Links + custom URL schemes for an app that is sometimes not ins
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-icloud-sync">Design iCloud-style device sync</h4>
 
@@ -21631,7 +21631,7 @@ Design **cross-device sync** for notes or photos. Scope: the **phone is the sour
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-search-autocomplete">Design search with autocomplete</h4>
 
@@ -21653,7 +21653,7 @@ Design in-app search with typeahead. Scope: debounce, cancel the in-flight reque
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-edge-first">Edge-first mobile design</h4>
 
@@ -21684,7 +21684,7 @@ Some mobile SD rooms are not “draw Kafka.” They score **who owns the write**
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-sd-interview">How to run a mobile system design interview</h4>
 
@@ -21734,7 +21734,7 @@ struct Brief {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-unread-badge">Unread count / badge</h4>
 
@@ -21757,7 +21757,7 @@ Design the unread-message (or unread-notification) counter: tab badge, chat-list
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-airbnb-booking">Design Airbnb search and booking</h4>
 
@@ -21780,7 +21780,7 @@ Design search + book for stays. Scope: map and list stay in sync, debounce the q
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-stories">Design Instagram / Facebook stories</h4>
 
@@ -21803,7 +21803,7 @@ Design stories: 24h expiry, tap-through, preload the next clip, seen-state, and 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-chatgpt-app">Design a ChatGPT-style client</h4>
 
@@ -21826,7 +21826,7 @@ Design a ChatGPT-like iOS client (cloud model, not on-device). Scope: compose, s
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-calendar-client">Design a calendar client</h4>
 
@@ -21848,7 +21848,7 @@ Design a Google / Apple Calendar iOS client. Scope: month + day, create an event
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-collaborative-editor">Design a collaborative editor</h4>
 
@@ -21871,7 +21871,7 @@ Design a Notes / Docs client where two devices edit one document. Scope: local t
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-crash-reporter">Design a crash reporter</h4>
 
@@ -21893,7 +21893,7 @@ Design a Crashlytics-style client SDK. Scope: catch a fatal, persist a minidump 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-file-uploader">Design a file uploader library</h4>
 
@@ -21915,7 +21915,7 @@ Design a reusable **uploader API** (any file, not only photos): enqueue, progres
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-flight-booking">Design a flight booking flow</h4>
 
@@ -21938,7 +21938,7 @@ Design search → fare → seat → pay. Call out cache of search results, resto
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-maps">Design a maps / navigation client</h4>
 
@@ -21961,7 +21961,7 @@ Design a Maps-style **client**: search a place, show it on a map, start turn-by-
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-ecommerce-catalog">Design a product catalog</h4>
 
@@ -21983,7 +21983,7 @@ Design an Amazon / Shopify-style catalog: search or browse grid, PDP, cart. Scop
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-restaurant-ordering">Design a restaurant ordering app</h4>
 
@@ -22005,7 +22005,7 @@ Design a discovery + order + pay app (DoorDash merchant side, or a single-restau
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-wallet">Design a wallet / balances screen</h4>
 
@@ -22027,7 +22027,7 @@ Design a **wallet** home: several balances (cards, deposits, points) from **diff
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-on-device-llm">Design an on-device LLM assistant</h4>
 
@@ -22051,7 +22051,7 @@ Design an on-device assistant (summarize this thread, answer from local notes). 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-clipboard-sync">Design clipboard / proximity sync</h4>
 
@@ -22073,7 +22073,7 @@ Design **copy on phone, paste on laptop** (and the reverse). Scope: same iCloud 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-video-calling">Design video calling</h4>
 
@@ -22095,7 +22095,7 @@ Design a FaceTime / Meet / Zoom client. Scope: 1:1 call, camera + mic permission
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-json-parser">Design a JSON parsing library</h4>
 
@@ -22118,7 +22118,7 @@ Design a Codable-class parser API (think Moshi/Gson): decode `Data` → `T`, cus
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-contacts-realtime">Design a contacts app with live status</h4>
 
@@ -22141,7 +22141,7 @@ Design a contacts list plus presence (online / last seen). Local address book vs
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-photo-editing">Design a photo editor</h4>
 
@@ -22164,7 +22164,7 @@ Design an editor: crop, filters, export. Memory for a 12 MP bitmap, undo stack, 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-e-reader">Design an e-reader</h4>
 
@@ -22197,7 +22197,7 @@ Design an iBooks / Kindle-style reader. Scope: open a book, paginate or scroll, 
 
 ### Algorithms · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-big-o">Big-O</h4>
 
@@ -22232,7 +22232,7 @@ func hasOverlap(_ ids: [Int]) -> Bool {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-fibonacci">Fibonacci</h4>
 
@@ -22254,7 +22254,7 @@ Given `n`, return the `n`th Fibonacci number (or the first `n` terms). Talk thro
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-merge-lists">Merge two sorted lists</h4>
 
@@ -22276,7 +22276,7 @@ Merge two sorted singly linked lists into one sorted list. Dummy head + two poin
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-anagram">Anagram</h4>
 
@@ -22298,7 +22298,7 @@ Decide if two strings are anagrams (same characters, same counts, order ignored)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-palindrome">Palindrome</h4>
 
@@ -22320,7 +22320,7 @@ Decide if an integer (or a string) reads the same forwards and backwards. For an
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-recursion">Recursion</h4>
 
@@ -22351,7 +22351,7 @@ func depth(_ node: Node?) -> Int {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-reverse-integer">Reverse an integer</h4>
 
@@ -22373,7 +22373,7 @@ Given a signed 32-bit integer, reverse its digits (`1234 → 4321`, `-120 → -2
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-second-largest">Second largest</h4>
 
@@ -22397,7 +22397,7 @@ One pass over `[Int]`: keep `largest` and `second`. Define ties (two copies of t
 
 ### Algorithms · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-reverse-list">Reverse a linked list</h4>
 
@@ -22419,7 +22419,7 @@ Reverse a singly linked list in place. Speak the three-pointer walk (`prev`, `cu
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-sliding-window">Sliding window</h4>
 
@@ -22441,7 +22441,7 @@ A string (or array) and a constraint: longest substring with ≤ K distinct char
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-two-sum">Two-sum</h4>
 
@@ -22463,7 +22463,7 @@ Given an array of integers and a target sum, return the indices of two numbers t
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-balanced-parens">Balanced parentheses</h4>
 
@@ -22485,7 +22485,7 @@ Given a string of brackets `()[]{}`, decide if every opener has a matching close
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-circular-buffer">Circular buffer</h4>
 
@@ -22532,7 +22532,7 @@ struct RingBuffer<T> {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-graph-traversal">Graph traversal</h4>
 
@@ -22554,7 +22554,7 @@ An acyclic connected graph (or a tree with extra edges). Walk BFS vs DFS in Swif
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-linked-list-cycle">Linked-list cycle</h4>
 
@@ -22576,7 +22576,7 @@ Detect whether a singly linked list has a cycle. Speak Floyd: slow +1, fast +2; 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-merge-intervals">Merge intervals</h4>
 
@@ -22598,7 +22598,7 @@ Given half-open or closed intervals `[start, end]`, return the merged set. Sort 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-merge-k-lists">Merge k sorted lists</h4>
 
@@ -22620,7 +22620,7 @@ Merge `k` sorted singly linked lists into one sorted list. Heap of the current h
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-odd-even-list">Odd-even linked list</h4>
 
@@ -22642,7 +22642,7 @@ Group a singly linked list as **odd-index nodes, then even-index nodes**, relati
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-peak-element">Peak element</h4>
 
@@ -22664,7 +22664,7 @@ A peak is an index whose value is strictly greater than its neighbors (ends comp
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-phone-keypad">Phone keypad combinations</h4>
 
@@ -22686,7 +22686,7 @@ Given a digit string (`"23"`), return all letter combinations from the phone key
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-trie">Prefix trie</h4>
 
@@ -22708,7 +22708,7 @@ Implement a prefix tree: `insert`, `contains`, and `autocomplete(prefix, limit)`
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-product-except-self">Product except self</h4>
 
@@ -22730,7 +22730,7 @@ Given `[Int]`, return an array where `out[i]` is the product of every element ex
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-rate-limiter">Rate limiter</h4>
 
@@ -22752,7 +22752,7 @@ Allow at most `N` events per key in a sliding window of `W` seconds. Speak a deq
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-sorted-list-dups">Remove duplicates from a sorted list</h4>
 
@@ -22774,7 +22774,7 @@ Given the head of a **sorted** singly linked list, delete duplicates so each val
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-serialize-tree">Serialize a binary tree</h4>
 
@@ -22796,7 +22796,7 @@ Turn a binary tree into a string (or array) and rebuild the same shape. Preorder
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-three-sum">Three-sum</h4>
 
@@ -22820,7 +22820,7 @@ Find all unique triplets in an `Int` array that sum to zero (or to a target). Sc
 
 ### Algorithms · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-in-memory-fs">In-memory file system</h4>
 
@@ -22843,7 +22843,7 @@ Implement `mkdir`, `addContent` (append), `readContent`, and `ls` on a path tree
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-tree-columns">Binary tree by column</h4>
 
@@ -22877,7 +22877,7 @@ Print (or return) a binary tree in **column order**: nodes with the same horizon
 
 ### Behavioral / process · Junior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-app-lifecycle">App and scene lifecycle</h4>
 
@@ -22920,7 +22920,7 @@ struct AppMain: App {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-spm">Swift Package Manager</h4>
 
@@ -22962,7 +22962,7 @@ let package = Package(
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-test-types">Test types</h4>
 
@@ -22994,7 +22994,7 @@ UI: tap Checkout, see Receipt
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-app-store-review">App Store review</h4>
 
@@ -23027,7 +23027,7 @@ Checklist before upload:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-arrange-act-assert">Arrange-Act-Assert</h4>
 
@@ -23059,7 +23059,7 @@ func testCheckoutDisabledWhenEmpty() {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-git-flow">Git Flow</h4>
 
@@ -23091,7 +23091,7 @@ feature/pay  •——•
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-git-merge-rebase">Git merge vs rebase</h4>
 
@@ -23123,7 +23123,7 @@ git rebase origin/main    # your branch, not shared main
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-info-plist">Info.plist settings</h4>
 
@@ -23163,7 +23163,7 @@ Info.plist is the app’s declared contract with the OS: bundle ID, version, usa
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-scheme-vs-target">Scheme vs target</h4>
 
@@ -23192,7 +23192,7 @@ Scheme "MyApp Staging" → build MyApp (Staging xcconfig) + tests
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-testflight">TestFlight</h4>
 
@@ -23221,7 +23221,7 @@ External: 10k waitlist, after beta review
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-waterfall-vs-agile">Waterfall vs Agile</h4>
 
@@ -23252,7 +23252,7 @@ Agile: ship onboarding this sprint, feed next, change the feed when review data 
 
 ### Behavioral / process · Mid
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-background-tasks">Background tasks</h4>
 
@@ -23286,7 +23286,7 @@ UIApplication.shared.endBackgroundTask(task)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-code-review">Code review process</h4>
 
@@ -23318,7 +23318,7 @@ Spoken outline for a 200-line networking PR:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-code-signing">Code signing</h4>
 
@@ -23351,7 +23351,7 @@ Spoken outline when a device install fails:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-ci">Continuous integration</h4>
 
@@ -23381,7 +23381,7 @@ CI is a machine that runs your checks on every push: build, unit tests, sometime
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-improve-existing-app">Improve an existing take-home app</h4>
 
@@ -23403,7 +23403,7 @@ You get a **working starter** (search a word, show a definition, or a thin list)
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-deployment-target">Minimum deployment target</h4>
 
@@ -23441,7 +23441,7 @@ func showStoreKit2Paywall() { /* Product.products(for:) */ }
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-star">STAR stories</h4>
 
@@ -23473,7 +23473,7 @@ R: Error rate back under 0.2% the same day; we kept the flag for the next API mi
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-screening-oa">Screening OA / assessment platform</h4>
 
@@ -23503,7 +23503,7 @@ Contest OA: 2–3 timed problems, then a human room if you pass.
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-snapshot-tests">Snapshot tests</h4>
 
@@ -23537,7 +23537,7 @@ func testEmptyCartLayout() {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swift-testing">Swift Testing</h4>
 
@@ -23582,7 +23582,7 @@ func quantity(_ n: Int) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-take-home">Take-home interview</h4>
 
@@ -23624,7 +23624,7 @@ I skipped pagination to stay in the time box; the list is a `UITableView` + MVVM
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-test-doubles">Test doubles</h4>
 
@@ -23665,7 +23665,7 @@ final class ListViewModel {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-test-async">Testing async code</h4>
 
@@ -23697,7 +23697,7 @@ func testLoadSetsTitle() async throws {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-third-party-vs-custom">Third-party vs custom</h4>
 
@@ -23727,7 +23727,7 @@ Need JSON → Codable first.
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-xctest">XCTest and UI tests</h4>
 
@@ -23773,7 +23773,7 @@ final class CheckoutUITests: XCTestCase {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-binary-framework">Binary framework vs SDK</h4>
 
@@ -23807,7 +23807,7 @@ xcodebuild -create-xcframework \
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-code-coverage">Code coverage</h4>
 
@@ -23838,7 +23838,7 @@ func canCheckout(items: Int, total: Decimal) -> Bool {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swift-since-2014">How Swift has changed since 2014</h4>
 
@@ -23870,7 +23870,7 @@ Spoken outline:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-learn-framework">Learning a new framework</h4>
 
@@ -23898,7 +23898,7 @@ Need offline notes → SwiftData sample → spike: insert, fetch, fail on disk f
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-objc-to-swift">Porting ObjC to Swift</h4>
 
@@ -23928,7 +23928,7 @@ Do not freeze the app for a rewrite. Keep the ObjC target building. Add Swift fi
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-state-restoration">State restoration</h4>
 
@@ -23960,7 +23960,7 @@ func sceneDidEnterBackground(_ scene: UIScene) {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-swift-vs-objc">Swift vs Objective-C</h4>
 
@@ -23992,7 +23992,7 @@ Spoken outline:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-tdd">Test-driven development</h4>
 
@@ -24024,7 +24024,7 @@ Spoken outline:
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-xcconfig">xcconfig and environments</h4>
 
@@ -24054,7 +24054,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGING
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-objc-interop">Objective-C interop</h4>
 
@@ -24096,7 +24096,7 @@ final class SessionClient: NSObject {
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-multiplatform">Working across Apple platforms</h4>
 
@@ -24130,7 +24130,7 @@ Spoken outline:
 
 ### Behavioral / process · Senior
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-brazil-ios-loop">Brazil product-company iOS loop</h4>
 
@@ -24162,7 +24162,7 @@ Large Brazil product companies (and remote US/EU loops that hire from there) usu
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-cis-ios-loop">CIS product-company iOS loop</h4>
 
@@ -24194,7 +24194,7 @@ Large CIS product companies (banks, classifieds, super-apps) usually run **HR �
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-faang-ios-loop">FAANG iOS loop</h4>
 
@@ -24231,7 +24231,7 @@ Google L4 iOS: DSA (sometimes in Swift) + a short iOS-concepts tail; team match 
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-india-ios-loop">India product-company iOS loop</h4>
 
@@ -24262,7 +24262,7 @@ Large India product companies often run **OA / DSA → a machine-coding room →
 
 </td></tr></table>
 
-<table><tr><td>
+<table width="100%"><tr><td width="100%">
 
 <h4 id="card-marketplace-ios-loop">Marketplace iOS loop</h4>
 
