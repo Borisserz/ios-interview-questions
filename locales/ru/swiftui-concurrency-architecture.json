@@ -1,0 +1,412 @@
+{
+  "swiftui-vs-uikit": {
+    "title": "SwiftUI vs UIKit",
+    "answer": "**UIKit** — императивный: ты сам держишь дерево вьюх, мутируешь его и пушишь контроллеры. **SwiftUI** — декларативный: возвращаешь View как функцию от стейта, фреймворк диффит это описание и обновляет пиксели. SwiftUI выигрывает на новых экранах, в превью и там, где в основном вёрстка плюс биндинги. UIKit по-прежнему держит годы API — богатый текст, часть коллекшн-лейаутов, тонкая анимация и всё, чего нет на твоём deployment target. Мост в одну сторону — UIViewRepresentable / UIViewControllerRepresentable, в другую — UIHostingController. На собеседовании хотят сосуществование, не победителя: UIKit-приложение может хостить фичи на SwiftUI, а SwiftUI-приложение всё равно уйдёт в UIKit на острых углах. Типичная ошибка: переписывать стабильный UIKit-флоу «потому что SwiftUI», без продуктовой причины.",
+    "follow-ups": "- Когда берёшь UIViewRepresentable, а когда переписываешь контрол?\n- Как UIHostingController меняет UIKit-стек навигации?\n- Какие фичи SwiftUI всё ещё требуют минимальную iOS, которую UIKit уже давно умеет?"
+  },
+  "environment": {
+    "title": "Environment в SwiftUI",
+    "answer": "**Environment** — мешок значений, который SwiftUI гонит только вниз по дереву View. Встроенные ключи: colorScheme, dynamicTypeSize, locale, dismiss. Читаешь через @Environment(\\.key), пишешь через .environment(\\.key, value) или отдельный модификатор вроде .preferredColorScheme. Свои значения — EnvironmentKey плюс свойство на EnvironmentValues. **@EnvironmentObject** — другой слот: инжектит общий ObservableObject по типу, не маленькое значение. Дети видят то, что выставил ближайший предок; вверх никто не ходит. Типичные ошибки: тащить @EnvironmentObject ради одного булева, забыть .environmentObject на корне и упасть в рантайме, ждать, что изменение в листе обновит родителя.",
+    "follow-ups": "- Чем @Environment отличается от @EnvironmentObject?\n- Что будет, если ребёнок так и не получил environmentObject?\n- Когда EnvironmentKey лучше, чем просто передать аргумент?\n- Почему чтение любого ключа @Environment делает тебя зависимым от всего мешка EnvironmentValues?"
+  },
+  "published": {
+    "title": "@Published",
+    "answer": "**@Published** — property wrapper из Combine для класса, который конформит ObservableObject. На willSet он шлёт в objectWillChange этого объекта — именно на него подписывается SwiftUI. На структуре не работает и сам по себе вьюху не обновляет: View должен держать объект в @StateObject, @ObservedObject или @EnvironmentObject. Присвоить новое значение @Published-свойству достаточно; мутация ссылки внутри этого значения (например append в класс, который лежит в свойстве) не стрельнет, пока не присвоишь новый враппер или сам не пошлёшь objectWillChange. Фреймворк Observation (@Observable, iOS 17) трекает доступ к свойствам, и на новых типах @Published уже не нужен. Типичная ошибка: повесить @Published на SwiftUI View.",
+    "follow-ups": "- Почему мутация массива внутри published-класса не освежает UI?\n- Как @Published связан с objectWillChange?\n- Чем это заменяют на типе с @Observable?"
+  },
+  "state": {
+    "title": "@State",
+    "answer": "**@State** — хранилище, которое SwiftUI *держит за этот View*. Объявляешь приватное значение; враппер живёт через кучу пересозданий структуры View, а присваивание инвалидирует body. Бери для локального UI: тоггл, выбранный таб, черновик текстового поля. Если ребёнок должен писать — отдай биндинг через $property. Долгоживущий reference type в @State на старых ОС не клади (для этого @StateObject); на iOS 17+ @State с классом @Observable — новый путь владения. Типичные ошибки: сделать @State public и дать родителю писать во враппер, каждый раз инициализировать @State из входящего let (начальное значение берут один раз) и класть в @State данные, которыми владеет сервер.",
+    "follow-ups": "- Почему @State обычно private?\n- В чём разница между count и $count?\n- Почему смена начального значения @State у родителя не сбрасывает ребёнка?"
+  },
+  "init-vs-onappear": {
+    "title": "Init у View vs onAppear",
+    "answer": "У SwiftUI View **инициализатор бежит каждый раз, когда структуру собирают**, а это часто: родительский body пересчитался, ForEach пересобрался, модификатор сменил identity. Он должен быть дешёвым и без сайд-эффектов — сложить свойства, вывести значение, в сеть не ходить. **onAppear** срабатывает, когда View вставили в отрисованную иерархию (onDisappear — когда убрали). Туда — аналитика, фокус, старт работы; оговорка: навигация и табы могут вызвать его не раз. Для async-работы, которую надо отменить, когда View уходит, лучше хук .task. Голый Task { } внутри onAppear (или body) — неструктурированный: наследует MainActor, но **не отменяется**, когда View уходит, пока сам не сохранишь хэндл. Типичные ошибки: фетч в init (дубли запросов, нет отмены), считать onAppear за viewDidLoad и стартовать Task { } в строке, которая уедет со скроллом.",
+    "follow-ups": "- Почему init может отработать много раз для одного экрана, который пользователь всё ещё видит?\n- Когда .task лучше, чем onAppear?\n- .task vs onAppear vs Task { } — что отменяется на disappear?\n- Что делает onAppear внутри List, который переиспользует строки?"
+  },
+  "stateobject-vs-observedobject": {
+    "title": "@StateObject vs @ObservedObject",
+    "answer": "Оба враппера подписываются на ObservableObject. **@StateObject** *владеет* инстансом: SwiftUI создаёт его один раз (когда identity этого View впервые появляется) и держит, пока body пересоздают. **@ObservedObject** не владеет — смотрит на объект, который держит кто-то другой. Классический баг: @ObservedObject var model = Model() внутри View — рефреш родителя собирает новый Model, стейт пропадает. Владей через @StateObject у создателя, тот же инстанс отдай вниз как @ObservedObject (или @EnvironmentObject). На iOS 17+ @State + @Observable закрывает кучу этой пары, но на собеседовании всё ещё спрашивают правило владения. Типичная ошибка: @StateObject на View, который не владелец — случайно плодишь второй source of truth.",
+    "follow-ups": "- Что ломается с @ObservedObject var model = Model()?\n- Когда @EnvironmentObject лучше прокидывать вниз, чем @ObservedObject?\n- Как @Bindable меняет это на типах с @Observable?"
+  },
+  "environmentobject-vs-observedobject": {
+    "title": "@EnvironmentObject vs @ObservedObject",
+    "answer": "Оба подписываются на ObservableObject. **@ObservedObject** — явная зависимость: родитель передаёт инстанс. **@EnvironmentObject** — неявная: инжектишь один раз через .environmentObject(_:) и любой потомок читает по типу. @ObservedObject — когда связь локальная и хочешь видеть поток данных в инициализаторе. @EnvironmentObject — когда куче несвязанных экранов нужен один объект (сессия, тема, корзина) и тащить его через каждый init — шум. Цена environment — непрозрачность: нет .environmentObject — крэш в рантайме, два объекта одного типа в дереве без обёртки не уживутся. Владение всё равно там, где объект создали, обычно @StateObject на корне. Типичная ошибка: запихнуть экранную модель в environment, и следующий push тихо её перезапишет.",
+    "follow-ups": "- Почему отсутствующий environmentObject падает, а не опционален?\n- Когда прокинуть @ObservedObject понятнее, чем environment?\n- Как @Environment(Session.self) меняет это с @Observable?"
+  },
+  "observable-object-changes": {
+    "title": "Как ObservableObject сообщает об изменениях",
+    "answer": "У ObservableObject есть **objectWillChange** — ObservableObjectPublisher, который стреляет *до* того, как UI должен обновиться. Свойства с @Published шлют туда сами в willSet. Можно вызвать objectWillChange.send() самому, когда изменение — не присваивание stored-свойства: вычисляемое значение с файла, колбэк URLSession, мутация внутри вложенного класса. SwiftUI слушает, инвалидирует View, которые держат объект, и снова зовёт body. Подписчики Combine тоже могут слушать. Тайминг важен: это *will* change, поэтому чтения в том же ходе ещё могут увидеть старое значение — поэтому SwiftUI планирует рендер на потом. Типичная ошибка: слать objectWillChange после мутации или не слать вовсе, когда обошёл @Published.",
+    "follow-ups": "- Почему паблишер willChange, а не didChange?\n- Когда send() надо звать самому?\n- Как макрос @Observable сообщает об изменении вместо этого?"
+  },
+  "programmatic-navigation": {
+    "title": "Программная навигация",
+    "answer": "Программная навигация значит, что *source of truth* — данные, а не тап по NavigationLink. На iOS 16+ это **path у NavigationStack**: NavigationPath или типизированный биндинг [Route]. append — пуш, removeLast — поп, экраны регистрируешь через navigationDestination(for:). Линк может писать в тот же path. Старые NavigationLink(isActive:) и selection-биндинги у NavigationView ещё работают, но deprecated и легко разъезжаются. Шиты и full-screen cover — другой биндинг (item: / isPresented:), не path стека. Типичные ошибки: пушить, собрав линк, который никогда не показываешь, и хранить path только в ребёнке — тогда кнопка назад и модель спорят.",
+    "follow-ups": "- Как попасть в корень через NavigationPath?\n- Когда sheet(item:), а не пуш?\n- Что ломалось у NavigationLink(isActive:) в List?\n- Почему NavigationStack заменил NavigationView?\n- Как попнуть несколько уровней (или в корень) за один раз?"
+  },
+  "button-style": {
+    "title": "ButtonStyle",
+    "answer": "**ButtonStyle** — протокол, который перерисовывает лейбл кнопки, не подменяя тап. Реализуешь makeBody(configuration:) и читаешь configuration.label плюс configuration.isPressed. Вешаешь через .buttonStyle(MyStyle()) или static member. Системные стили (.bordered, .borderedProminent, .plain) — тоже ButtonStyle. **PrimitiveButtonStyle** — нижний крючок, если жест хочешь держать сам (кастомный toggle-button). Стили не меняют accessibility-активацию, меняют хром. Типичные ошибки: обернуть Button в onTapGesture вместо стиля и забыть isPressed — контрол никогда не выглядит нажатым.",
+    "follow-ups": "- Чем PrimitiveButtonStyle отличается от ButtonStyle?\n- Как сделать стиль дефолтным для целого поддерева?\n- Почему не стоит вешать onTapGesture поверх Button?"
+  },
+  "geometry-reader": {
+    "title": "GeometryReader",
+    "answer": "**GeometryReader** — View, который забирает *всё оставшееся место*, потом зовёт твою замыкание с GeometryProxy (size, safeAreaInsets, frame(in:)). В этом растягивании и ловушка: обернуть лейбл ридером, чтобы измерить, часто раздувает родителя на весь экран. Меряй в background или overlay, чтобы ридер взял размер ребёнка, либо Layout / containerRelativeFrame на новых ОС. У фреймов прокси нужно координатное пространство (global, local или именованное), иначе цифры не совпадут с той вьюхой, о которой думаешь. Типичные ошибки: ридер как корень каждого экрана и чтение proxy.size в первом проходе, когда он ещё ноль.",
+    "follow-ups": "- Почему GeometryReader в HStack разносит лейаут?\n- Как измерить View, не меняя его размер?\n- Когда лучше взять Layout?\n- Как PreferenceKey возвращает измеренный размер родителю?"
+  },
+  "views-are-structs": {
+    "title": "Почему View в SwiftUI — структуры",
+    "answer": "View в SwiftUI — **значения**. Структуру дёшево создать, у неё нет унаследованного stored-стейта, её копируют, пока дерево диффят. body — computed property: SwiftUI выбрасывает структуру и делает новую, когда меняется @State, наблюдаемая зависимость или выход родителя. Identity — *не* адрес в памяти, а структурная позиция плюс явный .id. Если бы View были классами, ты бы дрался с reference-семантикой (общая мутация, identity, которая переживает описание), и модель «UI — функция стейта» потекла бы. Цена: init — не хук жизни, а stored-свойства без врапперов не переживают рефреш. Типичная ошибка: положить класс с сайд-эффектом в свойство View без @StateObject / @State и удивляться, что он сбрасывается.",
+    "follow-ups": "- Как SwiftUI решает, что два значения View — «тот же» View?\n- Почему body — computed property, а не сохранённое дерево?\n- Что сломается, если View будет классом?"
+  },
+  "swiftui-mvvm": {
+    "title": "MVVM в SwiftUI",
+    "answer": "View — структура, которая рисует стейт. **ViewModel** владеет правилами, загрузкой и маппингом — не типами View. В эпоху Combine это ObservableObject, которым владеешь через @StateObject и отдаёшь вниз. На iOS 17+ это может быть класс с @Observable в @State. В любом случае: View не зовёт API-сервис напрямую, ViewModel тестируется без окна, зависимости приходят через init (или маленькую фабрику), не синглтон, спрятанный в body. Навигацию и флаги шитов держи в ViewModel, если это часть флоу; чисто визуальный стейт (isPressed) — в @State на View. Типичная ошибка: ObservableObject на 400 строк, который просто второй View.",
+    "follow-ups": "- Где живёт NavigationPath — во View или в ViewModel?\n- Как юнит-тестить ProfileModel без SwiftUI?\n- Когда MVVM избыточен для статичного экрана?\n- Чем это отличается от паттерна MV в сэмплах Apple?"
+  },
+  "observableobject-vs-observable": {
+    "title": "ObservableObject vs @Observable",
+    "answer": "ObservableObject + @Published — это Combine: любая published-запись шлёт objectWillChange, и SwiftUI инвалидирует каждый View, который держит объект. @Observable (Observation, iOS 17+) трекает **какие свойства прочитал body** и инвалидирует только этих зависимых. Меньше бойлерплейта: нет ObservableObject, нет @Published, нет @StateObject — инстанс кладёшь в @State или передаёшь, для биндингов берёшь @Bindable. Миграция не бесплатная: старые API (@EnvironmentObject, часть библиотек) всё ещё ждут ObservableObject. Типичная ошибка: обернуть @Observable в @StateObject или ждать, что @Published заработает на классе с @Observable.",
+    "follow-ups": "- Почему @Observable может пропустить рефреш, который ObservableObject сделал бы?\n- Как наблюдать тип с @Observable из UIKit?\n- Что заменяет @Bindable?"
+  },
+  "swiftui-property-wrappers": {
+    "title": "Какой property wrapper брать в SwiftUI",
+    "answer": "Сначала реши, **кто владеет source of truth**. @State — этот View владеет значением (или, на iOS 17+, инстансом @Observable). @StateObject — этот View владеет ObservableObject. @ObservedObject — владеет кто-то другой, ты только подписываешься. @EnvironmentObject / @Environment — пришло от предка, не через каждый init. @Binding — окно записи туда, кто владеет. Не инициализируй @ObservedObject var model = Model() во View. Не клади экранную модель в environment. На собеседовании хотят эту карту, не пересказ синтаксиса property wrapper.",
+    "follow-ups": "- Почему @StateObject — владелец, а @ObservedObject — заёмщик?\n- Когда брать @Environment, а не @EnvironmentObject?\n- Как карта меняется с @Observable и @Bindable?"
+  },
+  "swiftui-lifecycle": {
+    "title": "Жизненный цикл View в SwiftUI",
+    "answer": "У View в SwiftUI **двое часов**. Identity в дереве — сколько живут @State / @StateObject. Видимость — onAppear, onDisappear, .task. Ребёнок TabView может сохранить стейт, а onAppear стреляет каждый раз, когда возвращаешься на таб. body может пробежать много раз до первого onAppear. Init ребёнка бежит, когда бежит body родителя — поэтому моделью должен владеть @StateObject (или @State + @Observable), не init. Работу «загрузить один раз» закрывай флагом или .task(id:), привязанным к данным, а не фразой «я думал, onAppear — это viewDidLoad». Типичная ошибка: сеть в onAppear у строки List, которая появляется и пропадает при скролле.",
+    "follow-ups": "- Почему init может бежать чаще, чем onAppear?\n- .task vs onAppear — что отменяется, когда View уходит?\n- Как id: у .task меняет перезагрузку?\n- Что такое identity View и когда сбрасывается @State?\n- .refreshable vs .task для списка с pull-to-refresh?"
+  },
+  "binding": {
+    "title": "@Binding",
+    "answer": "@Binding — **окно на чтение и запись** в чужой стейт. Родитель владеет @State / @Bindable; ребёнок получает $value. Мутация биндинга пишет насквозь. Кастомный init принимает Binding (init(text: Binding)). Типичный промах: @Binding у владельца или скопировать значение в @State у ребёнка — родитель никогда не обновится.",
+    "follow-ups": "- @Binding vs @Bindable на @Observable?\n- Как написать кастомный init, который принимает биндинг?\n- Когда колбэк понятнее биндинга?"
+  },
+  "appstorage": {
+    "title": "@AppStorage",
+    "answer": "@AppStorage — это UserDefaults как property wrapper SwiftUI. Запись обновляет View. Бери для флага темы или последнего таба — не для токенов и не для ленты. Можно направить на suite App Group. Типичный промах: большой Codable-блоб или ожидание синка между девайсами (это iCloud KVS / CloudKit).",
+    "follow-ups": "- @AppStorage vs @SceneStorage?\n- Почему сюда нельзя класть auth-токен?\n- Как пошарить это с виджетом?"
+  },
+  "uikit-representable": {
+    "title": "UIKit в SwiftUI",
+    "answer": "UIViewRepresentable оборачивает UIView; UIViewControllerRepresentable — контроллер. Реализуешь makeUIView / updateUIView (и Coordinator для делегатов). Бери для карт, WKWebView, проверенного боем UITextView. Поверхность держи маленькой — не оборачивай всё приложение. Типичный промах: лейаут в updateUIView на каждом кадре или утечка делегата у Coordinator.",
+    "follow-ups": "- Когда нужен Coordinator?\n- updateUIView vs пересоздать View?\n- Как запушить UIKit-контроллер из SwiftUI, не оборачивая его?"
+  },
+  "lazyvgrid": {
+    "title": "LazyVGrid",
+    "answer": "LazyVGrid раскладывает элементы по колонкам и **создаёт View, когда они появляются**. Колонки — [GridItem]: .flexible() делит место, .adaptive(minimum:) набивает сколько влезет, .fixed — ширина в пикселях. Пара с ForEach и стабильными id. LazyHGrid — та же идея боком. Это не compositional layout UICollectionView: полного flow-API нет, оффскрин-ячейки — не reuse-очередь, которую ты конфигурируешь. Типичный промах: обычный VStack из 200 картинок или .adaptive с огромным minimum — одна колонка, и непонятно почему.",
+    "follow-ups": "- .flexible vs .adaptive vs .fixed?\n- Когда всё ещё хочешь UICollectionView?\n- Как переключить список и сетку, не сбросив скролл?"
+  },
+  "view-modifier": {
+    "title": "ViewModifier",
+    "answer": "ViewModifier — переиспользуемое преобразование: func body(content: Content) -> some View. Вешаешь через .modifier(CardStyle()) или расширение View, которое прячет тип. Бери, когда одни и те же padding + background + accessibility всплывают на многих экранах. Обычной функции, которая возвращает some View, хватает для разового случая. Типичный промах: модификатор, который захватывает @State, которым не владеет, или оборачивать каждый однострочный .font в тип.",
+    "follow-ups": "- Модификатор vs обёрточный View vs расширение View?\n- Как передать Binding в модификатор?\n- Меняет ли модификатор identity View?"
+  },
+  "preference-key": {
+    "title": "PreferenceKey",
+    "answer": "Environment гонит данные **вниз**. PreferenceKey гонит данные **вверх**: ребёнок пишет значение, предки редьюсят сиблингов и читают результат через onPreferenceChange. Так измеряют ребёнка, выравнивают подчёркивание с табом или собирают фреймы для своего индикатора скролла. Надо реализовать defaultValue и reduce — reduce сводит двух детей в стеке к одному числу (обычно max или +). Типичный промах: ставить preference на каждом кадре без reduce или тащить @Binding вверх по дереву и словить цикл.",
+    "follow-ups": "- Зачем reduce, если ребёнок один?\n- PreferenceKey vs @Binding родителю — когда какой честнее?\n- Как измерить, чтобы GeometryReader не растянул лейаут?"
+  },
+  "anyview": {
+    "title": "AnyView",
+    "answer": "AnyView — type erasure для View. Можно вернуть разные конкретные View из одной функции ценой **identity и специализации**: SwiftUI видит коробку, диффы хуже, body сложнее пропустить. Лучше @ViewBuilder, Group или enum направлений, чтобы каждая ветка осталась настоящим типом. AnyView в строке List на собеседовании — запах. Типичный промах: обернуть каждую ячейку «чтобы компилятор был доволен» и потом удивляться, почему скролл дёргается.",
+    "follow-ups": "- Когда AnyView всё ещё честный инструмент?\n- Как это связано с some View vs any View?\n- Что будет с identity View, когда тип в коробке меняется?\n- Протокол из другого модуля, который возвращает some View vs AnyView — что прячет тип без коробки?"
+  },
+  "lazyvstack-vs-vstack": {
+    "title": "LazyVStack vs VStack",
+    "answer": "VStack собирает **каждого** ребёнка, как только стек попал в дерево. LazyVStack (внутри ScrollView) собирает детей **когда они подходят к видимой области**. Lazy — для длинной ленты; обычный стек — для короткой формы: у lazy есть цена первого лейаута и сюрпризы с таймингом onAppear / @State. List — свой lazy-контейнер с сепараторами и reuse-подобным поведением; не оборачивай List в LazyVStack. Типичный промах: LazyVStack из 10 строк «для перфоманса» или lazy-стек *снаружи* скролла — тогда ничего не ленивое.",
+    "follow-ups": "- LazyVStack vs List vs LazyVGrid — что брать для экрана настроек?\n- Почему @State в lazy-строке может сброситься, когда уезжаешь скроллом?\n- Значит ли lazy, что сеть в onAppear безопасна?\n- Меняешь размер ячейки в onAppear — какую prefetch-работу ты только что выкинул?"
+  },
+  "matched-geometry": {
+    "title": "matchedGeometryEffect",
+    "answer": "matchedGeometryEffect говорит SwiftUI, что два View в разных деревьях — **одна и та же вещь** для анимации: превью в сетке и герой на деталке делят namespace id. SwiftUI интерполирует фрейм (и опционально другие свойства) через переход. Оба конца должны быть в иерархии во время анимации, id — уникален в этом Namespace. Типичный промах: матчить тип, который пересоздаётся каждый кадр, или ждать анимацию пуша навигации без общего namespace с обеих сторон.",
+    "follow-ups": "- Что меняет isSource:?\n- Почему это падает через пуш NavigationStack без общего namespace?\n- Когда более новый API — свой matchedTransitionSource / zoom transition?"
+  },
+  "equatable-view": {
+    "title": "EquatableView",
+    "answer": "По умолчанию body ребёнка может перезапуститься, когда перезапустился родитель, даже если входы ребёнка не менялись. Если View конформит Equatable и обернуть его .equatable() (или EquatableView), SwiftUI зовёт == и **пропускает body**, когда равно. Пиши == по тем данным, которые реально рисуешь — игнорируй дебаг-таймстамп, если строка его не показывает. У самого == есть цена; выигрывает на дорогих строках, не на одном Text. Типичный промах: законформить Equatable и забыть .equatable() или написать ==, который врёт и оставляет UI протухшим.",
+    "follow-ups": "- Чем это отличается от того, как @Observable пропускает непрочитанные свойства?\n- Когда оверхед == не стоит того?\n- Можно ли нарочно игнорировать поле в ==?"
+  },
+  "swiftui-rerender": {
+    "title": "Когда SwiftUI перерисовывает View",
+    "answer": "SwiftUI перезапускает body, когда **меняется то, от чего body зависит**, а не когда «экран обновился». Зависимости: @State / @Binding, которые прочитал, свойство @Observable, к которому реально прикоснулся, ObservableObject, который стрельнул objectWillChange, значения @Environment и родитель, который пересобрал тебя с новыми входами. Identity важна: новый .id или смена ключа ForEach — это *новый* View, стейт сбрасывается. @Observable может пропустить ребёнка, который грязное поле не читал; ObservableObject обычно нет. EquatableView — ручной пропуск, когда == говорит, что входы совпали. Типичный промах: Date() или случайный UUID в body, чтобы каждый тик родителя пересобирал строку, или винить SwiftUI за работу, которую начал в init.",
+    "follow-ups": "- Почему @Observable инвалидирует меньше View, чем ObservableObject?\n- Когда пересборка родителя всё равно форсит body ребёнка?\n- .id(uuid) на поле формы — что ты только что сбросил?\n- Environment-значение высоко в дереве — почему полприложения перезапускает body?\n- SwiftUI Instrument Cause & Effect vs Self._printChanges — что первым?"
+  },
+  "swiftui-mv": {
+    "title": "MV vs MVVM в SwiftUI",
+    "answer": "**MV** (как обычно выглядят сэмплы Apple по SwiftUI) — View + Model: @Query / @State / маленький стор, логика рядом с данными, без обязательного типа ViewModel на каждый экран. **MVVM** добавляет отдельный observable-объект, чтобы View оставался тупым, а правила юнит-тестировались. SwiftUI и так уже рендерер стейта — ViewModel, который только перепубликует @Query или оборачивает каждый тап, это лишнее движение. MV — когда стейт экрана и есть стор. ViewModel — когда есть маппинг, оркестрация или тест, который не напишешь против View. Типичный промах: «SwiftUI требует MVVM» или объект на 400 строк, который просто View в классе.",
+    "follow-ups": "- Куда в MV класть сеть, чтобы View не стал service locator?\n- Когда @Query во View делает экран нетестируемым?\n- Как мигрировать один экран с MV на ViewModel, не переписывая приложение?\n- Предписывает ли команда SwiftUI MVC / MVVM / VIPER?"
+  },
+  "attribute-graph": {
+    "title": "AttributeGraph",
+    "answer": "SwiftUI не держит твои структуры View живыми. Он держит **AttributeGraph**: узлы — атрибуты (body, коробка @State, вход родителя), рёбра — **зависимости**. Структура, которую ты пишешь, — значение, которое копируют в эти атрибуты; **identity живёт на атрибуте**, не на временной структуре. Когда стейт меняется, SwiftUI помечает зависимые атрибуты устаревшими и на следующем кадре перезапускает только эти body. Выход графа — **DisplayList** (что рисовать); этот список ты сам не собираешь. Граф Cause & Effect в SwiftUI Instrument — эта цепочка зависимостей, сделанная видимой. Типичный промах: «SwiftUI диффит дерево View, как UIKit диффит ячейки» или делать форматтер / декод внутри body, потому что структура казалась вечно дешёвой.",
+    "follow-ups": "- Identity атрибута vs значение View — кто владеет @State?\n- Почему длинный body даёт хитч, даже если граф пропустил другие View?\n- SWIFTUI_PRINT_TREE / DisplayList — игрушка для собеса или прод-инструмент?"
+  },
+  "view-identity": {
+    "title": "Идентичность View vs свойство с ViewBuilder",
+    "answer": "**Отдельная структура View** — свой узел графа: своя identity, свой набор зависимостей, может скипнуться, когда родитель бежит. **Computed property** с @ViewBuilder инлайнится в родителя — пересчитывается вместе с ним. Выноси тип, когда у куска есть стейт или он должен обновляться отдельно. Identity также дают id у ForEach и .id(...): сменил id — SwiftUI считает это **новым** View (стейт сбрасывается). Типичный промах: body на 200 строк из хелпер-свойств и удивление, почему один @State у родителя перерисовывает всё.",
+    "follow-ups": "- Когда computed some View всё ещё правильный разрез?\n- .id(UUID()) в body — что ты уничтожил?\n- Как это связано с тем, что lazy-стеки префетчат body *следующей* ячейки?"
+  },
+  "gcd": {
+    "title": "GCD",
+    "answer": "Grand Central Dispatch — рантайм очередей за DispatchQueue. Очереди **serial** (один блок за раз) или **concurrent** (много). async планирует работу и возвращается; sync блокирует вызывающего, пока работа не закончится — sync на serial-очереди, на которой ты уже стоишь, это дедлок. DispatchQueue.main — для UI. DispatchQueue.global(qos:) — fire-and-forget. Приватная serial-очередь — обычный способ защитить мутабельный стейт. **DispatchGroup** даёт дождаться нескольких async-джобов (enter / leave / notify). **Barrier** на concurrent-очереди ждёт текущие чтения, потом гоняет эксклюзивные записи — классический reader-writer кэш. Quality of Service — подсказка планировщику, не лок приоритета. Work item в GCD не отменяется так, как Task. Новый код по умолчанию — async / await и actor. На собеседовании всё ещё хотят sync vs async, serial vs concurrent, правило main thread и пример дедлока.",
+    "follow-ups": "- Serial vs concurrent очередь — куда кладёшь barrier?\n- Как QoS в GCD стыкуется с приоритетом Task?\n- Reader-writer: много async-чтений, одна запись async(flags: .barrier)?\n- OperationQueue vs GCD — когда нужны зависимости и отмена?\n- Чем в Swift concurrency заменяют приватную serial-очередь?\n- Как дождаться N загрузок картинок через DispatchGroup?\n- Почему ставить label.text с global-очереди — баг и как чинить?\n- concurrentPerform vs for на concurrent-очереди?\n- asyncAfter — это точная задержка?"
+  },
+  "concurrency-problems": {
+    "title": "Проблемы concurrency",
+    "answer": "Назови сбой, потом фикс. **Data race** — несинхронизированные чтение и запись одной памяти; Swift 6 при complete checking делает это ошибкой компиляции. **Race condition** — логический баг: оба порядка событий «валидны», но один неверный (check-then-act). **Deadlock** — двое ждут то, что держит другой; классика iOS — DispatchQueue.main.sync с main thread. **Priority inversion** — низкоприоритетный держатель блокирует высокоприоритетного ждущего; наследование QoS и actor это смягчают. **Reentrancy у actor** — не гонка: await внутри actor пускает другие Task, инварианты могут измениться через точку саспенда. Хотят правильное слово, не «баг с тредами».",
+    "follow-ups": "- Data race vs race condition — по одному предложению?\n- Как complete concurrency checking в Swift 6 меняет ответ на собесе?\n- Практичный фикс reentrancy у actor — проверить снова после await?\n- Deadlock vs livelock — по одному предложению?\n- Как поймать data race в Xcode (Thread Sanitizer)?\n- «Reentrancy очереди» в GCD (sync на той же serial-очереди) vs reentrancy у actor — что дедлочится?\n- Дают висящий проект в Xcode — первый шаг отличить deadlock от data race?"
+  },
+  "deinit-thread": {
+    "title": "На каком треде бежит deinit",
+    "answer": "deinit бежит на том треде, который уронил последнюю strong-ссылку. Очереди «для deinit» нет. Если объект отпустил колбэк URLSession с фона, deinit будет там — трогать UIKit из такого deinit это крэш. Isolated deinit у actor (Swift 5.10+) перед разборкой перепрыгивает на actor. Типы с @MainActor всё равно требуют осторожности: если последний релиз случился не на main, не считай что ты на main, пока isolation этого не говорит. Типичная ошибка: стартовать таймер или сеть в deinit или считать, что он парный с init на том же треде.",
+    "follow-ups": "- Как прыгнуть на MainActor из deinit, не захватив self?\n- Что изменил isolated deinit?\n- Почему I/O в deinit — плохая идея?"
+  },
+  "thread-safe-state": {
+    "title": "Потокобезопасный общий стейт",
+    "answer": "Начни с гонки: две очереди мутируют одни и те же свойства класса. Потом выбери инструмент. **Serial-очередь** (или barrier на concurrent) — ответ GCD. **NSLock / os_unfair_lock** дешевле и проще словить дедлок. **Семафор** — счётчик разрешений, не мьютекс. Лучше **actor**: компилятор сериализует доступ, await вместо танца с локами. Value types плюс copy-on-write не шарят память, если внутрь не протащить класс. Не сыпь DispatchQueue.main.async как «фикс» модельного стейта — это только легализует обновления UI. Хотят один конкретный выбор и почему, не список API.",
+    "follow-ups": "- Когда лок лучше actor?\n- Почему nonisolated(unsafe) — крайняя мера?\n- Как защитить кэш, который надо читать синхронно из configure ячейки?"
+  },
+  "gcd-vs-operationqueue": {
+    "title": "GCD vs OperationQueue",
+    "answer": "**GCD** планирует замыкания на очередях. Это дефолт для «убери с main thread» и для приватного serial-лока. **OperationQueue** оборачивает работу в объекты Operation: зависимости (addDependency), отмена, которую можно проверить, max concurrent operation count и KVO на isFinished. maxConcurrentOperationCount = 1 — когда спрашивают, как гонять API-вызовы **сериально** на operation queue; та же идея, что приватный serial DispatchQueue. Операции — когда пайплайн «декод, потом аплоад, отмени аплоад, если пользователь ушёл». Группы GCD умеют ждать пачку, но DAG именованных шагов моделируют хуже. Новый Swift concurrency (Task, TaskGroup) закрывает многое из того, для чего брали операции. Типичная ошибка: писать кастомный Operation, чтобы один раз вызвать async.",
+    "follow-ups": "- Как отменить Operation, который уже бежит?\n- Блоки / GCD vs NSOperation — когда лишний тип стоит того?\n- Что меняет isAsynchronous = true?\n- Когда всё ещё возьмёшь GCD, а не OperationQueue?\n- Как заставить OperationQueue гонять по одному запросу?"
+  },
+  "task-detached-taskgroup": {
+    "title": "Task vs Task.detached vs TaskGroup",
+    "answer": "**Task { }** — неструктурированная работа, которая **наследует** изоляцию actor, приоритет и task-local значения из контекста создания. Поэтому Task { await load() } внутри View с @MainActor остаётся на MainActor, пока сам не прыгнешь. **Task.detached** почти ничего не наследует — для CPU-работы, которую не хочешь на actor вызывающего, значения передавай явно. **TaskGroup / throwingTaskGroup** — structured concurrency: родитель await'ит каждого ребёнка, отмена идёт вниз, детей добавляешь динамически. Предпочитай structured concurrency (async let, task group), чтобы работа не пережила скоуп. Типичная ошибка: Task.detached из View на сеть, потом трогать @State без возврата.",
+    "follow-ups": "- Что наследует Task, созданный в .task у SwiftUI?\n- Когда Task.detached — плохой дефолт?\n- Как отмена родителя бьёт по детям группы?\n- Что утечёт, если стартовать Task { } во View и не отменить на disappear?\n- Task.sleep vs Thread.sleep — что блокирует тред?\n- Почему Task { } внутри уже async-функции — баг structured concurrency?"
+  },
+  "main-async-vs-sync": {
+    "title": "main.async vs main.sync",
+    "answer": "DispatchQueue.main.async кладёт работу в очередь и возвращается. Это обычный прыжок на main thread для UI. DispatchQueue.main.sync **блокирует вызывающего**, пока блок не закончится. Если вызывающий уже на main queue, sync ждёт, пока очередь доделает текущий элемент — а это и есть сам sync — и приложение дедлочится. Вложенный main.async нормален — оба блока всё равно на main. С фоновой очереди sync легален, но морозит воркера, пока main run loop не обслужит блок. sync на *другую* очередь часто **оставляет вызывающий тред**, чтобы не прыгать: otherQueue.sync { Thread.isMainThread } с main может всё ещё напечатать true. Лучше async или await MainActor.run. Типичная ошибка: «мне результат прямо сейчас» — и sync из колбэка table view, который уже на main.",
+    "follow-ups": "- Почему MainActor.assumeIsolated иногда безопаснее, чем гадать по Thread.isMainThread?\n- Что будет, если sync на main с очереди делегата URLSession?\n- Чем await MainActor.run отличается от DispatchQueue.main.async?\n- Почему otherQueue.sync с main всё ещё может напечатать Thread.isMainThread == true?\n- Почему main.async { main.sync { … } } никогда не выполнит внутренний блок?\n- Вложенные global().async + main.async — что напечатается первым и почему это не детерминировано?"
+  },
+  "actor-vs-serial-queue": {
+    "title": "Actor vs serial DispatchQueue",
+    "answer": "**Serial-очередь** — договорённость: трогаешь стейт только на этой очереди. Компилятор не помогает. **actor** — языковая изоляция: переход через границу это await, и Swift 6 откажется от несинхронизированного доступа. Actor реентерится на await; serial-очередь не уступает посреди блока, пока сам не запланируешь ещё работу. Actor складывается с async-функциями и отменой; очереди — с GCD и колбэками. Serial-очередь оставляй, когда сегодня надо звать синхронный API с многих тредов (C-библиотека, lock-free чтение кэша). Для новых модельных объектов начинай с actor. Типичная ошибка: обернуть каждую функцию в queue.async и потом sync'ом вытаскивать return с той же очереди.",
+    "follow-ups": "- Как отдать синхронное чтение из actor?\n- Что такое reentrancy у actor и есть ли оно у serial-очереди?\n- Когда nonisolated на методе actor?\n- Кэш картинок: два load попали в один miss — как склеить после await?"
+  },
+  "taskgroup-vs-async-let": {
+    "title": "Task group vs async let",
+    "answer": "**async let** — для **фиксированного** набора дочерних Task, который знаешь на этапе компиляции: два фетча, потом await (a, b). Это structured concurrency, отменяется со скоупом, читается чисто. **Task group** — для **динамического** числа: N URL, ранний выход когда один упал, или стриминг результатов по мере готовности. В группе addTask в цикле и for await частичных результатов. Не собирай группу ради двух захардкоженных вызовов — для этого async let. Не плоди неструктурированный Task на каждый элемент for и не надейся, что сам их смэтчишь. Типичная ошибка: async let внутри цикла по пользовательским данным; так не компилируется, как ждут, инструмент — группа.",
+    "follow-ups": "- Как отменить оставшуюся работу группы после первой ошибки?\n- Могут ли дети async let бежать параллельно? Что их стартует?\n- Когда ThrowingTaskGroup, а когда ручной массив Task?\n- Как повесить timeout на один await без сторонней библиотеки?\n- Результаты группы приходят в порядке add? Как восстановить порядок?\n- Throwing-группа vs TaskGroup<Result<T, Error>> — всё или ничего vs частичный UI?\n- Как ограничить группу N одновременными аплоадами?"
+  },
+  "async-timeout": {
+    "title": "Timeout на await",
+    "answer": "У самого await таймаута нет. Гоняешь работу против слипера: try await withThrowingTaskGroup — добавь настоящую задачу, добавь Task.sleep, верни первый результат, остальное отмени. Или оберни URLSession через timeoutIntervalForRequest. Timeout обязан **отменить** проигравшего, иначе утечёт запрос. Типичный промах: DispatchQueue.asyncAfter вокруг await или спать на MainActor.",
+    "follow-ups": "- Почему после первого финиша надо cancelAll?\n- Таймаут сессии vs своя гонка — что реально глушит сокет?\n- Как отличить «timed out» от настоящего CancellationError от пользователя?"
+  },
+  "sendable": {
+    "title": "Sendable",
+    "answer": "Sendable значит: значение безопасно передать через домены concurrency — в Task, в actor, прочь с MainActor. Структуры из Sendable stored-свойств могут стать Sendable сами. Классы — нет, пока они иммутабельны и final, или ты их изолируешь (@MainActor, actor). Complete checking в Swift 6 откажется передавать не-Sendable класс в detached task. @unchecked Sendable — люк, который надо обосновать (держишь лок). Типичная ошибка: пометить мутабельный класс @unchecked Sendable, чтобы заткнуть ворнинги (ImageCache с голым [URL: UIImage] — классическая ложь), или обернуть var-массив классов и решить, что обёртка-структура сделала его безопасным.",
+    "follow-ups": "- Почему actor неявно Sendable?\n- Когда @unchecked Sendable честный, а когда ложь?\n- Как отправить UIKit-тип прочь с MainActor?\n- Замыкание @Sendable vs тип Sendable — что каждый обещает?\n- Мутабельный класс в фоновый Task — структура, actor или final + let?"
+  },
+  "task-cancellation": {
+    "title": "Отмена Task",
+    "answer": "Отмена **кооперативная**. task.cancel() ставит флаг, CPU не абортит. Проверяешь Task.isCancelled или зовёшь Task.checkCancellation() (кидает CancellationError). Async API URLSession и Task.sleep это чтят. Структурированных детей отменяют вместе с родителем. Task { }, который выстрелил и забыл, продолжит бежать, пока не сохранишь и не отменишь или не привяжешь к .task / скоупу. Типичная ошибка: defer { }, который не останавливает URLSessionTask, или игнор отмены в длинном for — закрытый экран продолжает качать.",
+    "follow-ups": "- Что отменяет .task в SwiftUI, когда View пропадает?\n- Как отменить withCheckedContinuation, который обернул callback API?\n- Почему отмена — не замена timeout?\n- Debounce-поиск: отменил предыдущий Task — что всё ещё гоняется, если пропустить isCancelled?\n- Повторяющийся Timer + Task { self } — кто держит ViewModel живым?"
+  },
+  "main-actor": {
+    "title": "@MainActor",
+    "answer": "@MainActor — global actor: всё, что им помечено, бежит на main thread / очереди. View в UIKit и SwiftUI изолированы на MainActor. **DispatchQueue.main.async — прыжок на эту очередь; @MainActor — изоляция, которую понимает компилятор.** main.async не делает следующую строку безопасной для Sendable и не мешает потом тронуть UI из detached task. MainActor.run / await на методе MainActor — это прыжок, и он может не энкьюить, если ты уже изолирован (assumeIsolated). **Зачем main thread:** UIKit не потокобезопасен. Render server и UIWindow ждут мутации на main run loop; UI не на main — undefined (тиаринг, потерянные тачи, крэши). Изолировать весь класс значит: все методы на MainActor, пока не пометишь nonisolated. Типичные ошибки: считать DispatchQueue.main.async ответом Swift 6, Task.detached и потом трогать @State, или @MainActor на тяжёлом парсере — подвесишь UI. Изолируй UI-тип, не сетевой слой.",
+    "follow-ups": "- @MainActor на функции vs на типе — что наследуется?\n- Когда MainActor.assumeIsolated?\n- Как это заменяет DispatchQueue.main.async?\n- Ты уже на main queue — hopнет ли MainActor.run?\n- Почему обновления UIKit должны быть на main thread?\n- Когда nonisolated законен на типе с @MainActor?\n- Прыгает ли Task { } внутри метода @MainActor с main?\n- Блокирует ли @MainActor main thread, пока ты await'ишь сеть?"
+  },
+  "checked-continuation": {
+    "title": "Checked continuations",
+    "answer": "withCheckedContinuation / withCheckedThrowingContinuation мостят callback API в async. Resume ровно **один раз**. Два resume — checked-вариант трапает в дебаге, unsafe — undefined. Не утекай continuation: если колбэк может не прийти, resume с ошибкой по timeout или onCancel. Так оборачивают URLSession.dataTask или делегат без async-оверлоада. Если есть настоящий async API (data(from:)) — бери его. Типичная ошибка: сильно захватить self в колбэке и не сделать resume на ошибочном пути.",
+    "follow-ups": "- Checked vs unsafe continuation — когда unsafe оправдан?\n- Как хукнуть onCancel, чтобы остановить нижележащую работу?\n- Почему не оборачивать так каждый паблишер Combine?"
+  },
+  "locks": {
+    "title": "Локи",
+    "answer": "Лок делает критическую секцию эксклюзивной. **os_unfair_lock** — дешёвый современный мьютекс (не рекурсивный); его identity — **адрес**, копия структуры его ломает; аллоцируй на куче или бери **OSAllocatedUnfairLock** (iOS 16+). **NSLock** — обёртка Foundation, тоже не рекурсивный, честнее под конкуренцией. **NSRecursiveLock** даёт тому же треду залочиться снова — удобно, легко спрятать баг реентерабельности. **pthread_mutex** — C-версия. **Семафор** (DispatchSemaphore) — счётчик, не мьютекс; wait / signal как лок из async-кода — фабрика дедлоков. Лучше **actor** или serial-очередь, пока не нужно синхронное чтение на треде вызывающего (configure ячейки, C-колбэк). Типичные ошибки: залочиться и потом await (лок с Task не прыгает) и забыть unlock на ошибочном пути — defer { lock.unlock() }.",
+    "follow-ups": "- Почему нельзя await, держа лок?\n- Unfair lock vs recursive lock vs serial-очередь?\n- Как это стыкуется с @MainActor для UI-стейта?\n- Семафор vs мьютекс vs лок — что считает разрешения?\n- Почему stored os_unfair_lock на структуре — ловушка?"
+  },
+  "qos": {
+    "title": "Quality of Service",
+    "answer": "QoS — **подсказка планировщику** для GCD / ядра: .userInteractive (тач → кадр), .userInitiated (пользователь ждёт), .utility (прогресс-бар), .background (синк, уборка), .default / .unspecified. Это не лок и не гарантия. Элемент .background всё равно может бежать на main thread, если ты целился в DispatchQueue.main. Приоритет Task — двоюродный брат в Swift. Типичный промах: декод картинки на .userInteractive и дёрганый скролл или ждать, что QoS починит data race.",
+    "follow-ups": "- Как QoS стыкуется с приоритетом Task?\n- Priority inversion одним предложением?\n- Почему .background — неправильная очередь для обработчика кнопки?\n- Как злоупотребление .userInteractive бьёт по батарее и другим приложениям?"
+  },
+  "dispatch-work-item": {
+    "title": "DispatchWorkItem",
+    "answer": "DispatchWorkItem — блок GCD, который можно **отменить**, нотифаить или дождаться. Уже бегущую работу всё равно не остановишь — isCancelled это флаг, который надо проверять. В новом коде лучше Task + Task.checkCancellation(). Типичный промах: item.cancel() и уверенность, что загрузка оборвалась.",
+    "follow-ups": "- Cancel vs Task, который реально рвёт I/O?\n- notify vs DispatchGroup?\n- Почему это слабее зависимостей Operation?"
+  },
+  "async-sequence": {
+    "title": "AsyncSequence",
+    "answer": "AsyncSequence — это Sequence для значений, которые **приходят со временем**: for await x in stream. Обычные источники — URLSession.bytes, NotificationCenter.notifications и AsyncStream. Back-pressure и отмена приходят из конца цикла for await. Типичный промах: буферить безграничный continuation AsyncStream или блокировать внутри next().",
+    "follow-ups": "- AsyncStream vs паблишер Combine?\n- Что будет с циклом, когда Task отменили?\n- Когда AsyncSequence не тот инструмент по сравнению с одним await?"
+  },
+  "concurrency-vs-parallelism": {
+    "title": "Concurrency vs parallelism",
+    "answer": "**Concurrency** — чередование: много задач продвигаются, не обязательно в один миг. iOS-приложение конкурентно, когда пользователь скроллит, загрузка заканчивается и обрабатывается тап — одно ядро всё это умеет переключением. **Parallelism** — тот же миг на двух ядрах: два фильтра картинки, энкод видео. Хотят «отзывчивость vs пропускная способность». Concurrent-очереди GCD и async let *могут* бежать параллельно; concurrency они дают всегда. Типичный промах: «async значит два CPU» или называть каждую фоновую очередь «параллельной».",
+    "follow-ups": "- Бывает ли concurrency на одном ядре?\n- Когда на iPhone реально нужен parallelism?\n- Sync vs async — та же ось, что serial vs concurrent?"
+  },
+  "gcd-vs-async-await": {
+    "title": "GCD vs async/await",
+    "answer": "GCD — **неструктурированные очереди**: async'нул блок и потерял родителя. Нет автоматической отмены, нет throws из блока, легко словить thread explosion, если эти блоки *блокируют*. async / await — **structured concurrency**, задачи на кооперативном пуле: дети наследуют приоритет и отмену, ошибки идут через await, саспенд не держит тред. GCD всё ещё выигрывает как крошечный serial-лок, barrier-кэш или код, который обязан остаться синхронным. Новая фича — Task и actor. Типичный промах: «async/await — просто красивее GCD».",
+    "follow-ups": "- Что наследует дочерний Task, чего нет у блока GCD?\n- Когда приватная serial-очередь всё ещё честный инструмент?\n- Как мигрировать completion-handler API, не оборачивая каждый вызов в Task { }?\n- Как мигрировать большой GCD-кодбейз — по модулю или flag day?"
+  },
+  "thread-explosion": {
+    "title": "Thread explosion",
+    "answer": "Пул GCD **растёт**, когда тред блокируется (sync, wait семафора, длинный CPU-цикл, который не возвращается). Сотни заблокированных воркеров, у каждого стек ~512 KB — система трэшится. Swift concurrency использует **кооперативный** пул размером примерно с число ядер: await *отдаёт* тред. Блокировка внутри Task (локи, Thread.sleep, синхронное чтение файла) возвращает взрыв. Хотят «саспенд ≠ блок». Типичный промах: DispatchQueue.global().async на каждую ячейку таблицы из 200 строк или semaphore.wait() на кооперативном пуле.",
+    "follow-ups": "- Почему Thread.sleep внутри Task больнее, чем Task.sleep?\n- Как ограничить in-flight работу без семафора на кооперативном пуле?\n- Как выглядит Thread State в Instruments во время взрыва?"
+  },
+  "dispatch-group": {
+    "title": "DispatchGroup",
+    "answer": "DispatchGroup — **счётчик** «эти N async-джобов закончились». enter до работы, leave на каждом пути (включая ошибки), потом notify или wait. Бери, чтобы склеить несколько вызовов GCD / completion-handler, когда не можешь переписать их в async let. wait на main queue — зависон. Оставшихся участников не отменишь так, как throwing task group. Типичный промах: enter без leave на ошибочном пути — notify никогда не стрельнет.",
+    "follow-ups": "- notify vs wait — что легально на main?\n- Как оборвать остальных, если одна загрузка упала?\n- Чем это заменяют в Swift concurrency?"
+  },
+  "dispatch-semaphore": {
+    "title": "DispatchSemaphore",
+    "answer": "DispatchSemaphore — **счётчик разрешений**. wait уменьшает (блокирует на 0); signal увеличивает. Бери, чтобы ограничить конкурентную *блокирующую* работу — два файловых хэндла, легаси SDK. Это не мьютекс (нет владельца, легко пересигналить) и ловушка в Swift concurrency: wait на треде Task морит кооперативный пул. Лучше task group со скользящим окном или AsyncStream плюс счётчик. Типичный промах: wait на main или семафор на 1 как единственная «потокобезопасность», пока внутри критической секции всё ещё прыгаешь по очередям.",
+    "follow-ups": "- Семафор vs serial-очередь vs actor — какую задачу решает каждый?\n- Почему wait внутри Task { } — риск thread explosion?\n- Как рейт-лимитить URLSession без семафора?"
+  },
+  "actor-reentrancy": {
+    "title": "Reentrancy у actor",
+    "answer": "Actor гоняет **одну Task за раз**, но это не мьютекс вокруг всего метода. На каждом await actor **саспендится** и может прогнать другого вызывающего, пока первый не возобновится. Это **reentrancy**. После await load() твой cache[url] уже мог заполнить — или почистить — второй load. Блок serial DispatchQueue.async посредине не уступает, пока сам не запланируешь ещё работу. Хотят фикс: проверить стейт снова после await, склеить in-flight работу ([URL: Task]) или держать критическую секцию без саспенда. Типичный промах: «у actor не бывает гонок» — и потом портить словарь через два await.",
+    "follow-ups": "- Почему serial-очередь *не* реентерится так же?\n- Как склеить два тапа, которые стартуют одну загрузку?\n- nonisolated на чтении кэша — от чего ты только что отказался?\n- Data race vs race condition — что actor *не* останавливает?\n- Утекший ViewModel и живой оба бьют в singleton actor — крэш или две вежливые покупки?\n- После await pay() почему надо перечитать сток?"
+  },
+  "swift-6-concurrency": {
+    "title": "Строгая concurrency в Swift 6",
+    "answer": "Swift 6 делает проверки data race **ошибками**: переход через домен изоляции с не-Sendable значением, трогание стейта @MainActor из фоновой Task, захват self в замыкании @Sendable, которое прыгает. Ментальная модель — **изоляция** (кто может трогать эту память) плюс **Sendable** (что может путешествовать). Миграция поэтапная: включи complete checking на одном таргете, почини границу (@MainActor на UI-типе, actor на сторе, sending / копии на краю), потом следующий таргет. @unchecked Sendable и nonisolated(unsafe) затыкают компилятор — мутабельный класс от этого безопасным не становится. Типичный промах: переключить language mode одним PR и «починить» 400 ворнингов через @unchecked.",
+    "follow-ups": "- Complete checking vs minimal — что ещё компилируется в режиме Swift 5?\n- Когда @unchecked Sendable честный?\n- Что меняет «approachable concurrency» в Swift 6.2 про дефолтную изоляцию?\n- @MainActor vs свой actor — какой домен изоляции какой?\n- Когда @preconcurrency import — мост миграции, а когда вечная ложь?"
+  },
+  "isolation": {
+    "title": "Домены изоляции",
+    "answer": "**Домен изоляции** — кто имеет право трогать кусок памяти. Проверки data race в Swift 6 это «перешло ли значение домен, не будучи Sendable?». Домены, которые называют на собесе: **инстанс actor** (его изолированные методы), **global actor** (@MainActor или свой @SomeActor) и **nonisolated** код (кооперативный пул тредов или nonisolated-член, который не должен трогать изолированный стейт). @MainActor — global actor, прибитый к main executor, то есть UI. Свой actor — свой serial executor, не на main, для кэша или стора. nonisolated на члене actor — обещание, что он использует только sendable / иммутабельные данные. Типичный промах: «повесил @MainActor на всё, значит я изолирован» — это один домен, и ты только что сериализовал приложение на UI-треде.",
+    "follow-ups": "- Что может читать nonisolated-метод actor?\n- Когда свой global actor лучше, чем @MainActor на сторе?\n- Чем sending на границе отличается от пометки типа Sendable?\n- Создаёт ли Task изоляцию или *несёт* изоляцию места создания?"
+  },
+  "global-actor": {
+    "title": "Global actors",
+    "answer": "**Global actor** — один общий домен изоляции на целую подсистему; @MainActor — тот, которым ты уже пользуешься. Объявляешь @globalActor enum PreferencesActor с shared-инстансом actor; типы и функции с @PreferencesActor сериализуются на этом executor. Бери, когда много объектов должны делить **один** ресурс (defaults, файл, соединение с БД) и хочешь, чтобы компилятор вставлял await на границе. Инстанс actor достаточен, когда у каждого кэша свой лок. Типичный промах: повесить один и тот же global actor на несвязанную работу и получить скрытую очередь на всё приложение — или голый DispatchQueue и забыть один sync.",
+    "follow-ups": "- Почему @MainActor — global actor, а не «API main thread»?\n- Когда брать инстанс actor вместо этого?\n- Что будет, если два global actor оба обернут UserDefaults?"
+  },
+  "delegates": {
+    "title": "Делегаты",
+    "answer": "Делегат — объект, которого просишь принимать решения или события, почти всегда через протокол. UITableView не знает твой экран — зовёт методы вроде tableView(_:didSelectRowAt:) у того, кого ты назначил delegate. Связь один к одному, не широковещание. Классовый делегат держи weak: обычная форма UIKit — «контроллер владеет вьюхой, вьюха указывает назад на контроллер». Оба strong — утечка. Протокол пометь AnyObject, чтобы weak был легален.",
+    "follow-ups": "- Почему делегат обычно weak?\n- Делегат vs NotificationCenter vs замыкание-колбэк?\n- Data source vs delegate — что куда?\n- Что ломается, если протокол не AnyObject?\n- Можно ли делегирование без протокола — и зачем он всё равно нужен?"
+  },
+  "mvc": {
+    "title": "MVC",
+    "answer": "MVC режет экран на Model, View и Controller. Модель — данные и правила без UIKit. View рисует. Контроллер грузит модель и обновляет View — на iOS это обычно UIViewController. Шаблоны Apple стартуют отсюда, так что назови паттерн, потом назови провал: контроллер впитывает сеть, маппинг и навигацию, пока не станет на тысячи строк. Для маленького экрана MVC всё ещё беру. Вытаскиваю работу в тот момент, когда контроллер начинает знать про URL или как форматировать валюту. Миграция MVC → MVVM поэтапная: вынеси ViewModel на один экран, держи UIKit снаружи, забинди стейт, навигацию оставь, пока контроллер не похудеет — не переписывай приложение одним PR.",
+    "follow-ups": "- Что люди имеют в виду под Massive View Controller?\n- Где в MVC жить сетевому вызову?\n- MVC vs MVVM — когда переключаться?\n- Есть ли у SwiftUI контроллер?\n- Как мигрировать один Massive View Controller на MVVM без рерайта?"
+  },
+  "mvvm": {
+    "title": "MVVM",
+    "answer": "MVVM ставит ViewModel между View и остальным приложением. ViewModel владеет презентационным стейтом и говорит с сервисами; View рисует этот стейт и прокидывает тапы. **В VM:** флаги загрузки, смапленные строки для экрана, валидация, вызовы API / репозитория. **Не в VM:** UIView, UIColor (пока не абстрагируешь), идентификаторы сториборда, Auto Layout. Отдаю что-то биндабельное — @Published, @Observable, паблишер — и держу типы UIKit и SwiftUI снаружи, чтобы юнит-тестить с фейковым API. Навигация — обычная драка: если ViewModel презентует контроллер, разрез уже сломан. Болтливые биндинги, которые пересобирают всё на каждый кейстрок — второй запах. ViewModel — стейт-машина; слой View пусть презентует.",
+    "follow-ups": "- Как юнит-тестить ViewModel?\n- Куда девать навигацию и алерты?\n- MVVM vs MVC на одном экране UIViewController?\n- Что ломается у двусторонних биндингов?\n- Что обычно живёт в ViewModel, а что во View?\n- Какой фейл-мод у MVVM — Massive ViewModel?"
+  },
+  "mvp": {
+    "title": "MVP",
+    "answer": "MVP ставит **Presenter** между View и моделью. View — пассивный протокол (show(items:), showError), часто сам view controller. Presenter грузит данные и говорит View, что показать; типы UIKit не держит, если протокол честный. Отличие от MVVM: presenter **толкает** команды во View; ViewModel **отдаёт стейт**, который View тянет / биндит. MVP проще вести в UIKit без Combine. MVVM лучше садится на SwiftUI и @Published. Типичный промах: presenter, который всё ещё зовёт view.tableView.reloadData().",
+    "follow-ups": "- MVP vs MVVM — кто владеет стейтом экрана?\n- Почему протокол View — AnyObject и weak?\n- Когда Clean Architecture больше, чем любой из этих двух?"
+  },
+  "viper": {
+    "title": "VIPER",
+    "answer": "VIPER режет экран на **View, Interactor, Presenter, Entity, Router**. View тупой. Presenter форматирует и реагирует на тапы. Interactor гоняет use case и говорит с сервисами. Router владеет навигацией. Entity — модели. Отличие от MVVM: больше типов, навигация яснее, тяжелее для одной формы. Бери, когда модуль большой и куски держат несколько людей. Типичный промах: presenter, который всё ещё импортит UIKit, или пять пустых файлов ради тоггла в настройках.",
+    "follow-ups": "- VIPER vs Clean vs MVVM — какую задачу решает каждый лишний тип?\n- Где живёт сетевой клиент?\n- Когда это overkill?\n- Какой фейл-мод VIPER у команды из одного человека?"
+  },
+  "mvvm-c": {
+    "title": "MVVM-C",
+    "answer": "MVVM-C — это MVVM плюс **Coordinator** (или router), который владеет навигацией. ViewModel говорит «логин прошёл»; Coordinator пушит следующий экран. Так UIKit / NavigationPath остаются вне ViewModel, и флоу можно тестить без окна. Цена: ещё один тип на модуль и спор, кто держит UINavigationController. Типичный промах: Coordinator, который всё ещё собирает View *и* зовёт API.",
+    "follow-ups": "- Coordinator vs ViewModel, который владеет NavigationPath?\n- Как тестить Coordinator?\n- Когда хватает обычного MVVM?\n- Можно ли взять Coordinator, не называя паттерн «MVVM-C»?"
+  },
+  "tca": {
+    "title": "TCA",
+    "answer": "The Composable Architecture (Point-Free) — **однонаправленный** цикл: State, Action, Reducer, Store и Effect для I/O. Каждое изменение — action; эффекты — значения, которые можно зафейлить в тестах. Масштабирует дерево фич, time-travel и исчерпывающие тесты дешевеют. Цена: бойлерплейт и кривая обучения; приложению из трёх экранов редко нужно. Типичный промах: назвать это «просто Redux» и пропустить эффекты.",
+    "follow-ups": "- TCA vs MVVM — какую задачу решает reducer?\n- Где живут сетевые вызовы (Effect)?\n- Когда это overkill рядом с @Observable?"
+  },
+  "oop-pillars": {
+    "title": "Столпы OOP",
+    "answer": "Четыре слова, которые всё ещё хотят, с iOS-примером на каждое. **Инкапсуляция:** спрячь хранилище, отдай маленький API (private(set)). **Абстракция:** говори с протоколом, не с URLSession во View. **Наследование:** сабклассы UIViewController — дёшево, легко перебрать. **Полиморфизм:** один draw() на разных сабклассах UIView или any FeedLoading. Swift опирается на протоколы сильнее, чем на глубокие деревья классов. Типичный промах: перечислить список без примера или назвать «структуру с методами» наследованием.",
+    "follow-ups": "- Какому столпу в первую очередь служит протокол в Swift?\n- Когда наследование — неправильный инструмент в UIKit?\n- Чем инкапсуляция отличается от private?\n- Может ли класс в Swift наследоваться от двух суперклассов?"
+  },
+  "solid": {
+    "title": "SOLID",
+    "answer": "Пять проверок дизайна, не религия. **S**ingle responsibility: VC только биндит UI, сервис только говорит по HTTP. **O**pen/closed: добавь новый конформ PaymentMethod вместо правки свитча. **L**iskov: сабкласс должен чтить контракт родителя — никакого fatalError в оверрайде, который вызывающий ждёт. **I**nterface segregation: маленький Logging лучше 20-методного GodService. **D**ependency inversion: завись от протокола, инжекти живой тип. Типичный промах: развернуть каждую букву в лекцию и ни разу не назвать тип из последнего приложения.",
+    "follow-ups": "- Слабая vs сильная связность — какая буква SOLID?\n- Какое правило SOLID ломает view controller на 2000 строк?\n- Open/closed vs «мы никогда не меняем существующие файлы»?\n- Как DIP выглядит как constructor injection?\n- DI vs DIP — по одному предложению?"
+  },
+  "kvc": {
+    "title": "KVC",
+    "answer": "Key-Value Coding — доступ рантайма ObjC по **строковому ключу**: value(forKey:), setValue(_:forKey:). KVO на этом построен. Всё ещё встречаешь в Core Data, NSSortDescriptor, остатках Cocoa bindings и setValue из словаря. Обходит access control Swift и может попасть в неверный ключ в рантайме (valueForUndefinedKey). В новом Swift лучше key path (\\Foo.bar) и типизированные свойства. Типичный промах: ставить private-свойство через KVC «потому что работает».",
+    "follow-ups": "- KVC vs KVO vs key path — по одному предложению?\n- Почему KVC может обойти твой кастомный сеттер?\n- Где Core Data всё ещё этого требует?"
+  },
+  "clean-architecture": {
+    "title": "Clean Architecture",
+    "answer": "Clean Architecture (и варианты VIPER / «use case») кладёт **entity и use case** в середину, потом адаптеры (presenter, gateway), потом фреймворки (UIKit, URLSession, Core Data) снаружи. Зависимости смотрят **внутрь**: use case не импортит SwiftUI. Отличие от MVVM: MVVM — паттерн экрана; Clean — правило зависимостей на всё приложение. Тянешься, когда одни и те же бизнес-правила должны пережить рерайт UI или второго клиента. Цена — типы: LoginUseCase, LoginRepository, три протокола на одну кнопку. Типичный промах: папки Domain / Data / Presentation, которые всё ещё импортят UIKit в «домене».",
+    "follow-ups": "- Clean vs MVVM — можно ли оба?\n- Чем use case отличается от метода ViewModel?\n- Когда это overkill для приложения из трёх экранов?\n- Почему URLError не должен дойти до ViewModel как есть?"
+  },
+  "dependency-injection": {
+    "title": "Dependency injection",
+    "answer": "DI значит: тип не конструирует своих коллабораторов — их передают. Три вида, которые называют на собесе: **initializer** (init(api:) — предпочтительный), **property** (ставишь после init, часто со сторибордами), **method** (коллаборатор в один вызов). Тесты дают стаб, превью — фикстуру, прод — живой клиент. Вызов Foo.shared внутри метода — наоборот: скрытая зависимость. Контейнер в маленькое приложение не тащу. Composition root, который собирает граф, плюс протокол на каждой I/O-границе — достаточно.",
+    "follow-ups": "- Initializer injection vs property injection vs service locator?\n- Как заинжектить в UIViewController из сториборда?\n- Когда DI-контейнер на iOS стоит того?\n- Как это меняет превью SwiftUI?\n- Чем constructor injection отличается от зависимости от протокола (DIP)?"
+  },
+  "protocol-oriented-programming": {
+    "title": "Protocol-oriented programming",
+    "answer": "Protocol-oriented programming значит: проектируешь вокруг способностей, не деревьев классов. Протокол называет, что объект умеет; extension может дать дефолт; структуры и енумы могут конформить — наследование этого не даёт. Протоколы выношу на границах — сеть, диск, часы — чтобы тесты подсунули дабл. Ловушка — протокол на каждый конкретный тип или протокол, которому нужны stored-свойства, которые потом подделываешь шумом associated type. Начни с конкретного типа. Поднимай протокол, когда есть вторая реализация или тестовый фейк.",
+    "follow-ups": "- POP vs наследование классов — когда базовый класс всё ещё лучше?\n- Какую задачу associated types создают для any / some?\n- Extension протокола vs свободная функция?\n- Когда протокол на один конформ — слишком рано?"
+  },
+  "functional-programming": {
+    "title": "Функциональное программирование в Swift",
+    "answer": "Swift — не функциональный язык, но берёт полезные куски. Функции — значения, поэтому map, compactMap, filter и reduce заменяют кучу мутабельных циклов. Предпочитаю преобразовывать значения, а не мутировать общие объекты, и люблю маленькие функции, которые берут данные и возвращают данные. Trailing closures это удобно делают. Чистоту и свои операторы в апп-коде не гоняю. Скрытая мутация внутри map хуже честного for.",
+    "follow-ups": "- map vs compactMap vs flatMap?\n- Когда for понятнее пайплайна?\n- Что значит, что Array — value type с copy-on-write?\n- Как не дать пайплайну Combine / async спрятать сайд-эффекты?\n- Functional vs OOP — когда всё ещё хочешь иерархию классов?"
+  },
+  "kvo": {
+    "title": "KVO",
+    "answer": "KVO — Key-Value Observing из рантайма Objective-C. Смотришь key path и получаешь колбэк, когда свойство меняется. В Swift тип должен наследовать NSObject, свойство — @objc dynamic, и надо держать токен NSKeyValueObservation, иначе наблюдение умрёт. Дефолтная реализация Apple **создаёт сабкласс в рантайме**, оверрайдит сеттер и **свизлит isa**, чтобы инстанс выглядел как этот сабкласс — поэтому ручной setValue или прямая запись в ivar могут пропустить KVO, пока не обернёшь willChangeValue / didChangeValue. Новое KVO в Swift не добавляю. Паблишер, Observation или делегат проще читать. Узнавать всё равно надо: часть системных типов публикует только так — AVPlayer, NSProgress, куски UIKit.",
+    "follow-ups": "- Зачем @objc dynamic и что без него?\n- KVO vs Combine vs фреймворк Observation?\n- Что делать с токеном наблюдения?\n- Делегат vs KVO — когда какой наблюдатель правильный?\n- Увидит ли KVO свойство Swift-структуры?\n- Как Apple реализует KVO под капотом (свизл isa)?\n- Как стрельнуть KVO для изменения, которое не прошло через сеттер?"
+  },
+  "singletons": {
+    "title": "Синглтоны — когда помогают",
+    "answer": "Синглтон — один инстанс на процесс, обычно static let shared и private init. Помогает, когда два инстанса были бы неверны или дороги — обёртка над keychain, FileManager.default, сокет, который нельзя открыть дважды. На собесе это **антипаттерн**, когда прячет зависимости: каждый тип, который тянется к Analytics.shared, нетестируемый и зависит от порядка. Цена — глобальный мутабельный стейт: тесты делят объедки, тип, который зовёт Analytics.shared, не может взять no-op в превью. **static let потокобезопасен на создании** (Swift лениво инициализирует его один раз). ObjC-эквивалент, который всё ещё спрашивают — dispatch_once вокруг alloc; не кати @synchronized и голый if (shared == nil). Мутация свойств на shared не потокобезопасна — защити actor, serial-очередью или локом. Синглтон пусть существует, потом передай его. Дефолт параметра в .shared ок на краю, не внутри доменной логики.",
+    "follow-ups": "- Как тестить код, который сегодня ходит в синглтон?\n- Синглтон vs shared-инстанс, который всё равно инжектишь?\n- Какие проблемы потокобезопасности всплывают на shared?\n- Когда синглтон — неправильный инструмент для «мне нужен один»?\n- Как делали потокобезопасный синглтон в Objective-C?\n- Почему на собесе Singleton называют антипаттерном — и когда его всё равно оставляешь?"
+  },
+  "global-variables": {
+    "title": "Глобальные переменные",
+    "answer": "var на уровне файла — общий мутабельный стейт без владельца. Тесты не сбросят его надёжно, два экрана дерутся за него, фейк не подсунешь. let-глобалы для констант (let maxRetry = 3) нормальны. Нужен один живой сервис? Заинжекти или узкий shared, который в тестах всё ещё можно подменить. Типичный промах: var currentUser в скоупе файла, который читает каждый VC.",
+    "follow-ups": "- Глобальный let vs глобальный var — в чём реальная проблема?\n- Чем это отличается от синглтона?\n- Как тестить код, который уже читает глобал?"
+  },
+  "phantom-types": {
+    "title": "Phantom types",
+    "answer": "Phantom type — дженерик-параметр, который ты никогда не хранишь. Он нужен, чтобы компилятор отличал два иначе одинаковых значения. ID<User> и ID<Order> оба могут обернуть String, но одно туда, где ждут другое, не передашь. Так же кодируешь флоу: Request<Unsigned> против Request<Signed>, и send принимает только подписанный. Лишнего рантайм-стейта нет. Беру, когда путаница — настоящий баг: ID, единицы, валидация. Не как украшение на каждую модель.",
+    "follow-ups": "- Phantom type vs структура-обёртка с отдельным именем?\n- Как смоделировать Draft vs Paid, чтобы submit не принял черновик?\n- Есть ли цена в рантайме и нужны ли инстансы Entity?\n- Когда это overkill рядом с UUID плюс комментарий?"
+  },
+  "design-patterns": {
+    "title": "Паттерны в iOS",
+    "answer": "Не читай Gang of Four наизусть. Группируй то, что реально шипил. **Порождающие:** фабрики и DI вместо Foo.shared везде; builder для длинного URLRequest. **Структурные:** adapter (обернуть C API), decorator (URLProtocol), facade (тип Session перед Keychain + сетью). **Поведенческие:** делегат (table view), observer (NotificationCenter, Combine), strategy (протокол Pricing), Coordinator / router для навигации. UIKit уже MVC плюс делегаты. SwiftUI толкает к MVVM и Observation. Назови трейдофф на каждый: делегаты один к одному и текут, если strong; синглтоны простые и прячут зависимости; Coordinator добавляет типы, но держит контроллеры маленькими. Типичная ошибка: двадцать паттернов без iOS-примера.",
+    "follow-ups": "- Делегат vs замыкание vs NotificationCenter на одно событие?\n- Какие паттерны UIKit уже реализует за тебя?\n- Когда Coordinator стоит лишних типов?\n- Где на iOS всплывает Memento (NSCoder, undo, state restoration)?\n- Какой *плохой* паттерн в iOS-приложении — Massive VC, singleton-бог, strong-делегат?"
+  },
+  "atomic-nonatomic": {
+    "title": "atomic vs nonatomic vs copy",
+    "answer": "Это **атрибуты свойств Objective-C**, не ключевые слова Swift. atomic (дефолт ObjC) синтезирует лок вокруг геттера/сеттера, чтобы получить целое значение, не порванный указатель — это **не** потокобезопасная мутация графа объектов. nonatomic лок пропускает; UIKit ставил его везде ради скорости. copy на set шлёт copy, чтобы оставить иммутабельный снимок (NSString, NSArray), а не мутабельный сабкласс, который меняется под тобой. @property (copy) NSMutableArray *array — ловушка: copy даёт **иммутабельный** NSArray, следующий addObject падает. Бери strong плюс защитный copy внутри сеттера или мутабельный ivar. В Swift пишешь var title: String (value semantics) или явный NSLock. Типичная ошибка: «пометил atomic — массив потокобезопасен».",
+    "follow-ups": "- Почему atomic не делает коллекцию безопасной для мутации с двух очередей?\n- Когда copy всё ещё нужен у свойства Swift с @objc?\n- Чем это мышление заменили в Swift (let, actor)?\n- copy vs retain / strong — когда нужен снимок?"
+  },
+  "repository": {
+    "title": "Паттерн Repository",
+    "answer": "Репозиторий — тип, который **прячет, откуда данные**. Остальное приложение просит func user(id:) async throws -> User и не знает, ответ пришёл из URLSession, Core Data, кэша в памяти или тестовой фикстуры. Репозиторий мапит DTO и объекты стора в **доменные** модели и переводит инфраструктурные ошибки в доменные. Отличие от «сервиса»: сервис часто *делает* use case; репозиторий *грузит и сохраняет*. Типичный промах: UserRepository, который возвращает UserDTO и протекает URLError в ViewModel, или один бог-репозиторий на все сущности.",
+    "follow-ups": "- Репозиторий vs use case vs ViewModel — кто чем владеет?\n- Как сменить Core Data на SwiftData, не переписывая экраны?\n- Почему URLError переводить на этой границе?"
+  },
+  "feature-flags": {
+    "title": "Feature flags",
+    "answer": "Feature flag — **рантайм-переключатель** пути в коде: remote config, локальный оверрайд или compile-time #if. Им шипают тёмным, раскатывают на 10%, глушат плохой релиз или гоняют A/B. Клиент должен считать флаг **недоверенным и поздним** — дефолт на безопасный путь, кэш последнего известного значения офлайн, не блокировать запуск на фетче конфига. Хотят ops-историю: кто владеет флагом, как удаляешь после эксперимента, как kill switch доезжает до девайсов (пуш / background fetch / следующий запуск). Типичный промах: обернуть каждую строку в if flag, пока модуль нечитаем, или флаг, который выключается только новым билдом App Store.",
+    "follow-ups": "- Kill switch vs эксперимент vs постепенный раскат — один флаг?\n- Как быстро удалённый флаг доедет до suspended-приложения?\n- Куда класть дефолт, когда конфиг-сервер лежит?"
+  },
+  "modular-architecture": {
+    "title": "Модульная архитектура",
+    "answer": "Модульность — **физические** границы: локальные Swift-пакеты (или таргеты), чтобы Feature A не импортила внутренности Feature B. Общие контракты живут в тонком модуле; реализации остаются internal. Таргет приложения — composition root. Так несколько команд шипают без одного User.swift, который обрастает пятьюдесятью опционалами. SPM отказывается от циклических зависимостей — фикс это третий модуль протоколов, не «просто импортните друг друга». Типичный промах: пакет Core, который импортит всё, или сделать каждый тип public «для тестов».",
+    "follow-ups": "- Как разорвать цикл между Checkout и Profile?\n- Что класть в AppContracts vs пакет CoreUI?\n- Strangler Fig — как мигрировать UIKit → SwiftUI по одному экрану?\n- 200+ модулей SPM — что первым взрывает время компиляции?"
+  },
+  "optimistic-updates": {
+    "title": "Оптимистичные обновления",
+    "answer": "Оптимистичный UI применяет изменение **до** подтверждения сервера и откатывает, если запрос упал. Пользователь сразу видит лайк, отправку или переименование. Держишь снимок прошлого стейта (или обратную операцию) и стабильный id, чтобы поздний 409 / 500 откатил, не затерев более новый локальный эдит. Политика конфликтов — тема собеса: last-write-wins, version tokens или «спросить пользователя». Типичный промах: мутировать единственную копию модели и нечем восстановить — или показать хром успеха, ещё не поставив запрос в очередь.",
+    "follow-ups": "- Как свести два оптимистичных лайка, если тапнули дважды?\n- Что персистить, если приложение убили mid-flight?\n- Когда пессимистичный путь (ждать 200) лучше как дефолт?"
+  },
+  "kmp": {
+    "title": "Kotlin Multiplatform с iOS",
+    "answer": "KMP шарит **Kotlin**-бизнес-логику (сетевые модели, валидацию, стор), скомпилированную во фреймворк, который линкует iOS-приложение. UI остаётся SwiftUI / UIKit. Собес про **границу**: expect / actual для платформенных API, какие типы пересекают (примитивы и классы, которые экспортирует Kotlin, не структуры Swift), и кто владеет concurrency (корутины Kotlin vs async в Swift — обычно оборачиваешь). View не шарь. Типичный промах: считать KMP «написать приложение один раз» или передать Swift-класс в Kotlin и удивляться, почему компилятор отказывается.",
+    "follow-ups": "- Что не пересекает границу Kotlin/Swift чисто?\n- Кто отменяет in-flight вызов Ktor, когда View SwiftUI пропадает?\n- Когда общий модуль — неправильный разрез (UI, Keychain, WidgetKit)?"
+  }
+}

@@ -1,0 +1,668 @@
+{
+  "arc-vs-gc": {
+    "title": "ARC и garbage collection",
+    "answer": "Swift живёт на ARC — Automatic Reference Counting, не на tracing garbage collector. У каждого экземпляра класса есть счётчик: сколько strong-ссылок на него смотрит. Счётчик стал нулём — объект сразу уходит в deinit. Нет паузы mark-and-sweep и нет отдельного GC-потока.\n\nНа собесе хотят именно контраст. ARC освобождает память в тот момент, когда пропала последняя strong-ссылка. Сборщик мусора придёт потом, когда сам решит просканировать кучу — и может стопнуть процесс. Цена ARC — increment/decrement на retain и release. Цена GC — периодические проходы по куче и возможные паузы. Цикл ссылок для ARC — вечная жизнь: два объекта держат друг друга strong и никогда не дойдут до нуля. Для GC цикл — обычный мусор, если снаружи до него никто не дотягивается. Считает ARC только экземпляры class, reference types.\n\nСтруктуры, enum и tuple — value types, их не считают. Копирование копирует значение; у Array и String ещё copy-on-write.\n\nДальше почти всегда спрашивают про циклы. Два объекта со взаимными strong не умрут. Разрываешь weak — это optional, обнуляется, когда объект умер — или unowned: не optional, но если переживёшь владельца, поймаешь краш. Замыкания по умолчанию захватывают self сильно — самый частый лик в UIKit и SwiftUI.\n\nКлассические косяки: сказать «у Swift есть GC»; повесить weak на value type; взять unowned на экран, который может закрыться раньше колбэка; забыть, что async-работа и таймеры — те же strong-захваты.",
+    "follow-ups": "- weak и unowned — когда что брать?\n- Чем рвёшь retain cycle в замыкании?\n- Почему структуры не участвуют в ARC?\n- Что меняет unowned(unsafe)?",
+    "prompt": ""
+  },
+  "swift-memory-management": {
+    "title": "Как Swift управляет памятью",
+    "answer": "У Swift нет tracing garbage collector. Экземпляры классов, actor и замыкания живут в куче и принадлежат ARC: каждая strong-ссылка поднимает счётчик, объект умирает в тот момент, когда счётчик стал нулём. Структуры, enum и tuple — value types: присваивание копирует значение (у Array, String и Dictionary ещё copy-on-write), их не считают.\n\nСтек против кучи — вторичная деталь. Маленькие значения часто сидят на стеке; коллекции и экземпляры классов — в куче. На собесе хотят модель владения: значения копируются, ссылки шарятся, и считают только ссылки.\n\nКлассические косяки: «у Swift есть GC»; «каждый тип под ARC»; забыть, что замыкание — reference type и может держать self живым.",
+    "follow-ups": "- Что ARC считает, а что игнорирует?\n- Почему замыкание может залить view controller?\n- Когда структура всё равно окажется в куче?",
+    "prompt": ""
+  },
+  "explain-arc": {
+    "title": "Объясни ARC",
+    "answer": "Automatic Reference Counting — это компилятор, который вокруг экземпляров классов вставляет retain и release. Вставки — compile time, счётчик — runtime. У экземпляра хранится, сколько strong-ссылок на него смотрит. Создал объект — счётчик единица; расшарил — плюс один; последняя strong-ссылка ушла — ноль, deinit сразу. Паузы GC нет.\n\nARC работает только для reference types. weak и unowned счётчик не поднимают. Компилятор может выкинуть лишние retain, но модель на собесе всё равно «strong держит живым». Ломается это retain cycle: два объекта держат друг друга и никогда не доходят до нуля — рвёшь одну сторону weak или unowned.\n\nДо ARC в Objective-C был MRC: retain, release и autorelease писал сам. Забыл release — лик; лишний release — краш. @autoreleasepool — наследник того мира: в тесном цикле всё ещё сливает временные объекты.",
+    "follow-ups": "- ARC крутится на фоновом потоке?\n- Что происходит со счётчиком, когда объект передаёшь в функцию?\n- ARC — compile time или runtime: что вставляет компилятор, а что делает процесс?\n- Почему при охоте на лик первым делом ставишь deinit?\n- Как жили без ARC в Objective-C?",
+    "prompt": ""
+  },
+  "retain-cycle": {
+    "title": "Найти и разорвать retain cycle",
+    "answer": "Retain cycle — петля strong-ссылок: A владеет B, B владеет A. Ни один счётчик не дойдёт до нуля, deinit не вызовется. На собесе три формы: родитель держит ребёнка, ребёнок держит родителя; strong-делегат; сохранённое замыкание (или Timer, Combine sink, Task), которое захватило self, а self владеет этой работой.\n\nЛовишь это, когда после закрытия экрана deinit молчит, или Memory Graph Debugger рисует петлю. Рвёшь цикл: обратную ссылку делаешь weak или unowned, либо пишешь [weak self] и идёшь через optional chaining.\n\nКлассические косяки: навесить weak на всё подряд, так и не найдя петлю; взять unowned, когда объект может умереть первым; забыть, что Timer и NotificationCenter удерживают target.",
+    "follow-ups": "- Почему одного [weak self] иногда мало?\n- Когда в замыкании берёшь [unowned self]?\n- Как поймать цикл, в котором нет замыкания?",
+    "prompt": ""
+  },
+  "memory-leak": {
+    "title": "Найти и починить утечку памяти",
+    "answer": "Утечка — память, которая осталась выделенной, хотя она уже никому не нужна. В Swift обычная причина — retain cycle. Три формы, которые хотят услышать по именам: два класса держат друг друга strong; strong-делегат (протокол назад к владельцу); сохранённое замыкание / Timer / Combine sink, которое захватило self, а self владеет этой работой.\n\nВ SwiftUI типичный сигнал — экран после pop так и не делает deinit: Task в onAppear, который сильно держит view model; синглтон или static-стор, который помнит последний экран; координатор UIViewRepresentable, который смотрит назад на self. Другие лики: безразмерный кэш, не отменённый Task, URLSession, который так и не довели до конца.\n\nДоказываешь Instruments Allocations (график не возвращается к базе), инструментом Leaks, Memory Graph Debugger или deinit, который молчит после pop. Чинишь владение — weak / unowned, [weak self] — отменяешь работу в deinit или onDisappear, ставишь потолок кэшам.\n\nНа собесе хотят различение: цикл — одна форма утечки, «лик» — симптом. Не каждая утечка — два объекта, которые смотрят друг на друга.",
+    "follow-ups": "- Чем утечка отличается от retain cycle?\n- «Публичный API не трогать» — какое слово всё равно можно добавить?\n- Что говорит растущий график Allocations после серии push/pop?\n- Почему синглтон может течь даже без цикла?\n- Назови три самые частые формы retain cycle на iOS.\n- Экран SwiftUI после pop не умирает — куда смотришь первым?\n- На старте всё было нормально, через 15 минут тормозит — что накопилось?\n- Leak vs zombie — какой инструмент что показывает?\n- Утёкший ViewModel всё ещё подписан, синглтон-actor жмёт тап дважды. Какой инструмент покажет два экземпляра?\n- Почему «Swift 6 компилируется чисто» не спасает, если счётчики экземпляров ползут вверх?",
+    "prompt": ""
+  },
+  "weak-vs-unowned": {
+    "title": "weak и unowned",
+    "answer": "Оба не трогают retain count, поэтому цикл из них не собрать. weak — optional, становится nil, когда объект умер: безопасно, если время жизни неизвестно. unowned — не optional: ты утверждаешь, что объект переживёт эту ссылку. Если нет — краш (unowned ловит trap; unowned(unsafe) — undefined).\n\nweak берёшь на делегаты, на view controller в сетевых и анимационных колбэках, на всё, что может закрыться первым. unowned — когда связь структурная: ребёнок не существует без родителя, кредитная карта не живёт без клиента, замыкание живёт только пока ты владеешь self. Прочитал unowned после смерти владельца — процесс падает. Поэтому совет «всегда unowned self в замыканиях» — плохой.\n\nКлассические косяки: unowned на экран, который может исчезнуть до возврата async-колбэка; weak на структуру (не скомпилируется); считать их взаимозаменяемым способом заткнуть ворнинг.",
+    "follow-ups": "- Что будет, если прочитать unowned после того, как объект умер?\n- Почему weak-свойство должно быть var и optional?\n- Когда unowned(unsafe) вообще оправдан?",
+    "prompt": ""
+  },
+  "side-tables": {
+    "title": "Side tables",
+    "answer": "Экземпляр Swift-класса начинается как маленький объект в куче: указатель на метаданные плюс inline-refcount. В первый раз, когда нужна лишняя бухгалтерия — weak-ссылка, unowned-счётчик, который не влезает, или ObjC-interop — рантайм рядом кладёт side table. Weak-ссылки смотрят в эту таблицу, не в сам объект, поэтому после deinit могут стать nil и не висеть в воздухе. Поэтому weak медленнее и толще unowned: платишь за таблицу и лишний прыжок. На глубоком собесе хотят эту картинку, а не «weak — это optional». Side table сам не управляешь — просто понимаешь, почему тип, который всегда только unowned, дешевле.",
+    "follow-ups": "- Почему unowned может обойтись без side table, а weak нет?\n- Почему говорят, что weak медленнее strong?\n- Что происходит с weak-ссылками во время deinit?\n- Как это всплывёт в Allocations, если создать миллионы объектов с weak-указателями?",
+    "prompt": ""
+  },
+  "autoreleasepool": {
+    "title": "autoreleasepool",
+    "answer": "Объекты Objective-C можно autorelease: retain отдаётся пулу и сольётся позже. Внешний пул главного потока сливается в конце каждого оборота RunLoop — после текущего события, таймера или source. У воркера GCD часто свой пул на work item, но тесный цикл внутри того же item всё равно копит. autoreleasepool создаёт вложенный пул и сливает его, когда скобка закрылась. Чистые Swift value types этим не пользуются. Встречаешь, когда мостишь во Foundation: NSString, NSData, UIImage. Классический косяк: обернуть случайный Swift-код в пул и ждать, что ARC изменится — или ни разу не обернуть цикл, который тысячу раз делает UIImage из Data.",
+    "follow-ups": "- Когда главный run loop сливает внешний пул?\n- Почему для массива UInt8 это не тема, а для UIImage — да?\n- Как в Allocations убедиться, что течёт именно пул?",
+    "prompt": ""
+  },
+  "deep-vs-shallow": {
+    "title": "Deep и shallow copy",
+    "answer": "Shallow-копия дублирует контейнер и шарит элементы — те же identity объектов. Deep-копия дублирует граф: поменял ребёнка — оригинал не изменился. Array структур копирует значения (на этом уровне это deep). Array классов копирует массив, не объекты. copy у NSArray — shallow; NSArray из NSString всё равно шарит строки, и обычно это нормально, они иммутабельны. Типичный промах: array.map с теми же экземплярами классов и назвать это deep copy.",
+    "follow-ups": "- copy и mutableCopy у NSArray?\n- Как CoW меняет ответ для Array из Int?\n- Когда копия должна быть deep ради потокобезопасности?",
+    "prompt": ""
+  },
+  "stack-vs-heap": {
+    "title": "Стек и куча",
+    "answer": "Стек — черновик потока: кадры пушатся и снимаются по LIFO, когда функции входят и выходят. Там локальные и адреса возврата. Куча — общий пул процесса на динамическое время жизни: malloc и объекты ARC. Не говори «структуры на стеке, классы в куче». Экземпляр класса — в куче; структура может быть на стеке, заинлайнена в классе или промоутнута в кучу (escaping-замыкание, буфер Array). Объекты ObjC — объекты кучи. Типичный промах: путать stack-vs-heap с value vs reference.",
+    "follow-ups": "- Почему большой Array может жить в куче, хотя Array — структура?\n- Что происходит с памятью стека, когда функция вернулась?\n- Как ARC связан только с объектами кучи?\n- Где живёт свойство-структура у класса?",
+    "prompt": ""
+  },
+  "combine": {
+    "title": "Combine и реактивное программирование",
+    "answer": "Реактивный код моделирует значения во времени: Publisher шлёт события, оператор их превращает, подписчик делает работу. Combine — версия Apple; RxSwift старше и кроссплатформенный. Берёшь для поиска по мере набора, склейки двух сетевых вызовов, биндинга view model к UIKit. Выигрыш — композиция и отмена через AnyCancellable и store(in:). Цена — стек вызовов, который никто не читает, когда всё сломалось, плюс надо знать потоки: receive(on:). Swift concurrency закрывает много новой работы; Combine всё ещё живёт в старых приложениях и на собесах.\n\nКлассические косяки: забыть подписку и получить лик; трогать UI на потоке паблишера.",
+    "follow-ups": "- Future / Promise против долгоживущего Publisher?\n- Publisher, Subject и @Published — в чём разница?\n- Как отменяешь и что будет, если забыть?\n- Когда берёшь async/await вместо Combine?\n- debounce и throttle на поисковой строке?\n- Зачем [weak self] в sink и что меняет receive(on:)?",
+    "prompt": ""
+  },
+  "combine-subjects": {
+    "title": "Subject в Combine",
+    "answer": "Subject — это Publisher, в который ещё и сам можешь послать значение. PassthroughSubject текущего значения не держит: опоздавший подписчик прошлые события не увидит — тапы, разовые события. CurrentValueSubject всегда знает последнее и реплеит его — например isLoggedIn экрана. @Published — это CurrentValueSubject с проводкой SwiftUI/Combine. На границе API стираешь в AnyPublisher. Типичный промах: Passthrough для состояния, которое вью нужно уже в момент appear.",
+    "follow-ups": "- Subject, @Published и AsyncStream?\n- Зачем стирать в AnyPublisher?\n- Что share() меняет у холодного Publisher?",
+    "prompt": ""
+  },
+  "combine-operators": {
+    "title": "Как склеивать Publisher",
+    "answer": "combineLatest стреляет, когда сработал любой вход, и отдаёт последние значения каждого — форма, которой нужны и email, и пароль. zip склеивает события один к одному и ждёт более медленную сторону. merge смешивает потоки одного Output в один стрим. switchToLatest — часто после map на поиске — отменяет предыдущий внутренний Publisher, побеждает только последний запрос. flatMap запускает внутренние и даёт им пересекаться. Типичный промах: zip на двух @Published полях и удивление, почему кнопка после первой пары больше не оживает.",
+    "follow-ups": "- combineLatest, zip, merge — по одному предложению?\n- Когда flatMap хуже switchToLatest?\n- Куда ставишь receive(on: DispatchQueue.main)?\n- Как напишешь debounce или throttle без Combine — какой таймер отменяешь?",
+    "prompt": ""
+  },
+  "network-request": {
+    "title": "Сетевой запрос",
+    "answer": "URLSession — системный HTTP-клиент. Собираешь URL или URLRequest, вызываешь data(from:) или старый dataTask, смотришь HTTP-статус, декодируешь тело. Для нового кода — async/await; completion-handler всё равно должен уметь написать. URLSession.shared хватает на простой GET; свой URLSessionConfiguration — на таймауты, кэш и background-сессии. Завершённая задача — ещё не успех: читай statusCode у HTTPURLResponse.\n\nТипичные промахи: забыть про ATS, без нужды декодировать JSON на main actor, залить delegate-сессию, так и не вызвав finishTasksAndInvalidate.",
+    "follow-ups": "- URLSession.shared и своя сессия — когда своя?\n- Как послать JSON POST с заголовком?\n- Что меняет background URLSession в колбэках?\n- Где декодировать: очередь делегата сессии, Task или main actor?",
+    "prompt": ""
+  },
+  "web-content": {
+    "title": "Показать веб-контент",
+    "answer": "HTML внутри приложения — WKWebView из WebKit. UIWebView мёртв и ревью не пройдёт. Если нужны куки Safari, reader view и приватный UI без своего браузера — показывай SFSafariViewController. Link в SwiftUI отдаёт URL в Safari; WKWebView оборачиваешь в UIViewRepresentable, когда надо остаться в приложении. Грузишь URLRequest или HTML-строку; JavaScript инжектишь только если страница сама не справляется. На собесе хотят развилку: WKWebView — контроль, SFSafariViewController — Safari-хром внутри приложения, обычный https — уйти из приложения.",
+    "follow-ups": "- Почему для OAuth и чужих страниц берут SFSafariViewController?\n- Как загрузить локальный HTML из бандла в WKWebView?\n- Зачем WKWebsiteDataStore?",
+    "prompt": ""
+  },
+  "notification-center": {
+    "title": "NotificationCenter",
+    "answer": "NotificationCenter — шина pub/sub внутри процесса, не сетевой API. Постишь Notification.Name; наблюдатели получают на том же потоке, если не указал очередь. Берёшь для рассылки, которая может быть интересна многим несвязанным объектам: клавиатура, логаут, accountDidChange. Не подменяй им делегат, колбэк или AsyncStream между двумя типами, которые и так друг друга знают. Block-based addObserver возвращает токен — его держишь; бросаешь токен или removeObserver, когда слушатель должен умереть.\n\nТипичные баги: пост не с main и трогаешь UI; утекающие наблюдатели; столкновение на сырой строке имени.",
+    "follow-ups": "- Combine NotificationCenter.Publisher и сохранённый токен наблюдателя — кто отменяет?\n- На каком потоке доставит post, если queue nil?\n- Когда лучше делегат или AsyncStream?",
+    "prompt": ""
+  },
+  "urlsession": {
+    "title": "URLSession",
+    "answer": "URLSession — конвейер запроса: конфигурация, потом задача, потом resume. default шарит дисковый кэш и хранилище кук. ephemeral держит это в RAM и выбрасывает вместе с сессией. background отдаёт трансферы системе, чтобы они дожили после suspend. URLSession.shared нормален для простых GET; свою сессию делаешь, когда нужен делегат, pinning или свой кэш. Задачи стартуют на паузе — забыть resume — классика. Предпочитай data(from:) и bytes(for:) старому dataTask с completion, если не мостишь легаси.\n\nКлассические косяки: одна shared-сессия с делегатом, которого никто не держит; background-конфиг на JSON API, который надо просто await.",
+    "follow-ups": "- Когда нужен делегат сессии вместо async?\n- shared и своя сессия — куки, кэш, invalidateAndCancel?\n- Что меняет background-конфигурация в completion?\n- Когда Alamofire ещё стоит зависимости?",
+    "prompt": ""
+  },
+  "url-vs-urlrequest": {
+    "title": "URL и URLRequest",
+    "answer": "URL — адрес. URLRequest — запрос, который вот-вот пошлёшь: этот URL плюс метод, заголовки, тело, cache policy, таймаут. URLSession.data(from:) хватает на GET. Всё остальное — POST, Authorization, своя cache policy — нужен URLRequest. URLComponents — как собрать URL, не склеивая query руками. Типичный промах: склеить строку с query и удивляться, почему пробелы ломают запрос.",
+    "follow-ups": "- URL, URLComponents и сырая строка?\n- Когда cachePolicy ставишь на запрос, а когда на сессию?\n- Как прицепить bearer-токен и не залогировать его?",
+    "prompt": ""
+  },
+  "url-cache": {
+    "title": "URLCache",
+    "answer": "URLCache кладёт HTTP-ответы на диск и в память по cache policy запроса и заголовкам ответа — Cache-Control, ETag. Это не NSCache и не твои декодированные модели. useProtocolCachePolicy — дефолт и обычно правильный выбор. reloadIgnoringLocalCacheData — для pull-to-refresh. returnCacheDataElseLoad — для offline-first чтения. Свой URLSessionConfiguration.urlCache даёт размер памяти и диска.\n\nКлассические косяки: ждать, что URLCache будет хранить объекты UIImage; выключить кэш глобально из-за одного протухшего эндпоинта — чини policy этого запроса.",
+    "follow-ups": "- Как ETag и 304 Not Modified живут с URLCache?\n- URLCache, NSCache и файл, который пишешь сам?\n- Когда reloadIgnoringLocalAndRemoteCacheData — не тот молоток?",
+    "prompt": ""
+  },
+  "push-notifications": {
+    "title": "Push-уведомления",
+    "answer": "Удалённый пуш — твой сервер, потом APNs, потом устройство. Просишь разрешение, затем registerForRemoteNotifications — на каждом запуске, потому что токен крутится: restore, новый девайс, рефреш APNs. Hex из Data отправляешь на бэкенд. Токены sandbox и production не смешиваются; 410 Unregistered — удали строку. Пейлоад маленький JSON: aps.alert, badge, sound. Тихий подъём — content-available 1; Notification Service Extension нужен mutable-content 1 и примерно 30 секунд до serviceExtensionTimeWillExpire.\n\nТипичные промахи: считать токен вечным; отправить debug-токен в прод; PII в пейлоаде; ждать extension без mutable-content. Локальные уведомления через APNs не ходят.",
+    "follow-ups": "- Device token, ключ APNs в p8 и старые p12-сертификаты?\n- Что меняется для Notification Service Extension?\n- Как обработать тап, который должен открыть конкретный экран?\n- Получит ли suspended-приложение пуш — и отработает ли делегат?\n- Local и remote — что стрельнет в Airplane Mode?\n- Sandbox и production — почему TestFlight жил, а сборка из App Store молчит?\n- content-available и mutable-content — кто качает картинку?\n- APNs 410 — что сервер удаляет?\n- Потолок пейлоада — что будет на 4 КБ плюс один байт?\n- Alert, silent, VoIP, critical — кто обходит Focus?",
+    "prompt": ""
+  },
+  "token-auth": {
+    "title": "Токенная аутентификация",
+    "answer": "После логина сервер выдаёт короткий access token — часто JWT — и более длинный refresh token. На API-вызовы ставишь Authorization Bearer. Оба кладёшь в Keychain, не в UserDefaults. На 401 один refresh за раз — single-flight actor — потом ретрай исходного запроса; refresh не вышел — на логин. Токены не логируешь.\n\nКлассические косяки: access token в query URL; рефреш на каждый вызов; держать refresh только в памяти, чтобы убийство процесса выкидывало пользователя без причины.",
+    "follow-ups": "- Куда кладёшь refresh, чтобы два 401 не устроили stampede?\n- Access token, refresh token, API key — что где живёт?\n- Что PKCE добавляет мобильному OAuth / SSO?\n- Что делаешь с токенами на логауте?",
+    "prompt": ""
+  },
+  "http-methods": {
+    "title": "HTTP-методы",
+    "answer": "GET читает и должен быть safe и идемпотентным — без побочек в теле. POST создаёт или запускает работу; повтор может дать две строки. PUT заменяет ресурс по известному URL и идемпотентен. PATCH — частичное обновление. DELETE удаляет. HEAD — GET без тела, проба. На собесе хотят, какой метод поставишь на «лайк твита» — обычно POST — и почему ретрай PUT безопаснее POST. Типичный промах: GET с телом или POST на выборку, «потому что так сделал чувак с API».",
+    "follow-ups": "- REST и GraphQL на мобильном клиенте — что реально меняется?\n- Идемпотентный и safe — какие методы какие?\n- Почему второй тап по POST опасен?\n- Когда PATCH хуже PUT?",
+    "prompt": ""
+  },
+  "rest-vs-graphql": {
+    "title": "REST и GraphQL",
+    "answer": "REST — ресурсы и HTTP-глаголы; клиент знает URL. GraphQL — один эндпоинт и запрос полей: меньше кругов, больше парсить, схему надо версионировать. На iOS дефолт — REST плюс Codable. GraphQL выигрывает, когда одному экрану иначе нужны три REST-вызова, или когда веб и мобайл делят один граф. Цена: сгенерированные клиенты, кэш сложнее URLCache, «гибкий запрос» может стать безразмерной загрузкой. Типичный промах: взять GraphQL «чтобы быть современным» и каждый раз тащить один и тот же мешок полей.",
+    "follow-ups": "- Как кэшируешь GraphQL-ответ против REST URL?\n- Кто владеет пагинацией — connections или свой cursor?\n- Когда REST всё ещё правильный выбор в 2026?",
+    "prompt": ""
+  },
+  "rest-vs-rpc": {
+    "title": "REST и RPC",
+    "answer": "REST называет ресурс и HTTP-глагол: GET /users/12. RPC называет процедуру: /getUser, gRPC UserService.Get, JSON-RPC с method getUser. Под капотом RPC всё равно байты в сокете — часто HTTP/2 плюс protobuf — плюс стаб, который выглядит как локальная функция. На iOS важно: кодоген из proto в Swift, стриминг против one-shot, и то, что «метод» кэшировать труднее, чем GET URL. Чат и внутренние BFF часто выглядят как RPC, даже если говорят JSON. Типичный промах: назвать каждый POST RPC или сказать, что у RPC нет HTTP.",
+    "follow-ups": "- Когда gRPC стоит мобильной зависимости против JSON REST?\n- Как кэшировать RPC, который не GET?\n- REST, GraphQL, RPC — какую задачу каждый решает?",
+    "prompt": ""
+  },
+  "json": {
+    "title": "JSON",
+    "answer": "JSON — текстовый формат: объекты, массивы, строки, числа, булевы, null. На iOS декодируешь JSONDecoder и Codable, не JSONSerialization — если только форма неизвестна. Плюсы: меньше XML, универсальный, удобно смотреть в Charles. Минусы: нет комментариев, даты не first-class (выбираешь стратегию), неизвестные ключи легко молча выкинуть, один огромный документ неудобно стримить. Типичный промах: «JSON — это тип Swift» или запихнуть комментарий в пейлоад.",
+    "follow-ups": "- JSON, plist и protobuf в проводе?\n- Как обрабатываешь поле с датой?\n- Во что JSONSerialization превращает NSNull?",
+    "prompt": ""
+  },
+  "rest": {
+    "title": "REST",
+    "answer": "REST — ресурсы плюс HTTP-глаголы плюс представления, обычно JSON, плюс stateless-запросы. Существительные в пути, глаголы в методе. Кэшируемость и ETag / Cache-Control — часть сделки. GraphQL и RPC появляются, когда over-fetch или нужен один круг по графу. Мобильная цена — болтливые эндпоинты и толстые пейлоады. Типичный промах: один POST /api, который свитчится по action, и назвать это REST.",
+    "follow-ups": "- REST, GraphQL и WebSocket API — что возьмёшь на ленту?\n- Что stateless значит для access token?\n- Как версионируешь: /v1 или заголовок?",
+    "prompt": ""
+  },
+  "websocket": {
+    "title": "WebSocket",
+    "answer": "WebSocket — постоянное двустороннее TCP-соединение, апгрейд из HTTP. Берёшь на чат, лайв-счёт, совместные курсоры — не на раз в день настройки. Цена: батарея, число соединений на сервере, reconnect с backoff и то, что будет, когда приложение уйдёт в фон: iOS часто убьёт сокет, падаешь на пуш. Системный клиент — URLSessionWebSocketTask. Типичный промах: держать сокет ради ленты, которую мог бы обновить silent push.",
+    "follow-ups": "- WebSocket, SSE, long poll, APNs?\n- Что сохраняешь, чтобы reconnect не задублировал сообщения?\n- Почему сокет плохой выбор, пока приложение suspended?",
+    "prompt": ""
+  },
+  "http-status": {
+    "title": "HTTP-статусы",
+    "answer": "На собесе хотят семейства, не заученную таблицу. 2xx — успех: 200 OK, 201 created, 204 без тела. 3xx — редирект и 304 not modified для кэша. 4xx — твой запрос: 400 плохой, 401 auth, 403 forbidden, 404 нет, 409 конфликт, 429 лимит. 5xx — их вина: ретрай с backoff, не тесный цикл. Не считай любой не-200 «ошибкой сети». Типичный промах: показать «нет интернета» на 401.",
+    "follow-ups": "- 401 и 403?\n- Какие коды безопасно ретраить?\n- Как 304 живёт с URLCache?",
+    "prompt": ""
+  },
+  "reachability": {
+    "title": "Reachability",
+    "answer": "«Есть ли путь в сеть?» — это NWPathMonitor из Network, не пинг google.com на каждый тап. Satisfied path — ещё не «API жив»: запрос всё равно делаешь и обрабатываешь ошибки. Монитор — чтобы сменить UI (офлайн-баннер) и пнуть очередь ретраев, когда путь вернулся. Старые семплы Reachability / SCNetworkReachability уже пыльные. Типичный промах: блокировать запрос, потому что Wi-Fi выключен, а человек на сотовой.",
+    "follow-ups": "- Path satisfied и успешный вызов URLSession?\n- Что делаешь, если путь перевернулся посреди аплоада?\n- Почему ICMP ping — плохая единственная проверка?",
+    "prompt": ""
+  },
+  "retry-backoff": {
+    "title": "Ретрай с backoff",
+    "answer": "Ретраишь только идемпотентные или безопасно повторяемые вызовы — GET, put с ключом идемпотентности — и только на переходных сбоях: 408, 429, 5xx, таймауты. Не на 400 и не на 401. Exponential backoff ждёт base умножить на два в степени попытки, обычно с jitter, чтобы флот не устроил stampede. Ставь потолок попыткам и общему времени. Чти Retry-After. Тесный цикл на 500 — как устроить себе DDoS. Типичный промах: ретраить POST /charge и списать дважды, или спать на main actor.",
+    "follow-ups": "- Какие статусы безопасно ретраить?\n- Зачем jitter?\n- Как ретраить POST и не задублировать побочку?",
+    "prompt": ""
+  },
+  "local-notifications": {
+    "title": "Локальные и удалённые уведомления",
+    "answer": "Remote push — сервер, APNs, устройство. Local уведомления планируешь на девайсе через UNUserNotificationCenter: календарь, интервал или гео. Обоим нужно одно и то же разрешение пользователя на видимый баннер, оба могут deep-link по тапу. Local не нужен device token, бэкенд и сеть. Local — «напомни через 20 минут» и «ты давно не трогал»; remote — когда момент решает другая система: пришло сообщение, такси через две минуты. Типичный промах: запланировать local и назвать это пушем, или ждать, что триггер сработает после force-quit, если разрешение так и не просил.",
+    "follow-ups": "- Какое разрешение всё равно нужно для локального баннера?\n- Как отменить один pending local, не вычищая остальные?\n- Silent remote и локальный time trigger — кто может разбудить suspended-приложение?",
+    "prompt": ""
+  },
+  "codable": {
+    "title": "Codable",
+    "answer": "Codable — typealias на Encodable и Decodable. Тип с конформом можно превратить во внешнее представление и обратно — обычно JSON через JSONEncoder / JSONDecoder, иногда plist. Компилятор синтезирует методы, если каждое stored-свойство само Codable. Перехватываешь через enum CodingKeys или пишешь encode(to:) и init(from:). Codable — не формат файла и не база; I/O делает encoder или decoder.\n\nТипичные промахи: force-try на decode; оставить Date на дефолтной стратегии; повесить UIImage или замыкание на модель и удивляться, почему синтез не взлетел.",
+    "follow-ups": "- Когда пишешь CodingKeys, а не надеешься на синтез?\n- Как декодировать дату, которая пришла ISO-8601 строкой?\n- Что будет, если non-optional свойства нет в JSON?\n- Как декодировать гетерогенный массив — type плюс payload?\n- Codable — это что-то большее, чем Encodable и Decodable?",
+    "prompt": ""
+  },
+  "key-decoding-strategies": {
+    "title": "Стратегии ключей при декоде",
+    "answer": "JSONDecoder.keyDecodingStrategy говорит, как строки ключей JSON сопоставляются с CodingKeys. Дефолт useDefaultKeys требует точного совпадения. convertFromSnakeCase мапит user_id на userId, чтобы Swift остался camelCase без enum CodingKeys. custom — для префиксов, сплющенной вложенности или разовых алиасов, которые правило snake-case не выразит. На энкоде зеркало — keyEncodingStrategy convertToSnakeCase. Это не dateDecodingStrategy и не dataDecodingStrategy: те конвертят значения, не имена. Snake-case не спасёт, когда имена значат разное — id и identifier: тут всё равно нужны CodingKeys.",
+    "follow-ups": "- Что convertFromSnakeCase делает с подряд идущими подчёркиваниями или ведущим _?\n- Когда enum CodingKeys всё равно нужен после стратегии?\n- Как смешать глобальную стратегию и одно свойство, которое конвертить нельзя?",
+    "prompt": ""
+  },
+  "cloudkit-vs-core-data": {
+    "title": "CloudKit и Core Data",
+    "answer": "Core Data — локальный граф объектов и стек персистенции: модель, стор и контексты твои. CloudKit — iCloud-база Apple: CKRecord, private/public/shared базы, подписки, синк в рамках аккаунта. Это разные вопросы. Core Data или SwiftData — когда источник правды устройство, нужны связи, fault и локальные запросы. CloudKit — когда источник правды iCloud, нужен синк между девайсами или шаринг. NSPersistentCloudKitContainer может зеркалить стор Core Data в private-базу CloudKit: это мост, не удалённый NSManagedObjectContext. Смена схемы, конфликты и офлайн-очереди остаются твоими, если этот контейнер сам не зеркалит.",
+    "follow-ups": "- Чего NSPersistentCloudKitContainer не синкает — public DB, шары, большие ассеты?\n- Что делаешь с пользователем, который вышел из iCloud?\n- Когда говоришь с CloudKit через CKDatabase, а не через Core Data?",
+    "prompt": ""
+  },
+  "core-data": {
+    "title": "Core Data",
+    "answer": "Core Data — фреймворк персистенции объектного графа, не «SQLite с объектами». Сущности и связи описываешь в модели. NSPersistentContainer грузит стор и выдаёт NSManagedObjectContext; фетчишь NSFetchRequest, меняешь сабклассы NSManagedObject. Faulting подгружает связанные объекты лениво. View context — для UI; тяжёлая работа — на private-queue контексте, потом save и merge. Managed object привязан к очереди, которая его создала или зафетчила: переход через очереди — краш, не ворнинг. На собесе ещё хотят save на том контексте, который сделал изменение, и что стереть файл или запихнуть блобы в UserDefaults — не замена этому стеку.",
+    "follow-ups": "- Main-queue и private-queue контекст — кто сейвит, кто мержит?\n- Что такое fault и когда он стреляет?\n- Как мигрировать модель и не потерять данные пользователя?\n- Почему NSManagedObject нельзя спокойно сунуть в Task?\n- SQLite, binary и in-memory стор — когда какой?\n- Что NSFetchedResultsController добавляет поверх фетча?",
+    "prompt": ""
+  },
+  "userdefaults": {
+    "title": "UserDefaults — куда можно и нельзя",
+    "answer": "UserDefaults — маленький key-value на plist для настроек. Нормально: флаги онбординга, последняя вкладка, отображаемое имя, timestamp кэша, настройки App Group для расширения. Плохо: картинки, большой JSON, документы пользователя или что-то секретное — токены живут в Keychain. Core Data / SwiftData берёшь, когда есть список записей, связи, предикаты или undo — не когда три булева. Записи коалесятся и сбрасываются позже: это не транзакции и не база. Читать в тесном цикле или запихнуть весь граф модели в Data — запах. Нужны запросы, миграции или шифрование — ты из него вырос.",
+    "follow-ups": "- Как шарить default с виджетом или app extension?\n- Почему UserDefaults плохое место для auth token?\n- Что будет, если положить очень большой Data?\n- Когда берёшь Core Data вместо UserDefaults?\n- Как тестировать код, который читает UserDefaults, без настоящей suite?",
+    "prompt": ""
+  },
+  "list-directory": {
+    "title": "Список файлов в директории",
+    "answer": "API — FileManager. contentsOfDirectory возвращает непосредственных детей папки как URL. Для рекурсии — enumerator, чтобы пропускать скрытые файлы и содержимое пакетов. Предпочитай URL строковым путям. Resource keys проси сразу — isRegularFileKey, fileSizeKey, contentModificationDateKey — чтобы потом не делать stat на каждый файл. Частые косяки: листить бандл приложения вместо Documents; считать, что директория уже есть; гулять по огромному дереву на главном потоке.",
+    "follow-ups": "- Как листить рекурсивно и не тащить все URL сразу?\n- Documents, Caches, Temporary — что куда класть?\n- Как отличить файл от подпапки по resource values?",
+    "prompt": ""
+  },
+  "sort-descriptor": {
+    "title": "NSSortDescriptor",
+    "answer": "NSSortDescriptor описывает один ключ сортировки и направление. Fetch request Core Data, NSFetchedResultsController и коллекции Foundation принимают массив: более ранние дескрипторы побеждают на ничьих. Сортируешь по key path, селектору вроде localizedStandardCompare или блоку-компаратору. В Swift типизированная обёртка — SortDescriptor; крючок всё равно обычно NSFetchRequest.sortDescriptors. Сортировка по ключу, которого нет в сущности, падает в момент фетча. Зафетчить всё и отсортировать в памяти — ловушка на большой таблице: толкай сорт в стор по индексированному атрибуту.",
+    "follow-ups": "- Как сортировать по атрибуту связи?\n- SortDescriptor и NSSortDescriptor — когда нужен класс?\n- Почему дескриптор на компараторе не поедет в SQLite-сторе?",
+    "prompt": ""
+  },
+  "swiftdata": {
+    "title": "SwiftData",
+    "answer": "SwiftData — нативная персистенция Apple на Swift: классы @Model, ModelContainer и @Query в SwiftUI. Под капотом всё ещё стор, на девайсе SQLite, с контекстом — не магия. По сравнению с Core Data меньше бойлерплейта, но думать всё равно контекстами, fault и фоновыми записями: @Model — класс, поэтому identity и правила потоков важны. Берёшь для локальных реляционных данных, которые хочешь фетчить предикатами. Не делай из него большой UserDefaults. Синк CloudKit есть, но это продуктовое решение, не дефолт.\n\nКлассические косяки: перетащить объект модели через потоки; считать @Query view-model.",
+    "follow-ups": "- Когда всё ещё берёшь Core Data вместо SwiftData?\n- Как сделать фоновый insert и не трогать view context?\n- @Query и фетч во view model — что тестируется?\n- VersionedSchema / SchemaMigrationPlan — когда lightweight-миграция врёт?",
+    "prompt": ""
+  },
+  "nspredicate": {
+    "title": "NSPredicate",
+    "answer": "NSPredicate — объект запроса: format-строка плюс аргументы, которые умеют Core Data, NSFetchRequest и часть Cocoa-коллекций. %K — key path, %@ — значение. Склеиваешь AND / OR или собираешь NSCompoundPredicate. Бери #keyPath и NSPredicate(format:), не конкатенируй пользовательские строки — инъекция реальна. SwiftData и современный Core Data ещё принимают макросы Predicate, они type-safe. Типичный косяк: predicateWithFormat и интерполяция поисковой строки прямо в format.",
+    "follow-ups": "- %K и %@?\n- Как сказать «в этом наборе id»?\n- NSPredicate и Swift Predicate / #Predicate?",
+    "prompt": ""
+  },
+  "nsfetchrequest": {
+    "title": "NSFetchRequest",
+    "answer": "NSFetchRequest — объект запроса, который отдаёшь контексту: имя сущности или тип, опциональный NSPredicate, sortDescriptors, fetchLimit / fetchOffset и resultType — managed objects, object ID, словари, count. Faulting и relationshipKeyPathsForPrefetching решают, сколько графа вытащишь. Запрос без сорта законен для сырого фетча; NSFetchedResultsController сорт требует. Типичный промах: зафетчить все Note на main-контексте и отфильтровать в Swift.",
+    "follow-ups": "- Когда фетчишь object ID вместо объектов?\n- Как не словить N+1 на связи?\n- Почему FRC отказывается от запроса без сорта?",
+    "prompt": ""
+  },
+  "fetched-results-controller": {
+    "title": "NSFetchedResultsController",
+    "answer": "NSFetchedResultsController сидит на fetch request плюс контексте и говорит table/collection view, когда результат изменился: controllerDidChangeContent, точечные insert/delete/move. Умеет секции по key path и кэшировать информацию о секциях. cellForRow всё равно твой. Diffable data source плюс пайплайн SwiftData / Combine в новом коде часто заменяют FRC; на собесе UIKit плюс Core Data дефолт всё ещё FRC. Типичный промах: view context на огромный нефильтрованный фетч или игнор didChange и reload всей таблицы.",
+    "follow-ups": "- Почему у фетча обязан быть sort descriptor?\n- FRC и diffable snapshot, который собираешь сам?\n- Можно ли FRC на private-queue контексте для UI?",
+    "prompt": ""
+  },
+  "nscoding": {
+    "title": "NSCoding и архивация",
+    "answer": "NSCoding / NSSecureCoding — старый Cocoa-архив: объект пишет ключи в NSCoder, NSKeyedArchiver превращает граф в Data. NSSecureCoding требует назвать ожидаемые классы, чтобы хитро сделанный файл не инстанцировал что попало. Новый код предпочитает Codable или SwiftData. Архивы всё ещё встречаешь в Data-блобах UserDefaults, старых документах и state restoration. Типичный промах: небезопасный unarchiveObject на данных, которые сам только что не писал.",
+    "follow-ups": "- NSCoding и Codable — когда какой вынужден?\n- Что предотвращает requiringSecureCoding?\n- Почему стор Core Data — не «просто архив»?",
+    "prompt": ""
+  },
+  "persist-options": {
+    "title": "Как на iOS хранят данные",
+    "answer": "Инструмент называешь по размеру и форме, не по привычке. UserDefaults — флаги и крошечные настройки. Keychain — секреты. Файлы через FileManager, Caches / Documents / App Group — картинки, экспорты, офлайн-паки. Codable плюс диск — JSON-документ, которым владеешь. Core Data / SwiftData — графы объектов, запросы, связи. CloudKit — записи с синком пользователя. URLCache — это HTTP, не твоя модель. На собесе хотят дерево решений и что будет при удалении приложения / нехватке места. Типичный промах: запихнуть ленту в UserDefaults или токены в plist.",
+    "follow-ups": "- Documents и Caches — что система может стереть?\n- Когда файла плюс Codable хватает против Core Data?\n- Что переживает удаление приложения?",
+    "prompt": ""
+  },
+  "core-data-delete-rules": {
+    "title": "Delete rules в Core Data",
+    "answer": "Delete rule у связи говорит, что будет с другой стороной, когда удаляешь объект. Nullify — дефолт: бросаешь указатель, другой объект оставляешь. Cascade: удаляешь связанные тоже, папка тянет за собой заметки. Deny: отказ удалять, если кто-то ещё сюда указывает. No Action: ничего не делать — можно оставить висячие ссылки, почти никогда не то, что нужно. Типичный промах: cascade на many-to-many и снести половину стора.",
+    "follow-ups": "- Cascade и nullify на parent-child?\n- Что Deny делает с context.save?\n- Как проверить, что не оставил сирот?",
+    "prompt": ""
+  },
+  "core-data-vs-sqlite": {
+    "title": "Core Data, SQLite и Realm",
+    "answer": "SQLite — SQL-файл, который запрашиваешь сам: sqlite3, GRDB. Для Core Data объектный граф, который может сидеть на SQLite — fault, контексты, миграции, не «просто SQL». Realm — сторонняя объектная база с живыми объектами и своим форматом файла. SQLite/GRDB — когда хочешь SQL и простые файлы. Core Data / SwiftData — когда хочешь стек Apple и FRC. Realm — только если команда его уже знает, это ещё один вендор. Типичный промах: «Core Data — медленный SQLite» или ждать, что Core Data зашифрован по умолчанию. Нет: добавляешь SQLCipher или file protection.",
+    "follow-ups": "- Core Data зашифрован?\n- Как передать managed object через очереди?\n- Когда Realm — ловушка на greenfield?",
+    "prompt": ""
+  },
+  "core-data-migration": {
+    "title": "Миграция Core Data",
+    "answer": "Модель версионируешь: Editor → Add Model Version. Lightweight-миграция — флаги NSMigratePersistentStoresAutomaticallyOption и NSInferMappingModelAutomaticallyOption — закрывает аддитивные изменения: новые optional-атрибуты, новые сущности, переименованное свойство с renaming ID. Heavy / custom mapping — когда форму меняешь: разрезать сущность, сменить кардинальность связи, трансформировать значения. Пишешь mapping model или NSEntityMigrationPolicy и гоняешь на копии настоящего стора. Стереть стор можно только до первого шипа. Править текущий xcdatamodel на месте без версии — как закирпичить пользователей. Типичный промах: «lightweight выведет что угодно» после того, как удалил сущность, которая в старом сторе ещё есть.",
+    "follow-ups": "- Lightweight и своя mapping model — по одному примеру?\n- Что даёт renaming identifier?\n- Как тестировать миграцию, не стирая телефон тестера?",
+    "prompt": ""
+  },
+  "in-memory-cache": {
+    "title": "Кэш в памяти",
+    "answer": "In-memory кэш держит недавно нужные значения в RAM, чтобы не ходить на диск и не делать сетевой круг. На iOS обычный инструмент — NSCache: выселяет объекты, когда системе тесно по памяти, потолок ставишь countLimit и totalCostLimit. Обычный Dictionary ничего не выселяет: растёт, пока сам не бросишь или процесс не съест jetsam. NSCache ещё безопасно трогать с нескольких очередей, сырой словарь — нет. Стоимость ставь по реальности — байты декодированной картинки, не «единица на элемент» — и кэш считай необязательным: miss всё равно должен дать правильный результат. HTTP-переиспользование — другой слой: URLCache хранит ответы, не твои декодированные модели.",
+    "follow-ups": "- Когда NSCache лучше словаря, а когда словаря хватает?\n- Как выбираешь totalCostLimit для декодированных картинок?\n- Где кончается URLCache и начинается кэш уровня приложения?\n- Что будет с in-memory кэшем, когда приложение suspended или убито?\n- Как сделаешь LRU, если NSCache нельзя?",
+    "prompt": ""
+  },
+  "battery": {
+    "title": "Проблемы с батареей",
+    "answer": "Батарею почти всегда жрут радио, GPS или CPU, который никогда не idle — не «Swift медленный». Непрерывные апдейты kCLLocationAccuracyBest, UIBackgroundModes, которые не дают уснуть, сканирование BLE, таймер или display-link, который тикает при выключенном экране — обычные подозреваемые. Сеть в тесном ретрае и декод больших картинок на главном потоке тоже не дают CPU уснуть. Меришь Instruments Energy Log или отчётами MetricKit MXAppExitMetric / energy, потом подтверждаешь системным экраном Battery после контролируемой сессии. Сначала политику: significant-change или visit monitoring вместо GPS всегда, коалесь сеть, стопай таймеры в sceneDidEnterBackground, роняй точность, когда UI она не нужна.",
+    "follow-ups": "- Significant-change location и непрерывный GPS — чем платишь?\n- Какие background modes стоят батареи и как это защищаешь на ревью?\n- Как доказать, что батарею жрёт экран, а не ОС валит на твой процесс?\n- Что крутящийся CADisplayLink делает с энергией, когда приложение inactive?",
+    "prompt": ""
+  },
+  "crashes": {
+    "title": "Найти и починить краш",
+    "answer": "Краш — процесс оборвался: непойманная ошибка Swift, force unwrap, выход за границы, fatalError / assertion, низкоуровневый сигнал вроде EXC_BAD_ACCESS. Начинаешь с символицированного краш-репорта — Xcode Organizer, сторонний репортер или MetricKit MXCrashDiagnostic — и читаешь тип исключения, падающий поток и фреймы, которые реально твои. Воспроизводишь на той же ОС, локали и вводе; не вышло — хлебные крошки вокруг верхних фреймов и ждёшь следующий удар. Watchdog 0x8badf00d — не «рандом»: главный поток слишком долго был занят на запуске или в фоне. Чинишь причину, не симптом: не оборачивай force-unwrap в try? и не называй это победой.",
+    "follow-ups": "- Как символицировать краш с девайса, которого нет на столе?\n- Чем EXC_BAD_ACCESS отличается от Swift runtime trap?\n- Как копать watchdog kill на запуске?\n- Когда сторонний crash reporter стоит Organizer плюс MetricKit?\n- Краш только в проде, на твоём телефоне никогда — что собираешь дальше?\n- Что такое dSYM и что будет, если его потерять?",
+    "prompt": ""
+  },
+  "debugging": {
+    "title": "Отладка на iOS",
+    "answer": "Начинай дёшево, потом глубже. Breakpoints — и exception / symbolic — плюс Variables view бьют print по состоянию. os_log / Logger остаются в Console.app и на девайсах; print — нет. View Debugger и Memory Graph ловят вёрстку и retain cycle. Instruments — Time Profiler, Allocations, Leaks, Network — сеньорский дефолт на «тормозит / растёт». Краш-репорты и MetricKit закрывают то, что не воспроизвести. Типичный промах: зашиппить print в цикле или считать Instruments «только про лики».",
+    "follow-ups": "- Когда breakpoint лучше лога?\n- Какой Instrument на scroll hitch, какой на лик?\n- Как дебажить краш, который видишь только в Organizer?\n- View Hierarchy и Memory Graph — чей это баг?\n- Какие уровни логов реально шиппишь: debug, info, error?",
+    "prompt": ""
+  },
+  "performance-issues": {
+    "title": "Найти и починить проблемы производительности",
+    "answer": "«Приложение тормозит» — не диагноз. Режь жалобу на запуск, hitch при скролле, hang по тапу и time-to-first-frame, потом меряй. Time Profiler показывает, кто держит CPU; Main Thread Checker и hang-диагностика — работу, которой не место на UI-очереди; Core Animation / GPU frames — overdraw и offscreen-проходы; os_signpost плюс hang rate MetricKit скажут, сдвинул ли фикс стрелку. Типичные победы на iOS: JSON decode, downsample картинок и файловый I/O не на главном потоке; переиспользовать ячейки; декодировать картинки в размер экрана; не молотить лейаут в layoutSubviews / пересчёте body. Не оптимизируй экран, который не профилировал — первый заход в Instruments обычно сюрприз.",
+    "follow-ups": "- Как отличить CPU-bound hitch от commit-hang в Core Animation?\n- Что во время скролла таблицы на фон, что обязано остаться на main?\n- Как MetricKit решит, стал ли релиз быстрее?\n- Когда os_signpost лучше, чем «print и Date»?",
+    "prompt": ""
+  },
+  "compile-time": {
+    "title": "Время компиляции",
+    "answer": "Медленная компиляция обычно широкий модуль и шумный type-check выражения. Режь таргеты, чтобы правка вью не пересобирала сеть. На огромных литералах и вложенных цепочках map / combineLatest ставь явные типы. Не тащи дюжину CocoaPods, каждый из которых валит весь workspace; SPM с меньшим числом мелких продуктов помогает. @inlinable и whole-module optimization меняют compile time на runtime. Debug и Release — разные часы. Типичный промах: «купи быстрее Mac» до того, как измерил, на каком файле сидит swift-frontend — флаг debug-time-function-bodies.",
+    "follow-ups": "- Как найти одну функцию, которую type-check ест 10 секунд?\n- Когда резать таргет, а когда хватит internal-файла?\n- Debug и Release — что реально меняет время компиляции?\n- Монорепа с сотнями локальных пакетов — что меряешь, прежде чем резать ещё раз?",
+    "prompt": ""
+  },
+  "launch-time": {
+    "title": "Время запуска",
+    "answer": "Запуск — pre-main: dyld мапит образы, rebase/bind, настройка ObjC, +load и static init — плюс post-main: от didFinishLaunching до первого кадра. DYLD_PRINT_STATISTICS режет pre-main; MetricKit / os_signpost закрывают остальное — не Date в main. Что двигает стрелку: меньше динамических библиотек, меньше ObjC-метаданных, никакого I/O в +load, аналитику отложить до после первой отрисовки. Watchdog примерно 20 секунд — режим отказа. Типичный промах: оптимизировать SwiftUI body, пока dyld грузит 40 подов до main.",
+    "follow-ups": "- Pre-main и post-main — как увидеть каждый в Instruments?\n- Почему static let на типе может задержать main?\n- Что значит «первый кадр» для SwiftUI-приложения с @main?\n- Rebase, bind, время инициализаторов — какую ручку крутишь первой?\n- MetricKit и Date в main — какой цифре веришь на ревью?",
+    "prompt": ""
+  },
+  "nscache-vs-dictionary": {
+    "title": "NSCache и Dictionary",
+    "answer": "Dictionary держит всё, что положил, пока сам не удалишь. NSCache — выселяющий, потокобезопасный мешок под чувствительные к памяти объекты: декодированные картинки, большие данные. Может выкинуть записи под давлением памяти и чтит countLimit / totalCostLimit. Ключи и значения — объекты NSObject / AnyObject; структуры оборачиваешь. Copy-on-write нет, порядок вставки не хранит. Для фотоленты NSCache — слой в памяти: miss нормален, перезапросишь или перекодируешь. Словарь URL → UIImage будет расти до jetsam. Типичный косяк: считать NSCache постоянным хранилищем или надеяться, что iOS подрежет словарь.",
+    "follow-ups": "- Почему NSCache не замена дисковому кэшу или URLCache?\n- Как выбираешь totalCostLimit для картинок?\n- Когда обычный словарь всё ещё правильный инструмент?",
+    "prompt": ""
+  },
+  "lru-cache": {
+    "title": "LRU-кэш",
+    "answer": "LRU значит: когда полно, выкидываешь то, к чему обращались давнее всего. На кодинге: словарь для get/set за O(1) плюс двусвязный список или упорядоченная структура, чтобы ключ двигать в «самый свежий» и выселять хвост. И get, и set обновляют свежесть. Ёмкость — счётчик, иногда стоимость в байтах. На iOS продакшен-двоюродный брат — NSCache: выселяет под давлением, это не строгий LRU, которым рулишь сам. Типичный промах: один словарь без порядка выселения или сканировать всю мапу в поисках самого старого.",
+    "follow-ups": "- Почему removeAll по массиву не O(1) — что даст связный список?\n- LRU, LFU и NSCache под давлением памяти?\n- Как сделать это потокобезопасным?\n- Ёмкость как счётчик и как бюджет байт на картинку — что выселяешь?",
+    "prompt": ""
+  },
+  "hang-hitch-crash": {
+    "title": "Hang, hitch и краш",
+    "answer": "Краш обрывает процесс. Hang — главный поток застрял достаточно долго, чтобы система или человек решили, что приложение умерло: watchdog 0x8badf00d на запуске, замороженный скролл. Hitch (jank) — короткий шип на main, дропнутый кадр, который потом отходит. Китайские лупы часто хотят версию с наблюдателем RunLoop: засекаешь BeforeSources → BeforeWaiting; щель больше примерно 16–100 мс — главный поток был занят. MetricKit и Instruments — Time Profiler, Hangs, Animation Hitches — боевые инструменты. Hang лечишь уводом работы с main; hitch — более дешёвым лейаутом и декодом. Типичный промах: назвать каждый jank «крашем».",
+    "follow-ups": "- Какой шаблон Instruments на hitch, какой на hang?\n- Как классифицируют watchdog kill?\n- Что такое hang report в Xcode Organizer?\n- Наблюдатель RunLoop и Instruments — что ответ на собесе?\n- Симулятор гладкий, девайс дёргается — чему не веришь первым?",
+    "prompt": ""
+  },
+  "app-thinning": {
+    "title": "App Thinning",
+    "answer": "App Thinning — как стор отдаёт только слайсы, нужные девайсу. Slicing выбирает архитектуры и ресурсы. On-Demand Resources качают ассеты по тегам позже. Bitcode умер — не называй его актуальным. App Size Report в Xcode показывает утончённый install size, не ipa, который залил. Практические рычаги — asset catalog с картинками под девайс и UIRequiredDeviceCapabilities. Типичный промах: положить @3x-ролики в основной бандл «для всех» или назвать жирный архив размером, который видит пользователь.",
+    "follow-ups": "- Install size, download size и твой ipa?\n- Когда On-Demand Resources имеют смысл против CDN?\n- Что Bitcode делал раньше и почему умер?",
+    "prompt": ""
+  },
+  "dsym": {
+    "title": "dSYM",
+    "answer": "dSYM — бандл отладочных символов, который мапит адреса в краш-логе на файл и строку. App Store / Xcode архивирует его вместе со сборкой; краш-репортерам нужен ровно тот UUID. Потерял dSYM — получишь hex-фреймы. Заливай dSYM вместе с бинарём: Organizer, Fastlane, аплоад вендора. История «Apple перекомпилирует Bitcode, скачай новые dSYM» — прошлое. Типичный промах: состричь символы и полгода жить с «unsymbolicated».",
+    "follow-ups": "- Кто символицирует — девайс, репортер или твой CI?\n- Что будет, если залить dSYM от другой сборки?\n- Где живут dSYM TestFlight / Organizer?",
+    "prompt": ""
+  },
+  "instruments": {
+    "title": "Instruments",
+    "answer": "Instruments — профайлер, который цепляешь к живому процессу, симулятор или девайс. На собесе хотят шаблон, не «я открыл Instruments». Time Profiler семплит CPU — кто на главном потоке во время hitch. Allocations рисует живые объекты и скажет, вернулась ли память к базе после pop экрана. Leaks находит объекты, которые аллокатор всё ещё держит без оставшихся ссылок — настоящие лики; retain cycle чаще лучше виден в Memory Graph. Дальше Hangs / Animation Hitches и Network. Профилируй сборку, похожую на Release; Debug плюс санитайзеры врут про стоимость. Типичный промах: считать Leaks единственным инструментом памяти или профилировать Debug и «оптимизировать» print.",
+    "follow-ups": "- Time Profiler, Allocations, Leaks — какая жалоба на какой?\n- Почему профиль Debug — слабый аргумент про скорость?\n- Memory Graph Debugger и инструмент Leaks?\n- Шаблон SwiftUI — Update Groups, Long View Body, граф Cause & Effect?\n- Какую гипотезу произносишь до того, как открыть шаблон?",
+    "prompt": ""
+  },
+  "binary-size": {
+    "title": "Размер бинарника / IPA",
+    "answer": "Размер пакета — не App Thinning. Thinning — что стор шлёт на один девайс; этот вопрос — как ужать то, что заливаешь. Читай Link Map / App Size Report: жирные символы __TEXT, толстые архитектуры, которые всё ещё эмбедишь, мёртвые ресурсы, динамические фреймворки, которые не стрипаются как статический архив. Режешь: asset catalog плюс HEIC, выкидываешь неиспользуемые локали, сливаешь свои dylib, dead_strip, не возишь вторую копию Swift в старом эмбеде. Типичный промах: назвать жирный ipa цифрой для пользователя или удалить ресурс, который должны были держать On-Demand Resources.",
+    "follow-ups": "- Link Map, App Size Report и утончённая установка на телефоне?\n- Почему динамический Swift-пакет может раздуть __TEXT сильнее того же кода в таргете приложения?\n- Что исторически делало шифрование __TEXT со сжимаемостью?",
+    "prompt": ""
+  },
+  "biometrics": {
+    "title": "Face ID / Touch ID",
+    "answer": "Local Authentication доказывает, что у устройства сидит записанный владелец — не то, как ты логинишься на сервер. Создаёшь LAContext, спрашиваешь canEvaluatePolicy, потом evaluatePolicy с deviceOwnerAuthenticationWithBiometrics. Face ID нужен NSFaceIDUsageDescription в Info.plist; у Touch ID usage-строки нет. Совпадение биометрии происходит в Secure Enclave; твой процесс получает только да/нет. Успех трактуй как «открой этот локальный секрет» — потом читаешь токен из Keychain, который уже выдал настоящий логин. Всегда давай запасной проход по паролю — deviceOwnerAuthentication — и обрабатывай userFallback, lockout и «биометрия не записана».",
+    "follow-ups": "- Почему успеха биометрии мало, чтобы выписать новую серверную сессию?\n- Когда deviceOwnerAuthentication, а когда WithBiometrics?\n- Как привязать элемент Keychain, чтобы его читали только после Face ID?\n- Что показываешь, если человек выключил биометрию после записи?",
+    "prompt": ""
+  },
+  "ats": {
+    "title": "App Transport Security",
+    "answer": "ATS — правило ОС: App Transport / URLSession обязаны ходить HTTPS с современным TLS — TLS 1.2+, forward secrecy, принятые шифры. Чистый http упадёт, пока явно не пропишешь исключение в Info.plist. Ядерный ключ — NSAllowsArbitraryLoads: на собесе это запах; лучше per-domain NSExceptionDomains и причина, которую защитишь. ATS сам по себе не шифрует пейлоад сверх TLS и не заменяет certificate pinning. Локальный http://localhost в дебаге — частое исключение; везти его в прод нельзя.",
+    "follow-ups": "- Почему NSAllowsArbitraryLoads — проблема и ревью, и безопасности?\n- Чего ATS требует от сертификата и cipher suite?\n- Чем ATS отличается от SSL pinning?\n- Когда правильное исключение — NSAllowsLocalNetworking?",
+    "prompt": ""
+  },
+  "keychain": {
+    "title": "Keychain",
+    "answer": "Keychain — зашифрованное, ОС-управляемое хранилище секретов: токены, пароли, ключи. Данные защищены паролем устройства и, если попросишь, биометрией; могут пережить удаление приложения при правильном accessibility и access group. Говоришь через Security.framework — SecItemAdd, SecItemCopyMatching, SecItemUpdate, SecItemDelete — или тонкую обёртку. UserDefaults и файлы на диске — не место для refresh token. kSecAttrAccessible ставь под угрозу: WhenUnlockedThisDeviceOnly — обычный дефолт для токена приложения; AfterFirstUnlock — для фонового рефреша. Синк iCloud Keychain — opt-in через kSecAttrSynchronizable, продуктовое решение, не дефолт.",
+    "follow-ups": "- WhenUnlocked, AfterFirstUnlock, ThisDeviceOnly — какому токену что?\n- Как шарить элемент Keychain с app extension?\n- Что будет с элементами Keychain, когда пользователь снесёт приложение?\n- Почему refresh token не класть в UserDefaults «телефон и так под паролем»?",
+    "prompt": ""
+  },
+  "secure-hash": {
+    "title": "Криптографический хеш",
+    "answer": "Криптографический хеш — односторонний дайджест фиксированного размера. На платформах Apple берёшь CryptoKit: SHA256, SHA384, SHA512 — не String.hashValue (не стабилен, не крипто) и не MD5 / SHA-1 для чего-то секретного. Хеш — не шифрование: вход обратно не достанешь, пароль сырым SHA-256 не хранишь. Пароли хеширует сервер медленной функцией: Argon2, scrypt или PBKDF2. На клиенте обычно целостность файла, отпечаток канонических байт и HMAC, когда ещё есть ключ. Если в модели угроз вор, который украл файл дайджестов, голого хеша мало — HMAC или подпись.",
+    "follow-ups": "- Почему hashValue нельзя на ключ кэша, который персистишь?\n- Hash, HMAC, encrypt — какую задачу каждый решает?\n- Где должен бежать хеш пароля и какой алгоритм ждёшь?\n- Когда SHA-256 файла, а когда проверка code signing?",
+    "prompt": ""
+  },
+  "api-keys": {
+    "title": "API-ключи",
+    "answer": "API-ключ в бинарнике приложения достаётся. Строки в IPA, plist или #if DEBUG всё равно уедут, если неаккуратен. Клиентский ключ — идентификатор, не секрет: режь его у провайдера (bundle ID, App Attest, referrer), ставь rate-limit, настоящий секрет держи на своём сервере. Везти приватный ключ третьей стороны — Stripe, AWS — в клиенте это жёсткий провал. Обфускация и нарезка строки только замедляют упрямого читателя. Типичный промах: «лежит в xcconfig, значит безопасно».",
+    "follow-ups": "- Почему спрятанный ключ в Swift-строке всё равно не секрет?\n- Когда прокси на бэкенде вместо вызова вендора с телефона?\n- Как App Attest меняет эту историю?",
+    "prompt": ""
+  },
+  "ssl-pinning": {
+    "title": "SSL pinning",
+    "answer": "Pinning значит: приложение принимает только известный сертификат или публичный ключ, не «любой сертификат, которому система доверяет». Режет мошеннический CA и корпоративный MITM. Pin на сертификат ломается, когда сервер ротирует сертификат. Pin на публичный ключ переживает перевыпуск того же ключа. Делаешь в URLSessionDelegate на didReceive challenge или ограниченный pin в ATS / Info.plist. Всегда вези запасной pin и kill-switch — плохой pin кирпичит приложение, пока не выйдет сборка из стора. Типичный промах: запинить leaf без бэкапа или запинить в дебаге под Charles и забыть выключить.",
+    "follow-ups": "- Pin сертификата и pin публичного ключа?\n- Как ротировать pin без принудительного апдейта?\n- Что ATS уже даёт без pinning?",
+    "prompt": ""
+  },
+  "encoding-vs-encryption": {
+    "title": "Encoding, encryption и hashing",
+    "answer": "Три разные работы. Encoding — JSON, Base64, UTF-8 — меняет представление, чтобы система могла нести байты: обратимо, секрета нет. Encryption прячет данные: чтобы вернуть plaintext, нужен ключ — AES-GCM в CryptoKit, TLS в проводе. Hashing односторонний: SHA-256, HMAC. На собесе ловушка — Base64: base64EncodedString — не сейф. Типичный промах: «мы шифруем токен» и показать Base64-строку в UserDefaults, или назвать hashValue безопасным хешем.",
+    "follow-ups": "- Почему Base64 на пейлоаде JWT — не шифрование?\n- Hash, HMAC, encrypt — что на пароль, проверку файла, токен at rest?\n- Где в этом списке сидит TLS?",
+    "prompt": ""
+  },
+  "app-sandbox": {
+    "title": "App Sandbox",
+    "answer": "Каждое iOS-приложение живёт в sandbox: процесс видит только свой контейнер — Documents, Library, tmp — плюс файлы, которые явно дал пользователь или система: photo picker, Files, iCloud, App Groups. Чужую директорию не обойдёшь и писать вне контейнера нельзя. Поэтому «просто сохрани в /var» падает, share extension нужен App Group, а Keychain / UserDefaults — per-app или per-group, не глобальные. На собесе хотят историю изоляции, не дамп entitlements с macOS. Типичный промах: считать sandbox настройкой Debug или ждать, что FileManager прочитает камеру без пикера.",
+    "follow-ups": "- App Group и контейнер приложения — что может прочитать виджет?\n- Почему Data(contentsOf:) падает на URL ассета из фотобиблиотеки?\n- Что всё-таки выходит из sandbox — access group Keychain, iCloud, общий буфер обмена?",
+    "prompt": ""
+  },
+  "voiceover": {
+    "title": "Тестировать с VoiceOver",
+    "answer": "VoiceOver — скринридер; тестируешь приложением с глазами не на стекле, а не взглядом на accessibilityLabel в дебаггере. Включаешь в Настройки → Универсальный доступ или берёшь Accessibility Inspector и VoiceOver симулятора Xcode: ротор, свайп, double-tap. У каждого контрола должно быть произносимое имя — accessibilityLabel, роль — accessibilityTraits, и значение, когда имени мало — accessibilityValue. Визуальный кластер группируй accessibilityElement(children: .combine) или shouldGroupAccessibilityChildren, чтобы человек не слушал двадцать крошечных вью. Кастомные контролы обязаны реализовать accessibilityActivate и объявлять изменения через UIAccessibility.post с announcement. Если у жеста нет эквивалента VoiceOver — фича не доделана.",
+    "follow-ups": "- Как починить кастомный UIView, который VoiceOver пропускает или дробит в шум?\n- Когда постить layoutChanged, announcement, screenChanged?\n- Что ротор меняет в том, как отдаёшь заголовки и ссылки?\n- Как регрессионно гонять VoiceOver без полного ручного прохода на каждый PR?\n- Label и value на слайдере — что говорит VoiceOver и что меняется?\n- Custom actions и обучение свайпу — какой API и как человек это найдёт?\n- После появления шита — как двигаешь фокус: UIAccessibility.post или @AccessibilityFocusState?",
+    "prompt": ""
+  },
+  "accessibility-focus": {
+    "title": "Фокус accessibility в SwiftUI",
+    "answer": "@AccessibilityFocusState — курсор VoiceOver / Switch Control, не клавиатурный @FocusState. Биндишь Bool или optional enum через accessibilityFocused, потом присваиваешь после шита, результата поиска или ошибки валидации, чтобы произносимый курсор сел на новую работу. UIAccessibility.post со screenChanged / layoutChanged — двоюродный брат в UIKit, когда ты не в SwiftUI. Ограничь обёртку @AccessibilityFocusState(for: .voiceOver), если Switch Control должен остаться на месте. Типичный промах: подвинуть клавиатурный фокус и решить, что VoiceOver пошёл следом, или запостить announcement, когда человеку надо, чтобы ротор прыгнул на поле.",
+    "follow-ups": "- @FocusState и @AccessibilityFocusState — могут разойтись?\n- После модалки — присвоение в onAppear или UIAccessibility.post?\n- Почему enum optional?",
+    "prompt": ""
+  },
+  "dynamic-type": {
+    "title": "Dynamic Type",
+    "answer": "Dynamic Type — системный размер текста. Входишь текстовыми стилями: UIFont.preferredFont(forTextStyle:), в SwiftUI font(.body) — и на UIKit-лейблах ставишь adjustsFontForContentSizeCategory. Фиксированный systemFont размера 14 не вырастет. Лейаут должен уметь расти: без фиксированной высоты на лейблах, лучше перенос, чем ужатие; adjustsFontSizeToFitWidth — крайняя мера. В SwiftUI @ScaledMetric и scaledToFit помогают картинкам и отступам ехать за той же настройкой. Тестируй на самых больших accessibility-размерах, не только на Large — там обрезанные цены и срезанные кнопки.",
+    "follow-ups": "- Почему лейбл из storyboard с кастомным шрифтом игнорирует размер пользователя?\n- Как скелить кастомный шрифт и всё равно ехать за Dynamic Type?\n- Что ломается первым на AX3 — и как пересобрать, а не ужимать текст?\n- Чем SwiftUI dynamicTypeSize отличается от просто текстового стиля?",
+    "prompt": ""
+  },
+  "accessibility-problems": {
+    "title": "Главные проблемы accessibility",
+    "answer": "То, что реально валит VoiceOver и ревью App Store, одно и то же: иконки-кнопки без лейбла, информация только цветом, таргеты меньше 44pt, порядок фокуса не совпадает с визуальным чтением, кастомные контролы без traits. Дальше — обрезка Dynamic Type и текст, который наезжает на AX-размерах. Декоративные картинки, которые всё равно говорят «img_header_03», и модальный UI, который не затаскивает фокус VoiceOver в шит. Сначала поверхность API — лейблы, traits, группировка, accessibilityViewIsModal — потом лейаут. Контраст цвета и Reduce Motion — отдельные проверки: пройти VoiceOver не значит пройти их.",
+    "follow-ups": "- Как отдать VoiceOver действие swipe-to-delete?\n- Что такое таргет 44pt в плотном списке SwiftUI и как его вырастить, не разнеся дизайн?\n- Как сохранить смысл, если на цвет нельзя опираться?\n- Что поймает Accessibility Inspector, а что только проход VoiceOver?",
+    "prompt": ""
+  },
+  "accessibility-accommodations": {
+    "title": "Настройки accessibility",
+    "answer": "Accommodations — системные настройки, которые UI должен чтить: Reduce Motion, Increase Contrast, Bold Text, Reduce Transparency, Smart Invert, Closed Captions, Switch Control, Voice Control и крупные размеры Dynamic Type. Читаешь через UIAccessibility — isReduceMotionEnabled, isDarkerSystemColorsEnabled — или SwiftUI Environment accessibilityReduceMotion. Не вези зацикленную hero-анимацию, если Reduce Motion включён: статичный кадр или cross-fade. Семантические цвета и системные материалы, чтобы Increase Contrast и Dark Mode продолжали работать. Подписывайся на нотификации UIAccessibility / reduceMotionStatusDidChangeNotification — люди переключают это, пока приложение открыто. Accommodations — не второе приложение, а ветки в том же лейауте.",
+    "follow-ups": "- Какие анимации надо выключить или заменить при Reduce Motion?\n- Как Smart Invert живёт с ассетами — accessibilityIgnoresInvertColors?\n- Что Switch Control нужно от контролов сверх того, что уже есть у VoiceOver?\n- Как тестировать Increase Contrast, не гадая hex?",
+    "prompt": ""
+  },
+  "spritekit-vs-scenekit": {
+    "title": "SpriteKit и SceneKit",
+    "answer": "SpriteKit — 2D scene graph Apple: спрайты, экшены, физика и SKView, который кладёшь в UIKit или SwiftUI. SceneKit — 3D-стек: ноды, камеры, свет, геометрии, SCN-материалы, опционально редактор. SpriteKit — карточные игры, 2D-платформеры, частицы поверх. SceneKit — просмотрщики продуктов, простые 3D-игры, сцены ARKit, которым нужен 3D-граф. Могут делить вью — SK3DNode, оверлей SceneKit — но API не взаимозаменяемые. RealityKit — более новый дефолт 3D / AR; упомяни, чтобы не звучать как 2016, потом отвечай на заданный вопрос.",
+    "follow-ups": "- Когда пропускаешь оба и берёшь Metal или RealityKit?\n- Чем экшены SpriteKit отличаются от анимаций SceneKit?\n- Можно ли HUD SpriteKit на вью SceneKit или AR?\n- Что даёт physics world в каждом фреймворке?",
+    "prompt": ""
+  },
+  "core-graphics": {
+    "title": "Core Graphics",
+    "answer": "Core Graphics, он же Quartz 2D — C API двумерной отрисовки: пути, градиенты, картинки, PDF и CGContext, который принимает команды. UIBezierPath и UIGraphicsImageRenderer из UIKit сидят сверху; SwiftUI Canvas в итоге тоже. Берёшь, когда нужны пиксели, которых нет ассетом — график, маска, кастомный контрол, страница PDF. Рисуешь в текущем контексте: draw(_:) у UIView или renderer. Это сторона CPU, пока не закэшируешь результат в битмап или CALayer.contents. Забыл перевернуть ось Y или закрыть image context — пустая или перевёрнутая картинка.",
+    "follow-ups": "- UIGraphicsImageRenderer и UIGraphicsBeginImageContext — почему старый API умер?\n- Когда рисовать в draw(_:), а когда кэшировать битмап?\n- Как Core Graphics связан с Core Animation и Core Image?\n- Чем CGPath отличается от UIBezierPath?",
+    "prompt": ""
+  },
+  "core-image": {
+    "title": "Core Image",
+    "answer": "Core Image — граф фильтров на GPU (и CPU): на входе CIImage, цепочка CIFilter, CIContext наружу в CGImage или пиксельный буфер. Берёшь на цвет, блюр, кроп, детекцию QR — CIDetector / сейчас чаще Vision — и фото-правки. Фильтры ленивые: ничего не бежит, пока не попросишь контекст отрендерить. Один CIContext переиспользуй; создавать на каждый кадр — обычный стопор. Для стоп-кадров рендерь в CGImage. Для камеры — в Metal-текстуру или CVPixelBuffer. Vision и vImage пересекаются на части задач; Core Image побеждает, когда каталог фильтров уже даёт нужный вид.",
+    "follow-ups": "- Почему CIContext надо переиспользовать между кадрами?\n- Core Image, фильтры UIImage и Vision — кто владеет детекцией, кто видом?\n- Как удержать цепочку фильтров в display color space?\n- Что extent портит после блюра и как кропаешь?",
+    "prompt": ""
+  },
+  "ibeacons": {
+    "title": "iBeacons",
+    "answer": "iBeacon — формат BLE-рекламы Apple: UUID плюс 16-битные major и minor. Мониторишь CLBeaconRegion, чтобы узнать enter/exit — даже в фоне, с разрешением локации — и range, чтобы получить proximity immediate / near / far, пока приложение запущено. API у Core Location, не у Core Bluetooth: стандартные маяки сам из рекламы не парсишь. Разрешение и батарея важны: range всегда дорогой, мониторинг — фоновый инструмент. Лимит регионов около 20 и шумный proximity отделяют настоящий ответ от «это Bluetooth».",
+    "follow-ups": "- Monitoring и ranging — что работает в фоне и что получаешь?\n- Почему это Core Location, а не Core Bluetooth?\n- Насколько точен proximity и чем меришь расстояние?\n- Какие privacy-строки и background modes нужны фиче с маяками?",
+    "prompt": ""
+  },
+  "storekit": {
+    "title": "StoreKit",
+    "answer": "StoreKit — API покупок в приложении и коммерции App Store. StoreKit 2 — Product, Transaction, PurchaseResult — текущий дефолт: async-загрузка продуктов, Transaction.currentEntitlements на то, чем человек владеет, Transaction.updates на продления и family sharing. Слушатель updates стартуешь на запуске, не когда вылез пейвол: Ask to Buy и шаринг семьи прилетают в это окно. Нужны product ID в App Store Connect, тестовая витрина — StoreKit configuration или sandbox — и сервер, если покупка открывает то, чему клиенту верить нельзя. Каждую проверенную транзакцию finish, иначе она приедет на каждом запуске. Restore — AppStore.sync плюс видимая кнопка Restore по гайдлайну 3.1.1; currentEntitlements кнопку не заменяет. Доступ даёшь в grace и billing-retry, не только в subscribed. SwiftUI SubscriptionStoreView / StoreView с iOS 17 могут держать хром пейвола. Свой парсер чека в 2026 не пиши, если не поддерживаешь StoreKit 1.",
+    "follow-ups": "- Как восстановить или пересинковать entitlements на новом девайсе?\n- Что на сервере, а что в Transaction.currentEntitlements?\n- StoreKit configuration, sandbox, TestFlight — какой баг где всплывёт?\n- Как статус подписки и billing retry выглядят в StoreKit 2?\n- Что ловит Transaction.updates, чего не видит purchase?\n- Intro offer и promotional offer — где читаешь eligibility?\n- Airplane mode — открываешь ли из закэшированного entitlement и на сколько?\n- Почему Transaction.updates должен стартовать в init / на запуске, не на пейволе?\n- AppStore.sync и Transaction.currentEntitlements — что из этого кнопка Restore?\n- inGracePeriod / inBillingRetryPeriod — всё ещё открываешь доступ?",
+    "prompt": ""
+  },
+  "healthkit": {
+    "title": "HealthKit",
+    "answer": "HealthKit — health store на девайсе, не фитнес-UI. Говоришь с HKHealthStore: read и write просишь отдельно, называешь типы — HKQuantityType, HKCategoryType, тренировки — и кладёшь usage-строки в Info.plist. Данные пользователя: запрашиваешь предикатами и интервалами дат, весь стор в свою базу не вываливаешь. Фоновая доставка и пара с Watch — opt-in и могут задержаться. Типичный промах: считать HealthKit REST API, который поллишь, или шиппить без privacy-строки и удивляться, почему диалог авторизации не вылез.",
+    "follow-ups": "- Авторизация read и write — может дать одно и отказать в другом?\n- Почему дневная сумма шагов — запрос, а не свойство на HKHealthStore?\n- Что делаешь, когда HealthKit недоступен — iPad, родительские ограничения?",
+    "prompt": ""
+  },
+  "custom-sound": {
+    "title": "Свой звук",
+    "answer": "Короткие UI-звуки можно через AudioServicesPlaySystemSound или play на system sound ID, если это несколько секунд и микширование не нужно. Всё, что важно — громкость, цикл, категория сессии, фон — AVAudioPlayer или AVAudioEngine. Надо настроить AVAudioSession: ambient, чтобы музыка продолжала играть; playback, если звук — смысл — иначе ОС тебя заглушит. Файл в бандле — caf, wav, m4a, mp3 — грузишь из Bundle.main. Главный поток длинным файлом не блокируй: prepare игрока один раз и play на событии.",
+    "follow-ups": "- Когда AudioServicesPlaySystemSound — не тот API?\n- ambient, playback, playAndRecord — кого каждый приглушает?\n- Как играть звук, когда тумблер звонка выключен?\n- Почему play вернулся, а тишина?",
+    "prompt": ""
+  },
+  "attributed-string": {
+    "title": "NSAttributedString",
+    "answer": "NSAttributedString — строка плюс прогон атрибутов: шрифт, цвет, подчёркивание, paragraph style, ссылка, attachment. Лейблы UIKit, text view и заголовки навигации его всё ещё едят; SwiftUI предпочитает AttributedString, value type, и умеет конвертить. Собираешь NSMutableAttributedString или markdown через AttributedString(markdown:). Атрибуты на диапазонах — off-by-one на составном символе обычный баг. Берёшь, когда один лейбл должен смешать стили; не подделывай тремя лейблами, если VoiceOver должен прочитать одно предложение.",
+    "follow-ups": "- AttributedString и NSAttributedString — какой API в SwiftUI?\n- Как удержать Dynamic Type, если атрибуты прибивают UIFont?\n- Как ссылки и attachment ведут себя в UITextView и UILabel?\n- Что ломается у NSRange и эмодзи?",
+    "prompt": ""
+  },
+  "gameplaykit": {
+    "title": "GameplayKit",
+    "answer": "GameplayKit — ящик с игровой логикой, которая не рисует: стейт-машины GKStateMachine, сущности и компоненты, pathfinding по графу, сидируемые источники случайности, агенты и цели. Сидит рядом со SpriteKit или SceneKit, кадр не рисует. То, что переносится в приложения — GKStateMachine на понятный поток: онбординг, матчмейкинг, загрузка — и детерминированный GKRandomSource для воспроизводимых тестов. На экран настроек не потащишь. Apple давно не ставит его в центр новых семплов — так и скажи, потом покажи, что в ящике знаешь.",
+    "follow-ups": "- Когда GKStateMachine лучше enum на view model?\n- Что даёт split entity-component в SpriteKit?\n- Как сделать таблицу дропа тестируемой?\n- Pathfinding: GKGridGraph или свой A*?",
+    "prompt": ""
+  },
+  "replaykit": {
+    "title": "ReplayKit",
+    "answer": "ReplayKit пишет экран приложения — опционально микрофон и звук приложения — или вещает в расширение ReplayKit. RPScreenRecorder.shared стартует запись; получаешь превью RPPreviewViewController или сырые sample buffer, если просил. Согласие пользователя обязательно, молча писать нельзя. Broadcast — отдельный таргет расширения под стрим вроде Twitch. Настоящие темы — приватность и перформанс: запись дорогая, в фоне надо стопать. Для продуктового клипа ReplayKit всё ещё поддерживаемый путь; для «сохрани это вью как видео» в ревью встречаются и AVFoundation, и режим sample buffer ReplayKit.",
+    "follow-ups": "- Запись внутри приложения и broadcast extension — что делает каждый таргет?\n- Можно ли писать другие приложения? Почему нет?\n- Как взять звук микрофона и не схватить весь девайс?\n- Что стопаешь в sceneDidEnterBackground и что будет, если не стопнешь?",
+    "prompt": ""
+  },
+  "calayer-subclasses": {
+    "title": "Сабклассы CALayer",
+    "answer": "CALayer — дерево отрисовки под каждым UIView. Apple шлёт узкие сабклассы, чтобы не рисовать руками: CAShapeLayer для путей, CAGradientLayer, CATextLayer, CAReplicatorLayer, CAEmitterLayer для частиц, CAScrollLayer, CATiledLayer для огромных картинок, CATransformLayer для настоящего 3D без сплющивания, CAMetalLayer. Берёшь, когда эффект дешевле слоем, чем битмапом, который перерисовываешь. Вью владеет слоем; можно собрать и отдельное дерево. Анимация path, colors или transform на этих слоях — работа Core Animation, обычно это и есть follow-up.",
+    "follow-ups": "- CALayer и UIView — кто трогает тач, кто рисует?\n- Что объект слоя значит относительно своего UIView?\n- Когда CAShapeLayer лучше draw(_:)?\n- Что CATransformLayer меняет в transform против обычного слоя?\n- Почему CATiledLayer — правильный инструмент на большую страницу PDF?\n- Как анимировать path у CAShapeLayer, не перерисовывая в draw(_:)?",
+    "prompt": ""
+  },
+  "cadisplaylink": {
+    "title": "CADisplayLink",
+    "answer": "CADisplayLink — таймер, привязанный к обновлению экрана: 60 или 120 Гц, не «примерно 16 мс». Берёшь на покадровую работу: своя анимация, цикл Metal/игры, часы плеера. Timer и задержки DispatchQueue плывут и не встают на паузу вместе с экраном. Линк кладёшь на main или на run loop, который реально крутится, ставишь preferredFrameRateRange и isPaused, когда сцена уходит в фон. Display link, который каждый кадр делает настоящую работу, всплывёт в Energy Log. Invalidate в stop или когда вью уходит, чтобы колбэк не пережил владельца.",
+    "follow-ups": "- Почему не Timer с интервалом 1/60 для анимации?\n- Что preferredFrameRateRange меняет на ProMotion?\n- Display link в common или default — и почему?\n- Как не дать display link жрать батарею в фоне?",
+    "prompt": ""
+  },
+  "affine-transform": {
+    "title": "CGAffineTransform",
+    "answer": "CGAffineTransform — двумерная аффинная матрица: сдвиг, скейл, поворот, сдвиг с перекосом. Кладешь на вью через transform, на слой, путь или контекст. Порядок важен: поворот-потом-сдвиг — не сдвиг-потом-поворот, а API конкатенирует справа, что удивляет тех, кто думает «сначала написал эту строку». Identity — CGAffineTransform.identity; сбрасываешь им, не угаданными числами. 3D и перспектива — CATransform3D, не аффин. Autolayout и transform дерутся: frame — нетрансформированные bounds, поэтому хит-зона скейлённой кнопки выглядит неправильно, если смотришь только на frame.",
+    "follow-ups": "- Почему «не тот» порядок конкатенации уносит вью за экран?\n- frame, bounds и transform после поворота — чем раскладываешь?\n- Когда нужен CATransform3D?\n- Как инвертировать трансформ, чтобы тап вернуть в пространство модели?",
+    "prompt": ""
+  },
+  "core-location": {
+    "title": "Core Location",
+    "answer": "CLLocationManager — API сплава GPS / Wi-Fi / соты. Просишь When In Use или Always, кладёшь usage-строку в Info.plist, потом стартуешь апдейты, significant-change или visits. На собесе — точность против батареи: kCLLocationAccuracyBest на карте — не то, что нужно погодному приложению. Фоновая локация — entitlement и история для ревью. Типичный промах: стартовать апдейты в init до авторизации или держать Always ради разового «магазины рядом».",
+    "follow-ups": "- When In Use, Always и Precise Location?\n- Significant-change, visits и обычный поток апдейтов?\n- Как тестировать локацию, не стоя на улице?",
+    "prompt": ""
+  },
+  "app-intents": {
+    "title": "App Intents",
+    "answer": "App Intents — современный способ отдать действия и сущности Siri, Spotlight, Shortcuts и кнопке Action: наследник кучи файлов INIntent во многих случаях. Объявляешь структуру с конформом AppIntent, даёшь title и параметры, реализуешь perform. Система может показать это без UI; если нужен экран — возвращаешь сниппет или продолжаешь в приложении. Типичный промах: считать это «только Siri» или сунуть в perform двадцатисекундный сетевой вызов без прогресса.",
+    "follow-ups": "- App Intent и старое определение интента SiriKit?\n- Как задонатить интент, чтобы Spotlight его предложил?\n- Что в perform должно жить не на main actor?",
+    "prompt": ""
+  },
+  "widgetkit": {
+    "title": "WidgetKit",
+    "answer": "Виджет на Home Screen — таймлайн снимков, не живое приложение. WidgetKit просит у TimelineProvider значения TimelineEntry и View; система рисует этот SwiftUI вне процесса и может заморозить. Произвольные таймеры и открытый сокет нельзя. Рефреш — бюджет: atEnd, after(date) или пуш в WidgetCenter. Тап идёт через widgetURL / App Intent в основное приложение. UI шарь пакетом, не копипастой. Типичный промах: считать виджет мини-UIViewController, который каждую секунду фетчит.",
+    "follow-ups": "- Почему анимации беднее, чем в приложении?\n- Как шарить строку SwiftUI между приложением и виджетом?\n- Reload таймлайна и кнопка App Intent на iOS 17+?",
+    "prompt": ""
+  },
+  "live-activities": {
+    "title": "Live Activities",
+    "answer": "Live Activity — полоска реального времени на Lock Screen и Dynamic Island для короткого события: заказ, поездка, таймер. Стартуешь из приложения через ActivityKit, пушишь обновления content-state — часто через APNs — и заканчиваешь, когда событие умерло. UI — SwiftUI в расширении виджета: те же правила снимков, что у WidgetKit, плюс compact / minimal / expanded остров. Это не фоновый Timer в процессе приложения. Типичный промах: стартовать активность и никогда не закончить или запихнуть в пейлоад всю историю чата.",
+    "follow-ups": "- Пуш-апдейт и вызов activity.update из приложения на переднем плане?\n- Что будет, если пользователь force-quit посреди активности?\n- Compact и expanded Dynamic Island — кто решает лейаут?",
+    "prompt": ""
+  },
+  "app-clips": {
+    "title": "App Clips",
+    "answer": "App Clip — крошечный вызов твоего приложения, бюджет порядка 15 МБ, с ссылки, QR или NFC без полной установки. Шлёшь clip-таргет, который потом может вырасти в полное приложение. Первый опыт должен терпеть офлайн и просить только те разрешения, которые нужны этому экрану. URL вызова — deep link. Типичный промах: затащить весь таргет приложения в клип и взорвать лимит размера.",
+    "follow-ups": "- Что шаришь с полным приложением — Keychain, App Group, ничего?\n- Чем App Clip отличается от Universal Link в уже установленное приложение?\n- Где бюджет размера реально бьёт — картинки, SDK?",
+    "prompt": ""
+  },
+  "foundation-models": {
+    "title": "Foundation Models",
+    "answer": "Фреймворк Foundation Models у Apple — on-device LLM, который вызываешь как сервис, не чат-экран. Шлёшь instructions — роль, отказы, политика тулов — плюс промпт; @Generable / @Guide зажимают выход в типизированное значение Swift. Это DTO. Персистишь маппингом в SwiftData / свой стор — не лепи @Model на generable. Тулы — узкие Swift-функции, которые модель может вызвать. Железо гейтится: нет Neural Engine — явный fallback. Типичный промах: кнопка «Спроси AI» на флоу, которому хватало одного тапа, или считать модель чатботом, который владеет твоими доменными типами.",
+    "follow-ups": "- Instructions и пользовательский промпт — что версионируешь вместе с приложением?\n- Почему тип @Generable не может быть сущностью SwiftData?\n- Adapter / fine-tune — какой артефакт везёшь рядом с бинарём?",
+    "prompt": ""
+  },
+  "objc-messaging": {
+    "title": "Messaging и nil",
+    "answer": "[obj foo] компилируется в objc_msgSend с объектом, SEL foo и аргументами. Рантайм ищет селектор в списке методов класса и цепочке суперклассов, потом прыгает в IMP. Сообщение в nil — no-op и возвращает ноль / nil, это не краш. Optional chaining в Swift — двоюродный брат. Динамический диспатч — почему работают категории, swizzling и KVO. Типичный косяк: «ObjC — просто C с объектами» и ни слова про objc_msgSend.",
+    "follow-ups": "- Чем SEL отличается от IMP?\n- Как рантайм находит метод класса против метода экземпляра?\n- Что делает _objc_msgForward?",
+    "prompt": ""
+  },
+  "unrecognized-selector": {
+    "title": "unrecognized selector",
+    "answer": "Рантайм кидает, когда IMP не нашёлся и message forwarding тоже не вывез: doesNotRecognizeSelector. До этого спрашивает resolveInstanceMethod, потом forwardingTargetForSelector, потом forwardInvocation. Этот конвейер — как живут часть прокси и моков. В Swift обычно видишь это как краш от @objc-селектора, который переименовали, или storyboard-экшена, которого больше нет. Типичный промах: винить ARC.",
+    "follow-ups": "- Порядок resolveInstanceMethod и forwarding?\n- Почему Swift-метод может пропасть в рантайме?\n- Как это дебажить в lldb — po, bt?",
+    "prompt": ""
+  },
+  "isa": {
+    "title": "isa и раскладка объекта",
+    "answer": "Объект ObjC — блоб в куче: указатель isa, потом ivar класса и суперклассов. isa смотрит на объект класса, у которого список методов; isa класса смотрит на метакласс — методы класса. KVO и часть трюков с associated objects подменяют isa динамически созданным сабклассом. Ivar в уже скомпилированный класс в рантайме не добавить — раскладка фиксирована; добавить можно, когда создаёшь класс objc_allocateClassPair до objc_registerClassPair. Типичный промах: «isa смотрит на суперкласс».",
+    "follow-ups": "- Объект класса и метакласс?\n- Почему метод в рантайме добавить можно, а ivar нет?\n- Как это включает KVO?",
+    "prompt": ""
+  },
+  "runloop": {
+    "title": "RunLoop",
+    "answer": "RunLoop — цикл событий, привязанный к потоку: ждёт sources — тачи, порты, таймеры, прыжки GCD на main — и гоняет их. У главного потока один, UIKit его уже запустил. У фонового нет, пока не вызовешь run у текущего NSRunLoop. Режимы фильтруют, какие sources стреляют. NSDefaultRunLoopMode — обычный; UITrackingRunLoopMode — то, чем пользуется скролл. NSRunLoopCommonModes включает оба. Типичный косяк: запустить Timer на главном run loop в default и удивляться, почему он молчит во время скролла.",
+    "follow-ups": "- RunLoop и очередь GCD?\n- Что будет, если у фонового потока нет RunLoop, а ты поставил Timer?\n- Как RunLoop устроен на высоком уровне — sleep плюс sources?\n- Source0 и source1 — кто будит поток?\n- Как держать фоновый поток живым без busy loop?",
+    "prompt": ""
+  },
+  "timer-runloop": {
+    "title": "Таймер молчит во время скролла",
+    "answer": "Timer.scheduledTimer кладёт таймер в текущий RunLoop в режиме default. Пока UIScrollView трекает, главный RunLoop в tracking, поэтому таймеры default не стреляют. Фикс: добавить таймер в common, или взять CADisplayLink, или GCD-таймер DispatchSourceTimer — он не на режимах. scheduledTimer на фоновом потоке тоже молчит, пока этот поток не крутит RunLoop. Типичный промах: «таймер сломан» и ни слова про режимы.",
+    "follow-ups": "- common и добавить таймер дважды — default плюс tracking?\n- CADisplayLink и Timer для часов на скроллящемся экране?\n- Почему у Task.sleep этой проблемы нет?\n- Как стрелять таймер раз в минуту, пока приложение в фоне?",
+    "prompt": ""
+  },
+  "method-swizzling": {
+    "title": "Method swizzling",
+    "answer": "Swizzling меняет местами два IMP у селектора через method_exchangeImplementations, чтобы существующие вызывающие попали в твой код. Аналитические SDK и часть тестовых даблов до сих пор так делают. Это глобально, зависит от порядка и ломается, когда две библиотеки свозлят один метод. Лучше обёртка, сабкласс или свой хук UIViewController. Если надо — свозлить в +load или одноразовом static и всегда звать оригинал. Типичный промах: свозлить в Swift без @objc dynamic или забыть исходный IMP и уйти в рекурсию.",
+    "follow-ups": "- +load и +initialize для установки swizzle?\n- Почему это крайняя мера рядом с делегатом?\n- Чем isa-swizzle у KVO отличается?",
+    "prompt": ""
+  },
+  "dynamic": {
+    "title": "@dynamic",
+    "answer": "@dynamic говорит компилятору: геттер/сеттер не синтезировать, они появятся в рантайме — аксессоры Core Data, скриптовое свойство. @synthesize или современный дефолт создаёт ivar и методы. В Swift двоюродный брат — @objc dynamic, нужен для KVO на Swift-свойстве. Типичный промах: повесить @dynamic на обычное stored-свойство и упасть на первом доступе.",
+    "follow-ups": "- @dynamic, @synthesize и дефолт Swift?\n- Почему KVO в Swift нужен dynamic?\n- Что будет, если рантайм так и не добавит метод?",
+    "prompt": ""
+  },
+  "nserror": {
+    "title": "NSError",
+    "answer": "NSError — объект ошибки Cocoa: domain-строка, целочисленный code, словарь userInfo — локализованное описание, underlying error, падающий URL. API ObjC берут out-параметр NSError **. Swift многие из них импортирует как throws, код всё равно читаешь через error as NSError. В новых API лучше типизированный Swift Error; мост на границе. Типичный промах: смотреть только localizedDescription или игнорить NSUnderlyingErrorKey.",
+    "follow-ups": "- Domain плюс code и Swift enum Error?\n- Что класть в userInfo?\n- Как try мапит API с NSError **?",
+    "prompt": ""
+  },
+  "underscore-vs-self": {
+    "title": "_ и self.",
+    "answer": "В ObjC _title — ivar; self.title идёт через аксессор: KVO, copy, свой сеттер, atomic-лок. Присвоение в _title это всё пропускает. В init и dealloc обычно трогаешь ivar, чтобы не вызвать оверрайд и не дёрнуть KVO на недособранном объекте. Везде ещё — свойство. Типичный промах: _delegate = d и удивление, почему weak-сеттер не отработал.",
+    "follow-ups": "- Почему в init / dealloc не писать self.foo = ?\n- Как это ложится на Swift — self.title и «ничего»?\n- Что свой сеттер меняет в self.?",
+    "prompt": ""
+  },
+  "nil-null": {
+    "title": "nil, Nil, NULL, NSNull",
+    "answer": "nil — указатель на объект ObjC, сообщение в nil — no-op. Nil — указатель на класс. NULL — C-указатель, void *. NSNull — настоящий объект со смыслом «JSON null / дырка в коллекции»: nil в NSArray положить нельзя. Swift nil — Optional.none, другая модель. Типичный промах: вставить nil в словарь и упасть или считать NSNull за nil без проверки.",
+    "follow-ups": "- Почему JSON нужен NSNull?\n- Сообщение в nil и optional chaining в Swift?\n- Nil и nil, когда шлёшь метод класса?",
+    "prompt": ""
+  },
+  "category-vs-inheritance": {
+    "title": "Категория и наследование",
+    "answer": "Категория — в Swift extension — добавляет методы существующему классу, которым можешь и не владеть. Наследование создаёт новый тип и может добавить ivar и переопределить поведение. Категория — маленький хелпер вроде UIColor.brand. Сабкласс — когда нужно состояние или другой drawRect. Категории ivar не добавляют: associated objects, осторожно. Две категории с одним методом — undefined. Типичный промах: сабклассить NSString или запихнуть логику приложения в категорию UIViewController.",
+    "follow-ups": "- Когда тип-обёртка лучше категории?\n- Почему оверрайд через категорию опасен?\n- Swift extension и категория ObjC — associated types?",
+    "prompt": ""
+  },
+  "category-vs-extension": {
+    "title": "Категория и class extension",
+    "answer": "Категория @interface Foo (Bar) может жить в другом файле и целиться в классы, которые ты не компилируешь — NSString. Добавляет только методы, без ivar. Class extension — @interface Foo (), иногда «анонимная категория» — должен видеть @implementation класса на этапе компиляции. Может объявить лишние ivar, переобъявить readonly свойство как readwrite и спрятать приватные методы. Extension на NSString не напишешь. Типичный промах: назвать Swift extension на String class extension в смысле ObjC.",
+    "follow-ups": "- Почему extension может добавить ivar, а категория нет?\n- Куда кладёшь приватный readwrite для публичного readonly?\n- Как это ложится на Swift private в том же файле?",
+    "prompt": ""
+  },
+  "synthesize": {
+    "title": "@synthesize",
+    "answer": "@synthesize title = _title говорит компилятору выпустить геттер/сеттер и ivar. Современный ObjC так делает по умолчанию для @property. Пишешь сам, когда один аксессор свой, а второй хочешь синтезировать, или нужен нестандартный имя ivar. @dynamic — наоборот: синтеза нет, аксессоры придут в рантайме. Типичный промах: написать и свой сеттер, и @synthesize, а потом не понять, в какой ivar присвоил.",
+    "follow-ups": "- Когда @synthesize ещё нужен в 2026?\n- @synthesize, @dynamic и stored-свойства Swift?\n- Какое имя ivar получишь, если не написать = _name?",
+    "prompt": ""
+  },
+  "ivar-in-category": {
+    "title": "ivar в категории",
+    "answer": "Stored ivar в уже скомпилированный класс из категории добавить нельзя — раскладка экземпляра уже зафиксирована. Обход — associated objects через objc_setAssociatedObject со статическим ключом и политикой памяти вроде OBJC_ASSOCIATION_RETAIN. Так часть библиотек подделывает stored-свойства на UIView. Цена: лишний lookup в таблице, легко залить, если RETAIN вью, которая держит тебя. Лучше сабкласс или своя side table. Типичный промах: @property в категории и надежда, что синтезировалось хранилище.",
+    "follow-ups": "- Почему раскладка фиксирована после objc_registerClassPair?\n- Associated object и ivar сабкласса?\n- Какую retain-политику берёшь для ассоциации «как weak»?",
+    "prompt": ""
+  },
+  "iskindof-vs-ismember": {
+    "title": "isKindOfClass и isMemberOfClass",
+    "answer": "isKindOfClass — этот класс или сабкласс. isMemberOfClass — ровно этот класс. isKindOfClass UIView истинен для UIButton. isMemberOfClass — нет. Бери isKindOfClass или Swift is / as?. Проверка точного класса ломается, когда UIKit отдаёт приватный сабкласс. Типичный промах: isMemberOfClass в хелпере таблицы, которому потом прилетит сабкласс хедера.",
+    "follow-ups": "- Как Swift is ложится на это?\n- Почему проверка точного класса хрупка с системными типами?\n- conformsToProtocol и isKindOfClass?",
+    "prompt": ""
+  },
+  "load-vs-initialize": {
+    "title": "+load и +initialize",
+    "answer": "+load бежит, когда образ замапили, до main, по разу на класс и на каждую категорию, которая его реализует — даже если сообщение так и не послал. Поэтому китайские лупы считают это налогом на запуск: каждый +load — работа pre-main, и у категорий свой. +initialize ленивый: в первый раз, когда этот класс — или сабкласс, который его не переопределил — получил сообщение. Лучше +initialize или Swift static, которым рулишь; +load оставь для swizzling, который надо поставить до любого клиентского кода, и сделай крошечным. Типичный промах: I/O или старт потока в +load, или решить, что +initialize категории бежит. Не бежит — для категорий особый только +load.",
+    "follow-ups": "- Почему +load категории бежит, а +initialize категории нет?\n- Как увидеть время +load в DYLD_PRINT_STATISTICS?\n- Куда в 2026 класть swizzling, если +load принципиально не хочешь?",
+    "prompt": ""
+  },
+  "resident-thread": {
+    "title": "Поток, который не умирает",
+    "answer": "Фоновый NSThread выходит, когда стартовый блок вернулся. Чтобы держать его под таймеры, порты или серийный «сокетный поток», на нём надо крутить RunLoop и дать циклу source — обычно NSPort или Timer. run без source возвращается сразу. while плюс runMode:beforeDate: — управляемая форма, чтобы потом CFRunLoopStop. Очередям GCD это не нужно: DispatchSource живёт на workqueue. Типичный промах: alloc/init NSThread плюс scheduledTimer и удивление, почему таймер молчит.",
+    "follow-ups": "- Почему run возвращается, если забыл порт?\n- GCD-таймер и RunLoop-таймер на этом потоке?\n- Когда выделенный поток в 2026 — не тот инструмент?",
+    "prompt": ""
+  },
+  "mach-o": {
+    "title": "Mach-O и dyld",
+    "answer": "Бинарник приложения — Mach-O: заголовок, load commands, потом сегменты __TEXT, __DATA и остальные, нарезанные на секции. На запуске dyld мапит эти образы, rebase внутренних указателей из-за ASLR, bind внешних символов, поднимает ObjC — селекторы, категории — потом гоняет инициализаторы: +load, C++ statics. Больше dylib и больше ObjC-метаданных — больше page-in до main. DYLD_PRINT_STATISTICS печатает разрез pre-main. Сливай свои динамические фреймворки, где можно бери static, +load держи пустым. Типичный промах: «запуск — это didFinishLaunching» и ни слова про rebase/bind.",
+    "follow-ups": "- Rebase и bind — что растёт с ASLR, что с импортированными символами?\n- Почему куча динамических подов бьёт cold start сильнее того же кода, слинкованного статически?\n- Что Link Map скажет такого, чего нет в статистике dyld?",
+    "prompt": ""
+  }
+}

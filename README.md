@@ -1,6 +1,11 @@
 # iOS Interview Questions
 
 <p align="center">
+  <a href="./README.md"><img src="https://img.shields.io/badge/English-F05A28?style=for-the-badge&labelColor=12141A" alt="English"></a>
+  <a href="./README.ru.md"><img src="https://img.shields.io/badge/Русский-8B9099?style=for-the-badge&labelColor=12141A" alt="Русский"></a>
+</p>
+
+<p align="center">
   <img src="./assets/readme/hero.png" width="100%" alt="iOS Interview Questions: spoken-answer notes. A handwritten ARC card on paper, with counts for cards, practice prompts, and topics.">
 </p>
 
@@ -12,7 +17,7 @@ Spoken-answer notes for iOS interviews. Open a topic, read the question, then pr
 
 **458** cards · **381** with a written answer · **77** practice prompts · **249** often asked · **17** topics
 
-English first. Russian twins come later, same files and `{#slug}` anchors. Answers are rewritten, not copied.
+Answers are rewritten, not copied. API names stay in Swift.
 
 ## How to study
 

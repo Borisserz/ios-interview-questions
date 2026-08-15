@@ -12,11 +12,13 @@ To suggest a question or a source from the website: **Issues → New issue → P
 4. Write a full English answer, a short Swift example, and follow-ups. **Exception:** a system-design / algorithm / take-home **practice** prompt may skip Answer and Example — use `Kind: Practice` and a short Prompt plus follow-ups.
 5. Place the card in the matching `topics/*.md` file. Create the topic file if this is the first question in that topic.
 6. Update that file’s table of contents.
-7. Regenerate the homepage study decks (topics, High frequency, Show answer):
+7. Regenerate both homepages (`README.md` English, `README.ru.md` Russian):
 
 ```bash
 python3 scripts/generate_readme.py
 ```
+
+Russian card text lives in `locales/ru/*.json` (keyed by `{#slug}`). After a new English card, add the same slug there or the Russian page will keep the English body.
 
 ## Card template
 

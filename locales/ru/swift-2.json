@@ -1,0 +1,284 @@
+{
+  "autoclosure": {
+    "title": "Что такое @autoclosure?",
+    "answer": "**`@autoclosure`** сам заворачивает выражение аргумента в `() -> T`, и уже вызываемый код решает, вычислять его или нет. Так живут `assert` и `precondition`: тяжёлое сообщение об ошибке не собирают, если проверка прошла. По смыслу те же `&&` и `||`: второй операнд может вообще не выполниться. На своём API ставишь `@autoclosure`, когда аргумент это дефолт или диагностика. На собесе хотят услышать «откладывает вычисление». Если closure вызвать дважды, выражение посчитается дважды. Не передавай побочные эффекты, если это не смысл. Само по себе это не делает closure escaping: для этого нужен ещё `@escaping`.",
+    "follow-ups": "- Зачем `assert` и `precondition` берут autoclosure?\n- Что будет, если callee вызовет autoclosure дважды?\n- Чем `@autoclosure @escaping` отличается от обычного `@autoclosure`?",
+    "prompt": ""
+  },
+  "let-vs-var": {
+    "title": "let vs var",
+    "answer": "`let` это биндинг, который нельзя переприсвоить. `var` можно. У **value type** `let` ещё и stored properties замораживает: `let` struct не помутировать. У **class** `let` держит только ссылку: на другой инстанс не перевесишь, а свойства объекта крутить можно. Вот этот follow-up и ждут. Бери `let`, пока мутация не нужна: намерение видно, компилятор ловит случайности. Типичная ошибка: «`let` значит объект иммутабельный», а в руках `let` class с кучей `var` свойств.",
+    "follow-ups": "- Почему `let` class мутировать можно, а `let` struct нельзя?\n- Как это стыкуется с `mutating` методами?\n- Когда `let` на reference type ставят специально?",
+    "prompt": ""
+  },
+  "implicit-vs-explicit": {
+    "title": "Неявные и явные типы",
+    "answer": "**Явный** тип ты написал сам (`var name: String = \"a\"`). **Неявный** вывел компилятор (`var name = \"a\"`). Это **type inference**: конкретный тип берут из контекста. Это не динамическая типизация, тип фиксируется на компиляции. Пиши аннотацию, когда правая сторона двусмысленна (`[]`, `nil`, protocol existential) или имя само тип не выдаёт. Типичный промах: `var x = 0`, а потом присвоить `Double`, или думать, что inference тормозит в рантайме.",
+    "follow-ups": "- Когда inference ломается (`nil`, пустой массив)?\n- Выведенный тип менее безопасен, чем аннотированный?\n- Когда аннотируешь типы параметров у closure?\n- Type inference и type safety: они конфликтуют?",
+    "prompt": ""
+  },
+  "class-vs-object": {
+    "title": "Class vs object",
+    "answer": "**Class** это чертёж: stored properties, методы, идентичность типа. **Object** (инстанс) это одно выделение по этому чертежу. `UIView` это class, `UIView()` это object. Два объекта могут быть одного class и всё равно разные идентичности (`===`). В Swift ещё есть struct и enum. В разговорной речи «объект» часто значит «инстанс типа», не только class. Типичный промах: «class лежит в памяти, а object это файл».",
+    "follow-ups": "- Class vs instance vs type (`Dog.self`)?\n- Чем это отличается у struct?\n- Что сравнивает `===`?",
+    "prompt": ""
+  },
+  "method-dispatch": {
+    "title": "Method dispatch",
+    "answer": "Swift выбирает один из трёх путей. **Static dispatch** (прямой вызов) это дефолт для struct, enum, `final` методов class и `private` членов, которые компилятор может доказать. **Table dispatch** идёт через vtable у class и **protocol witness table** у protocol existential: кого звать, решают в рантайме. **Objective-C message send** (`objc_msgSend`) это `@objc dynamic` и почти все override в UIKit: можно свизлить, и это медленнее. `final` и value types не просто стиль: компилятор девиртуализирует и иногда инлайнит. Типичная ошибка: горячий метод повесить на protocol existential в тесном цикле и удивляться, почему не оптимизируется как generic.",
+    "follow-ups": "- Что меняет `dynamic`?\n- Generic `func paint<T: Drawable>(_ item: T)` vs `any Drawable`: что умеет специализироваться?\n- Почему `final` помогает по скорости?\n- Можно ли `override` метод, который живёт только в class `extension`?\n- Метод есть только в protocol extension: static или witness-table?",
+    "prompt": ""
+  },
+  "copy-on-write": {
+    "title": "Copy-on-Write",
+    "answer": "Copy-on-write значит: присваивание **шарит storage**, пока кто-то не мутирует. Так живут `Array`, `String` и `Dictionary`: `var b = a` дёшево; `b.append` копирует, только если буфер не uniquely referenced. То же самое собираешь сам: class-буфер на куче плюс `isKnownUniquelyReferenced`. Буфер уникален, мутируй на месте; нет, скопируй, потом мутируй. На собесе хотят uniqueness check, а не «struct дешёвые». Типичные ошибки: положить class внутрь struct и решить, что получил value semantics, или копировать на каждую запись, даже когда буфер уникален.",
+    "follow-ups": "- Почему `append` должен быть `mutating`, если class и так меняется на месте?\n- Что будет, если два потока мутируют CoW storage без синхронизации?\n- Почему большинству модельных struct свой CoW не нужен?\n- Скопировал `[Class]`, у одного массива `popLast`, мутировал элемент: кто видит новое имя?",
+    "prompt": ""
+  },
+  "collections": {
+    "title": "Коллекции в Swift",
+    "answer": "`Array` это **value type** с copy-on-write: присваивание выглядит как копия, буфер шарится до мутации. Упорядоченный random-access список, выбор по умолчанию, subscript за `O(1)`. `Set` это неупорядоченные уникальные `Hashable` значения: членство и уникальность, не индекс. `Dictionary` это hash map по `Hashable` ключам. `Range` / `ClosedRange` это интервалы, не мешок элементов, хотя они sequence. Всё это сидит на `Sequence` / `Collection`, поэтому `map` и `filter` работают одинаково. Ни одна из них не thread-safe. Бери `Set`, когда снова и снова спрашиваешь «я уже видел этот id?»; `Array`, когда важен порядок; dictionary как упорядоченную ленту не используй. Типичная ошибка: `contains` по большому `Array` на горячем пути вместо `Set`.",
+    "follow-ups": "- Когда `Set` быстрее, чем `Array.contains`?\n- Почему `Dictionary` unordered, и какой на практике порядок итерации?\n- Как `Range` и `Array` оба конформят `Collection`?\n- Sequence vs Collection: можно ли пройти Sequence дважды?",
+    "prompt": ""
+  },
+  "print-vs-debugprint": {
+    "title": "print vs debugPrint",
+    "answer": "`print` берёт `CustomStringConvertible`, текст для человека. `debugPrint` берёт `CustomDebugStringConvertible`, если он есть, иначе падает назад, плюс кавычит строки и показывает структуру, удобнее в логе. Для `\"hi\"` они похожи; для массива строк `debugPrint` добавит кавычки, чтобы было видно пробелы. На собесе это проверка «читал ли stdlib», не дизайн. В проде лучше structured logging (`Logger`); эти двое для консоли и playground.",
+    "follow-ups": "- Какой protocol каждый предпочитает?\n- Когда `CustomDebugStringConvertible` пишешь отдельно от `description`?\n- Почему в приложении дефолтом лучше `Logger`?",
+    "prompt": ""
+  },
+  "struct-memory-layout": {
+    "title": "Раскладка struct в памяти",
+    "answer": "Struct это сплошной мешок stored properties плюс **padding**, чтобы каждое поле попало в свою **alignment**. `MemoryLayout<T>.size` это payload, `stride` это шаг до следующего элемента в массиве (size, округлённый вверх до alignment), `alignment` это кратность адреса. Перестановка полей может ужать stride: `Bool`, потом `Int64`, потом `Bool` жрёт больше, чем `Int64` и два `Bool`. Это важно в огромных массивах и когда struct отдаёшь в C. Компилятор ещё может занять spare bits, например у Optional. Типичная ошибка: сложить `MemoryLayout` полей и ждать, что получится размер struct.",
+    "follow-ups": "- Почему `Array` смотрит на `stride`, а не на `size`?\n- Как это меняется с `@frozen` и library evolution?\n- Когда вообще стоит переставлять свойства ради layout?",
+    "prompt": ""
+  },
+  "some-vs-any": {
+    "title": "some vs any",
+    "answer": "`some P` это **opaque** тип: вызывающий знает, что это `P`, компилятор всё ещё знает конкретный тип. Поэтому он специализирует и держит маленький фиксированный layout. `any P` это **existential**: значение в коробке, конкретный тип может смениться в рантайме, вызовы идут через witness table. `some` для return type, который ты контролируешь (`some View`). `any`, когда надо хранить разные конформеры или тип меняется. Protocol с associated types часто нельзя писать голым типом: пишешь `any Collection` или generic. Типичный промах: «`any` это просто новое написание имени protocol» без цены коробки, или вернуть `any View` из SwiftUI `body`.",
+    "follow-ups": "- Почему в `body` нужен `some View`, а не `any View`?\n- Как это связано с PAT (protocol with associated types)?\n- Когда existential box реально бьёт по performance?\n- `func f<T: Equatable>(_: T)` vs `func f(_: some Equatable)`: одна идея?",
+    "prompt": ""
+  },
+  "associated-types": {
+    "title": "Associated types",
+    "answer": "Associated type это плейсхолдер, который заполняет конформер: `Collection.Element`, `Iterator.Element`. Protocol тогда становится **PAT**: сам по себе это не конкретный тип, компилятор не знает плейсхолдеры. Нельзя написать `let c: Collection`. Берёшь generic (`func sum<C: Collection>(_ c: C)`), opaque `some Collection<Int>` или `any Collection<Int>` (primary associated types). Type erasure (`AnyCollection`) это старый люк. На собесе хотят «почему `let x: Iterator` не компилируется», а не декламацию `associatedtype`. Типичная ошибка: навесить associated type, когда хватило бы generic метода на protocol.",
+    "follow-ups": "- Почему `any Collection` стал полезным только с primary associated types?\n- Associated type vs generic на методе protocol?\n- Как type-erase PAT без `any`?",
+    "prompt": ""
+  },
+  "static": {
+    "title": "static",
+    "answer": "`static` принадлежит **типу**, не инстансу. `static let` это общая константа. `static func` зовут как `Foo.bar()`. На class `class func` можно override, `static func` нельзя (это `final` на типе). Stored `static var` это общее мутабельное состояние, относись как к полю синглтона. Типичная ошибка: `static var` как кэш и потом удивляться, почему тесты текут состоянием между кейсами.",
+    "follow-ups": "- `static` vs `class` на методе?\n- Где живёт `static var`, и он thread-safe?\n- Когда `static` лучше синглтон-объекта?",
+    "prompt": ""
+  },
+  "abstract-class": {
+    "title": "Абстрактный class в Swift",
+    "answer": "В Swift нет ключевого слова `abstract`. Ту же форму дают **protocol** (обязательные методы, без дефолта) плюс protocol extension для общего кода, либо class, который никто не инстанцирует, а методы «надо override». Компилятор за этим не следит. Бери protocol. `required init` и фабрики закрывают «надо сконструировать сабкласс». Типичная ошибка: пустой базовый class, который существует только чтобы два типа делили имя.",
+    "follow-ups": "- Почему не базовый class с `fatalError(\"override\")`?\n- Как PAT и `some Feed` это меняют?\n- Когда иерархия class всё ещё правильная модель?",
+    "prompt": ""
+  },
+  "enums": {
+    "title": "Enums",
+    "answer": "Swift enum это value type: одно из закрытого набора case. Raw value (`String`, `Int`) добавляешь, когда персистишь или декодируешь. **Associated values** когда у case разные payload (`Result`, сетевые ошибки). У enum бывают методы, computed properties, и `switch` обязан быть exhaustive. Вот выигрыш на собесе против кучи булей. Типичная ошибка: `isLoading` + `error` + `value` тремя Optional вместо `enum State { idle, loading, failed(Error), ready(Value) }`.",
+    "follow-ups": "- Raw value vs associated value: может ли case иметь оба?\n- Почему exhaustive `switch` безопаснее, чем `if` по булям?\n- Когда всё равно хочешь struct, а не enum?\n- Что такое `indirect` enum, и зачем он дереву?",
+    "prompt": ""
+  },
+  "lazy": {
+    "title": "lazy",
+    "answer": "`lazy var` это stored property, которое считают **один раз**, при первом чтении, и потом хранят. Бери для работы, которая может не понадобиться: тяжёлый formatter, открытие файла, сборка дочернего объекта. Это обязан быть `var`, потому что первое чтение мутирует storage. **Не thread-safe**: два потока могут прогнать инициализатор дважды. Это не `let` и не computed property (те пересчитываются каждый раз). `let`, которому всё равно нужна работа в init, это сразу вызванный closure: `let area = { Double.pi * r * r }()`. Eagerly, один раз, и можно шарить. Типичные ошибки: `lazy` на дешёвый `DateFormatter`, который всегда используешь, и захват `self` в `lazy` closure, который потом течёт.",
+    "follow-ups": "- `lazy var` vs computed `var` vs `let`, инициализированный в `init`?\n- Почему `lazy` опасен между потоками?\n- Как сделать значение «как `let`», но посчитать один раз в рантайме?\n- Можно ли `lazy` свойство struct читать с `let` инстанса?",
+    "prompt": ""
+  },
+  "stored-vs-computed": {
+    "title": "Stored vs computed properties",
+    "answer": "**Stored** property занимает память на инстансе (`let` / `var` без геттера). **Computed** это геттер (и опциональный сеттер), который каждый раз выводит значение. `willSet` / `didSet` цепляются только к stored. Computed могут жить на enum и в protocol extension; stored нельзя, кроме class и struct. Типичный промах: computed, который делает I/O или аллоцирует, и цикл, читающий `view.frame` пять раз, делает работу пять раз. Закэшируй, если нужно дважды.",
+    "follow-ups": "- Может ли computed property быть `lazy`?\n- Где срабатывают property observers относительно кастомного сеттера?\n- Зачем под computed класть private stored кэш?",
+    "prompt": ""
+  },
+  "optionals": {
+    "title": "Что такое Optional",
+    "answer": "Optional это **`enum Optional<Wrapped> { case none, some(Wrapped) }`**. `nil` это `.none`. Поэтому работают `switch`, `map` и `??`: это настоящий тип, не флаг указателя. Разворачиваешь через `if let` / `guard let`, `??`, optional chaining или (редко) `!`. IUO (`String!`) всё ещё Optional, просто разворачивается неявно и падает, если `nil`. Типичные ошибки: «optional значит указатель, который может быть NULL», и тащить `Optional.none` как значение в персист без кодирования отсутствия.",
+    "follow-ups": "- Чем это отличается от ObjC `nil` messaging?\n- `Optional` это enum или struct?\n- Что возвращает `map` на Optional?\n- Когда `Optional.none` неправильная модель (пустая строка vs отсутствует)?\n- `nil` это другое значение, чем `Optional.none`?\n- Назови все обычные unwrap: `if let`, `guard let`, `??`, `?`, `map` / `flatMap`, `!`, IUO. Когда какой честный?",
+    "prompt": ""
+  },
+  "access-control": {
+    "title": "Access control",
+    "answer": "Access control в Swift про то, **кто может назвать символ**. От самого узкого к широкому: `private` (это объявление), `fileprivate` (этот файл), `internal` (этот module, дефолт), `package` (этот Swift package), `public` (импортёры могут пользоваться), `open` (импортёры могут subclass / override, только class). **`public` виден через module, но снаружи не subclass'ится**; `open` можно. Apple так режет специально: часть хуков `NSManagedObject` сделаны `public`, чтобы звать, но не override. Авторы фреймворков ставят `open`, только когда subclassing это контракт. App target почти никогда не нужен `open`. Типичный промах: тип `public`, а `init` оставить `internal`, и клиенты не могут сконструировать.",
+    "follow-ups": "- `public` vs `open`: когда `open` ошибка?\n- `private` vs `fileprivate` после Swift 4 (extension в том же файле)?\n- Почему `public` struct нужен явный `public init`?\n- Как отдать геттер, а сеттер оставить внутри типа?\n- Зачем автору фреймворка пометить метод `public`, а не `open`?",
+    "prompt": ""
+  },
+  "inout": {
+    "title": "inout",
+    "answer": "`inout` даёт функции записать обратно в переменную вызывающего. Значение копируют внутрь, мутируют, потом пишут назад. Это не C-указатель, который ты держишь. Аргумент должен быть мутабельный `var` (или computed property с сеттером). Нельзя передать `let`, литерал или то, что может исчезнуть посреди вызова. Типичный промах: `inout`, чтобы «не возвращать», на типе, которому честнее вернуть новое значение.",
+    "follow-ups": "- Зачем `&` на месте вызова?\n- `inout` vs вернуть новое значение: когда что яснее?\n- Можно ли передать computed property?",
+    "prompt": ""
+  },
+  "failable-throwing-init": {
+    "title": "Failable и throwing init",
+    "answer": "`init?` может вернуть `nil`, когда вход нелегальный (`Int(\"x\")`, `URL(string:)`). `init(...) throws` падает с `Error`, когда причин больше одной. Бери `init?` для простого «эта строка не значение». Бери `throws`, когда вызывающий должен `switch` по *почему*. Failable init у class обязан присвоить stored properties до `return nil` на failure path, после правил `super.init`. Обычная ловушка: convenience `init?`, который забыл designated путь. Типичный промах: `try!` на throwing init в проде.",
+    "follow-ups": "- `init?` vs `init!` vs `throws`?\n- Может ли failable init позвать throwing?\n- Почему `UIImage(named:)` failable?",
+    "prompt": ""
+  },
+  "designated-convenience-init": {
+    "title": "Designated vs convenience init",
+    "answer": "**Designated** init полностью инициализирует тип и зовёт `super.init` (у class). **Convenience** init обязан позвать другой init на `self` и существует, чтобы заполнить дефолты. У Swift struct есть memberwise init; у class надо быть явным. Правило двух фаз: свои stored properties, потом `super`, потом кастомизация. Типичный промах: designated init сабкласса без `super`, или convenience, который пытается напрямую выставить свойство суперкласса.",
+    "follow-ups": "- Почему convenience init обязан звать `self.init`?\n- Required init: когда сабкласс его наследует?\n- Чем это отличается от memberwise init у struct?",
+    "prompt": ""
+  },
+  "any-vs-anyobject": {
+    "title": "Any vs AnyObject",
+    "answer": "`Any` это любой тип: struct, enum, функции, class. `AnyObject` это **только инстансы class** (swift-имя для `id`). `AnyObject` нужен для `weak` / ObjC interop / «это должна быть ссылка». `Any` для гетерогенной коробки (`[Any]`). Оба стирают информацию, чтобы работать, downcast'ишь. Типичный промах: `[AnyObject]` для списка struct, или `Any` там, где хватило бы protocol.",
+    "follow-ups": "- `any Protocol` vs `Any` vs `AnyObject`?\n- Почему `weak var x: Any` нелегально?\n- Когда generic лучше, чем `Any`?",
+    "prompt": ""
+  },
+  "private-set": {
+    "title": "private(set)",
+    "answer": "`private(set)` (или `internal(set)`, `fileprivate(set)`) оставляет **шире геттер** и **уже сеттер**. Снаружи читают `count`, присваивать может только тип (или файл). Это обычная ручка «состояние показать, мутацию спрятать»: `items` у ViewModel, которые view не должен подменять. Это не то же самое, что computed геттер над private stored, но на месте вызова читается так же. Типичный промах: `private(set) var` на struct и мутация с `let` инстанса.",
+    "follow-ups": "- `private(set)` vs публичный геттер и private `var`?\n- Какой access у сеттера, если написал только `private(set)`?\n- Работает ли это на свойстве class, за которым смотрит UI?",
+    "prompt": ""
+  },
+  "string-count": {
+    "title": "Сложность String.count",
+    "answer": "`String` это коллекция **extended grapheme clusters**, не UTF-16 юнитов. `count` идёт по строке, поэтому это **O(n)** по числу кластеров: семейный эмодзи даёт `count` 1, не 4. `utf8.count` / `utf16.count` дешевле, когда нужны байты или длина `NSString`. Не кэшируй `count` так, будто это `Array.count` (`O(1)`), пока не померил и строка не огромная. Типичный промах: `count` в условии цикла, который каждый раз сканирует заново, или считать, что `NSString.length` совпадает с `String.count`.",
+    "follow-ups": "- Почему `index(offsetBy:)` тоже O(n)?\n- `count` vs `isEmpty`: что берёшь как буль?\n- Как это отличалось в очень старом Swift (`countElements`)?",
+    "prompt": ""
+  },
+  "downcasting": {
+    "title": "Downcasting",
+    "answer": "`as` это гарантированный upcast (или bridging cast). `as?` это failable downcast: `nil`, если runtime тип не совпал. `as!` падает при несовпадении. Downcast нужен, когда на руках `Any` / базовый class / ObjC `id`, а нужен конкретный тип. Бери `as?` плюс `guard`, или `if let view = sender as? UIButton`. Типичный промах: `as!` на dequeue ячейки, которую ты уже типизировал через `dequeueReusableCell(withIdentifier:for:)`.",
+    "follow-ups": "- `as` vs `as?` vs `as!`: по одному предложению?\n- Conditional cast vs `is` и потом `as!`?\n- Как это стыкуется с `AnyObject`?",
+    "prompt": ""
+  },
+  "functions-vs-methods": {
+    "title": "Functions vs methods",
+    "answer": "**Function** это именованный вызываемый, который не принадлежит типу (`func clamp`). **Method** это функция на типе (`Array.append`). Методам дают `self`; `mutating` методы могут писать storage struct. Свободные функции проще тестировать и не требуют namespace-типа. Методы выигрывают, когда операция часть словаря типа. В Swift ещё есть `static` / `class` методы (на типе, не на инстансе). Типичный промах: «методы это функции, которые используют `self`», не сказав, где они живут.",
+    "follow-ups": "- Когда хелпер кладёшь на тип, а когда рядом?\n- `static` vs `class` vs свободная функция в том же файле?\n- Как передать метод как значение функции (`foo.bar`)?",
+    "prompt": ""
+  },
+  "subscripts": {
+    "title": "Subscripts",
+    "answer": "Subscript это доступ `type[key]`, который ты определяешь: `collection[i]`, `dict[key]`. Пишешь `subscript(index: Int) -> Element { get set }`. Ставь, когда тип это мешок значений, не когда это глагол. Несколько списков параметров законны (`grid[x, y]`). Типичный промах: subscript, который прячет сетевой вызов, или тот, что трапается на отсутствующем ключе вместо Optional.",
+    "follow-ups": "- Subscript vs именованный метод: когда `[]` врёт?\n- Может ли subscript бросать?\n- Чем subscript у `Dictionary` отличается от `Array`?",
+    "prompt": ""
+  },
+  "hashable-equatable": {
+    "title": "Hashable, Equatable, Comparable",
+    "answer": "**`Equatable`** это `==`. **`Hashable`** это `Equatable` плюс стабильный `hash(into:)`, чтобы тип мог быть ключом `Set` / `Dictionary`. **`Comparable`** это `<` (и остальное), чтобы сортировать. Синтезируй, когда все stored properties уже конформят. Не пиши свой hash, который игнорирует поле из `==`. Типичный промах: мутировать свойство, которое участвует в `==`, после того как значение уже в set.",
+    "follow-ups": "- Почему `==` и `hash` должны соглашаться?\n- Когда `hash(into:)` пишешь руками?\n- `Comparable` vs closure в `sort`?\n- Два значения, один `hashValue`, разный `==`: оба могут жить в `Set`?\n- `Identifiable` vs `Hashable`: что на самом деле нужно `ForEach`?",
+    "prompt": ""
+  },
+  "identifiable": {
+    "title": "Identifiable",
+    "answer": "`Identifiable` это стабильный **`id`**, чтобы SwiftUI и diffable-списки отличали строки. `ForEach(items)` хочет `Identifiable` (или явный `id: \\.key`). `id` не должен меняться, когда поменялся текст на экране: UUID или серверный primary key, не `name`. `Hashable` для set и ключей dictionary; можно быть `Identifiable` и плохим ключом `Dictionary`, если идентичность только в `id`. Типичный промах: `ForEach(0..<count)` на меняющемся массиве, или `id: \\.self` на `String`, который не уникален.",
+    "follow-ups": "- Почему `id: \\.name` баг, если две команды могут делить имя?\n- `Identifiable` + `Hashable`: могут ли `id` и `==` разойтись?\n- Item ID в diffable snapshot: то же правило?",
+    "prompt": ""
+  },
+  "composition-over-inheritance": {
+    "title": "Композиция вместо наследования",
+    "answer": "Бери **has-a**, не **is-a**. У `Player` есть `Health` и `Mover`, а не дерево `GameObject` на шесть уровней. Swift к этому толкает protocol и struct. Наследование всё ещё выигрывает в UIKit (`UIViewController`) и в настоящем is-a (`UIButton` это `UIView`). Типичный промах: базовый class с `fatalError(\"override\")` на каждую фичу.",
+    "follow-ups": "- Когда иерархия class всё ещё правильная модель?\n- Как это выглядит как protocol composition (`P & Q`)?\n- При чём тут тесты?",
+    "prompt": ""
+  },
+  "type-safety": {
+    "title": "Type safety",
+    "answer": "Swift проверяет типы **на компиляции**. `String` в `Int` без конверсии не положишь. Optional делает «может не быть» частью типа, поэтому `nil` не тихий краш потом. Type inference всё равно выбирает конкретный тип. Это не динамическая типизация. Типичный промах: `as!` / `try!`, чтобы «проскочить» компилятор.",
+    "follow-ups": "- Type safety vs type inference: они конфликтуют?\n- Как Optional вписывается в эту историю?\n- Что `Any` делает с безопасностью?",
+    "prompt": ""
+  },
+  "mutating": {
+    "title": "mutating",
+    "answer": "Метод struct/enum, который пишет в `self` (или stored property), надо пометить **`mutating`**. Он подменяет всё значение целиком, поэтому на `let` инстансе его не вызвать. Методам class `mutating` не нужен: ссылка та же, объект меняется. Типичный промах: «mutating делает его class».",
+    "follow-ups": "- Почему `mutating` нелегален на class?\n- Что значит `self = …` внутри mutating метода?\n- Как это стыкуется с `let` свойством, в котором лежит struct?",
+    "prompt": ""
+  },
+  "switch": {
+    "title": "switch",
+    "answer": "Swift `switch` обязан быть **exhaustive**, умеет матчить tuples, ranges, Optional и associated values у enum, плюс `where`. Неявного fallthrough нет. Пиши `fallthrough`, если правда хочешь. Поэтому он бьёт кучу `if` по состоянию. Типичный промах: `default`, который проглатывает новый case enum, который надо было обработать.",
+    "follow-ups": "- Почему exhaustiveness это фича безопасности?\n- `where` vs вложенный `if`?\n- Как матчить два значения сразу (tuple)?",
+    "prompt": ""
+  },
+  "multiple-inheritance": {
+    "title": "Множественное наследование",
+    "answer": "У Swift **class один superclass**. C++-шного множественного наследования нет. Поведение собираешь **protocol** (тип может конформить многим) и protocol extension. `AnyObject` это class-bound. Типичный промах: «в Swift множественное наследование, потому что protocol». Protocol не superclass, stored properties у них нет.",
+    "follow-ups": "- Protocol composition (`P & Q`) vs иерархия class?\n- Почему protocol не может добавить stored property?\n- Когда class всё ещё нужен ради общего storage?",
+    "prompt": ""
+  },
+  "higher-order-functions": {
+    "title": "Функции высшего порядка",
+    "answer": "Функция высшего порядка принимает или возвращает функцию: `map`, `filter`, `compactMap`, `reduce`, `sorted`, `forEach`. Передаёшь closure вместо цикла. Бери их, когда трансформ в одну строку; оставляй `for`, когда есть ранний выход или несколько выходов. Типичный промах: `forEach` с сайд-эффектами, которые потом не протестировать, или `reduce`, который просто хуже `map`.",
+    "follow-ups": "- `map` vs `compactMap` vs `flatMap`?\n- Когда цикл `for` яснее?\n- Что под капотом у `sorted(by:)` (семейство introsort, не Timsort)?\n- `for` vs `forEach`: можно ли `return` / `break`?",
+    "prompt": ""
+  },
+  "stored-properties-on-enum": {
+    "title": "Stored properties у enum",
+    "answer": "Case enum это тег плюс опциональные associated values. **Отдельного instance storage** под лишние stored properties нет. Можно `static` stored, computed properties и методы. Нужны данные на инстанс? Клади в associated value или бери struct. Типичный промах: `enum Foo { var id: Int }` и удивление, почему не компилируется.",
+    "follow-ups": "- Associated value vs stored property?\n- Почему у enum всё равно может быть computed `var`?\n- Когда переключаешься на struct?",
+    "prompt": ""
+  },
+  "frozen": {
+    "title": "@frozen",
+    "answer": "`@frozen` это обещание **library evolution**: этот enum или struct не нарастит public case или stored properties так, чтобы сломать клиентов, собранных против старого SDK. Тогда компилятор может выкинуть путь «неизвестный будущий case»: exhaustive `switch` без `@unknown default` и дешевле layout. Ставят на типы в духе stdlib (`Result`, `Optional`) и на свои ABI-stable module. App-коду, который не бинарный фреймворк, почти никогда не нужно. Типичный промах: `@frozen` на app enum «ради performance», или добавить case в frozen public enum и тихо сломать ABI.",
+    "follow-ups": "- `@frozen` vs `@unknown default` на не-frozen enum?\n- Когда app target это реально нужно?\n- Что ломается, если в frozen public struct добавить stored property?",
+    "prompt": ""
+  },
+  "identity-vs-equality": {
+    "title": "== vs ===",
+    "answer": "**`==`** это `Equatable`: одно и то же *значение*. **`===`** это идентичность: один и тот же *инстанс* (только class). Два `UIView` могут быть `==`, если ты так определил, и всё равно `!==`. Два struct никогда не `===`: у них нет идентичности. Типичный промах: `===` на struct, или `==` на class, который унаследовал pointer equality `NSObject`, и ты думаешь, что сравнил поля.",
+    "follow-ups": "- Почему дефолтный `==` у `NSObject` часто совпадает с `===`?\n- Когда `==` на class пишешь руками?\n- Как это всплывает в юнит-тесте кэша?",
+    "prompt": ""
+  },
+  "swift-module": {
+    "title": "Swift module",
+    "answer": "**Module** это единица компиляции, которую `import`: app target, продукт Swift package, фреймворк. `internal` (дефолт) виден внутри module, снаружи нет. Один `.swift` файл это не module. Для файла есть `fileprivate`. У module есть имя (`import UIKit`) и интерфейс, который компилятор сериализует. Типичный промах: «module это файл» или ждать, что `private` спрячет тип от остального app target.",
+    "follow-ups": "- Module vs target vs package product?\n- Почему `internal` на типе приложения всё равно виден (или нет) в тестах того же приложения?\n- Что меняет `@testable import`?",
+    "prompt": ""
+  },
+  "abi-stability": {
+    "title": "ABI и module stability",
+    "answer": "**ABI stability** (Swift 5 на платформах Apple) значит: runtime Swift на ОС может загрузить бинарники, собранные более новым компилятором. `libswiftCore` в каждое приложение больше не кладут. **Module stability** другое: клиент, собранный против твоего `.swiftinterface`, линкуется и после нового бинарника. Для этого нужны `BUILD_LIBRARY_FOR_DISTRIBUTION` и **resilient** public API: не добавлять stored property в `open` class, не переименовывать `public` метод, `@frozen` только когда правда имеешь в виду. App target это не нужно. Бинарный XCFramework, который отдаёшь другим командам, да. Типичный промах: «Swift ABI-stable» прочитать как «любой `public` тип в моём SDK можно менять».",
+    "follow-ups": "- ABI stability vs module stability vs source compatibility: три разных обещания?\n- Почему `@frozen` на public enum важен клиентам?\n- Когда отдаёшь source SPM вместо resilient XCFramework?",
+    "prompt": ""
+  },
+  "macros": {
+    "title": "Macros",
+    "answer": "Swift **macro** это код на этапе компиляции, который пишет ещё Swift (`@Observable`, `#Preview`, `#expect`). Freestanding выглядят как `#name`; attached как `@name` на типе или члене. Крутятся в песочнице и раскрываются в исходник, который можно показать в Xcode. Бери, чтобы убить бойлерплейт, который иначе генерировал бы руками, не чтобы прятать control flow. Типичный промах: считать macro runtime reflection или везти macro plugin без версии вместе с module.",
+    "follow-ups": "- Freestanding vs attached: по одному примеру?\n- Чем это отличается от property wrapper?\n- Что раскрываешь в Xcode, когда macro ведёт себя странно?",
+    "prompt": ""
+  },
+  "never": {
+    "title": "Never",
+    "answer": "`Never` это тип **без значений**. Функция с `-> Never` не может вернуться: `fatalError`, `preconditionFailure`, бесконечный `while true`. Publisher или `Result` с `Never` как `Failure` не умеет фейлиться. `switch` по `Never` без case. На собесе хотят «uninhabited type», не «void». У `Void` одно значение `()`. Типичный промах: написать `-> Never` у функции, которая иногда возвращается, или думать, что `fatalError` возвращает `Void`.",
+    "follow-ups": "- `Never` vs `Void`: по одному предложению?\n- Почему `get()` у `Result<Int, Never>` может быть без `throws`?\n- Где SwiftUI использует `Never` (например body у `EmptyView`)?",
+    "prompt": ""
+  },
+  "discardable-result": {
+    "title": "@discardableResult",
+    "answer": "`@discardableResult` глушит варнинг «result unused» у функции, чей возврат читать необязательно. `removeValue(forKey:)` возвращает старое значение; большинство call site его выбрасывают. Ставь, когда оба стиля честные. Не лепи на `save() -> Bool`, чтобы спрятать проигнорированные ошибки. Вот ловушка на собесе. Типичный промах: пометить каждую фабрику discardable, и вызывающие не замечают, что дропнули cancellable.",
+    "follow-ups": "- Когда игнор результата это баг (`AnyCancellable`, `Bool` флаги ошибок)?\n- Чем это отличается от `_ = save()` на месте вызова?\n- Почему `print` этот атрибут не нужен?",
+    "prompt": ""
+  },
+  "typealias": {
+    "title": "typealias",
+    "answer": "`typealias` это **имя** существующего типа, не новый тип. `typealias Codable = Encodable & Decodable` все уже знают. Пишешь для длинного closure (`typealias Handler = (Result<Data, Error>) -> Void`), платформенного алиаса (`UIColor` vs `NSColor`) или короткого generic (`typealias ID = UUID`). Сам по себе методы не добавляет и ABI не меняет. Типичный промах: считать typealias отдельным типом, который не даст передать оригинал, или прятать за ним tuple на 12 параметров вместо struct.",
+    "follow-ups": "- `typealias` vs wrapper struct: когда нужен настоящий тип?\n- Почему `Codable` это typealias, а не третий protocol с лишними методами?\n- Могут ли два module заалиасить одно имя на разные типы?",
+    "prompt": ""
+  },
+  "deinit": {
+    "title": "deinit",
+    "answer": "`deinit` это хук разборки class (или actor): срабатывает, когда ушла последняя strong-ссылка, прямо перед уничтожением объекта. У struct и enum его нет, нечего разбирать, нет идентичности. Им инвалидируешь `Timer`, глушишь сокет или в дебаге assert'ишь, что cleanup прошёл. Нельзя `throw`, нельзя `await` в non-isolated `deinit` (isolated `deinit` у actor это более новое исключение), и нельзя стартовать работу, которой нужно, чтобы `self` остался жив. Типичный промах: сильно захватить `self` в таймере, который инвалидируешь только в `deinit`. Тогда `deinit` никогда не придёт.",
+    "follow-ups": "- Почему у struct нет `deinit`?\n- На каком потоке бежит `deinit`?\n- Isolated `deinit` у actor: что это починило?",
+    "prompt": ""
+  },
+  "typed-throws": {
+    "title": "Typed throws",
+    "answer": "Swift 6 умеет бросать **конкретный тип ошибки**: `func load() throws(LoadError)`. Вызывающие `catch` этот тип без коробки `any Error`, и компилятор знает набор фейлов. Голый `throws` по-прежнему значит `throws(any Error)`. Typed throw бери, когда у API два-три восстанавливаемых случая, по которым вызывающий должен `switch`. На системной границе (`URLSession`, диск) оставляй `any Error` и мапь внутрь. Типичный промах: типизировать каждый хелпер, а на UI всё равно `throws(any Error)`, или выдумать enum ошибки на двадцать case, которые никто не обрабатывает.",
+    "follow-ups": "- Когда всё равно хочешь `any Error`?\n- Как замапить `URLError` в typed domain error?\n- Меняет ли typed throws `Result`?",
+    "prompt": ""
+  },
+  "mirror": {
+    "title": "Mirror и reflection",
+    "answer": "`Mirror` это **read-only reflection** в Swift: даёшь инстанс, идёшь по `children` (label + value) и display style. Для дебаг-дампов, наивного сериализатора или тестов, которые проверяют stored properties. Это не KVC, методы не зовёт, медленно и хрупко через границы module (`private` children пропадают). `type(of:)` / `.Type` / `.self` это **metatypes**: конструируешь или сравниваешь типы, stored properties не обходишь. Типичный промах: строить продовый персист на `Mirror` или ждать, что computed property увидит как child.",
+    "follow-ups": "- Mirror vs `dump` vs `CustomDebugStringConvertible`?\n- Почему это плохая замена Core Data / SwiftData?\n- Metatype (`User.Type`) vs `Mirror` инстанса: какой вопрос они задавали?",
+    "prompt": ""
+  }
+}

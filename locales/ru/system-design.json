@@ -1,0 +1,326 @@
+{
+  "sd-interview": {
+    "title": "Как вести mobile system design",
+    "answer": "Сорок пять минут это разговор, не спецификация на прод. Нормальный тайминг: **clarify** (0-5: scope, DAU, offline, платформа), **HLD** (5-15: квадратики), **data и API** (15-25: сущности, pagination), **deep dive** (25-40: два сложных куска), **ops** (40-45: фейлы, метрики, раскатка). Те же идеи, что в мнемонике **SCADET** с курсов: System requirements, Constraints, Architecture, Data и API, Evaluate NFRs, Trade-offs. Сразу зафиксируй **scope**: только клиент, клиент плюс API, или full stack. Закрой **3-5 functional** требований, пару **non-functional** (offline, батарея, consistency) и явное **out of scope**. Mobile system design это не Instagram на доске со стороны бэкенда. Lifecycle, дырявое радио и батарея здесь first-class.\n\nДо квадратиков назови **что продаёшь**: короткий список сервисов и данных (история чата, адресная книга, звонок). Потом каждый режешь: клиент, сервер или оба, и выбираешь канал (REST, WebSocket, push, UDP). На каждый list API по умолчанию **pagination**; снимаешь только если набор крошечный. Если спрашивают «самые популярные посты» или «как ловить ботов», две минуты на **формулу** (входы → окно → выход), и только потом Kafka.\n\nНарисуй high-level схему. Четыре слоя на клиенте хватит: View → ViewModel → use cases → repository (remote плюс local). Deep dive в **один** кусок, который знаешь, потом в **один жёсткий кейс**, который сам возил (image cache и eviction с диска, gap-fill после реконнекта). Спроси, какой квадрат дальше. Типичный промах: прыгнуть в ячейки `UICollectionView`, пока нет data flow.",
+    "prompt": "",
+    "follow-ups": "- Только клиент или ещё и API: что меняется первым?\n- Какой non-functional requirement выкинешь, если время кончилось?\n- Чем library-design интервью отличается от app-design?\n- REST vs GraphQL: когда мобильный клиент причина выбрать одно?\n- Что в первые пять минут объявляешь out of scope?\n- Какие два subsystem deep-dive на feed и какие на чат?\n- Какие «сервисы и данные» назовёшь в первые три минуты WhatsApp-lite?\n- Какую NFR-ось проверишь, прежде чем выбрать store (security, offline, размер команды)?\n- Когда останавливаешься и пишешь формулу вместо ещё одного квадрата?\n- Пройди SCADET на maps-клиенте за 45 минут: куда кладёшь deep dive?\n- Privacy model и 72 часа offline: спрашиваешь до первого квадрата?\n- High-level архитектура или объектная модель в коде: что фиксируешь в первую минуту?\n- Auth, privacy, compliance: называешь сам, пока не спросили?\n- Что можно оставить на устройстве, чтобы запрос вообще не ушёл?"
+  },
+  "edge-first": {
+    "title": "Edge-first: кто владеет write",
+    "answer": "В части комнат mobile system design не просят «нарисуй Kafka». Смотрят, **кто владеет write** и **что никогда не уходит с устройства**. Дефолт: телефон (или часы, которые это почувствовали) source of truth, пока offline. Сервер хранит **opaque blob** или ловит конфликт. Третья сторона сырые строки не видит. Вслух скажи порядок доверия: железо / OS / твоё приложение / cloud / partner SDK. Лучше медленный путь, который ты контролируешь, чем CDN, который не твой. Типичный промах: красивый sync, который гонит здоровье или фотки в чужую трубу, или лекция про QPS, когда спросили «два устройства правили одну заметку».",
+    "prompt": "",
+    "follow-ups": "- Watch и телефон спорят об одном sample: чей write побеждает и почему?\n- Когда «мы будем медленнее» правильный ответ?\n- Партнёр хочет raw read API: что отдаёшь вместо этого?"
+  },
+  "image-upload": {
+    "title": "Спроектируй пайплайн загрузки картинок",
+    "answer": "Начни с вопросов: камера или библиотека, max size, retry, offline, кто видит картинку, нужен ли thumbnail сразу. Потом слои. **Клиент:** pick → compress / downscale на background queue → локальный draft (файл плюс состояние аплоада), чтобы после kill mid-flight можно было resume → upload через `URLSession` (background config, если человек может уйти) → progress → на success пишешь remote URL в draft. **API:** presigned PUT в object storage, не JSON с base64. **Сервер:** virus scan, лимиты размера, варианты, нотификация через push или WebSocket. **Фейл:** retry с backoff, второй тап не дублирует (idempotency key). **Cache:** сразу показываешь локальный файл, потом меняешь на CDN URL. Интервьюеру нужна state machine (`queued / uploading / failed / done`), а не имя фреймворка. «Фотоприложение, которое синкает camera roll» это та же машина плюс cursor того, что уже на сервере.",
+    "prompt": "",
+    "follow-ups": "- Background `URLSession` vs foreground task: когда что?\n- Как не залить одну и ту же фотку дважды?\n- Где генеришь thumbnail: клиент, сервер или оба?\n- Как resume sync camera roll после того, как процесс убили?\n- Library API (file uploader) vs этот продуктовый пайплайн: в чём разница?"
+  },
+  "news-feed": {
+    "title": "Спроектируй news feed",
+    "answer": "",
+    "prompt": "Спроектируй бесконечную ленту в духе Twitter / Instagram / Facebook. Дефолтный scope: скролл, лайк, открыть пост. Offline cache и цена картинок входят. Auth, композ и follow graph выносишь, пока сами не втянут.",
+    "follow-ups": "- Cursor vs offset pagination: что ломается, когда верх ленты едет?\n- Кто source of truth на диске после лайка в offline?\n- Push vs SSE vs polling для «новые посты»?\n- Как держать scroll FPS, если в каждой ячейке remote-картинка?"
+  },
+  "chat-app": {
+    "title": "Спроектируй чат",
+    "answer": "",
+    "prompt": "Спроектируй messaging-клиент. Выбери 1:1 или группу, потом 3-5 фич: send/receive, offline draft, медиа, read receipt. Бэкенд считай существующим; sync API набросай, если попросят.",
+    "follow-ups": "- REST vs WebSocket vs push, когда приложение в background?\n- Как упорядочить сообщения после реконнекта с дырками?\n- Что на диске, а что только в RAM?\n- Как показать «sending / sent / failed» и не задвоить отправку?\n- Где E2EE меняет клиент (ключи, вложения, поиск)?\n- Один процесс, много workspace: один файл SQLite или много?\n- Состояния сообщения: draft → sending → sent → delivered → read. Что локальное, что ack?\n- Cursor vs offset для истории, если сообщения можно удалять?\n- Heartbeat плюс backoff после падения WebSocket: кто владеет reconnect?\n- Как дедупить retry, который сервер уже сохранил?\n- Групповой чат: что такое `conversationId` vs fan-out список на клиенте?\n- Приложение в background, WebSocket мёртв: что в payload APNs?"
+  },
+  "image-loader": {
+    "title": "Спроектируй image loader",
+    "answer": "",
+    "prompt": "Спроектируй image loader в духе Kingfisher: `url → UIImage` для ленты. Закрой coalescing запросов, memory плюс disk cache, отмену на reuse и публичный API, который сложно сломать.",
+    "follow-ups": "- Две ячейки просят один URL: сколько скачиваний?\n- Что делаешь в `prepareForReuse`?\n- Memory cache vs `URLCache` vs своя папка на диске?\n- Как не декодировать 12 MP JPEG на main thread?"
+  },
+  "caching-library": {
+    "title": "Спроектируй кэш-библиотеку",
+    "answer": "",
+    "prompt": "Спроектируй generic cache (память, диск по желанию). Публичный API, eviction (LRU / cost / memory warning), thread safety и что значит «optional» для вызывающего.",
+    "follow-ups": "- `NSCache` vs свой словарь плюс lock?\n- Как ключуешь картинки vs JSON-ответы?\n- Что будет на memory warning посреди записи?\n- Почему miss всё равно должен дать корректный результат?"
+  },
+  "file-downloader": {
+    "title": "Спроектируй file downloader",
+    "answer": "",
+    "prompt": "Спроектируй библиотеку скачивания больших файлов: очередь, pause/resume, progress, куда класть на диск, и что будет, если приложение убили. Сначала публичный API.",
+    "follow-ups": "- Foreground session vs background `URLSession` configuration?\n- Как resume с байта `N` (Range / ETag)?\n- Max concurrent downloads: кто решает?\n- Как не оставлять половинки файлов в Caches?"
+  },
+  "pagination": {
+    "title": "Спроектируй pagination-библиотеку",
+    "answer": "",
+    "prompt": "Спроектируй pager, к которому лента может привязаться: следующая/предыдущая страница, refresh, локальный cache и один поток items для UI.",
+    "follow-ups": "- Cursor vs номер страницы vs `since_id`?\n- Где сидит remote-mediator относительно базы?\n- Как выкинуть протухшую страницу после pull-to-refresh?\n- Что наблюдает UI: `[Item]` или diff?"
+  },
+  "push-system": {
+    "title": "Спроектируй push-систему",
+    "answer": "",
+    "prompt": "Спроектируй путь клиента и сервера для remote push: permission, device token, APNs, payload, тап → экран, и silent update. Это не карточка «что такое APNs», а весь пайплайн.",
+    "follow-ups": "- Ротация токена: кто хранит маппинг user ↔ device?\n- Видимый alert vs `content-available`: батарея и надёжность?\n- Как Notification Service Extension меняет дизайн?\n- Что персистишь, чтобы тап сработал после cold start?\n- Deferred deep link после установки: что хранишь и как долго?"
+  },
+  "file-uploader": {
+    "title": "Спроектируй file uploader",
+    "answer": "",
+    "prompt": "Спроектируй переиспользуемый **uploader API** (любой файл, не только фотки): enqueue, progress, cancel, retry, multipart vs presigned PUT. Продуктовый sync альбома остаётся на `{#image-upload}`.",
+    "follow-ups": "- Как вызывающий узнаёт progress, не держа view?\n- Idempotency key: забота библиотеки или приложения?\n- Background transfer vs своя очередь retry?"
+  },
+  "network-library": {
+    "title": "Спроектируй networking-библиотеку",
+    "answer": "",
+    "prompt": "Спроектируй тонкий HTTP-клиент поверх `URLSession`: request builder, auth plugin, retry, отмена и типизированные ошибки. `URLSession` заново не пиши.",
+    "follow-ups": "- Где живёт refresh access-токена, чтобы два 401 не устроили stampede?\n- Как отменить запрос, когда экран умер?\n- Retry: какие status code, какой backoff?\n- Certificate pinning: в библиотеке или в приложении?"
+  },
+  "analytics-library": {
+    "title": "Спроектируй analytics-библиотеку",
+    "answer": "",
+    "prompt": "Спроектируй пайплайн событий: `track(name, props)` с любого потока, батчинг, backlog на диске, flush в background и privacy (PII, opt-out).",
+    "follow-ups": "- Что будет, если `track` вызвали 200 раз за скролл?\n- Как не потерять события на краше?\n- Main thread: что в публичном API запрещено?\n- Как дропать события, когда пользователь сделал opt-out?\n- Flush каждые N событий vs каждые T секунд vs на background: какой дефолт?"
+  },
+  "stories": {
+    "title": "Спроектируй stories",
+    "answer": "",
+    "prompt": "Спроектируй stories: истечение через 24 часа, tap-through, preload следующего клипа, seen-state и тонкий композ, если попросят. Ранжирование ленты вне scope.",
+    "follow-ups": "- Как preload, не взорвав память на кольце из 15 штук?\n- Seen-state: сервер, диск или оба?\n- Видео vs картинка: что меняется в loader?\n- Что делаешь, если следующая story отдала 404 посреди свайпа?"
+  },
+  "flight-booking": {
+    "title": "Спроектируй флоу бронирования рейса",
+    "answer": "",
+    "prompt": "Спроектируй search → fare → место → оплата. Отдельно скажи про cache результатов поиска, восстановление стека, если человек ушёл, фейл оплаты и истечение **seat lock**.",
+    "follow-ups": "- Сколько живёт hold места и что UI показывает, когда он истёк?\n- Что оставляешь, если приложение ушло в background на экране оплаты?\n- Idempotency на «Оплатить»: двойной тап, двойное списание?\n- Какие данные безопасно кэшировать (тарифы протухают)?"
+  },
+  "location-sharing": {
+    "title": "Спроектируй библиотеку шаринга геолокации",
+    "answer": "",
+    "prompt": "Спроектируй библиотеку, которая публикует геолокацию пользователя на бэкенд и рисует других на карте. Permissions, точность vs батарея, обновления в background и маленький публичный API.",
+    "follow-ups": "- When vs significant-change vs visits: какой режим под какой продукт?\n- Как остановить апдейты, когда карты уже нет?\n- Что шлёшь: сырые точки или упрощённый путь?\n- Privacy: кто видит стрим и как его отозвать?\n- Как сгладить GPS jitter, не убив батарею?"
+  },
+  "ab-experiments": {
+    "title": "Спроектируй библиотеку A/B экспериментов",
+    "answer": "",
+    "prompt": "Спроектируй клиент, который тянет assignments, кэширует их, отдаёт `variant(for: flag)` и не мигает UI на первом запуске.",
+    "follow-ups": "- Sticky assignment после refresh посреди сессии?\n- Конфиг-запрос упал: последний cache или default?\n- Как не прыгнуть лейаутом, если флаг приехал поздно?\n- Кто владеет exposure logging?\n- Как быстро remote kill switch доедет до всех клиентов?"
+  },
+  "json-parser": {
+    "title": "Спроектируй JSON-парсер",
+    "answer": "",
+    "prompt": "Спроектируй parser API уровня Codable (думай Moshi/Gson): decode `Data` → `T`, кастомные adapter, поверхность ошибок и ожидания по потокам. Лучше ответить «зачем не просто `JSONDecoder`», чем писать лексер руками.",
+    "follow-ups": "- Как репортить отсутствующий ключ с путём?\n- Стратегии Date / URL: глобально или per-type?\n- Incremental / streaming parse: когда оно того стоит?\n- Что безопасно звать с main thread?"
+  },
+  "contacts-realtime": {
+    "title": "Спроектируй контакты с live-статусом",
+    "answer": "",
+    "prompt": "Спроектируй список контактов плюс presence (online / last seen). Локальная адресная книга vs граф на сервере и как приезжают апдейты presence.",
+    "follow-ups": "- Push vs presence-канал: батарея на 500 контактах?\n- Как смержить контакты с устройства с профилями на сервере?\n- Что кэшируется, когда пользователь offline?\n- Permissions: что если доступ к Contacts отказали?"
+  },
+  "clock-app": {
+    "title": "Спроектируй часы",
+    "answer": "",
+    "prompt": "Спроектируй Clock: локальное время, мировые часы, будильники, таймеры. Фокус на scheduling, данных таймзон и том, что переживает ребут, а не на красивом циферблате.",
+    "follow-ups": "- `Timer` vs `UNNotification` для будильника?\n- Как обработать смену таймзоны, пока таймер тикает?\n- Что хранишь, а что считаешь из `Date`?\n- Почему RunLoop-таймер плохой инструмент для будильника на 7 утра?"
+  },
+  "recipe-app": {
+    "title": "Спроектируй приложение рецептов",
+    "answer": "",
+    "prompt": "Спроектируй каталог рецептов: browse, поиск, избранное, offline pack. Картинки и список покупок, если останется время.",
+    "follow-ups": "- Что индексируешь на устройстве, а что тянешь при открытии?\n- Как избранное синкается между устройствами?\n- Политика image cache для каталога, который меняется раз в неделю?"
+  },
+  "photo-editing": {
+    "title": "Спроектируй фоторедактор",
+    "answer": "",
+    "prompt": "Спроектируй редактор: crop, фильтры, export. Память под 12 MP bitmap, undo stack и где сидят Core Image / Metal. Шаринг вне scope, пока не попросят.",
+    "follow-ups": "- Full-res vs preview пайплайн: когда рендеришь финальный bitmap?\n- Какого размера undo stack и что хранишь на шаг?\n- Main thread: что нельзя во время драга фильтра?\n- Export: HEIC vs JPEG, и кто жмёт?"
+  },
+  "live-wallpaper": {
+    "title": "Спроектируй live wallpaper",
+    "answer": "",
+    "prompt": "Спроектируй приложение с анимированными обоями. На iOS нет стороннего live lock screen: так и скажи, потом галерея плюс preview плюс (на iOS) ограниченный набор обоев, или движок Android, если хотят cross-platform.",
+    "follow-ups": "- Что реально можно поставить на iOS vs Android?\n- Батарея: как паузить preview, который ушёл с экрана?\n- Где живут ассеты: bundle, диск, CDN?\n- Как не декодировать видео каждый кадр на main thread?"
+  },
+  "design-client-app": {
+    "title": "Спроектируй клиент Notes / Gmail / Facebook",
+    "answer": "",
+    "prompt": "Спроектируй **iOS-клиент** Notes, Gmail или Facebook. Сначала спроси scope (offline, sync, вложения, поиск). Потом: экраны, локальный store, sync / конфликт, пайплайн картинок, что пушишь vs что пуллишь. Для Notes отдельно: Core Data / SwiftData на устройстве, CloudKit или своё API на несколько устройств, rich text (TextKit), и поиск локальный (`Core Spotlight`) или серверный индекс. Оставайся на телефоне. Бэкенд это квадратики, пока сами не утащат.",
+    "follow-ups": "- Что персистишь, чтобы в airplane mode открылся последний inbox?\n- Как обрабатываешь два устройства, которые правят одну заметку?\n- Какие Apple-фреймворки реально называешь (SwiftData, Push, Background Tasks)?\n- CloudKit private DB vs свой sync API: от чего отказываешься?\n- Где сидит `Core Spotlight` относительно поиска внутри приложения?"
+  },
+  "eta-polling": {
+    "title": "Live ETA через polling",
+    "answer": "",
+    "prompt": "Экран райдшеринга должен показывать **live ETA**, который обновляется примерно раз в 10 секунд. Scope: один видимый экран, один водитель. Проговори: start/stop с appear/disappear, отмену in-flight запроса до следующего тика, hop UI на main, `[weak self]`, что в background / плохой сети (backoff, не тугой таймер), и почему одного `Timer` плюс `URLSession.shared` мало.",
+    "follow-ups": "- Timer vs `Task.sleep` в цикле vs WebSocket?\n- Как не наложить запросы, если fetch длится дольше 10 секунд?\n- Что персистишь, когда scene уходит в background?"
+  },
+  "video-streaming": {
+    "title": "Спроектируй видеоплеер",
+    "answer": "",
+    "prompt": "Спроектируй long-form плеер (Netflix / YouTube). Scope: HLS playback, adaptive bitrate, контролы на lock screen, одна offline-загрузка. FairPlay / DRM и реклама вне scope, пока сами не втянут. Назови `AVPlayer` / `AVPlayerViewController` и что **ты** владеешь вокруг (lifecycle item, ошибки, позиция resume).",
+    "follow-ups": "- Как выбираешь стартовый bitrate на плохой сети?\n- Где хранится watch-position, чтобы после kill посреди серии продолжить?\n- Что рвёшь, когда человек уходит с экрана?\n- После offline-загрузки: где живёт лицензия относительно файла?"
+  },
+  "short-video-feed": {
+    "title": "Спроектируй short-form видеоленту",
+    "answer": "",
+    "prompt": "Спроектируй вертикальную ленту в духе Reels / TikTok. Scope: свайп, autoplay клипа на экране, prefetch соседей. Дефолт: пул из нескольких `AVPlayer`, не плеер на ячейку. Память и cellular входят; инструменты автора вне scope.",
+    "follow-ups": "- Сколько плееров держишь тёплыми и кого выселяешь?\n- Что prefetch: следующий URL, следующий сегмент, следующий thumbnail?\n- Как остановить decode, когда лента ушла в background?"
+  },
+  "audio-player": {
+    "title": "Спроектируй аудиоплеер",
+    "answer": "",
+    "prompt": "Спроектируй **клиент** Spotify / Apple Music. Дефолтный scope: три экрана, **library** (плейлисты / альбомы), **playlist** (треки плюс play), **now playing** (prev / next / shuffle). Playback должен жить после ухода с экрана: долгоживущий player service, не VC. Говори HLS / adaptive bitrate, `AVPlayer`, audio session плюс lock screen и один offline-альбом. Gapless и CarPlay это follow-up.",
+    "follow-ups": "- Как оставить звук живым, когда приложение в background?\n- Очередь vs один item: кто владеет «up next»?\n- Offline-файл vs streaming URL: тот же player API?\n- Library / playlist / player: какой объект переживает navigation stack?\n- HLS vs один URL на MP3: что клиент всё равно владеет?\n- 10 000 offline-треков: что выселяешь первым, когда квота кончилась?"
+  },
+  "collaborative-editor": {
+    "title": "Спроектируй совместный редактор",
+    "answer": "",
+    "prompt": "Спроектируй клиент Notes / Docs, где два устройства правят один документ. Scope: локальный ввод мгновенный, sync потока ops, показать presence. Спроси OT vs CRDT и что персистишь как op log. Рисовать полный клон Word не надо.",
+    "follow-ups": "- Что если обе стороны вставили в один индекс, пока были offline?\n- Cursor presence: payload WebSocket vs отдельный канал?\n- Как уплотнить op log, чтобы новое устройство догнало?\n- LWW для аватарки, CRDT для общего абзаца: как выбираешь?"
+  },
+  "video-calling": {
+    "title": "Спроектируй видеозвонок",
+    "answer": "",
+    "prompt": "Спроектируй клиент FaceTime / Meet / Zoom. Scope: звонок 1:1, permissions на камеру и микрофон, mute, поворот. Набросай signaling vs media (WebRTC: STUN/TURN, SFU). Сетка на 50 и запись вне scope, пока не попросят.",
+    "follow-ups": "- Что делаешь, когда приложение в background: только звук?\n- Как обработать thermal / просадку сети, чтобы чёрный кадр не висел вечно?\n- Кто владеет audio session: ты или CallKit?"
+  },
+  "sdui": {
+    "title": "Спроектируй SDUI-движок",
+    "answer": "",
+    "prompt": "Спроектируй клиент, который рисует экраны из дерева компонентов в JSON (или proto). Scope: реестр нативных компонентов, версия схемы, fallback, если сервер прислал неизвестный тип, и хуки аналитики. Браузер изобретать не надо.",
+    "follow-ups": "- Неизвестный компонент: спрятать, placeholder или force-update?\n- Как версионировать схему, чтобы старые приложения жили?\n- Где живёт навигация: в payload или в приложении?"
+  },
+  "payment-checkout": {
+    "title": "Спроектируй payment checkout",
+    "answer": "",
+    "prompt": "Спроектируй экран оплаты картой (или Apple Pay). Scope: tokenize на устройстве, идемпотентный «Оплатить», 3DS / SCA, state machine (`idle → confirming → paid / failed`). PAN не хранишь. PCI это «что никогда не должно коснуться нашего диска».",
+    "follow-ups": "- Двойной тап Pay: как не списать дважды?\n- Apple Pay vs форма карты: что меняется на клиенте?\n- Что персистишь, если приложение убили посреди 3DS?"
+  },
+  "checkout-ui": {
+    "title": "Собери checkout UI за 60 минут",
+    "answer": "",
+    "prompt": "Собери **экран checkout** за 60 минут из стартера или mock API: позиции, разбивка цены, выбор способа оплаты, кнопка подтверждения. Scope: ViewModel, empty и error, без двойного сабмита. **PCI и 3DS вне scope**, это `{#payment-checkout}`. Рабочий UI к 25-й минуте лучше репозитория, который так и не прикрутил. Чужое готовое решение не вставляй.",
+    "follow-ups": "- На 40-й минуте добавили service fee: какой тип остаётся закрытым?\n- Confirm, пока mock API тормозит: что делает кнопка?\n- Стартер SwiftUI vs UIKit: дерёшься со стеком, который дали?"
+  },
+  "ecommerce-catalog": {
+    "title": "Спроектируй каталог товаров",
+    "answer": "",
+    "prompt": "Спроектируй каталог в духе Amazon / Shopify: поиск или сетка browse, PDP, корзина. Scope: тяжёлая на картинки лента, cursor-страницы, корзина переживает kill. Checkout может быть квадратиком. Wishlist offline это follow-up.",
+    "follow-ups": "- Как держать сетку на 60 fps с большими картинками?\n- Корзина на диске vs сервер: кто побеждает в конфликте?\n- Что протухло: цена, сток или фото?"
+  },
+  "airbnb-booking": {
+    "title": "Спроектируй поиск и бронь Airbnb",
+    "answer": "",
+    "prompt": "Спроектируй search плюс book для жилья. Scope: карта и список в синхроне, debounce запроса, draft брони, короткий inventory hold. Платежи могут остаться квадратиком. Скажи, что кэшируешь (результаты поиска протухают; у hold есть таймер).",
+    "follow-ups": "- Движение карты vs набор текста: чей запрос побеждает?\n- Что будет, когда 15-минутный hold истёк на экране review?\n- Как восстановить draft после kill процесса?\n- Offline сохранённые листинги / draft брони: что ещё валидно, когда радио вернулось?"
+  },
+  "calendar-client": {
+    "title": "Спроектируй календарь",
+    "answer": "",
+    "prompt": "Спроектируй iOS-клиент Google / Apple Calendar. Scope: месяц плюс день, создать событие, sync. Recurrence (`RRULE`) и конфликты это жёсткая часть. Бесконечный скролл сетки месяца входит; полный CalDAV-сервер вне scope.",
+    "follow-ups": "- Как развернуть ежедневное recurring-событие, не материализуя 10 лет?\n- Два устройства правят одно событие: last-write-wins или промпт?\n- Silent push vs pull-to-refresh vs `BGAppRefresh`?"
+  },
+  "deep-links": {
+    "title": "Спроектируй deep links",
+    "answer": "",
+    "prompt": "Спроектируй Universal Links плюс кастомные URL-схемы для приложения, которого иногда нет на устройстве. Scope: AASA, роутер path → экран, cold start vs warm, deferred link после первой установки. AASA не хости на CDN, который ломает association.",
+    "follow-ups": "- Cold start: `didFinishLaunching` vs scene connection options: кто побеждает?\n- Как тестировать Universal Link на девайсе?\n- Что сохраняешь, чтобы «открой этот листинг» пережило прыжок в App Store?"
+  },
+  "offline-sync": {
+    "title": "Спроектируй offline-first sync",
+    "answer": "",
+    "prompt": "Спроектируй local-first store, который синкается, когда сеть вернулась. Scope: dirty-флаги, очередь, политика конфликтов (LWW vs промпт), `BGTaskScheduler`. Одного типа сущности хватит (заметки или задачи). Firebase проектировать не надо.",
+    "follow-ups": "- Кто source of truth, пока offline?\n- Как не зациклить sync после конфликта?\n- Что успевает 30-секундный `BGAppRefresh` vs processing task?\n- Change token / delta fetch vs слать весь store каждый раз?\n- Когда сервер обязан хранить ciphertext, который сам не расшифрует?"
+  },
+  "search-autocomplete": {
+    "title": "Спроектируй поиск с autocomplete",
+    "answer": "",
+    "prompt": "Спроектируй поиск в приложении с typeahead. Scope: debounce, отмена in-flight запроса при смене query, сначала локальные хиты, если есть индекс. Ранжирование на сервере может остаться квадратиком. Проговори гонку: медленная «а» не должна перетереть быструю «аб».",
+    "follow-ups": "- Отмена `Task` vs `switchToLatest`: одна идея?\n- Offline: FTS / trie на устройстве vs пустой стейт?\n- Как логировать impression, не стреляя на каждую букву?"
+  },
+  "delivery-tracker": {
+    "title": "Спроектируй live-трекер доставки",
+    "answer": "",
+    "prompt": "Спроектируй экран «ваш заказ едет» в духе DoorDash / Uber Eats. Scope: state machine заказа, геолокация курьера, один Live Activity / Dynamic Island. Транспорт гибрид: WebSocket в foreground, APNs / poll в background. Платежи вне scope.",
+    "follow-ups": "- Какие события в ActivityKit, а какие полным экраном через push?\n- Как карте не перерисовываться на каждый тик GPS?\n- Что показываешь, если сокет молчит 30 секунд?\n- Ближайший supply: geo hash vs опрашивать каждого курьера?\n- Протухший GPS: всё равно диспатчишь и что показываешь?"
+  },
+  "crash-reporter": {
+    "title": "Спроектируй crash reporter",
+    "answer": "",
+    "prompt": "Спроектируй клиентский SDK в духе Crashlytics. Scope: поймать fatal, сохранить minidump / стек, залить на следующем запуске, breadcrumbs. Signal-safety: в хендлере почти ничего нельзя. OOM это отдельный путь (jetsam ≠ `NSException`).",
+    "follow-ups": "- Что легально внутри signal handler?\n- Как отличить «убили за память» от force-quit пользователем?\n- Где живут dSYM и кто символицирует?"
+  },
+  "on-device-llm": {
+    "title": "Спроектируй on-device LLM-ассистента",
+    "answer": "",
+    "prompt": "Спроектируй on-device ассистента (суммируй тред, ответь из локальных заметок). Scope: скачивание / обновление модели, бюджет RAM / thermal, стриминг токенов в UI, маленький локальный RAG по данным пользователя. Cloud fallback это follow-up. Лекцию про математику трансформеров не читай.",
+    "follow-ups": "- Что будет, если Neural Engine троттлит посреди стрима?\n- Где живёт текст пользователя и что никогда не должно уйти с устройства?\n- Как версионировать модель на 2 GB, не блокируя первый запуск?\n- `@Generable` DTO vs SwiftData `@Model`: почему это не один тип?\n- Устройство без Neural Engine: какой путь без AI?"
+  },
+  "chatgpt-app": {
+    "title": "Спроектируй клиент в духе ChatGPT",
+    "answer": "",
+    "prompt": "Спроектируй iOS-клиент в духе ChatGPT (модель в облаке, не on-device). Scope: композ, стрим токенов, история диалога на диске, отмена in-flight ответа. Auth и биллинг это квадратики. Говори стриминг (`URLSession.bytes` / WebSocket), state machine сообщения и что показываешь, если сокет умер посреди фразы.",
+    "follow-ups": "- Как рисовать токены, не дёргая text view?\n- Стриминг JSON / `URLSession.bytes` vs ждать весь payload: где парсишь?\n- Что персистится, если пользователь убил приложение посреди стрима?\n- Чем это отличается от карточки on-device LLM?"
+  },
+  "restaurant-ordering": {
+    "title": "Спроектируй заказ в ресторане",
+    "answer": "",
+    "prompt": "Спроектируй приложение discovery плюс заказ плюс оплата (сторона мерчанта DoorDash или одно заведение). Scope: меню, корзина, checkout, статус заказа. Карта/поиск могут быть квадратиком. Платежи переиспользуют карточку checkout; live-трекинг курьера это follow-up, не ядро.",
+    "follow-ups": "- Как версионировать меню, которое меняется, пока корзина открыта?\n- Что лочишь, когда тапают Place Order?\n- Guest checkout vs аккаунт: что на диске?"
+  },
+  "e-reader": {
+    "title": "Спроектируй e-reader",
+    "answer": "",
+    "prompt": "Спроектируй ридер в духе iBooks / Kindle. Scope: открыть книгу, pagination или скролл, запомнить позицию, один скачанный файл. Sync между устройствами и витрина это follow-up. Говори формат (EPUB vs PDF), `CATiledLayer` / TextKit и что персистишь как закладку.",
+    "follow-ups": "- Как прыгнуть в главу 12, не раскладывая всю книгу?\n- Dark mode и Dynamic Type: что рефловится?\n- Что если скачана только половина файла?"
+  },
+  "unread-badge": {
+    "title": "Счётчик unread и badge",
+    "answer": "",
+    "prompt": "Спроектируй счётчик непрочитанных (сообщений или нотификаций): badge на табе, строка в списке чатов и лейбл в nav bar, которые остаются в синхроне. Scope: один процесс, один пользователь. Скажи, где живёт число (cursor на сервере vs локальный «last read»), кто его увеличивает, и как сообщение, пришедшее при открытом треде, **не** бампает badge.",
+    "follow-ups": "- Observer vs один store vs polling API каждые 30 секунд?\n- Два устройства: last-read это timestamp на сервере или id сообщения?\n- Badge иконки vs badge в приложении: кто владеет `UNUserNotificationCenter`?\n- Как не вспыхнуть «99+» на запуске, пока локальная база не загрузилась?"
+  },
+  "maps": {
+    "title": "Спроектируй клиент карт / навигации",
+    "answer": "",
+    "prompt": "Спроектируй **клиент** в духе Maps: найти место, показать на карте, начать turn-by-turn. Scope: один пользователь, одно устройство, online. Говори тайлы / vector rendering, пайплайн геолокации (`CLLocationManager`: точность vs батарея), polyline маршрута плюс reroute и что кэшируешь (недавние поиски, последний маршрут). Live traffic и offline-регионы это follow-up.",
+    "follow-ups": "- Significant-change vs `kCLLocationAccuracyBest`: какой режим для browse vs навигации?\n- Кто владеет map SDK: MapKit, чужой рендерер или свои тайлы?\n- Как перестроить маршрут, когда человек сошёл с polyline, не расплавив батарею?\n- Сматчить райдера с ближайшими водителями: какой индекс и что если пинг 30 секунд назад?"
+  },
+  "wallet": {
+    "title": "Спроектируй кошелёк / балансы",
+    "answer": "",
+    "prompt": "Спроектируй домашний экран **кошелька**: несколько балансов (карты, депозиты, баллы) из **разных API** с разной латентностью. Scope: один пользователь, одно устройство. Говори, как мержишь стримы, что показываешь, пока часть вызовов ещё летит, pagination / локальный поиск по истории, offline last-known суммы и где маскируешь деньги. Ядро банка проектировать не надо.",
+    "follow-ups": "- Один медленный микросервис: блочишь весь экран?\n- Push vs pull vs refresh при открытии экрана для смены баланса?\n- Где живёт замаскированная сумма, чтобы скриншот не был настоящей цифрой?"
+  },
+  "icloud-sync": {
+    "title": "Спроектируй sync устройств как iCloud",
+    "answer": "",
+    "prompt": "Спроектируй **кросс-девайс sync** заметок или фото. Scope: **телефон source of truth**, пока offline; сервер реплика, которая может хранить **opaque blob**. Говори change token / delta, политику конфликтов (LWW vs CRDT vs промпт) и что реально успевает 30-секундный `BGAppRefresh`. Generic cloud-базу проектировать не надо.",
+    "follow-ups": "- Что сервер может видеть: plaintext-строки или ciphertext, который SEP не отпускал?\n- Четыре устройства вернулись через неделю, у одних часы поехали: как мержишь?\n- LWW для аватарки vs CRDT для общего альбома: почему оба?\n- Соседние устройства по локальному радио vs cloud-реплика: когда сервер пропускаешь?\n- Version vector на устройстве, сервер только ловит конфликт: когда это лучше server-side diff?"
+  },
+  "home-rails": {
+    "title": "Спроектируй home из рельс",
+    "answer": "",
+    "prompt": "Спроектируй **Home** из независимых рельс (hero, continue, trending, ads). Scope: каждая рельса владеет fetch, loading, аналитикой и ячейками. Назови `UICollectionViewCompositionalLayout` плюс diffable snapshot на секцию (или один snapshot с id секций). Один гигантский view controller, который мапит все типы ячеек, это промах. Типы карточек с бэкенда это follow-up, не первый рисунок.",
+    "follow-ups": "- Как двум командам катить две рельсы без merge hell?\n- Одна медленная рельса: блочишь first paint?\n- Orthogonal (горизонтальная) секция vs вложенная коллекция в ячейке таблицы?"
+  },
+  "offline-media": {
+    "title": "Спроектируй offline-каталог медиа",
+    "answer": "",
+    "prompt": "Спроектируй **offline-загрузки** для стримингового каталога (видео или аудио). Scope: resumable background-трансферы `URLSession`, персистентная очередь, **квота диска**, лицензия / expiry и resume после kill. Playback это `{#video-streaming}` / `{#audio-player}`: здесь ты владеешь каталогом и файлами. «Просто сохранить MP4» руками не отмахивайся.",
+    "follow-ups": "- Где живёт DRM-лицензия относительно байтов?\n- Пользователь удалил один тайтл vs OS выселила под давлением стораджа: один путь?\n- Как выбираешь, что выселять, когда квота кончилась?"
+  },
+  "clipboard-sync": {
+    "title": "Спроектируй sync буфера / proximity",
+    "answer": "",
+    "prompt": "Спроектируй **скопировал на телефоне, вставил на ноуте** (и наоборот). Scope: один аккаунт iCloud, устройства рядом vs далеко, лимит размера, end-to-end encryption. Рядом можно локальное радио; далеко та же sync-труба, что `{#icloud-sync}`. Конфликт: «последний copy побеждает». Общий файловый локер проектировать не надо.",
+    "follow-ups": "- Что кладёшь на relay: plaintext или blob, который разворачивает SEP?\n- Огромное видео в буфере: синкаешь байты или placeholder?\n- Как украденному ноуту не читать последний copy вечно?"
+  },
+  "recently-deleted": {
+    "title": "Спроектируй альбом Recently Deleted",
+    "answer": "",
+    "prompt": "Спроектируй **Recently Deleted** для библиотеки в духе Photos. Scope: tombstone на 30 дней, restore, безопасный purge, давление диска (сначала самые старые) и что синкается на другие устройства. Живая библиотека и корзина это два запроса над одним store, не второе приложение. Камеру проектировать не надо.",
+    "follow-ups": "- Restore после того, как tombstone истёк на устройстве A, но ещё нет на B?\n- Мало места: кто решает purge, ты или OS?\n- Чем элемент в корзине отличается от hidden / archived?"
+  },
+  "match-simulator": {
+    "title": "Собери симулятор матча / счёта",
+    "answer": "",
+    "prompt": "Собери **маленький симулятор матча** за 90 минут: выбрать две стороны из bundled JSON, кнопка «следующее событие» кидает **случайный исход** и обновляет табло. Scope: два иннинга (или два тайма), потолок мячей/событий, потолок wickets/жизней, погоня кончается, когда цель пройдена. **Полировка UI вне scope.** Интервью про модуль правил, который можно расширить (новое событие, взвешенные шансы) без переписывания счёта. Чужое готовое решение не вставляй.",
+    "follow-ups": "- Wide / extra / «нельзя выбыть»: какой тип добавляешь и что остаётся закрытым?\n- Взвешенные исходы: где живёт случайность, чтобы тесты были детерминированными?\n- Первый экран: список сторон с картинками. Локальный JSON или сеть?"
+  }
+}

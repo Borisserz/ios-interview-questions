@@ -1,0 +1,278 @@
+{
+  "storyboards-vs-code": {
+    "title": "Storyboard или вёрстка в коде",
+    "answer": "Storyboard — визуальный граф сцен, segue и Auto Layout. Interface Builder компилирует его в приложение. Вёрстка в коде значит: создаёшь view, ставишь `translatesAutoresizingMaskIntoConstraints = false` и активируешь constraints (или ставишь frames) в `loadView` / `viewDidLoad`. На собеседовании хотят trade-off, не религию. Storyboard быстрый для первого экрана и для тех, кто думает картинкой. Но мержится плохо, баги прячутся до runtime (`@IBOutlet` опечатки, нет ID), в pull request его почти не читают. Код многословный, канваса нет, зато дифф чистый, легко генерить в цикле и везде одинаково в любом модуле. Смешанные приложения нормальны: storyboard на простой флоу, programmatic layout на переиспользуемые контролы и всё, что пляшет от стейта. Типичная ошибка: считать «мы на storyboard» архитектурой, а не способом доставки.",
+    "follow-ups": "- Как инстанцировать view controller, который живёт на storyboard?\n- Что ломается при git merge storyboard?\n- Когда всё равно возьмёшь XIB, а не то и не другое?",
+    "prompt": ""
+  },
+  "view-shadow": {
+    "title": "Как накинуть тень на view",
+    "answer": "Тени рисует CALayer, не сам UIView. На `view.layer` ставишь `shadowColor` (это `CGColor`), `shadowOpacity` (0...1), `shadowOffset` и `shadowRadius`. Тень — силуэт по альфе слоя: полностью непрозрачный прямоугольник даёт прямоугольную тень; слой с `cornerRadius` даст круглую, если ещё задать подходящий `shadowPath`. `clipsToBounds` / `masksToBounds` обрезают тень. Отсюда классика «поставил `cornerRadius` и тень пропала». Обычно делают обёртку: внешний view держит тень, внутренний клипает и скругляет. `shadowPath` (и rasterize, только когда размер уже стабильный) спасает скролл-листы от просадок по кадрам.",
+    "follow-ups": "- Почему тень пропадает после `clipsToBounds = true`?\n- Зачем задавать `shadowPath`, а не дать Core Animation самому его вывести?\n- Как накинуть тень на view, у которой ещё и скруглённый, клипнутый контент?",
+    "prompt": ""
+  },
+  "round-corners": {
+    "title": "Скруглить углы у view",
+    "answer": "Простой путь: `view.layer.cornerRadius` плюс что-то, что клипает содержимое. `masksToBounds` на слое или `clipsToBounds` на view — это один и тот же флаг. С iOS 11 можно скруглить часть углов через `maskedCorners` (`CACornerMask`). С iOS 13 `cornerCurve = .continuous` даёт системный squircle. Если нужна дырка, пунктирный контур или форма, которую Auto Layout не выразит, маскируй `CAShapeLayer`, у которого `path` из `UIBezierPath`. Не анимируй `cornerRadius`, присваивая его каждый кадр в `layoutSubviews` без причины: это орёт на render server. И помни: клип, чтобы скруглить картинку, обрежет и тень на том же слое.",
+    "follow-ups": "- Как скруглить только два верхних угла?\n- Чем `masksToBounds` отличается от маски через `CAShapeLayer`?\n- Зачем ставить `cornerCurve`?",
+    "prompt": ""
+  },
+  "size-classes": {
+    "title": "Size classes",
+    "answer": "Size classes — грубый trait: `horizontalSizeClass` и `verticalSizeClass` у `UITraitCollection`, каждое `.compact`, `.regular` или `.unspecified`. Это про доступную ширину и высоту, не про имя девайса. Портретный iPhone — compact-regular. Большинство iPhone в ландшафте — compact-compact. Plus/Max в ландшафте и полноэкранный iPad — regular-regular. iPad в Split View может упасть в compact по ширине. Вариации в Interface Builder и «installed» constraints в Auto Layout завязаны именно на это. В коде читаешь `traitCollection` и реагируешь в `traitCollectionDidChange` (или `registerForTraitChanges` на свежем iOS). Типичные ошибки: хардкодить `UIDevice.current.userInterfaceIdiom`, считать compact «телефоном» и забыть, что slide-over на iPad тоже compact.",
+    "follow-ups": "- Какие size classes у полноэкранного iPad и у Split View?\n- Чем это отличается от Dynamic Type / `UIContentSizeCategory`?\n- Как в storyboard поставить разные constraints для compact и regular?\n- Почему `UIDevice.current.orientation` плохая замена size class?\n- Storyboard, traits, constraints в коде — как закрыть все девайсы?",
+    "prompt": ""
+  },
+  "color-out-of-range": {
+    "title": "Цвет вне диапазона 0...1",
+    "answer": "`UIColor(red:green:blue:alpha:)` ждёт компоненты `CGFloat` в 0...1, не 0...255. Ниже 0 станет 0, выше 1 станет 1. Передать `red: 255` не значит получить «веб-красный»: значение зажмётся в 1, канал полностью насыщен. Если все каналы были 255, часто выходит случайный белый. Шкала 0...255 живёт в записи вроде `UIColor(red: 255/255, green: 0, blue: 0, alpha: 1)` или в asset catalog. Wide-gamut инициализаторы вроде `UIColor(displayP3Red:green:blue:alpha:)` умеют цвета, которые при конвертации в sRGB дают компоненты вне 0...1. Тогда `getRed(_:green:blue:alpha:)` может вернуть числа, которые нельзя скормить обратно sRGB-инициализатору. Обычно ловят clamp и ошибку с 255, глубже — Display P3.",
+    "follow-ups": "- Какой цвет на самом деле даст `UIColor(red: 255, green: 128, blue: 0, alpha: 1)`?\n- Когда `getRed` может вернуть компонент больше 1?\n- Почему asset catalog закрывает этот класс багов?",
+    "prompt": ""
+  },
+  "xib-vs-storyboard": {
+    "title": "XIB или storyboard",
+    "answer": "XIB (nib) архивирует одну view, одну ячейку или один view controller. Storyboard архивирует граф сцен плюс segue и связи между ними. XIB выигрывает на переиспользуемых кусках: `UITableViewCell`, `UICollectionViewCell`, кастомный `UIView` через `Bundle.main.loadNibNamed`, VC, который инстанцируешь из многих мест. Файл маленький, конфликты локальные. Storyboard выигрывает, когда хочешь видеть флоу и проводку Show/Present без вызова `present`. Оба — Interface Builder. Оба десериализуются в runtime. Оба не обязательны, если иерархию собираешь в коде. Типичная ошибка: запихнуть все экраны в один storyboard, чтобы каждое изменение инвалидировало файл всей команде.",
+    "follow-ups": "- Как загрузить view controller из XIB и как из storyboard?\n- Почему ячейки так часто живут в своём XIB?\n- Что такое nib owner (`File's Owner`)?",
+    "prompt": ""
+  },
+  "segues": {
+    "title": "Segue",
+    "answer": "Segue — именованный переход, который Interface Builder хранит на storyboard: show, show detail, present modally, popover, custom или unwind. В runtime UIKit создаёт destination, потом зовёт `prepare(for:sender:)` у source, чтобы ты прокинул данные до того, как у destination загрузится view. Можно стрельнуть из кода через `performSegue(withIdentifier:sender:)`. Unwind segue идёт назад по presented/pushed стеку к методу с меткой `@IBAction func unwindToX(segue:)`. Спрашивают реже: programmatic `push` / `present` и SwiftUI `NavigationStack` почти всё заменили, но в старых кодовых базах полно строк-идентификаторов. Типичные ошибки: настраивать destination в `viewDidLoad` у source и забывать, что `sender` — то, что ты передал, не всегда кнопка.",
+    "follow-ups": "- Когда бежит `prepare(for:sender:)` относительно `viewDidLoad` у destination?\n- Зачем нужен unwind segue?\n- Как прокинуть данные, если present идёт из кода?",
+    "prompt": ""
+  },
+  "storyboard-identifiers": {
+    "title": "Storyboard identifiers",
+    "answer": "Storyboard ID — строка в Identity inspector, чтобы инстанцировать сцену без segue: `storyboard.instantiateViewController(withIdentifier:)`. Это не segue identifier, не cell reuse identifier и не restoration identifier. Четыре разные строки, четыре разных краша, если перепутать. Нет ID или опечатка — `instantiateViewController` бросает, а старый API абортит. Класс как ID — частая конвенция, строка живёт в одном месте. Типичная ошибка: поставить restoration ID и удивляться, почему instantiate всё ещё падает.",
+    "follow-ups": "- Какой exception будет, если identifier неверный?\n- Чем Storyboard ID отличается от restoration ID?\n- Зачем команде один storyboard на фичу вместо ID в `Main`?",
+    "prompt": ""
+  },
+  "child-view-controllers": {
+    "title": "Child view controllers",
+    "answer": "Child view controller — настоящий `UIViewController`, чью view встраиваешь в родителя через containment API. Тогда rotation, appearance, trait и колбэки `addChild` остаются правильными. Добавление: `addChild(_:)`, view ребёнка в иерархию, потом `didMove(toParent:)`. Снятие: `willMove(toParent: nil)`, убрать view, `removeFromParent()`. Пропустишь вызовы — баг: view ребёнка на экране, а `viewWillAppear`, стиль статус-бара и `parent` кривые. Так делают кастомные табы, пейджеры и «вставь map VC в эту карточку». Не `addSubview` чужой view без containment. `UINavigationController` и `UITabBarController` — просто специализированные родители.",
+    "follow-ups": "- Что ломается, если сделать `addSubview` view ребёнка и никогда не вызвать `addChild`?\n- Как снять child, не утекая им?\n- Когда брать container VC, а не child `UIView`?",
+    "prompt": ""
+  },
+  "view-with-tag": {
+    "title": "Плюсы и минусы viewWithTag()",
+    "answer": "`viewWithTag(_:)` обходит поддерево получателя и возвращает первый `UIView`, у которого совпал `tag`. Плюс: ноль outlet. Interface Builder ставит число, ты вылавливаешь его в `awakeFromNib`. В реальном приложении минусы побеждают. Теги — магические числа, по умолчанию `0` (невыставленный view может совпасть), без типов, сталкиваются, как только две ячейки или два XIB переиспользуют одно число. После reuse найденная view может быть от другой строки, чем ты думаешь. Лучше `@IBOutlet`, свойство-сабвью или типизированная обёртка над `viewWithTag` только в чужом легаси. Хотят услышать: «работает, я бы не добавлял».",
+    "follow-ups": "- Почему тег `0` особенно плохой выбор?\n- Что происходит с тегами, когда ячейку переиспользуют?\n- Как найти сабвью без тегов и без outlet?",
+    "prompt": ""
+  },
+  "iboutlet-vs-ibaction": {
+    "title": "@IBOutlet и @IBAction",
+    "answer": "`@IBOutlet` помечает свойство, которое Interface Builder может связать с объектом на канвасе: лейбл, constraint, целую view. `@IBAction` помечает метод, который IB вешает на событие контрола (`touchUpInside`, `editingChanged`, action жеста). Outlet почти всегда `weak` и implicitly unwrapped: storyboard владеет view; свойство nil, пока nib не загрузился, потом оно должно быть, иначе краш на первом обращении. Action принимает sender (`Any` или типизированный `UIButton`) и иногда event. Один контрол на два action — нормально. Outlet не того типа — падение в runtime. Типичные ошибки: `strong` outlet, которые удивляют в ячейках, и логика в action, которой место в view model.",
+    "follow-ups": "- Почему outlet обычно `weak`?\n- Когда оправдан `strong` outlet?\n- Что будет, если связь outlet в storyboard оборвалась?\n- `strong` `@IBOutlet` всегда утечка, или только когда граф view уже им владеет?",
+    "prompt": ""
+  },
+  "uiimage-vs-uiimageview": {
+    "title": "UIImage и UIImageView",
+    "answer": "`UIImage` — данные картинки: битмап, символ или named asset. Её нет в иерархии, нет frame, её могут шарить много view. `UIImageView` — `UIView`, которая рисует `UIImage` (или последовательность анимации) по `contentMode`, tint и highlighted. Грузишь `UIImage(named:)` или `UIImage(systemName:)`, потом присваиваешь `imageView.image`. Пиксели меняешь новым `UIImage`. Кроп и выравнивание меняешь у view. Типичные ошибки: сделать `addSubview` на `UIImage` и собирать огромные картинки на main thread без учёта `@2x` / `@3x`.",
+    "follow-ups": "- Куда смотрит `UIImage(named:)`, и кэширует ли он?\n- Как показать template-картинку, которая красится в `tintColor`?\n- Зачем у `UIImageView` есть `animationImages`?",
+    "prompt": ""
+  },
+  "aspect-fill-vs-fit": {
+    "title": "Aspect fill и aspect fit",
+    "answer": "Оба — значения `UIView.ContentMode`, оба сохраняют пропорции картинки. `scaleAspectFit` масштабирует, пока картинка целиком влезает в bounds; остаток пустой, это letterboxing. `scaleAspectFill` масштабирует, пока bounds полностью закрыты. Лишнее рисуется за краями, кроп виден только если `clipsToBounds` true. Fit — для логотипов и всего, что нельзя резать. Fill — для аватарки и hero-фото. `scaleToFill` (дефолт у `UIImageView`) растягивает и искажает. Это третий вариант, который ждут услышать. Типичная ошибка: aspect fill без клипа, и картинка рисуется поверх соседних view.",
+    "follow-ups": "- Что дефолтный `scaleToFill` делает с картинкой не тех пропорций?\n- Как это рифмуется со SwiftUI `AspectRatio` / `scaledToFill()`?\n- Когда взять `center` или `top` вместо scale-режима?",
+    "prompt": ""
+  },
+  "activity-view-controller": {
+    "title": "UIActivityViewController",
+    "answer": "`UIActivityViewController` — системный share sheet. Отдаёшь `activityItems` (строки, URL, картинки или свой `UIActivityItemSource`) и опционально `applicationActivities`, потом `present`. Юзер выбирает Messages, Mail, Copy, Save Image или приложение, которое заявило share extension. Системные действия прячешь через `excludedActivityTypes`, результат смотришь в `completionWithItemsHandler`. На iPad это popover: надо поставить `popoverPresentationController?.sourceView` (или `barButtonItem`), иначе краш. Типичные ошибки: показать на телефоне и не проверить popover-путь, шарить file URL не из world-readable места.",
+    "follow-ups": "- Почему на iPad это крашится, если только вызвать `present`?\n- Зачем нужен `UIActivityItemSource`?\n- Как узнать, какую activity выбрал юзер?",
+    "prompt": ""
+  },
+  "visual-effect-view": {
+    "title": "UIVisualEffectView",
+    "answer": "`UIVisualEffectView` композитит живой blur или vibrancy поверх того, что сзади. Создаёшь с `UIBlurEffect` (системные стили вроде `.systemMaterial`) или оборачиваешь blur в `UIVibrancyEffect`, чтобы лейблы пробивались сквозь блюр, как в Control Center. Сабвью кладёшь на `contentView`, не на сам effect view. Иначе классика «куда делся лейбл / почему блюр кривой». Эффект сэмплит контент позади view. Сплошной непрозрачный сосед на этом месте — блюра нет. Vibrancy без парного blur выглядит выцветшим. Дальше как обычная view: констрейнишь её, детей — к `contentView`.",
+    "follow-ups": "- Почему сабвью надо добавлять на `contentView`?\n- Зачем vibrancy относительно blur?\n- Чем materials отличаются от старых blur-стилей `.light` / `.dark`?",
+    "prompt": ""
+  },
+  "reuse-identifiers": {
+    "title": "Reuse identifiers у ячеек",
+    "answer": "Table и collection view держат маленький пул ячеек и переиспользуют их при скролле. Reuse identifier — ключ этого пула: `register` класс или nib на ID, потом `dequeueReusableCell` с тем же ID. Несовпадение крашит (`unable to dequeue a cell with identifier`). После dequeue в ячейке ещё текст, картинки и accessory прошлой строки. `prepareForReuse` и твой configure должны сбросить всё, что не собираешься оставлять. Diffable data source тоже использует identifiers. Меняется только то, как применяешь snapshot. Типичные ошибки: register в ячейке, dequeue с другой строкой, и без сброса картинки «текут» между рядами.",
+    "follow-ups": "- Что класть в `prepareForReuse`, а что в `cellForRowAt`?\n- Почему `dequeueReusableCell(withIdentifier:for:)` требует предварительный `register`?\n- Как в одном списке держать два типа ячеек?",
+    "prompt": ""
+  },
+  "prepare-for-reuse": {
+    "title": "prepareForReuse",
+    "answer": "Table/collection view зовёт `prepareForReuse` прямо перед тем, как ячейка выходит из пула reuse на новый index path. Сбрасывай транзиентный UI: отмени загрузку картинки в полёте, почисти `imageView.image`, спрячь accessory, сними highlight, инвалидируй таймер. Не конфигурируй новый ряд здесь. Модели ещё нет, это `cellForRowAt` / твой `apply(_:)`. Super вызвать надо. Классическое протекание: completion отменённого запроса всё равно ставит картинку на переиспользованную ячейку. Лови generation token или URL и игнорируй устаревшие колбэки.",
+    "follow-ups": "- Почему новую модель не присваивают внутри `prepareForReuse`?\n- Как игнорировать поздний колбэк картинки после reuse?\n- Есть ли та же проблема у SwiftUI `List`?",
+    "prompt": ""
+  },
+  "remote-images-table": {
+    "title": "Таблица с картинками из сети",
+    "answer": "Три правила, и их хотят услышать по порядку. Первое, lazy: стартуй загрузку в `cellForRow` / `willDisplay`, не для всех рядов в `viewDidLoad`. Второе, не на main thread: декодируй на background queue / `Task`, на main только присваивай `image`. `Data(contentsOf: url)` на main thread — классический провал. Блокирует скролл, нет кэша, нет cancel. Третье, identity после reuse: когда запрос вернулся, ячейка уже может показывать другой ряд. Сравни URL или generation token и выброси битмап, если не совпало. Cancel в `prepareForReuse`. Кэшируй декодированные картинки в `NSCache`, чтобы обратный скролл был мгновенным. Типичный промах: красивый спиннер, который всё равно ставит чужое фото на переиспользованную ячейку.",
+    "follow-ups": "- Что делать, если юзер скроллит быстрее сети?\n- Memory cache или `URLCache` для этих превью?\n- Как держать 60 fps, пока декодируешь JPEG?",
+    "prompt": ""
+  },
+  "collection-vs-table": {
+    "title": "Collection view или table view",
+    "answer": "`UITableView` — вертикальный список с системными стилями ячеек, header/footer секций, swipe actions, reorder и accessories. `UICollectionView` — `UIScrollView` плюс объект layout: flow, compositional или свой `UICollectionViewLayout`. Таблица — самый честный ответ для settings-списка. Collection выигрывает на сетках, каруселях, orthogonal секциях и смеси размеров. Compositional layout умеет притвориться таблицей через `UICollectionLayoutListConfiguration`. Новые системные приложения так и живут, так что «table vs collection» ещё и вопрос «нужен list chrome или layout». Типичные ошибки: впихнуть сетку в таблицу стопкой image view и взять collection, когда хватило бы `UITableViewStyle.insetGrouped`.",
+    "follow-ups": "- Что даёт compositional list layout из того, что у `UITableView` уже было?\n- Когда свой `UICollectionViewLayout` того стоит?\n- Чем prefetching и diffable data source отличаются у таблицы и коллекции?\n- Горизонтальный рейл: вложенная коллекция в ячейке таблицы или orthogonal compositional секция?",
+    "prompt": ""
+  },
+  "intrinsic-content-size": {
+    "title": "Intrinsic content size",
+    "answer": "Intrinsic content size — размер, который view хочет до того, как Auto Layout её растянет или сожмёт. Размер текста у `UILabel`, картинки у `UIImageView`, title плюс insets у `UIButton`. Обычный `UIView` отдаёт `UIView.noIntrinsicMetric` (−1) по обеим осям, ему нужны явные constraints. Hugging resistance говорит «не расти». Compression resistance говорит «не сжимай». У кого priority выше, тот побеждает, когда две view дерутся. Переопределяешь `intrinsicContentSize` и зовёшь `invalidateIntrinsicContentSize()`, когда контент меняется. Типичные ошибки: дать лейблу фиксированную ширину и ждать перенос без `numberOfLines = 0`; припинить края кастомной view и не реализовать intrinsic size — Interface Builder покажет нулевой frame.",
+    "follow-ups": "- Что делают content-hugging и compression-resistance priorities?\n- Почему `UILabel` без width constraint растёт по горизонтали?\n- Когда звать `invalidateIntrinsicContentSize()`?",
+    "prompt": ""
+  },
+  "autolayout-formula": {
+    "title": "Формула Auto Layout",
+    "answer": "Каждый constraint — это `item1.attribute = multiplier × item2.attribute + constant`, плюс отношение `=`, `≥`, `≤` и priority. Anchors — та же формула: `title.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)` это multiplier 1, constant 16. Required constraint имеет priority 1000. Диапазон 1…999 — optional: если система unsatisfiable, движок сначала сбрасывает самый низкий priority. Неоднозначность ломаешь hugging / compression или лишним constraint с 999, «хорошо бы такая ширина». Типичный промах: два required equal-width, которые дерутся, или забыть, что в формуле есть multiplier (aspect ratio).",
+    "follow-ups": "- Что меняет priority 999?\n- Как записать «не меньше 16 pt от safe area»?\n- Intrinsic size против явного width constraint — кто победит?",
+    "prompt": ""
+  },
+  "auto-layout-anchors": {
+    "title": "Auto Layout anchors",
+    "answer": "Auto Layout — солвер constraints: описываешь отношения, UIKit считает frames. Так один layout переживает iPhone и iPad, поворот, Dynamic Type и клавиатуру. Size classes и trait collections — грубый переключатель regular / compact. Constraints — мелкие правила. Anchors (`NSLayoutAnchor`) — типизированный способ писать эти правила: `leadingAnchor`, `trailingAnchor`, `topAnchor`, `bottomAnchor`, `centerXAnchor`, `widthAnchor`. На каждой view, которую констрейнишь в коде, ставь `translatesAutoresizingMaskIntoConstraints = false`. Иначе UIKit ещё навесит autoresizing constraints и полезут unsatisfiable логи. Активируй пачкой через `NSLayoutConstraint.activate`, чтобы движок решил один раз. Бери у superview `safeAreaLayoutGuide` и, где уместно, `readableContentGuide` / `keyboardLayoutGuide`, не сырой `view.topAnchor`. Типичные ошибки: констрейнить view до того, как у неё появился superview; мешать frames и constraints на одной view; активировать один constraint дважды.",
+    "follow-ups": "- Что будет, если оставить `translatesAutoresizingMaskIntoConstraints` как `true`?\n- Когда брать `safeAreaLayoutGuide`, а когда собственные anchors view?\n- Как временно выключить constraint?\n- Auto Layout, frames, SwiftUI layout — когда что всё ещё берёшь?",
+    "prompt": ""
+  },
+  "ibdesignable": {
+    "title": "IBDesignable",
+    "answer": "`@IBDesignable` говорит Interface Builder скомпилировать сабкласс `UIView` и создать его на канвасе, чтобы видеть живой рисунок. `@IBInspectable` выносит выбранные свойства в Attributes inspector: цвета, числа, строки, картинки. `prepareForInterfaceBuilder()` бежит только в IB. Там стабишь сетевые вызовы или `UIApplication.shared`. IB собирает отдельный target. Что этому target не видно (часть SPM-сборок, флаги только для app extension, нет ассетов) рисуется как краш или серый квадрат на канвасе, не в симуляторе. Спрашивают реже: SwiftUI previews закрывают ту же задачу с меньшей машинерией IB. Типичная ошибка: сайд-эффекты в `init(frame:)`, которые IB исполняет, пока ты печатаешь.",
+    "follow-ups": "- Что класть в `prepareForInterfaceBuilder()`, чего не должно быть в приложении?\n- Почему view рисуется в симуляторе, а на канвасе падает?\n- Как `@IBInspectable` мапит типы Swift на контролы инспектора?",
+    "prompt": ""
+  },
+  "menu-controller": {
+    "title": "UIMenuController",
+    "answer": "`UIMenuController` — старое плавающее Edit-меню: Cut, Copy, Paste и свои `UIMenuItem`. View должна уметь стать first responder (`canBecomeFirstResponder` плюс `becomeFirstResponder`). Реализуешь `canPerformAction(_:withSender:)` и парные `@objc` методы, потом зовёшь `showMenu(from:rect:)`. Deprecated с iOS 16. Новый код берёт `UIEditMenuInteraction` для меню выделения и `UIContextMenuInteraction` / `contextMenuConfigurationForItemsAt` для long-press. На собесах ещё всплывает, потому что text view и WebView исторически на нём сидели, и «сделай лейбл копируемым» часто дают на take-home. Типичная ошибка: пункты меню добавил, first responder не сделал — меню не появляется.",
+    "follow-ups": "- Чем заменили `UIMenuController` на iOS 16 и новее?\n- Почему view должна стать first responder?\n- Как добавить свой пункт рядом с Copy?",
+    "prompt": ""
+  },
+  "viewcontroller-lifecycle": {
+    "title": "Жизненный цикл UIViewController",
+    "answer": "`init` / `init(coder:)` создают объект, view ещё нет. `loadView` собирает корневую view. Оверрайдь только если нет storyboard и дефолта `loadViewIfNeeded`. `viewDidLoad` — первый момент, когда `view` есть: сабвью, constraints, разовая настройка. `viewWillAppear` / `viewDidAppear` бегут каждый раз, когда экран выходит на сцену: таймеры, refresh. `viewWillDisappear` / `viewDidDisappear` — пара, чтобы остановить работу. `viewWillLayoutSubviews` / `viewDidLayoutSubviews` при смене bounds. Frame-математика туда, не в `viewDidLoad`. Appearance может стрельнуть不止 один раз: переключение таба, split view, перекрыли экраном. Удалённые данные: почти статичный payload можно стартовать в `viewDidLoad` и кэшировать. Всё, что протухает, клади в `viewWillAppear` или pull-to-refresh. В любом случае fetch не на main thread и cancel, когда экран уходит. Типичная ошибка: сеть в `viewDidLoad` без cancel в `viewWillDisappear`, или constraints в `viewDidAppear`.",
+    "follow-ups": "- `viewDidLoad` и `viewWillAppear` — что куда класть?\n- Когда `viewDidLayoutSubviews` правильное место для frame градиента?\n- Как containment и `addChild` меняют порядок?\n- `viewDidLoad` или `viewDidAppear` для удалённой ленты — что, и почему async?\n- Стартовал segue A→B и отменил. Какие методы жизненного цикла уже успели пробежать?",
+    "prompt": ""
+  },
+  "uiview-lifecycle": {
+    "title": "Жизненный цикл UIView",
+    "answer": "View создаётся (`init(frame:)` / `init(coder:)`), добавляется (`willMove(toSuperview:)` / `didMoveToSuperview`), цепляется к window (`didMoveToWindow`), потом идёт layout (`layoutSubviews`) и отрисовка (`draw(_:)` / слой). Constraints обновляют layout engine. `layoutSubviews` проставляет frames. `draw(_:)` — для кастомной отрисовки, не для добавления сабвью. Типичный промах: градиент в `init` с нулевым bounds или активация constraints в `draw(_:)`.",
+    "follow-ups": "- `didMoveToWindow` или `didMoveToSuperview`?\n- Почему `draw(_:)` плохое место для `addSubview`?\n- Чем это отличается от `viewDidLayoutSubviews` у view controller?",
+    "prompt": ""
+  },
+  "setneedslayout": {
+    "title": "setNeedsLayout и layoutIfNeeded",
+    "answer": "`setNeedsLayout()` помечает view грязной. Layout пройдёт позже в этом проходе run loop: дёшево, coalesced. `layoutIfNeeded()` гоняет layout сейчас, если view грязная. Нужен новый `frame` на этой же строке: подготовка анимации, snapshot. `layoutSubviews()` — метод, который зовёт UIKit. Ты его оверрайдишь, не вызываешь сам. Типичный промах: `layoutIfNeeded()` в тугом цикле или оверрайд `layoutSubviews` без `super`.",
+    "follow-ups": "- `setNeedsDisplay` и `setNeedsLayout`?\n- Почему анимируют `layoutIfNeeded`, а не `layoutSubviews`?\n- Что в эту историю добавляет `updateConstraints`?",
+    "prompt": ""
+  },
+  "frame-vs-bounds": {
+    "title": "frame и bounds",
+    "answer": "`frame` — прямоугольник view в координатах superview: origin плюс size. `bounds` — тот же размер в собственном пространстве view. Origin обычно `.zero`, пока не заскроллил или не выставил сам. `CGAffineTransform` (поворот, скейл) меняет, как выглядит `frame`. `bounds.size` остаётся нетрансформированным размером. Scroll view двигает `bounds.origin`, чтобы показать контент. Auto Layout пишет `frame` после layout. Типичная ошибка: ставить `frame` у трансформированной view и удивляться прыжку, или брать `frame` внутри `draw(_:)` вместо `bounds`.",
+    "follow-ups": "- Почему `UIScrollView` меняет `bounds.origin`, когда скроллишь?\n- После transform с поворотом какой размер брать для hit-testing, а какой для отрисовки?\n- Когда `center` удобнее, чем `frame.origin`?",
+    "prompt": ""
+  },
+  "file-owner": {
+    "title": "File’s Owner",
+    "answer": "File’s Owner — placeholder в nib/xib для объекта, который будет грузить файл. Обычно это view controller, который зовёт `init(nibName:)` или `Bundle.loadNibNamed`. Это не объект, сохранённый в файле. Outlet и action в xib цепляются к этому будущему инстансу. Не тот класс owner, или xib загрузили с view, которая не owner, — outlet будут `nil`. Storyboard прячет это за view controller сцены. Типичный промах: «File’s Owner — это первая view в xib».",
+    "follow-ups": "- Owner или top-level объект view в xib?\n- Почему `@IBOutlet` может быть `nil` после `loadNibNamed`?\n- Чем это отличается от сцены на storyboard?",
+    "prompt": ""
+  },
+  "points-vs-pixels": {
+    "title": "Points и pixels",
+    "answer": "Вёрстка UIKit идёт в points. Point — единица, независимая от плотности. На 3× девайсе 1 point это 3 pixels. `UIScreen.main.scale` или `traitCollection.displayScale` у view — этот коэффициент. Картинки кладут `@2x` / `@3x`, чтобы оставались резкими. Почти никогда не верстаешь в pixels. Pixels нужны, когда говоришь с битмапами Core Graphics или форматом `UIGraphicsImageRenderer`. Типичный промах: делить frame на `scale` «чтобы получить points», хотя он уже в points.",
+    "follow-ups": "- Почему кнопка 44 pt на iPhone это не 44 px?\n- `UIImage.size` — points или pixels?\n- Когда pixels всё ещё важны?",
+    "prompt": ""
+  },
+  "memory-warning": {
+    "title": "Memory warning",
+    "answer": "Система говорит, что RAM впритык: `UIApplication.didReceiveMemoryWarningNotification` и `UIViewController.didReceiveMemoryWarning`. Сбрасывай кэши, которые можно собрать заново: декодированные картинки, `NSCache`, скачанный файл, который можно взять снова. Черновик юзера не трогай. `NSCache` и так выселяет под давлением. Свой словарь `[URL: UIImage]` — нет. На warning ещё останови speculative prefetch. Типичный промах: игнорировать warning или отпустить единственную копию данных, которые не восстановить.",
+    "follow-ups": "- Что безопасно сбросить, а что сначала надо сохранить?\n- Как это стыкуется с `NSCache`?\n- Jetsam или memory warning — что приходит первым?",
+    "prompt": ""
+  },
+  "responder-chain": {
+    "title": "Responder chain",
+    "answer": "Responder chain — как UIKit гуляет события, которые view не обработала: view → её superview → view controller → window → app. First responder получает клавиатуру и menu actions (`becomeFirstResponder`). Action у `UIControl` — другой путь, target-action. Но необработанные motion, remote-control и `canPerformAction` всё равно лезут по цепочке. Поэтому `UIViewController` может реализовать `copy(_:)` для дочернего лейбла. Типичная ошибка: повесить жест с `cancelsTouchesInView` и удивляться, почему кнопки ниже не видят тап.",
+    "follow-ups": "- First responder и next responder?\n- Как gesture recognizer стыкуется с цепочкой?\n- Куда уходит событие shake-to-undo?",
+    "prompt": ""
+  },
+  "passing-data": {
+    "title": "Как передавать данные в iOS",
+    "answer": "Назови направление. Вниз: initializer, свойство, segue `prepare(for:)`, SwiftUI `init` / `@Binding`. Вверх и наружу: delegate, closure callback, Combine / `AsyncStream`. Broadcast: `NotificationCenter`, когда много чужих слушателей. Shared: environment object, store, который инжектишь. Не `Foo.shared`, пока не объяснишь зачем. Бери самый узкий канал. Типичная ошибка: notification на кнопку, которую слушает один экран, или синглтон, который на самом деле спрятанный параметр.",
+    "follow-ups": "- Delegate, closure или notification для одного события?\n- Как вернуть данные назад с запушенного экрана?\n- Что меняется в SwiftUI (`Binding`, environment)?",
+    "prompt": ""
+  },
+  "uicontrol-target-nil": {
+    "title": "UIControl с target nil",
+    "answer": "`addTarget(nil, action: #selector(foo), for: .touchUpInside)` не значит «никто не услышит». Nil target идёт по responder chain, пока кто-то не реализует `foo`. Так кнопка в ячейке может дернуть action у view controller без явного target. Никто не реализовал — ничего не будет, без краша. В новом коде лучше явный target. Nil-target остроумно и плохо грепается. Типичная ошибка: думать, что nil target выключает контрол.",
+    "follow-ups": "- Чем это отличается от `addTarget(self, ...)`?\n- Почему nil-target action тяжело дебажить?\n- Что из этого сильно заменил SwiftUI?",
+    "prompt": ""
+  },
+  "stack-view": {
+    "title": "UIStackView",
+    "answer": "`UIStackView` — Auto Layout для ряда или колонки: `axis`, `spacing`, `alignment`, `distribution` и `isLayoutMarginsRelativeArrangement`. Он не рисует. Только создаёт constraints между arranged subviews. Спрятать ребёнка (`isHidden = true`) — схлопнется его место. Вложенные стеки лучше паутины equal-width constraints. Типичный промах: ждать, что стек заскроллится (оберни в scroll view), или ставить frames arranged view.",
+    "follow-ups": "- `fill`, `fillEqually` и `equalSpacing`?\n- Почему `isHidden` у arranged view меняет layout?\n- Стек или constraints руками — когда перестаёшь вкладывать?",
+    "prompt": ""
+  },
+  "navigation-controller": {
+    "title": "UINavigationController",
+    "answer": "Navigation controller владеет стеком view controllers. `push` / `pop` и `setViewControllers` меняют стек. Nav bar показывает title верхнего и back item. Это контейнер: он не рисует твой экран, он его хостит. Данные передавай в initializer следующего VC, не копайся в `viewControllers`. Типичный промах: push из ячейки с протухшим index или present nav controller, когда хотел push в уже существующий.",
+    "follow-ups": "- Push или present — когда modal правильный ход?\n- Как pop до конкретного VC, не пересобирая стек?\n- Что даёт `UINavigationControllerDelegate` (кастомный transition)?",
+    "prompt": ""
+  },
+  "tab-bar-controller": {
+    "title": "UITabBarController",
+    "answer": "Tab controller хостит сиблингов, не стек. У каждого таба свой root, часто navigation controller. Выбор таба не сбрасывает его nav stack, пока ты сам это не сделаешь. Пять видимых табов, остальные уходят в «More». Типичный промах: один общий navigation controller на все табы или tab controller внутри nav controller — и удивление, почему tab bar пропадает на push.",
+    "follow-ups": "- Почему каждый таб обычно оборачивают в `UINavigationController`?\n- Что происходит со стейтом таба, когда ушёл и вернулся?\n- Таб или segmented control на одном экране?",
+    "prompt": ""
+  },
+  "gesture-recognizers": {
+    "title": "Gesture recognizers",
+    "answer": "`UIGestureRecognizer` превращает touches в действие верхнего уровня: tap, pan, pinch, swipe, long-press, rotation, screen-edge. Вешаешь на view. Он ходит по responder chain. Жесты могут fail, require, чтобы другой упал, или работать simultaneously. Так сосуществуют pan и tap. `cancelsTouchesInView` глушит контрол под ним. Типичный промах: тап по `UIButton` не стреляет, потому что родительский pan его съел, или жест на view с `isUserInteractionEnabled == false`.",
+    "follow-ups": "- Как дать одновременно работать pan таблицы и swipe ячейки?\n- Жест или target-action у `UIControl`?\n- Что чинит `require(toFail:)`?",
+    "prompt": ""
+  },
+  "launch-screen": {
+    "title": "Launch screen",
+    "answer": "Launch screen — статичный storyboard (`UILaunchStoryboardName`), который система показывает, пока процесс ещё не встал. Никакого кастомного класса, сети, анимации, кода в `viewDidLoad`. Система делает snapshot. Launch storyboard один. Light/dark идут через asset catalog и trait variations, не через два storyboard, которые меняешь в коде. Типичный промах: спиннер, который должен крутиться, или путать это с `didFinishLaunching`.",
+    "follow-ups": "- Можно ли менять лейблы launch screen в runtime?\n- Почему «неправильный» launch screen висит после обновления?\n- Launch screen или брендированный splash-`UIViewController`, который сам презентишь?",
+    "prompt": ""
+  },
+  "diffable-data-source": {
+    "title": "Diffable data source",
+    "answer": "Diffable data source (`UITableViewDiffableDataSource` / `UICollectionViewDiffableDataSource`) владеет snapshot. Даёшь список hashable ID секций и айтемов, он диффит с прошлым snapshot и применяет insert, delete и move без арифметики `performBatchUpdates`. Ячейку по-прежнему dequeue и конфигурируешь. Index path руками больше не считаешь. Identity должна быть стабильной. Если `Item` хешируется по строке на экране, и она меняется, ряды мигают или крашатся. Snapshot применяй на main thread. Типичный промах: мутировать backing array и на всякий случай звать `reloadData`, или взять индекс массива как item identifier.",
+    "follow-ups": "- Почему item identifier должен быть стабильным между apply?\n- Snapshot или `NSFetchedResultsController` для списка из Core Data?\n- Что всё ещё живёт в `cellProvider`, а что в snapshot?\n- Почему повторный `reloadData` мигает, когда поменялся один айтем?",
+    "prompt": ""
+  },
+  "view-hierarchy": {
+    "title": "UIWindow и иерархия view",
+    "answer": "`UIWindow` — корневая поверхность, в которую рисует scene. На ней один root view controller. Его `view` — ствол иерархии view, дерева `UIView`. UIKit рисует сзади вперёд, hit-test идёт спереди назад, детей раскладывает внутри родителей. Второй window на iPhone почти никогда не создаёшь. На iPad / Mac вторая `UIScene` получает своё окно. `UIApplication` владеет процессом. Window владеет тем, что на экране. Типичный промах: `addSubview` на `UIWindow`, чтобы «повесить» баннер. Он игнорит поворот и safe area. Нужен child view controller. Или считать `view` необязательным украшением, а не корнем контроллера.",
+    "follow-ups": "- Кто hit-testит тап: window, root VC или самая передняя view?\n- Когда в одном процессе будут два window?\n- `addSubview` на window или child view controller — что переживает поворот?",
+    "prompt": ""
+  },
+  "safe-area": {
+    "title": "Safe area",
+    "answer": "Safe area — прямоугольник, который не перекрыт статус-баром, вырезом / Dynamic Island, home indicator или navigation / tab / toolbar. Пинь к `safeAreaLayoutGuide`. В SwiftUI `safeAreaInset`, ignore только когда правда нужен full-bleed фон. Layout guide едет, когда появляются бары, при повороте, когда приезжает клавиатура или additional safe-area insets. Типичный промах: припинить title к `view.topAnchor` и смотреть, как он сидит под вырезом, или заменить понимание гайда на `edgesForExtendedLayout = []`.",
+    "follow-ups": "- Safe area, layout margins и `readableContentGuide`?\n- Как нарисовать фон от края до края, а лейбл оставить в safe area?\n- Какой extra inset даёт клавиатура или additional safe-area inset?",
+    "prompt": ""
+  },
+  "modal-vs-push": {
+    "title": "Modal или push",
+    "answer": "Push кладёт view controller на стек `UINavigationController`. Тот же флоу, кнопка Back, можно pop. Present (`present(_:animated:)`) кладёт новый VC поверх текущего: sheet, full-screen, popover. Presenter живёт под ним, ты `dismiss`. Push — «глубже в этот раздел». Modal — замкнутая задача: написать, заплатить, залогиниться, фильтр. Ей не нужен back stack. У modal внутри может быть свой nav controller, если в задаче два шага. Типичный промах: present, когда юзер ждал Back, или push логина, с которого нельзя pop, не оставив предыдущий экран висеть.",
+    "follow-ups": "- `.pageSheet` и `.fullScreen` — что делает свайп вниз?\n- Как вернуть результат с modal без синглтона?\n- Можно ли push на VC, который не внутри navigation controller?",
+    "prompt": ""
+  },
+  "orientation": {
+    "title": "Ориентация устройства",
+    "answer": "Не гони layout от `UIDevice.current.orientation`. Смотри size и traits: `viewWillTransition(to:with:)` на новые bounds, `traitCollectionDidChange` / `traitCollection.horizontalSizeClass` на compact vs regular. Auto Layout плюс size classes и так поворачивают большинство экранов. Лочь ориентацию на конкретном VC через `supportedInterfaceOrientations`, когда камере или игре нужен только landscape. Типичный промах: `if UIDevice.current.orientation == .landscapeLeft`. Врёт на iPad Split View: ширина compact, девайс всё ещё «landscape». И врёт во время анимации.",
+    "follow-ups": "- Size class или ориентация девайса — что из этого Split View?\n- Как залочить один экран в landscape, не лоча всё приложение?\n- В SwiftUI — `verticalSizeClass` или читать `UIDevice`?",
+    "prompt": ""
+  },
+  "dark-mode": {
+    "title": "Dark Mode",
+    "answer": "Dark Mode — trait: `userInterfaceStyle` это `.light` или `.dark`. Бери dynamic colors (`.label`, `.systemBackground`, `.secondaryLabel`) и варианты картинок в asset catalog, чтобы UIKit / SwiftUI сами переключались. Хардкод `UIColor.white` на лейбле в тёмной теме провалится. Оверрайд на экран через `overrideUserInterfaceStyle` только если продукт требует зафиксированный хром: камера, киноплеер. Наблюдай в `traitCollectionDidChange` (UIKit) или `@Environment(\\.colorScheme)` (SwiftUI). Типичный промах: свой hex, который нормален в light и пропадает в dark, или форс `.dark` на window «под бренд» и сломанные системные алерты.",
+    "follow-ups": "- Почему тень из `CGColor` остаётся чёрной после смены режима?\n- Appearances в asset catalog или runtime `if colorScheme == .dark`?\n- Как snapshot-тестить оба appearance?",
+    "prompt": ""
+  },
+  "nested-collection": {
+    "title": "Collection view внутри ячейки таблицы",
+    "answer": "Горизонтальный рейл в ряду таблицы — `UICollectionView`, которым владеет ячейка или child VC. Сложное тут reuse и layout, не «добавить collection view». Внутренней коллекции нужен стабильный data source именно этого ряда. Сбрось его в `prepareForReuse`. Запомни scroll offset, если продукт хочет, чтобы рейл остался там, где юзер его оставил. Высота обычно фиксированная или меряется один раз. Self-sizing внутренняя коллекция, которая инвалидирует таблицу на каждый скролл, даёт hitch. Если весь экран уже collection, лучше compositional orthogonal sections. Типичный промах: один общий data source на переиспользуемые ячейки. Рейлы меняют контент при скролле.",
+    "follow-ups": "- Где хранить scroll offset каждого ряда, чтобы он пережил reuse?\n- Почему Auto Layout на внутренней коллекции может тормозить внешнюю таблицу?\n- Когда весь Home лучше перевести на compositional секции?",
+    "prompt": ""
+  }
+}
