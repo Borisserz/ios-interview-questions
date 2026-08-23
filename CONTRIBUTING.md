@@ -12,13 +12,15 @@ To suggest a question or a source from the website: **Issues → New issue → P
 4. Write a full English answer, a short Swift example, and follow-ups. **Exception:** a system-design / algorithm / take-home **practice** prompt may skip Answer and Example — use `Kind: Practice` and a short Prompt plus follow-ups.
 5. Place the card in the matching `topics/*.md` file. Create the topic file if this is the first question in that topic.
 6. Update that file’s table of contents.
-7. Regenerate both homepages (`README.md` English, `README.ru.md` Russian):
+7. Add the Russian overlay for that `{#slug}` in `locales/ru/*.json` (`title`, `answer` or `prompt`, `follow-ups`). CI fails if the slug is missing.
+8. Regenerate the storefronts and the study decks:
 
 ```bash
 python3 scripts/generate_readme.py
+python3 scripts/validate.py
 ```
 
-Russian card text lives in `locales/ru/*.json` (keyed by `{#slug}`). After a new English card, add the same slug there or the Russian page will keep the English body.
+That writes `README.md`, `README.ru.md`, `docs/en/*.md`, and `docs/ru/*.md`. Do not edit those files by hand. Learners study from the decks (answer hidden) and from `paths/`. Progress checkboxes belong only on a path file or a local `STUDY.local.md` (see `STUDY.local.md.example`).
 
 ## Card template
 
@@ -69,8 +71,8 @@ What to design and a tight default scope. Do not paste a third-party solution.
 - **Frequency:** High / Medium / Low — how often it shows up across sources.
 - Answers are rewritten. No verbatim dumps from courses, blogs, or other repos.
 - **Practice** cards (`Kind: Practice`) are prompts for speaking out loud. Short Prompt + follow-ups. No pasted third-party solutions.
-- Russian files come later, same paths and slugs (`swift.ru.md`, `{#arc-vs-gc}`).
-- No progress checkboxes and no company tags on cards. A company recap can enrich a generic card; the card itself stays untagged.
+- Russian card text lives in `locales/ru/*.json`, keyed by the same `{#slug}`. Generated decks are `docs/ru/<topic>.md`.
+- No progress checkboxes and no company tags on cards. A company recap can enrich a generic card; the card itself stays untagged. Checkboxes go on `paths/*.md` or `STUDY.local.md` only.
 - `inbox/sources.md` stays local. Do not commit raw third-party dumps.
 
 ## Where a card goes

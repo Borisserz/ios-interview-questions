@@ -1,3 +1,6 @@
 .DS_Store
 inbox/*
 !inbox/README.md
+STUDY.local.md
+__pycache__/
+*.pyc

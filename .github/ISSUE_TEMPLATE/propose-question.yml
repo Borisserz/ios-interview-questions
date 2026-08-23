@@ -27,6 +27,8 @@ body:
       label: The question
       description: English wording if you can. One question per issue when possible.
       placeholder: What is the difference between weak and unowned?
+    validations:
+      required: true
   - type: dropdown
     id: topic
     attributes:
@@ -65,6 +67,8 @@ body:
       label: Source
       description: Public URL, or where you heard it. No paywalled dump, no company tag on the card.
       placeholder: https://
+    validations:
+      required: true
   - type: textarea
     id: notes
     attributes:

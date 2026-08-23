@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild README.md and README.ru.md from topics/*.md and locales/ru/*.json."""
+"""Rebuild storefront READMEs and docs/en + docs/ru decks from topics + locales."""
 
 from __future__ import annotations
 
@@ -23,6 +23,7 @@ HEADING = re.compile(r"^## (.+?) \{#([^}]+)\}\s*$")
 META = re.compile(r"^- (Level|Frequency|Kind): (.+)$")
 SECTION = re.compile(r"^### (Answer|Example|Follow-ups|Prompt)\s*$")
 LEVELS = ("Junior", "Mid", "Senior")
+STARTER_SLUG = "identity-vs-equality"
 
 TOPIC_ORDER = [
     ("swift.md", "Swift", "swift"),
@@ -149,6 +150,11 @@ def topic_label(filename: str, locale: str) -> str:
     return filename.removesuffix(".md")
 
 
+def deck_href(filename: str, locale: str, slug: str | None = None) -> str:
+    path = f"docs/{locale}/{filename}"
+    return f"{path}#{slug}" if slug else path
+
+
 def lang_switch(locale: str) -> str:
     if locale == "ru":
         en = '<a href="./README.md"><img src="https://img.shields.io/badge/English-8B9099?style=for-the-badge&labelColor=12141A" alt="English"></a>'
@@ -159,91 +165,75 @@ def lang_switch(locale: str) -> str:
     return f'<p align="center">\n  {en}\n  {ru_btn}\n</p>'
 
 
-def render_card(card: dict, locale: str, heading_id: bool = True) -> str:
-    title = html.escape(card["title"])
+def card_reveal(card: dict, locale: str) -> tuple[str, str]:
     slug = card["slug"]
-    heading = (
-        f'<p id="card-{slug}" align="center"><strong>{title}</strong></p>'
-        if heading_id
-        else f'<p align="center"><strong>{title}</strong></p>'
-    )
-    freq = ru.FREQ.get(card["freq"], card["freq"]) if locale == "ru" else card["freq"]
-    chips = f"<code>{html.escape(card['level'])}</code> · <code>{html.escape(freq)}</code>"
     if card["kind"] == "Practice":
-        chips += " · <code>Practice</code>"
         summary = ru.SHOW_PROMPT if locale == "ru" else "Show prompt"
         if locale == "ru":
             body = card["prompt"] or ru.MISSING_PROMPT
         else:
             body = card["prompt"] or "_Prompt still to write._"
+        return summary, body
+    summary = ru.SHOW_ANSWER if locale == "ru" else "Show answer and Swift"
+    parts = []
+    if card["answer"]:
+        parts.append(card["answer"])
+    if card["example"]:
+        parts.extend(["", card["example"]])
+    if parts:
+        body = "\n\n".join(parts)
+    elif locale == "ru":
+        body = ru.MISSING_ANSWER.format(file=card["file"], slug=slug)
     else:
-        summary = ru.SHOW_ANSWER if locale == "ru" else "Show answer and Swift"
-        parts = []
-        if card["answer"]:
-            parts.append(card["answer"])
-        if card["example"]:
-            parts.extend(["", card["example"]])
-        if parts:
-            body = "\n\n".join(parts)
-        elif locale == "ru":
-            body = ru.MISSING_ANSWER.format(file=card["file"], slug=slug)
-        else:
-            body = f"See the full card in [topics/{card['file']}](topics/{card['file']}#{slug})."
-    follow = ""
-    if card["follow-ups"]:
-        label = ru.THEN_ASK if locale == "ru" else "Then they usually ask"
-        follow = f"\n\n**{label}**\n\n" + card["follow-ups"]
-    source_label = ru.FULL_CARD if locale == "ru" else "Full card"
-    source = f"[{source_label}](topics/{card['file']}#{slug})"
+        body = f"See the full card in [topics/{card['file']}](topics/{card['file']}#{slug})."
+    return summary, body
+
+
+def card_follow(card: dict, locale: str) -> str:
+    if not card["follow-ups"]:
+        return ""
+    label = ru.THEN_ASK if locale == "ru" else "Then they usually ask"
+    return f"\n\n**{label}**\n\n" + card["follow-ups"]
+
+
+def chips(card: dict, locale: str) -> str:
+    freq = ru.FREQ.get(card["freq"], card["freq"]) if locale == "ru" else card["freq"]
+    bits = f"<code>{html.escape(card['level'])}</code> · <code>{html.escape(freq)}</code>"
+    if card["kind"] == "Practice":
+        bits += " · <code>Practice</code>"
+    return bits
+
+
+def render_deck_card(card: dict, locale: str) -> str:
+    title = html.escape(card["title"])
+    slug = card["slug"]
+    summary, body = card_reveal(card, locale)
     return "\n".join(
         [
-            "<table>",
-            "<tr><td>",
-            '<img src="./assets/readme/stretch.png" width="1200" height="1" alt="full width">',
-            "</td></tr>",
-            "<tr><td>",
+            f'<h2 id="{html.escape(slug)}">{title}</h2>',
             "",
-            heading,
-            "",
-            f"{chips}<br>{source}",
+            chips(card, locale),
             "",
             "<details>",
             f"<summary><strong>{summary}</strong></summary>",
             "",
             body,
-            follow,
+            card_follow(card, locale),
             "",
             "</details>",
-            "",
-            "</td></tr></table>",
             "",
         ]
     )
 
 
-def render_topic_deck(
-    filename: str,
-    label: str,
-    anchor: str,
-    cards: list[dict],
-    locale: str,
-) -> str:
+def render_deck(filename: str, label: str, cards: list[dict], locale: str) -> str:
     high = sum(1 for card in cards if card["freq"] == "High")
+    source = f"../../topics/{filename}"
     if locale == "ru":
-        meta = f'<a href="topics/{filename}">{filename}</a> · {len(cards)} {ru.CARDS} · {high} {ru.OFTEN}'
-        summary = f"<strong>{ru.OPEN} {html.escape(label)}</strong> · {ru.OPEN_HINT}"
+        meta = f"{len(cards)} {ru.CARDS} · {high} {ru.OFTEN} · [{filename}]({source})"
     else:
-        meta = f'<a href="topics/{filename}">{filename}</a> · {len(cards)} cards · {high} often asked'
-        summary = f"<strong>Open {html.escape(label)}</strong> · read a question, then reveal the answer"
-    blocks = [
-        f'<h2 id="{anchor}">{html.escape(label)}</h2>',
-        "",
-        meta,
-        "",
-        "<details>",
-        f"<summary>{summary}</summary>",
-        "",
-    ]
+        meta = f"{len(cards)} cards · {high} often asked · source [{filename}]({source})"
+    blocks = [f"# {label}", "", meta, ""]
     by_level: dict[str, list[dict]] = defaultdict(list)
     for card in cards:
         by_level[card["level"]].append(card)
@@ -251,31 +241,78 @@ def render_topic_deck(
         bucket = sorted(by_level.get(level, []), key=lambda card: (freq_key(card), card["title"]))
         if not bucket:
             continue
-        blocks.append(f"### {html.escape(label)} · {level}")
+        blocks.append(f"### {level}")
         blocks.append("")
         for card in bucket:
-            blocks.append(render_card(card, locale))
-    blocks.extend(["</details>", ""])
-    return "\n".join(blocks)
+            blocks.append(render_deck_card(card, locale))
+    return "\n".join(blocks).rstrip() + "\n"
 
 
-def render_high_deck(cards: list[dict], locale: str) -> str:
+def write_decks(cards: list[dict], ru_cards: dict[str, dict], root: Path) -> list[Path]:
+    written: list[Path] = []
+    for locale in ("en", "ru"):
+        dest = root / "docs" / locale
+        dest.mkdir(parents=True, exist_ok=True)
+        for old in dest.glob("*.md"):
+            old.unlink()
+        view = [localize_card(card, locale, ru_cards) for card in cards]
+        grouped: dict[str, list[dict]] = defaultdict(list)
+        for card in view:
+            grouped[card["file"]].append(card)
+        for filename, en_label, _anchor in TOPIC_ORDER:
+            label = topic_label(filename, locale)
+            path = dest / filename
+            path.write_text(render_deck(filename, label, grouped[filename], locale), encoding="utf-8")
+            written.append(path)
+    return written
+
+
+def render_starter(cards: list[dict], locale: str) -> str:
+    card = next((item for item in cards if item["slug"] == STARTER_SLUG), None)
+    if card is None:
+        return ""
+    title = html.escape(card["title"])
+    summary, body = card_reveal(card, locale)
+    deck = deck_href(card["file"], locale, card["slug"])
+    more = ru.FULL_CARD if locale == "ru" else "Open in the Swift deck"
+    heading = ru.STARTER_TITLE if locale == "ru" else "Try one card"
+    lead = ru.STARTER_LEAD if locale == "ru" else (
+        "Say the answer out loud, then reveal. About 60 seconds."
+    )
+    return "\n".join(
+        [
+            f"## {heading}",
+            "",
+            lead,
+            "",
+            f'<h2 id="{html.escape(card["slug"])}">{title}</h2>',
+            "",
+            f"{chips(card, locale)}<br>[{more}]({deck})",
+            "",
+            "<details>",
+            f"<summary><strong>{summary}</strong></summary>",
+            "",
+            body,
+            card_follow(card, locale),
+            "",
+            "</details>",
+            "",
+        ]
+    )
+
+
+def render_high_index(cards: list[dict], locale: str) -> str:
     grouped: dict[str, list[dict]] = defaultdict(list)
     for card in cards:
         if card["freq"] == "High":
             grouped[card["file"]].append(card)
     if locale == "ru":
-        blocks = [
-            f'<h2 id="start-here">{ru.HIGH_TITLE}</h2>',
-            "",
-            ru.HIGH_LEAD,
-            "",
-        ]
+        blocks = [f'<h2 id="start-here">{ru.HIGH_TITLE}</h2>', "", ru.HIGH_LEAD, ""]
     else:
         blocks = [
             '<h2 id="start-here">High frequency</h2>',
             "",
-            "The questions that show up across sources. Open a topic, say the answer, then reveal.",
+            "Titles only. Open a card, say the answer, then reveal.",
             "",
         ]
     for filename, _en_label, _anchor in TOPIC_ORDER:
@@ -287,30 +324,69 @@ def render_high_deck(cards: list[dict], locale: str) -> str:
             continue
         label = topic_label(filename, locale)
         suffix = f"{len(bucket)} {ru.OFTEN}" if locale == "ru" else f"{len(bucket)} often asked"
-        blocks.extend(
+        blocks.append(f"### {label} · {suffix}")
+        blocks.append("")
+        for card in bucket:
+            href = deck_href(filename, locale, card["slug"])
+            blocks.append(f"- [{card['title']}]({href}) · {card['level']}")
+        blocks.append("")
+    return "\n".join(blocks)
+
+
+def render_topic_index(cards: list[dict], locale: str) -> str:
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    for card in cards:
+        grouped[card["file"]].append(card)
+    title = ru.TOPICS_TITLE if locale == "ru" else "Topics"
+    blocks = [f"## {title}", ""]
+    for filename, _en_label, _anchor in TOPIC_ORDER:
+        bucket = grouped.get(filename, [])
+        high = sum(1 for card in bucket if card["freq"] == "High")
+        label = topic_label(filename, locale)
+        href = deck_href(filename, locale)
+        if locale == "ru":
+            blocks.append(f"- [{label}]({href}) — {len(bucket)} {ru.CARDS} · {high} {ru.OFTEN}")
+        else:
+            blocks.append(f"- [{label}]({href}) — {len(bucket)} cards · {high} often asked")
+    blocks.append("")
+    return "\n".join(blocks)
+
+
+def render_paths(locale: str) -> str:
+    if locale == "ru":
+        return "\n".join(
             [
-                "<details>",
-                f"<summary><strong>{html.escape(label)}</strong> · {suffix}</summary>",
+                f'<h2 id="study-paths">{ru.PATHS_TITLE}</h2>',
+                "",
+                ru.PATHS_LEAD,
+                "",
+                ru.PATHS_LIST,
                 "",
             ]
         )
-        for card in bucket:
-            blocks.append(render_card(card, locale, heading_id=False))
-        blocks.extend(["</details>", ""])
-    return "\n".join(blocks)
+    return """<h2 id="study-paths">Study paths</h2>
+
+Finite lists. Checkboxes live only here — not on the cards. About 20 minutes a session.
+
+- [Junior high-frequency](paths/junior-high-freq.md) — 6 sessions
+- [7-day mid](paths/7-day-mid.md) — 8–12 cards a day
+- [14-day senior](paths/14-day-senior.md) — plus system design and behavioral
+
+"""
 
 
 def jump_row(locale: str) -> str:
     links = " · ".join(
-        f'<a href="#{anchor}">{html.escape(topic_label(filename, locale))}</a>'
-        for filename, _label, anchor in TOPIC_ORDER
+        f'<a href="{deck_href(filename, locale)}">{html.escape(topic_label(filename, locale))}</a>'
+        for filename, _label, _anchor in TOPIC_ORDER
     )
     high = ru.NAV_HIGH if locale == "ru" else "High frequency"
+    paths = ru.NAV_PATHS if locale == "ru" else "Study paths"
     contrib = ru.NAV_CONTRIB
     return "\n".join(
         [
             "<p align=\"center\">",
-            f'  <a href="#start-here">{high}</a> · {links} · <a href="CONTRIBUTING.md">{contrib}</a>',
+            f'  <a href="#start-here">{high}</a> · <a href="#study-paths">{paths}</a> · {links} · <a href="CONTRIBUTING.md">{contrib}</a>',
             "</p>",
         ]
     )
@@ -322,18 +398,10 @@ def render(cards: list[dict], locale: str, ru_cards: dict[str, dict]) -> str:
     practice = sum(1 for card in view if card["kind"] == "Practice")
     spoken = total - practice
     high = sum(1 for card in view if card["freq"] == "High")
-    grouped: dict[str, list[dict]] = defaultdict(list)
-    for card in view:
-        grouped[card["file"]].append(card)
-
-    decks = [render_high_deck(view, locale)]
-    for filename, en_label, anchor in TOPIC_ORDER:
-        label = topic_label(filename, locale)
-        decks.append(render_topic_deck(filename, label, anchor, grouped[filename], locale))
 
     hero_alt = ru.HERO_ALT if locale == "ru" else (
-        "iOS Interview Questions: spoken-answer notes. A handwritten ARC card on paper, "
-        "with counts for cards, practice prompts, and topics."
+        "iOS Interview Questions: spoken-answer notes, with counts for cards, "
+        "practice prompts, and topics."
     )
     if locale == "ru":
         intro = ru.INTRO
@@ -359,21 +427,21 @@ def render(cards: list[dict], locale: str, ru_cards: dict[str, dict]) -> str:
         )
         lead = "Answers are rewritten, not copied. API names stay in Swift."
         how_title = "How to study"
-        how = """1. Start with **[High frequency](#start-here)** — open one topic, one question.
-2. Or jump a subject in the row above and open that deck.
-3. Inside a topic the cards sit by **Junior / Mid / Senior**.
+        how = """1. Try **[one card](#identity-vs-equality)** below — say the answer, then reveal.
+2. Follow a **[study path](#study-paths)** (~20 min). Or start with [High frequency](#start-here).
+3. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**.
 4. Practice cards are prompts only. Talk them through. There is no pasted solution."""
         contrib_title = "Contributing"
         contrib = (
             "New questions go through the ritual in [CONTRIBUTING.md](CONTRIBUTING.md): "
             "one source at a time, dedup by meaning, rewrite the answer, then regenerate "
-            "this page with `python3 scripts/generate_readme.py`."
+            "with `python3 scripts/generate_readme.py`."
         )
         inbox = "The local source log lives in `inbox/` and stays out of git."
         not_title = "What this is not"
         not_this = """- Not a dump of someone else's repo, course, or paid bank.
 - Not tagged by company. A Sber or Flipkart recap can enrich a card; the card itself stays generic.
-- Not a checklist with progress boxes.
+- Not a checklist with progress boxes on the cards. Track a path or a local `STUDY.local.md`.
 - Practice prompts do not include third-party solutions."""
 
     return f"""# iOS Interview Questions
@@ -381,7 +449,7 @@ def render(cards: list[dict], locale: str, ru_cards: dict[str, dict]) -> str:
 {lang_switch(locale)}
 
 <p align="center">
-  <img src="./assets/readme/hero.png" width="100%" alt="{hero_alt}">
+  <img src="./assets/readme/hero.svg" width="100%" alt="{hero_alt}">
 </p>
 
 {jump_row(locale)}
@@ -396,7 +464,10 @@ def render(cards: list[dict], locale: str, ru_cards: dict[str, dict]) -> str:
 
 {how}
 
-""" + "\n".join(decks) + f"""
+{render_starter(view, locale)}
+{render_paths(locale)}
+{render_high_index(view, locale)}
+{render_topic_index(view, locale)}
 ## {contrib_title}
 
 {contrib}
@@ -432,18 +503,66 @@ def sync_hero_counts(total: int, practice: int, topic_count: int) -> None:
         svg_path.write_text(text, encoding="utf-8")
 
 
-def main() -> None:
+def generated_texts(cards: list[dict], ru_cards: dict[str, dict]) -> dict[str, str]:
+    texts = {
+        "README.md": render(cards, "en", ru_cards),
+        "README.ru.md": render(cards, "ru", ru_cards),
+    }
+    for locale in ("en", "ru"):
+        view = [localize_card(card, locale, ru_cards) for card in cards]
+        grouped: dict[str, list[dict]] = defaultdict(list)
+        for card in view:
+            grouped[card["file"]].append(card)
+        for filename, en_label, _anchor in TOPIC_ORDER:
+            label = topic_label(filename, locale)
+            texts[f"docs/{locale}/{filename}"] = render_deck(
+                filename, label, grouped[filename], locale
+            )
+    return texts
+
+
+def check_generated(root: Path) -> list[str]:
+    cards = parse_cards()
+    ru_cards = load_ru_cards()
+    errors: list[str] = []
+    for rel, expected in generated_texts(cards, ru_cards).items():
+        path = root / rel
+        if not path.is_file():
+            errors.append(f"{rel} is missing; run python3 scripts/generate_readme.py")
+            continue
+        if path.read_text(encoding="utf-8") != expected:
+            errors.append(f"{rel} is stale; run python3 scripts/generate_readme.py")
+    return errors
+
+
+def write_outputs(root: Path | None = None) -> None:
+    dest = root or ROOT
     cards = parse_cards()
     ru_cards = load_ru_cards()
     practice = sum(1 for card in cards if card["kind"] == "Practice")
-    README_EN.write_text(render(cards, "en", ru_cards), encoding="utf-8")
-    README_RU.write_text(render(cards, "ru", ru_cards), encoding="utf-8")
-    sync_hero_counts(len(cards), practice, len(TOPIC_ORDER))
+    (dest / "README.md").write_text(render(cards, "en", ru_cards), encoding="utf-8")
+    (dest / "README.ru.md").write_text(render(cards, "ru", ru_cards), encoding="utf-8")
+    written = write_decks(cards, ru_cards, dest)
+    if dest == ROOT:
+        sync_hero_counts(len(cards), practice, len(TOPIC_ORDER))
     missing = [card["slug"] for card in cards if card["slug"] not in ru_cards]
     print(
-        f"README.md + README.ru.md ← {len(cards)} cards "
+        f"README.md + README.ru.md + {len(written)} decks ← {len(cards)} cards "
         f"({practice} practice), ru overlays {len(ru_cards)}, missing {len(missing)}"
     )
+
+
+def main() -> None:
+    if len(sys.argv) > 1 and sys.argv[1] in {"--check", "check"}:
+        errors = check_generated(ROOT)
+        if errors:
+            print("generate --check failed:", file=sys.stderr)
+            for err in errors:
+                print(f"  {err}", file=sys.stderr)
+            raise SystemExit(1)
+        print("generate --check ok")
+        return
+    write_outputs(ROOT)
 
 
 if __name__ == "__main__":
