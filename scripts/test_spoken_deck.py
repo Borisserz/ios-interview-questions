@@ -46,6 +46,8 @@ class StorefrontTests(unittest.TestCase):
         self.assertLess(self.ru_page.find(site), self.ru_page.find(f"## {gen.ru.HOW_TITLE}"))
         self.assertTrue((ROOT / "assets/readme/site-banner.svg").is_file())
         self.assertTrue((ROOT / "assets/readme/site-banner.ru.svg").is_file())
+        self.assertIn(f"<code>{site}</code>", self.en)
+        self.assertIn(f"<code>{site}</code>", self.ru_page)
 
     def test_storefront_links_to_locale_decks(self) -> None:
         self.assertIn("docs/en/swift.md", self.en)
@@ -173,6 +175,8 @@ class SiteAppTests(unittest.TestCase):
         self.assertIn("topic-block", js)
         self.assertIn("matchesTopic", js)
         self.assertIn("card.frequent", js)
+        self.assertIn("margin-inline: auto", (ROOT / "docs" / "app.css").read_text(encoding="utf-8"))
+        self.assertIn("toolbar-controls", js)
         self.assertTrue((ROOT / "docs" / ".nojekyll").exists())
 
 

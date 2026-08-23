@@ -201,26 +201,28 @@ function renderHome(filters) {
     <form class="filters" id="filters">
       <div class="toolbar">
         <p class="lede">Pick a list. Speak the answer. Then reveal.</p>
-        <div class="field">
-          <span class="field-label">Level</span>
-          <div class="choice-row">
-            ${choice("level", "all", "All")}
-            ${choice("level", "Junior", "Junior")}
-            ${choice("level", "Mid", "Mid")}
-            ${choice("level", "Senior", "Senior")}
+        <div class="toolbar-controls">
+          <div class="field">
+            <span class="field-label">Level</span>
+            <div class="choice-row">
+              ${choice("level", "all", "All")}
+              ${choice("level", "Junior", "Junior")}
+              ${choice("level", "Mid", "Mid")}
+              ${choice("level", "Senior", "Senior")}
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <span class="field-label">Order</span>
-          <div class="choice-row">
-            ${choice("order", "sequential", "In order")}
-            ${choice("order", "level", "By level")}
-            ${choice("order", "random", "Random")}
+          <div class="field">
+            <span class="field-label">Order</span>
+            <div class="choice-row">
+              ${choice("order", "sequential", "In order")}
+              ${choice("order", "level", "By level")}
+              ${choice("order", "random", "Random")}
+            </div>
           </div>
-        </div>
-        <div class="start-bar">
-          <p class="start-count">${selected.length} cards</p>
-          <button class="btn" type="submit" ${selected.length ? "" : "disabled"}>Begin</button>
+          <div class="start-bar">
+            <p class="start-count">${selected.length} cards</p>
+            <button class="btn" type="submit" ${selected.length ? "" : "disabled"}>Begin</button>
+          </div>
         </div>
       </div>
       <div class="field">

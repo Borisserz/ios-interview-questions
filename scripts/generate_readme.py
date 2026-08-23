@@ -458,21 +458,33 @@ def render_site_cta(locale: str) -> str:
         title = ru.SITE_TITLE
         alt = ru.SITE_ALT
         lead = ru.SITE_LEAD
+        open_label = ru.SITE_OPEN
         banner = "./assets/readme/site-banner.ru.svg"
+        badge = "https://img.shields.io/badge/Открыть_сайт-F05A28?style=for-the-badge&labelColor=12141A"
     else:
         title = "Study site"
         alt = "Open the English study site: pick a topic, speak the answer, then reveal."
         lead = "English card deck in the browser. Pick a topic and level. Speak. Reveal."
+        open_label = "Open the study site"
         banner = "./assets/readme/site-banner.svg"
+        badge = "https://img.shields.io/badge/Open_the_study_site-F05A28?style=for-the-badge&labelColor=12141A"
     return "\n".join(
         [
             f'<h2 id="study-site">{title}</h2>',
             "",
             '<p align="center">',
             f'  <a href="{SITE_URL}">',
+            f'    <img src="{badge}" alt="{html.escape(open_label)}">',
+            "  </a>",
+            "</p>",
+            "",
+            '<p align="center">',
+            f'  <a href="{SITE_URL}">',
             f'    <img src="{banner}" width="100%" alt="{html.escape(alt)}">',
             "  </a>",
             "</p>",
+            "",
+            f'<p align="center"><code>{SITE_URL}</code></p>',
             "",
             lead,
             "",

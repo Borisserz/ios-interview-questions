@@ -13,9 +13,17 @@
 
 <p align="center">
   <a href="https://borisserz.github.io/ios-interview-questions/">
+    <img src="https://img.shields.io/badge/Открыть_сайт-F05A28?style=for-the-badge&labelColor=12141A" alt="Открыть сайт">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://borisserz.github.io/ios-interview-questions/">
     <img src="./assets/readme/site-banner.ru.svg" width="100%" alt="Открой английский сайт: выбери тему, скажи ответ, потом раскрой.">
   </a>
 </p>
+
+<p align="center"><code>https://borisserz.github.io/ios-interview-questions/</code></p>
 
 Колода в браузере, пока на английском. Тема и уровень. Вслух. Reveal.
 

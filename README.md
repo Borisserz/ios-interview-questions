@@ -13,9 +13,17 @@
 
 <p align="center">
   <a href="https://borisserz.github.io/ios-interview-questions/">
+    <img src="https://img.shields.io/badge/Open_the_study_site-F05A28?style=for-the-badge&labelColor=12141A" alt="Open the study site">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://borisserz.github.io/ios-interview-questions/">
     <img src="./assets/readme/site-banner.svg" width="100%" alt="Open the English study site: pick a topic, speak the answer, then reveal.">
   </a>
 </p>
+
+<p align="center"><code>https://borisserz.github.io/ios-interview-questions/</code></p>
 
 English card deck in the browser. Pick a topic and level. Speak. Reveal.
 

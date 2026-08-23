@@ -47,5 +47,6 @@
   --rule: 1px solid var(--color-rule);
   --radius: 2px;
   --measure: 65ch;
+  --page: 64rem;
   --thumb: 2.75rem;
 }

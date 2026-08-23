@@ -1,4 +1,4 @@
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 */
 
 html,
 body {
@@ -18,14 +18,21 @@ html {
 body {
   margin: 0;
   min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: var(--text-md);
   line-height: 1.6;
   font-style: normal;
+}
+
+.page {
+  width: min(var(--page), 100%);
+  min-height: 100dvh;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 h1,
@@ -61,16 +68,15 @@ a:hover {
 }
 
 .masthead {
-  padding: var(--space-lg) var(--space-md) var(--space-md);
+  padding: var(--space-xl) var(--space-md) var(--space-lg);
   border-bottom: double 3px var(--color-ink);
 }
 
 .masthead-inner {
-  max-width: 72rem;
-  margin: 0;
   display: grid;
   gap: var(--space-xs);
-  justify-items: start;
+  justify-items: center;
+  text-align: center;
 }
 
 .kicker {
@@ -100,20 +106,19 @@ a:hover {
 
 #app {
   flex: 1;
-  width: min(72rem, 100%);
+  width: 100%;
   padding: 0 var(--space-md) var(--space-2xl);
   min-width: 0;
 }
 
 .lede {
-  max-width: var(--measure);
   margin: 0;
+  text-align: center;
 }
 
 .filters {
   display: grid;
   gap: var(--space-lg);
-  max-width: 40rem;
 }
 
 .toolbar {
@@ -125,6 +130,11 @@ a:hover {
   padding: var(--space-md) 0;
   background: var(--color-paper);
   border-bottom: var(--rule);
+}
+
+.toolbar-controls {
+  display: grid;
+  gap: var(--space-md);
 }
 
 .field {
@@ -260,6 +270,7 @@ a:hover {
   flex-wrap: wrap;
   gap: var(--space-sm) var(--space-md);
   align-items: center;
+  justify-content: center;
 }
 
 .start-count {
@@ -316,7 +327,8 @@ a:hover {
 .sheet {
   display: grid;
   gap: var(--space-lg);
-  max-width: var(--measure);
+  width: min(var(--measure), 100%);
+  margin-inline: auto;
   padding-top: var(--space-md);
 }
 
@@ -426,7 +438,8 @@ a:hover {
 .done {
   display: grid;
   gap: var(--space-lg);
-  max-width: var(--measure);
+  width: min(var(--measure), 100%);
+  margin-inline: auto;
 }
 
 .done h2 {
@@ -443,6 +456,8 @@ a:hover {
   flex-wrap: wrap;
   gap: var(--space-sm) var(--space-lg);
   align-items: baseline;
+  justify-content: center;
+  text-align: center;
   font-size: var(--text-sm);
 }
 
@@ -455,8 +470,30 @@ a:hover {
   color: var(--color-accent);
 }
 
+@media (min-width: 40rem) {
+  .toolbar-controls {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .start-bar {
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 60rem) {
+  .topic-index {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-xl);
+  }
+
+  .topic-block[open] {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 768px) {
-  .filters,
+  .toolbar-controls,
   .start-bar {
     grid-template-columns: minmax(0, 1fr);
   }
