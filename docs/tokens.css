@@ -1,0 +1,51 @@
+/* Hallmark · genre: editorial · macrostructure: Index-First · theme: Newsprint
+ * tone: editorial · anchor hue: 80 · enrichment: none · nav: N6 · footer: Ft1
+ * audience: iOS interview candidates · use: pick a deck then speak / reveal / next
+ */
+
+:root {
+  --color-paper: oklch(96.5% 0.014 80);
+  --color-paper-2: oklch(93.2% 0.016 80);
+  --color-paper-3: oklch(89.4% 0.018 78);
+  --color-rule: oklch(78% 0.012 80);
+  --color-neutral: oklch(50% 0.012 75);
+  --color-muted: oklch(36% 0.014 70);
+  --color-ink: oklch(21% 0.018 55);
+  --color-accent: oklch(46% 0.14 38);
+  --color-focus: oklch(48% 0.16 42);
+  --color-mark: oklch(88% 0.055 80);
+
+  --font-display: "Newsreader", "Source Serif 4", ui-serif, "Iowan Old Style", Georgia, serif;
+  --font-body: "Source Serif 4", "Newsreader", ui-serif, "Iowan Old Style", Georgia, serif;
+  --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
+
+  --text-display: 2.75rem;
+  --text-display-s: 2rem;
+  --text-xl: 1.5rem;
+  --text-lg: 1.25rem;
+  --text-md: 1.0625rem;
+  --text-sm: 0.9375rem;
+  --text-xs: 0.8125rem;
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --rule: 1px solid var(--color-rule);
+  --radius: 2px;
+  --measure: 65ch;
+  --thumb: 2.75rem;
+}

@@ -9,8 +9,19 @@
   <img src="./assets/readme/hero.svg" width="100%" alt="iOS Interview Questions: устные ответы. Счётчики карточек, practice и тем.">
 </p>
 
+<h2 id="study-site">Сайт</h2>
+
 <p align="center">
-  <a href="#start-here">Часто спрашивают</a> · <a href="#study-paths">Маршруты</a> · <a href="docs/ru/swift.md">Swift</a> · <a href="docs/ru/memory.md">Память</a> · <a href="docs/ru/concurrency.md">Concurrency</a> · <a href="docs/ru/architecture.md">Архитектура</a> · <a href="docs/ru/uikit.md">UIKit</a> · <a href="docs/ru/swiftui.md">SwiftUI</a> · <a href="docs/ru/combine.md">Combine</a> · <a href="docs/ru/networking.md">Сеть</a> · <a href="docs/ru/persistence.md">Хранение</a> · <a href="docs/ru/performance.md">Performance</a> · <a href="docs/ru/security.md">Безопасность</a> · <a href="docs/ru/accessibility.md">Accessibility</a> · <a href="docs/ru/frameworks.md">Фреймворки</a> · <a href="docs/ru/objc-runtime.md">Objective-C runtime</a> · <a href="docs/ru/system-design.md">System design</a> · <a href="docs/ru/algorithms.md">Алгоритмы</a> · <a href="docs/ru/behavioral.md">Поведение и процесс</a> · <a href="CONTRIBUTING.md">Contributing</a>
+  <a href="https://borisserz.github.io/ios-interview-questions/">
+    <img src="./assets/readme/site-banner.ru.svg" width="100%" alt="Открой английский сайт: выбери тему, скажи ответ, потом раскрой.">
+  </a>
+</p>
+
+Колода в браузере, пока на английском. Тема и уровень. Вслух. Reveal.
+
+
+<p align="center">
+  <a href="https://borisserz.github.io/ios-interview-questions/">Сайт</a> · <a href="#start-here">Часто спрашивают</a> · <a href="#study-paths">Маршруты</a> · <a href="docs/ru/swift.md">Swift</a> · <a href="docs/ru/memory.md">Память</a> · <a href="docs/ru/concurrency.md">Concurrency</a> · <a href="docs/ru/architecture.md">Архитектура</a> · <a href="docs/ru/uikit.md">UIKit</a> · <a href="docs/ru/swiftui.md">SwiftUI</a> · <a href="docs/ru/combine.md">Combine</a> · <a href="docs/ru/networking.md">Сеть</a> · <a href="docs/ru/persistence.md">Хранение</a> · <a href="docs/ru/performance.md">Performance</a> · <a href="docs/ru/security.md">Безопасность</a> · <a href="docs/ru/accessibility.md">Accessibility</a> · <a href="docs/ru/frameworks.md">Фреймворки</a> · <a href="docs/ru/objc-runtime.md">Objective-C runtime</a> · <a href="docs/ru/system-design.md">System design</a> · <a href="docs/ru/algorithms.md">Алгоритмы</a> · <a href="docs/ru/behavioral.md">Поведение и процесс</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 Конспекты устных ответов на iOS-собеседования. Открой тему, прочитай вопрос, нажми **Показать ответ** — там текст, как его говорят, и Swift.
@@ -21,10 +32,9 @@
 
 ## Как учить
 
-1. Попробуй **[одну карточку](#identity-vs-equality)** ниже — скажи ответ, потом раскрой.
-2. Возьми **[маршрут](#study-paths)** (~20 мин). Или начни с [Часто спрашивают](#start-here).
-3. Колоды в `docs/ru/` (английские близнецы в `docs/en/`). Карточки лежат по **Junior / Mid / Senior**.
-4. Practice — только формулировка. Проговори вслух. Готового решения в карточке нет.
+1. Попробуй **[одну карточку](#identity-vs-equality)** ниже или **[маршрут](#study-paths)** (~20 мин).
+2. Колоды в `docs/ru/` (английские близнецы в `docs/en/`). Карточки лежат по **Junior / Mid / Senior**.
+3. Practice — только формулировка. Проговори вслух. Готового решения в карточке нет.
 
 ## Одна карточка
 

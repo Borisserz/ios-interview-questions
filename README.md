@@ -9,8 +9,19 @@
   <img src="./assets/readme/hero.svg" width="100%" alt="iOS Interview Questions: spoken-answer notes, with counts for cards, practice prompts, and topics.">
 </p>
 
+<h2 id="study-site">Study site</h2>
+
 <p align="center">
-  <a href="#start-here">High frequency</a> · <a href="#study-paths">Study paths</a> · <a href="docs/en/swift.md">Swift</a> · <a href="docs/en/memory.md">Memory</a> · <a href="docs/en/concurrency.md">Concurrency</a> · <a href="docs/en/architecture.md">Architecture</a> · <a href="docs/en/uikit.md">UIKit</a> · <a href="docs/en/swiftui.md">SwiftUI</a> · <a href="docs/en/combine.md">Combine</a> · <a href="docs/en/networking.md">Networking</a> · <a href="docs/en/persistence.md">Persistence</a> · <a href="docs/en/performance.md">Performance</a> · <a href="docs/en/security.md">Security</a> · <a href="docs/en/accessibility.md">Accessibility</a> · <a href="docs/en/frameworks.md">Frameworks</a> · <a href="docs/en/objc-runtime.md">Objective-C runtime</a> · <a href="docs/en/system-design.md">System design</a> · <a href="docs/en/algorithms.md">Algorithms</a> · <a href="docs/en/behavioral.md">Behavioral / process</a> · <a href="CONTRIBUTING.md">Contributing</a>
+  <a href="https://borisserz.github.io/ios-interview-questions/">
+    <img src="./assets/readme/site-banner.svg" width="100%" alt="Open the English study site: pick a topic, speak the answer, then reveal.">
+  </a>
+</p>
+
+English card deck in the browser. Pick a topic and level. Speak. Reveal.
+
+
+<p align="center">
+  <a href="https://borisserz.github.io/ios-interview-questions/">Study site</a> · <a href="#start-here">High frequency</a> · <a href="#study-paths">Study paths</a> · <a href="docs/en/swift.md">Swift</a> · <a href="docs/en/memory.md">Memory</a> · <a href="docs/en/concurrency.md">Concurrency</a> · <a href="docs/en/architecture.md">Architecture</a> · <a href="docs/en/uikit.md">UIKit</a> · <a href="docs/en/swiftui.md">SwiftUI</a> · <a href="docs/en/combine.md">Combine</a> · <a href="docs/en/networking.md">Networking</a> · <a href="docs/en/persistence.md">Persistence</a> · <a href="docs/en/performance.md">Performance</a> · <a href="docs/en/security.md">Security</a> · <a href="docs/en/accessibility.md">Accessibility</a> · <a href="docs/en/frameworks.md">Frameworks</a> · <a href="docs/en/objc-runtime.md">Objective-C runtime</a> · <a href="docs/en/system-design.md">System design</a> · <a href="docs/en/algorithms.md">Algorithms</a> · <a href="docs/en/behavioral.md">Behavioral / process</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 Spoken-answer notes for iOS interviews. Open a topic, read the question, then press **Show answer** for the spoken version and the Swift.
@@ -21,10 +32,9 @@ Answers are rewritten, not copied. API names stay in Swift.
 
 ## How to study
 
-1. Try **[one card](#identity-vs-equality)** below — say the answer, then reveal.
-2. Follow a **[study path](#study-paths)** (~20 min). Or start with [High frequency](#start-here).
-3. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**.
-4. Practice cards are prompts only. Talk them through. There is no pasted solution.
+1. Try **[one card](#identity-vs-equality)** below, or follow a **[study path](#study-paths)** (~20 min).
+2. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**.
+3. Practice cards are prompts only. Talk them through. There is no pasted solution.
 
 ## Try one card
 

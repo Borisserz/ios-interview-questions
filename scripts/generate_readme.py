@@ -24,6 +24,66 @@ META = re.compile(r"^- (Level|Frequency|Kind): (.+)$")
 SECTION = re.compile(r"^### (Answer|Example|Follow-ups|Prompt)\s*$")
 LEVELS = ("Junior", "Mid", "Senior")
 STARTER_SLUG = "identity-vs-equality"
+SITE_URL = "https://borisserz.github.io/ios-interview-questions/"
+
+# Overlap of 2025–2026 interview lists (gitGood top 50, LastRound, codinginterview,
+# golinuxcloud). Not every Frequency: High card — that set is ~249.
+FREQUENT_SLUGS = (
+    "classes-vs-structs",
+    "value-vs-reference",
+    "copy-on-write",
+    "optionals",
+    "if-let-vs-guard-let",
+    "closures",
+    "escaping-closures",
+    "protocols",
+    "generics",
+    "some-vs-any",
+    "inout",
+    "identity-vs-equality",
+    "defer",
+    "explain-arc",
+    "arc-vs-gc",
+    "retain-cycle",
+    "weak-vs-unowned",
+    "memory-leak",
+    "gcd",
+    "gcd-vs-async-await",
+    "main-actor",
+    "sendable",
+    "actor-vs-serial-queue",
+    "task-detached-taskgroup",
+    "task-cancellation",
+    "checked-continuation",
+    "swift-6-concurrency",
+    "thread-safe-state",
+    "state",
+    "binding",
+    "stateobject-vs-observedobject",
+    "observableobject-vs-observable",
+    "swiftui-property-wrappers",
+    "swiftui-rerender",
+    "swiftui-vs-uikit",
+    "mvvm",
+    "delegates",
+    "dependency-injection",
+    "reuse-identifiers",
+    "prepare-for-reuse",
+    "viewcontroller-lifecycle",
+    "auto-layout-anchors",
+    "frame-vs-bounds",
+    "urlsession",
+    "network-request",
+    "codable",
+    "persist-options",
+    "keychain",
+    "instruments",
+    "news-feed",
+    "chat-app",
+    "image-upload",
+    "push-system",
+)
+FREQUENT_RANK = {slug: index for index, slug in enumerate(FREQUENT_SLUGS)}
 
 TOPIC_ORDER = [
     ("swift.md", "Swift", "swift"),
@@ -380,14 +440,42 @@ def jump_row(locale: str) -> str:
         f'<a href="{deck_href(filename, locale)}">{html.escape(topic_label(filename, locale))}</a>'
         for filename, _label, _anchor in TOPIC_ORDER
     )
+    site = ru.NAV_SITE if locale == "ru" else "Study site"
     high = ru.NAV_HIGH if locale == "ru" else "High frequency"
     paths = ru.NAV_PATHS if locale == "ru" else "Study paths"
     contrib = ru.NAV_CONTRIB
     return "\n".join(
         [
             "<p align=\"center\">",
-            f'  <a href="#start-here">{high}</a> · <a href="#study-paths">{paths}</a> · {links} · <a href="CONTRIBUTING.md">{contrib}</a>',
+            f'  <a href="{SITE_URL}">{html.escape(site)}</a> · <a href="#start-here">{high}</a> · <a href="#study-paths">{paths}</a> · {links} · <a href="CONTRIBUTING.md">{contrib}</a>',
             "</p>",
+        ]
+    )
+
+
+def render_site_cta(locale: str) -> str:
+    if locale == "ru":
+        title = ru.SITE_TITLE
+        alt = ru.SITE_ALT
+        lead = ru.SITE_LEAD
+        banner = "./assets/readme/site-banner.ru.svg"
+    else:
+        title = "Study site"
+        alt = "Open the English study site: pick a topic, speak the answer, then reveal."
+        lead = "English card deck in the browser. Pick a topic and level. Speak. Reveal."
+        banner = "./assets/readme/site-banner.svg"
+    return "\n".join(
+        [
+            f'<h2 id="study-site">{title}</h2>',
+            "",
+            '<p align="center">',
+            f'  <a href="{SITE_URL}">',
+            f'    <img src="{banner}" width="100%" alt="{html.escape(alt)}">',
+            "  </a>",
+            "</p>",
+            "",
+            lead,
+            "",
         ]
     )
 
@@ -427,10 +515,9 @@ def render(cards: list[dict], locale: str, ru_cards: dict[str, dict]) -> str:
         )
         lead = "Answers are rewritten, not copied. API names stay in Swift."
         how_title = "How to study"
-        how = """1. Try **[one card](#identity-vs-equality)** below — say the answer, then reveal.
-2. Follow a **[study path](#study-paths)** (~20 min). Or start with [High frequency](#start-here).
-3. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**.
-4. Practice cards are prompts only. Talk them through. There is no pasted solution."""
+        how = """1. Try **[one card](#identity-vs-equality)** below, or follow a **[study path](#study-paths)** (~20 min).
+2. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**.
+3. Practice cards are prompts only. Talk them through. There is no pasted solution."""
         contrib_title = "Contributing"
         contrib = (
             "New questions go through the ritual in [CONTRIBUTING.md](CONTRIBUTING.md): "
@@ -451,6 +538,8 @@ def render(cards: list[dict], locale: str, ru_cards: dict[str, dict]) -> str:
 <p align="center">
   <img src="./assets/readme/hero.svg" width="100%" alt="{hero_alt}">
 </p>
+
+{render_site_cta(locale)}
 
 {jump_row(locale)}
 
@@ -503,10 +592,52 @@ def sync_hero_counts(total: int, practice: int, topic_count: int) -> None:
         svg_path.write_text(text, encoding="utf-8")
 
 
+def site_card(card: dict) -> dict:
+    topic = card["file"].removesuffix(".md")
+    topic_id = topic
+    for filename, label, anchor in TOPIC_ORDER:
+        if filename == card["file"]:
+            topic = label
+            topic_id = anchor
+            break
+    slug = card["slug"]
+    return {
+        "slug": slug,
+        "title": card["title"],
+        "file": card["file"],
+        "topic": topic,
+        "topicId": topic_id,
+        "level": card["level"],
+        "freq": card["freq"],
+        "kind": card["kind"],
+        "frequent": slug in FREQUENT_RANK,
+        "frequentRank": FREQUENT_RANK.get(slug),
+        "answer": card["answer"],
+        "example": card["example"],
+        "follow-ups": card["follow-ups"],
+        "prompt": card["prompt"],
+    }
+
+
+def render_site_cards(cards: list[dict]) -> str:
+    payload = {
+        "topics": [
+            {"id": "frequent", "file": "", "label": "Most frequent"},
+        ]
+        + [
+            {"id": anchor, "file": filename, "label": label}
+            for filename, label, anchor in TOPIC_ORDER
+        ],
+        "cards": [site_card(card) for card in cards],
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+
+
 def generated_texts(cards: list[dict], ru_cards: dict[str, dict]) -> dict[str, str]:
     texts = {
         "README.md": render(cards, "en", ru_cards),
         "README.ru.md": render(cards, "ru", ru_cards),
+        "docs/data/cards.json": render_site_cards(cards),
     }
     for locale in ("en", "ru"):
         view = [localize_card(card, locale, ru_cards) for card in cards]
@@ -543,11 +674,14 @@ def write_outputs(root: Path | None = None) -> None:
     (dest / "README.md").write_text(render(cards, "en", ru_cards), encoding="utf-8")
     (dest / "README.ru.md").write_text(render(cards, "ru", ru_cards), encoding="utf-8")
     written = write_decks(cards, ru_cards, dest)
+    data_dir = dest / "docs" / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "cards.json").write_text(render_site_cards(cards), encoding="utf-8")
     if dest == ROOT:
         sync_hero_counts(len(cards), practice, len(TOPIC_ORDER))
     missing = [card["slug"] for card in cards if card["slug"] not in ru_cards]
     print(
-        f"README.md + README.ru.md + {len(written)} decks ← {len(cards)} cards "
+        f"README.md + README.ru.md + {len(written)} decks + cards.json ← {len(cards)} cards "
         f"({practice} practice), ru overlays {len(ru_cards)}, missing {len(missing)}"
     )
 

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 import unittest
@@ -32,6 +33,19 @@ class StorefrontTests(unittest.TestCase):
     def test_storefront_under_80kb(self) -> None:
         self.assertLess(len(self.en.encode()), 80_000)
         self.assertLess(len(self.ru_page.encode()), 80_000)
+
+    def test_storefront_features_study_site(self) -> None:
+        site = "https://borisserz.github.io/ios-interview-questions/"
+        self.assertIn(site, self.en)
+        self.assertIn(site, self.ru_page)
+        self.assertIn("assets/readme/site-banner.svg", self.en)
+        self.assertIn("assets/readme/site-banner.ru.svg", self.ru_page)
+        self.assertIn('id="study-site"', self.en)
+        self.assertIn('id="study-site"', self.ru_page)
+        self.assertLess(self.en.find(site), self.en.find("## How to study"))
+        self.assertLess(self.ru_page.find(site), self.ru_page.find(f"## {gen.ru.HOW_TITLE}"))
+        self.assertTrue((ROOT / "assets/readme/site-banner.svg").is_file())
+        self.assertTrue((ROOT / "assets/readme/site-banner.ru.svg").is_file())
 
     def test_storefront_links_to_locale_decks(self) -> None:
         self.assertIn("docs/en/swift.md", self.en)
@@ -147,6 +161,66 @@ class WriteDecksTests(unittest.TestCase):
             self.assertIn("<details>", en_text)
             self.assertIn("<details>", ru_text)
             self.assertGreaterEqual(len(written), 2 * len(gen.TOPIC_ORDER))
+
+
+class SiteAppTests(unittest.TestCase):
+    def test_pages_shell_points_at_generated_json(self) -> None:
+        html = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        js = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("./data/cards.json", js)
+        self.assertIn("./app.js", html)
+        self.assertIn('class="back"', js)
+        self.assertIn("topic-block", js)
+        self.assertIn("matchesTopic", js)
+        self.assertIn("card.frequent", js)
+        self.assertTrue((ROOT / "docs" / ".nojekyll").exists())
+
+
+class SiteCardsTests(unittest.TestCase):
+    def test_frequent_slugs_exist_and_are_flagged(self) -> None:
+        cards = gen.parse_cards()
+        slugs = {card["slug"] for card in cards}
+        missing = sorted(set(gen.FREQUENT_SLUGS) - slugs)
+        self.assertEqual(missing, [])
+        payload = json.loads(gen.render_site_cards(cards))
+        self.assertEqual(payload["topics"][0]["id"], "frequent")
+        flagged = {card["slug"] for card in payload["cards"] if card.get("frequent")}
+        self.assertEqual(flagged, set(gen.FREQUENT_SLUGS))
+        self.assertIn(STARTER, flagged)
+
+    def test_site_cards_json_has_starter_and_all_cards(self) -> None:
+        cards = gen.parse_cards()
+        payload = json.loads(gen.render_site_cards(cards))
+        self.assertEqual(len(payload["cards"]), len(cards))
+        by_slug = {card["slug"]: card for card in payload["cards"]}
+        self.assertIn(STARTER, by_slug)
+        starter = by_slug[STARTER]
+        self.assertEqual(starter["topicId"], "swift")
+        self.assertEqual(starter["topic"], "Swift")
+        self.assertIn("==", starter["title"])
+        self.assertTrue(starter["answer"])
+        self.assertIn("level", starter)
+        self.assertIn("kind", starter)
+
+    def test_generated_texts_includes_cards_json(self) -> None:
+        cards = gen.parse_cards()
+        ru = gen.load_ru_cards()
+        texts = gen.generated_texts(cards, ru)
+        self.assertIn("docs/data/cards.json", texts)
+        payload = json.loads(texts["docs/data/cards.json"])
+        self.assertEqual(len(payload["cards"]), 458)
+
+    def test_write_decks_does_not_delete_site_data(self) -> None:
+        cards = gen.parse_cards()
+        ru = gen.load_ru_cards()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data = root / "docs" / "data"
+            data.mkdir(parents=True)
+            keep = data / "cards.json"
+            keep.write_text("keep-me", encoding="utf-8")
+            gen.write_decks(cards, ru, root)
+            self.assertEqual(keep.read_text(encoding="utf-8"), "keep-me")
 
 
 if __name__ == "__main__":
