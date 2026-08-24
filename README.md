@@ -29,7 +29,7 @@ English card deck in the browser. Pick a topic and level. Speak. Reveal.
 
 
 <p align="center">
-  <a href="https://borisserz.github.io/ios-interview-questions/">Study site</a> · <a href="#start-here">High frequency</a> · <a href="#study-paths">Study paths</a> · <a href="docs/en/swift.md">Swift</a> · <a href="docs/en/memory.md">Memory</a> · <a href="docs/en/concurrency.md">Concurrency</a> · <a href="docs/en/architecture.md">Architecture</a> · <a href="docs/en/uikit.md">UIKit</a> · <a href="docs/en/swiftui.md">SwiftUI</a> · <a href="docs/en/combine.md">Combine</a> · <a href="docs/en/networking.md">Networking</a> · <a href="docs/en/persistence.md">Persistence</a> · <a href="docs/en/performance.md">Performance</a> · <a href="docs/en/security.md">Security</a> · <a href="docs/en/accessibility.md">Accessibility</a> · <a href="docs/en/frameworks.md">Frameworks</a> · <a href="docs/en/objc-runtime.md">Objective-C runtime</a> · <a href="docs/en/system-design.md">System design</a> · <a href="docs/en/algorithms.md">Algorithms</a> · <a href="docs/en/behavioral.md">Behavioral / process</a> · <a href="CONTRIBUTING.md">Contributing</a>
+  <a href="https://borisserz.github.io/ios-interview-questions/">Study site</a> · <a href="https://borisserz.github.io/ios-interview-questions/#/?topic=practice">Practice</a> · <a href="#start-here">High frequency</a> · <a href="#study-paths">Study paths</a> · <a href="docs/en/swift.md">Swift</a> · <a href="docs/en/memory.md">Memory</a> · <a href="docs/en/concurrency.md">Concurrency</a> · <a href="docs/en/architecture.md">Architecture</a> · <a href="docs/en/uikit.md">UIKit</a> · <a href="docs/en/swiftui.md">SwiftUI</a> · <a href="docs/en/combine.md">Combine</a> · <a href="docs/en/networking.md">Networking</a> · <a href="docs/en/persistence.md">Persistence</a> · <a href="docs/en/performance.md">Performance</a> · <a href="docs/en/security.md">Security</a> · <a href="docs/en/accessibility.md">Accessibility</a> · <a href="docs/en/frameworks.md">Frameworks</a> · <a href="docs/en/objc-runtime.md">Objective-C runtime</a> · <a href="docs/en/system-design.md">System design</a> · <a href="docs/en/algorithms.md">Algorithms</a> · <a href="docs/en/behavioral.md">Behavioral / process</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 Spoken-answer notes for iOS interviews. Open a topic, read the question, then press **Show answer** for the spoken version and the Swift.
@@ -40,9 +40,9 @@ Answers are rewritten, not copied. API names stay in Swift.
 
 ## How to study
 
-1. Try **[one card](#identity-vs-equality)** below, or follow a **[study path](#study-paths)** (~20 min).
-2. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**.
-3. Practice cards are prompts only. Talk them through. There is no pasted solution.
+1. Open the **[study site](https://borisserz.github.io/ios-interview-questions/)**: pick a session size, speak, reveal, mark Known / Shaky / Blank.
+2. Practice prompts live in their own **[Practice](https://borisserz.github.io/ios-interview-questions/#/?topic=practice)** list. Follow a **[study path](#study-paths)** (~20 min).
+3. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**.
 
 ## Try one card
 
@@ -321,50 +321,17 @@ Titles only. Open a card, say the answer, then reveal.
 - [Mach-O and dyld](docs/en/objc-runtime.md#mach-o) · Senior
 - [isa and object layout](docs/en/objc-runtime.md#isa) · Senior
 
-### System design · 31 often asked
+### System design · 3 often asked
 
-- [Build a checkout UI in 60 minutes](docs/en/system-design.md#checkout-ui) · Mid
-- [Design a short match / score simulator](docs/en/system-design.md#match-simulator) · Mid
-- [Real-time ETA polling](docs/en/system-design.md#eta-polling) · Mid
-- [Design Notes / Gmail / Facebook (iOS client)](docs/en/system-design.md#design-client-app) · Senior
-- [Design a caching library](docs/en/system-design.md#caching-library) · Senior
-- [Design a chat app](docs/en/system-design.md#chat-app) · Senior
-- [Design a file downloader](docs/en/system-design.md#file-downloader) · Senior
-- [Design a home screen of rails](docs/en/system-design.md#home-rails) · Senior
-- [Design a live delivery tracker](docs/en/system-design.md#delivery-tracker) · Senior
-- [Design a location sharing library](docs/en/system-design.md#location-sharing) · Senior
-- [Design a networking library](docs/en/system-design.md#network-library) · Senior
-- [Design a news feed](docs/en/system-design.md#news-feed) · Senior
-- [Design a pagination library](docs/en/system-design.md#pagination) · Senior
-- [Design a payment checkout](docs/en/system-design.md#payment-checkout) · Senior
-- [Design a push notification system](docs/en/system-design.md#push-system) · Senior
-- [Design a server-driven UI engine](docs/en/system-design.md#sdui) · Senior
-- [Design a short-form video feed](docs/en/system-design.md#short-video-feed) · Senior
-- [Design a video streaming player](docs/en/system-design.md#video-streaming) · Senior
-- [Design an A/B experiment library](docs/en/system-design.md#ab-experiments) · Senior
-- [Design an analytics library](docs/en/system-design.md#analytics-library) · Senior
-- [Design an audio player](docs/en/system-design.md#audio-player) · Senior
-- [Design an image loading library](docs/en/system-design.md#image-loader) · Senior
 - [Design an image upload pipeline](docs/en/system-design.md#image-upload) · Senior
-- [Design an offline media catalog](docs/en/system-design.md#offline-media) · Senior
-- [Design an offline-first sync engine](docs/en/system-design.md#offline-sync) · Senior
-- [Design deep links](docs/en/system-design.md#deep-links) · Senior
-- [Design iCloud-style device sync](docs/en/system-design.md#icloud-sync) · Senior
-- [Design search with autocomplete](docs/en/system-design.md#search-autocomplete) · Senior
 - [Edge-first mobile design](docs/en/system-design.md#edge-first) · Senior
 - [How to run a mobile system design interview](docs/en/system-design.md#sd-interview) · Senior
-- [Unread count / badge](docs/en/system-design.md#unread-badge) · Senior
 
-### Algorithms · 6 often asked
+### Algorithms · 1 often asked
 
 - [Big-O](docs/en/algorithms.md#big-o) · Junior
-- [Fibonacci](docs/en/algorithms.md#fibonacci) · Junior
-- [Merge two sorted lists](docs/en/algorithms.md#merge-lists) · Junior
-- [Reverse a linked list](docs/en/algorithms.md#reverse-list) · Mid
-- [Sliding window](docs/en/algorithms.md#sliding-window) · Mid
-- [Two-sum](docs/en/algorithms.md#two-sum) · Mid
 
-### Behavioral / process · 23 often asked
+### Behavioral / process · 22 often asked
 
 - [App and scene lifecycle](docs/en/behavioral.md#app-lifecycle) · Junior
 - [Swift Package Manager](docs/en/behavioral.md#spm) · Junior
@@ -373,7 +340,6 @@ Titles only. Open a card, say the answer, then reveal.
 - [Code review process](docs/en/behavioral.md#code-review) · Mid
 - [Code signing](docs/en/behavioral.md#code-signing) · Mid
 - [Continuous integration](docs/en/behavioral.md#ci) · Mid
-- [Improve an existing take-home app](docs/en/behavioral.md#improve-existing-app) · Mid
 - [Minimum deployment target](docs/en/behavioral.md#deployment-target) · Mid
 - [STAR stories](docs/en/behavioral.md#star) · Mid
 - [Screening OA / assessment platform](docs/en/behavioral.md#screening-oa) · Mid

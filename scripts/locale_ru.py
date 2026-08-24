@@ -39,6 +39,7 @@ HOW_TITLE = "Как учить"
 CONTRIB_TITLE = "Как добавлять вопросы"
 NOT_TITLE = "Чего здесь нет"
 NAV_SITE = "Сайт"
+NAV_PRACTICE = "Practice"
 NAV_HIGH = "Часто спрашивают"
 NAV_PATHS = "Маршруты"
 NAV_CONTRIB = "Contributing"
@@ -69,9 +70,9 @@ SITE_ALT = "Открой английский сайт: выбери тему, �
 SITE_LEAD = "Колода в браузере, пока на английском. Тема и уровень. Вслух. Reveal."
 SITE_OPEN = "Открыть сайт"
 
-HOW = """1. Попробуй **[одну карточку](#identity-vs-equality)** ниже или **[маршрут](#study-paths)** (~20 мин).
-2. Колоды в `docs/ru/` (английские близнецы в `docs/en/`). Карточки лежат по **Junior / Mid / Senior**.
-3. Practice — только формулировка. Проговори вслух. Готового решения в карточке нет."""
+HOW = """1. Открой **[сайт](https://borisserz.github.io/ios-interview-questions/)**: сам выбираешь длину сессии, вслух, reveal, Known / Shaky / Blank.
+2. Practice — отдельный список **[Practice](https://borisserz.github.io/ios-interview-questions/#/?topic=practice)**. Дальше **[маршрут](#study-paths)** (~20 мин).
+3. Колоды в `docs/ru/` (английские близнецы в `docs/en/`). Карточки лежат по **Junior / Mid / Senior**."""
 
 CONTRIB = """Новые вопросы — по ритуалу в [CONTRIBUTING.md](CONTRIBUTING.md): один источник за раз, один смысл — одна карточка, ответ своими словами, потом `python3 scripts/generate_readme.py`."""
 

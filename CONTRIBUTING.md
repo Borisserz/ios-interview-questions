@@ -20,7 +20,7 @@ python3 scripts/generate_readme.py
 python3 scripts/validate.py
 ```
 
-That writes `README.md`, `README.ru.md`, `docs/en/*.md`, `docs/ru/*.md`, and `docs/data/cards.json` (the GitHub Pages study app). Do not edit those generated files by hand. Learners study from the decks (answer hidden) and from `paths/`. Progress checkboxes belong only on a path file or a local `STUDY.local.md` (see `STUDY.local.md.example`).
+That writes `README.md`, `README.ru.md`, `docs/en/*.md`, `docs/ru/*.md`, and `docs/data/cards.json` (the GitHub Pages study app). Do not edit those generated files by hand. Learners study from the decks (answer hidden) and from `paths/`. The site lists **Practice** as its own topic; the cards stay in `topics/system-design.md`, `topics/algorithms.md`, and `topics/behavioral.md`. Progress checkboxes belong only on a path file or a local `STUDY.local.md` (see `STUDY.local.md.example`).
 
 ## Card template
 

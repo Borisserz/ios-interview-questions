@@ -29,7 +29,7 @@
 
 
 <p align="center">
-  <a href="https://borisserz.github.io/ios-interview-questions/">Сайт</a> · <a href="#start-here">Часто спрашивают</a> · <a href="#study-paths">Маршруты</a> · <a href="docs/ru/swift.md">Swift</a> · <a href="docs/ru/memory.md">Память</a> · <a href="docs/ru/concurrency.md">Concurrency</a> · <a href="docs/ru/architecture.md">Архитектура</a> · <a href="docs/ru/uikit.md">UIKit</a> · <a href="docs/ru/swiftui.md">SwiftUI</a> · <a href="docs/ru/combine.md">Combine</a> · <a href="docs/ru/networking.md">Сеть</a> · <a href="docs/ru/persistence.md">Хранение</a> · <a href="docs/ru/performance.md">Performance</a> · <a href="docs/ru/security.md">Безопасность</a> · <a href="docs/ru/accessibility.md">Accessibility</a> · <a href="docs/ru/frameworks.md">Фреймворки</a> · <a href="docs/ru/objc-runtime.md">Objective-C runtime</a> · <a href="docs/ru/system-design.md">System design</a> · <a href="docs/ru/algorithms.md">Алгоритмы</a> · <a href="docs/ru/behavioral.md">Поведение и процесс</a> · <a href="CONTRIBUTING.md">Contributing</a>
+  <a href="https://borisserz.github.io/ios-interview-questions/">Сайт</a> · <a href="https://borisserz.github.io/ios-interview-questions/#/?topic=practice">Practice</a> · <a href="#start-here">Часто спрашивают</a> · <a href="#study-paths">Маршруты</a> · <a href="docs/ru/swift.md">Swift</a> · <a href="docs/ru/memory.md">Память</a> · <a href="docs/ru/concurrency.md">Concurrency</a> · <a href="docs/ru/architecture.md">Архитектура</a> · <a href="docs/ru/uikit.md">UIKit</a> · <a href="docs/ru/swiftui.md">SwiftUI</a> · <a href="docs/ru/combine.md">Combine</a> · <a href="docs/ru/networking.md">Сеть</a> · <a href="docs/ru/persistence.md">Хранение</a> · <a href="docs/ru/performance.md">Performance</a> · <a href="docs/ru/security.md">Безопасность</a> · <a href="docs/ru/accessibility.md">Accessibility</a> · <a href="docs/ru/frameworks.md">Фреймворки</a> · <a href="docs/ru/objc-runtime.md">Objective-C runtime</a> · <a href="docs/ru/system-design.md">System design</a> · <a href="docs/ru/algorithms.md">Алгоритмы</a> · <a href="docs/ru/behavioral.md">Поведение и процесс</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 Конспекты устных ответов на iOS-собеседования. Открой тему, прочитай вопрос, нажми **Показать ответ** — там текст, как его говорят, и Swift.
@@ -40,9 +40,9 @@
 
 ## Как учить
 
-1. Попробуй **[одну карточку](#identity-vs-equality)** ниже или **[маршрут](#study-paths)** (~20 мин).
-2. Колоды в `docs/ru/` (английские близнецы в `docs/en/`). Карточки лежат по **Junior / Mid / Senior**.
-3. Practice — только формулировка. Проговори вслух. Готового решения в карточке нет.
+1. Открой **[сайт](https://borisserz.github.io/ios-interview-questions/)**: сам выбираешь длину сессии, вслух, reveal, Known / Shaky / Blank.
+2. Practice — отдельный список **[Practice](https://borisserz.github.io/ios-interview-questions/#/?topic=practice)**. Дальше **[маршрут](#study-paths)** (~20 мин).
+3. Колоды в `docs/ru/` (английские близнецы в `docs/en/`). Карточки лежат по **Junior / Mid / Senior**.
 
 ## Одна карточка
 
@@ -320,50 +320,17 @@ a === c   // false
 - [Mach-O и dyld](docs/ru/objc-runtime.md#mach-o) · Senior
 - [isa и раскладка объекта](docs/ru/objc-runtime.md#isa) · Senior
 
-### System design · 31 часто спрашивают
+### System design · 3 часто спрашивают
 
-- [Live ETA через polling](docs/ru/system-design.md#eta-polling) · Mid
-- [Собери checkout UI за 60 минут](docs/ru/system-design.md#checkout-ui) · Mid
-- [Собери симулятор матча / счёта](docs/ru/system-design.md#match-simulator) · Mid
 - [Edge-first: кто владеет write](docs/ru/system-design.md#edge-first) · Senior
 - [Как вести mobile system design](docs/ru/system-design.md#sd-interview) · Senior
-- [Спроектируй SDUI-движок](docs/ru/system-design.md#sdui) · Senior
-- [Спроектируй analytics-библиотеку](docs/ru/system-design.md#analytics-library) · Senior
-- [Спроектируй deep links](docs/ru/system-design.md#deep-links) · Senior
-- [Спроектируй file downloader](docs/ru/system-design.md#file-downloader) · Senior
-- [Спроектируй home из рельс](docs/ru/system-design.md#home-rails) · Senior
-- [Спроектируй image loader](docs/ru/system-design.md#image-loader) · Senior
-- [Спроектируй live-трекер доставки](docs/ru/system-design.md#delivery-tracker) · Senior
-- [Спроектируй networking-библиотеку](docs/ru/system-design.md#network-library) · Senior
-- [Спроектируй news feed](docs/ru/system-design.md#news-feed) · Senior
-- [Спроектируй offline-first sync](docs/ru/system-design.md#offline-sync) · Senior
-- [Спроектируй offline-каталог медиа](docs/ru/system-design.md#offline-media) · Senior
-- [Спроектируй pagination-библиотеку](docs/ru/system-design.md#pagination) · Senior
-- [Спроектируй payment checkout](docs/ru/system-design.md#payment-checkout) · Senior
-- [Спроектируй push-систему](docs/ru/system-design.md#push-system) · Senior
-- [Спроектируй short-form видеоленту](docs/ru/system-design.md#short-video-feed) · Senior
-- [Спроектируй sync устройств как iCloud](docs/ru/system-design.md#icloud-sync) · Senior
-- [Спроектируй аудиоплеер](docs/ru/system-design.md#audio-player) · Senior
-- [Спроектируй библиотеку A/B экспериментов](docs/ru/system-design.md#ab-experiments) · Senior
-- [Спроектируй библиотеку шаринга геолокации](docs/ru/system-design.md#location-sharing) · Senior
-- [Спроектируй видеоплеер](docs/ru/system-design.md#video-streaming) · Senior
-- [Спроектируй клиент Notes / Gmail / Facebook](docs/ru/system-design.md#design-client-app) · Senior
-- [Спроектируй кэш-библиотеку](docs/ru/system-design.md#caching-library) · Senior
 - [Спроектируй пайплайн загрузки картинок](docs/ru/system-design.md#image-upload) · Senior
-- [Спроектируй поиск с autocomplete](docs/ru/system-design.md#search-autocomplete) · Senior
-- [Спроектируй чат](docs/ru/system-design.md#chat-app) · Senior
-- [Счётчик unread и badge](docs/ru/system-design.md#unread-badge) · Senior
 
-### Алгоритмы · 6 часто спрашивают
+### Алгоритмы · 1 часто спрашивают
 
 - [Big-O](docs/ru/algorithms.md#big-o) · Junior
-- [Fibonacci](docs/ru/algorithms.md#fibonacci) · Junior
-- [Слить два отсортированных списка](docs/ru/algorithms.md#merge-lists) · Junior
-- [Sliding window](docs/ru/algorithms.md#sliding-window) · Mid
-- [Two-sum](docs/ru/algorithms.md#two-sum) · Mid
-- [Развернуть связный список](docs/ru/algorithms.md#reverse-list) · Mid
 
-### Поведение и процесс · 23 часто спрашивают
+### Поведение и процесс · 22 часто спрашивают
 
 - [Swift Package Manager](docs/ru/behavioral.md#spm) · Junior
 - [Виды тестов](docs/ru/behavioral.md#test-types) · Junior
@@ -376,7 +343,6 @@ a === c   // false
 - [Swift Testing](docs/ru/behavioral.md#swift-testing) · Mid
 - [Take-home](docs/ru/behavioral.md#take-home) · Mid
 - [XCTest и UI-тесты](docs/ru/behavioral.md#xctest) · Mid
-- [Допилить готовый take-home](docs/ru/behavioral.md#improve-existing-app) · Mid
 - [Как тестировать async](docs/ru/behavioral.md#test-async) · Mid
 - [Код-ревью](docs/ru/behavioral.md#code-review) · Mid
 - [Своё vs стороннее](docs/ru/behavioral.md#third-party-vs-custom) · Mid

@@ -105,6 +105,14 @@ TOPIC_ORDER = [
     ("behavioral.md", "Behavioral / process", "behavioral"),
 ]
 
+PATH_ORDER = [
+    ("junior-high-freq.md", "Junior high-frequency", "junior-high-freq"),
+    ("7-day-mid.md", "7-day mid", "7-day-mid"),
+    ("14-day-senior.md", "14-day senior", "14-day-senior"),
+]
+PATH_LINK = re.compile(r"\[[^\]]+\]\([^)]+#([^)]+)\)")
+SESSION_HEAD = re.compile(r"^## (.+)$")
+
 
 def parse_cards() -> list[dict]:
     cards: list[dict] = []
@@ -172,6 +180,34 @@ def parse_cards() -> list[dict]:
             + ", ".join(f"{card['file']}#{card['slug']}" for card in missing)
         )
     return cards
+
+
+def parse_paths() -> list[dict]:
+    paths: list[dict] = []
+    for filename, label, path_id in PATH_ORDER:
+        sessions: list[dict] = []
+        current: dict | None = None
+        text = (ROOT / "paths" / filename).read_text(encoding="utf-8")
+        for line in text.splitlines():
+            heading = SESSION_HEAD.match(line)
+            if heading:
+                current = {"title": heading.group(1).strip(), "slugs": []}
+                sessions.append(current)
+                continue
+            if current is None:
+                continue
+            link = PATH_LINK.search(line)
+            if link:
+                current["slugs"].append(link.group(1).strip())
+        paths.append(
+            {
+                "id": path_id,
+                "file": f"paths/{filename}",
+                "label": label,
+                "sessions": [session for session in sessions if session["slugs"]],
+            }
+        )
+    return paths
 
 
 def load_ru_cards() -> dict[str, dict]:
@@ -364,7 +400,7 @@ def render_starter(cards: list[dict], locale: str) -> str:
 def render_high_index(cards: list[dict], locale: str) -> str:
     grouped: dict[str, list[dict]] = defaultdict(list)
     for card in cards:
-        if card["freq"] == "High":
+        if card["freq"] == "High" and card["kind"] != "Practice":
             grouped[card["file"]].append(card)
     if locale == "ru":
         blocks = [f'<h2 id="start-here">{ru.HIGH_TITLE}</h2>', "", ru.HIGH_LEAD, ""]
@@ -441,13 +477,14 @@ def jump_row(locale: str) -> str:
         for filename, _label, _anchor in TOPIC_ORDER
     )
     site = ru.NAV_SITE if locale == "ru" else "Study site"
+    practice = ru.NAV_PRACTICE if locale == "ru" else "Practice"
     high = ru.NAV_HIGH if locale == "ru" else "High frequency"
     paths = ru.NAV_PATHS if locale == "ru" else "Study paths"
     contrib = ru.NAV_CONTRIB
     return "\n".join(
         [
             "<p align=\"center\">",
-            f'  <a href="{SITE_URL}">{html.escape(site)}</a> · <a href="#start-here">{high}</a> · <a href="#study-paths">{paths}</a> · {links} · <a href="CONTRIBUTING.md">{contrib}</a>',
+            f'  <a href="{SITE_URL}">{html.escape(site)}</a> · <a href="{SITE_URL}#/?topic=practice">{html.escape(practice)}</a> · <a href="#start-here">{high}</a> · <a href="#study-paths">{paths}</a> · {links} · <a href="CONTRIBUTING.md">{contrib}</a>',
             "</p>",
         ]
     )
@@ -527,9 +564,9 @@ def render(cards: list[dict], locale: str, ru_cards: dict[str, dict]) -> str:
         )
         lead = "Answers are rewritten, not copied. API names stay in Swift."
         how_title = "How to study"
-        how = """1. Try **[one card](#identity-vs-equality)** below, or follow a **[study path](#study-paths)** (~20 min).
-2. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**.
-3. Practice cards are prompts only. Talk them through. There is no pasted solution."""
+        how = """1. Open the **[study site](https://borisserz.github.io/ios-interview-questions/)**: pick a session size, speak, reveal, mark Known / Shaky / Blank.
+2. Practice prompts live in their own **[Practice](https://borisserz.github.io/ios-interview-questions/#/?topic=practice)** list. Follow a **[study path](#study-paths)** (~20 min).
+3. Topic decks live in `docs/en/` (Russian twins in `docs/ru/`). Cards sit by **Junior / Mid / Senior**."""
         contrib_title = "Contributing"
         contrib = (
             "New questions go through the ritual in [CONTRIBUTING.md](CONTRIBUTING.md): "
@@ -624,6 +661,7 @@ def site_card(card: dict) -> dict:
         "kind": card["kind"],
         "frequent": slug in FREQUENT_RANK,
         "frequentRank": FREQUENT_RANK.get(slug),
+        "practice": card["kind"] == "Practice",
         "answer": card["answer"],
         "example": card["example"],
         "follow-ups": card["follow-ups"],
@@ -635,11 +673,13 @@ def render_site_cards(cards: list[dict]) -> str:
     payload = {
         "topics": [
             {"id": "frequent", "file": "", "label": "Most frequent"},
+            {"id": "practice", "file": "", "label": "Practice"},
         ]
         + [
             {"id": anchor, "file": filename, "label": label}
             for filename, label, anchor in TOPIC_ORDER
         ],
+        "paths": parse_paths(),
         "cards": [site_card(card) for card in cards],
     }
     return json.dumps(payload, ensure_ascii=False, indent=2) + "\n"

@@ -170,14 +170,38 @@ class SiteAppTests(unittest.TestCase):
         html = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         js = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
         self.assertIn("./data/cards.json", js)
-        self.assertIn("./app.js", html)
+        self.assertIn("./app.js?", html)
+        self.assertIn("./app.css?", html)
+        self.assertIn("./tokens.css?", html)
         self.assertIn('class="back"', js)
         self.assertIn("topic-block", js)
         self.assertIn("matchesTopic", js)
         self.assertIn("card.frequent", js)
-        self.assertIn("margin-inline: auto", (ROOT / "docs" / "app.css").read_text(encoding="utf-8"))
+        css = (ROOT / "docs" / "app.css").read_text(encoding="utf-8")
+        self.assertIn("margin: 0 auto", css)
+        self.assertIn("max-width: var(--page)", css)
         self.assertIn("toolbar-controls", js)
+        self.assertIn("saveGrade", js)
+        self.assertIn("splitGist", js)
+        self.assertIn("DATA.paths", js)
+        self.assertIn('=== "practice"', js)
+        self.assertIn(".grades", css)
+        self.assertIn(".gist", css)
+        self.assertIn(".timer", css)
         self.assertTrue((ROOT / "docs" / ".nojekyll").exists())
+
+    def test_session_size_is_user_chosen(self) -> None:
+        js = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("function parseCap", js)
+        self.assertIn('name="cap"', js)
+        self.assertNotIn('filters.cap === "12"', js)
+        self.assertIn("session-size", js)
+
+    def test_all_includes_practice_named_topics_do_not(self) -> None:
+        js = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        all_idx = js.index('if (topicId === "all") return true;')
+        skip_idx = js.index("if (isPractice(card)) return false;")
+        self.assertLess(all_idx, skip_idx)
 
 
 class SiteCardsTests(unittest.TestCase):
@@ -188,9 +212,25 @@ class SiteCardsTests(unittest.TestCase):
         self.assertEqual(missing, [])
         payload = json.loads(gen.render_site_cards(cards))
         self.assertEqual(payload["topics"][0]["id"], "frequent")
+        self.assertEqual(payload["topics"][1]["id"], "practice")
         flagged = {card["slug"] for card in payload["cards"] if card.get("frequent")}
         self.assertEqual(flagged, set(gen.FREQUENT_SLUGS))
         self.assertIn(STARTER, flagged)
+
+    def test_practice_topic_and_paths_are_in_site_json(self) -> None:
+        cards = gen.parse_cards()
+        payload = json.loads(gen.render_site_cards(cards))
+        ids = [topic["id"] for topic in payload["topics"]]
+        self.assertEqual(ids[:2], ["frequent", "practice"])
+        practice = [card for card in payload["cards"] if card.get("practice")]
+        self.assertEqual(len(practice), sum(1 for card in cards if card["kind"] == "Practice"))
+        self.assertTrue(all(card["kind"] == "Practice" for card in practice))
+        self.assertIn("chat-app", {card["slug"] for card in practice})
+        path_ids = [path["id"] for path in payload["paths"]]
+        self.assertEqual(path_ids, ["junior-high-freq", "7-day-mid", "14-day-senior"])
+        junior = next(path for path in payload["paths"] if path["id"] == "junior-high-freq")
+        self.assertGreaterEqual(len(junior["sessions"]), 6)
+        self.assertIn(STARTER, junior["sessions"][0]["slugs"])
 
     def test_site_cards_json_has_starter_and_all_cards(self) -> None:
         cards = gen.parse_cards()
