@@ -190,6 +190,16 @@ class SiteAppTests(unittest.TestCase):
         self.assertIn(".timer", css)
         self.assertTrue((ROOT / "docs" / ".nojekyll").exists())
 
+    def test_mobile_toolbar_scrolls_and_does_not_clip(self) -> None:
+        css = (ROOT / "docs" / "app.css").read_text(encoding="utf-8")
+        before_wide = css.split("@media (min-width: 40rem)")[0]
+        self.assertNotIn("overflow-x: clip", css)
+        self.assertIn("overflow-x: hidden", css)
+        self.assertIn("env(safe-area-inset-left)", css)
+        self.assertNotIn(".toolbar {\n  position: sticky", before_wide)
+        self.assertNotIn(".sheet-nav {\n  position: sticky", before_wide)
+        self.assertIn(".sheet {\n  min-width: 0;", css)
+
     def test_session_size_is_user_chosen(self) -> None:
         js = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
         self.assertIn("function parseCap", js)

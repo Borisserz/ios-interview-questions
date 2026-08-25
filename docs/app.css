@@ -2,7 +2,7 @@
 
 html,
 body {
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 *,
@@ -69,7 +69,8 @@ a:hover {
 }
 
 .masthead {
-  padding: var(--space-xl) var(--space-md) var(--space-lg);
+  padding: var(--space-xl) max(var(--space-md), env(safe-area-inset-right)) var(--space-lg)
+    max(var(--space-md), env(safe-area-inset-left));
   border-bottom: double 3px var(--color-ink);
 }
 
@@ -108,7 +109,8 @@ a:hover {
 #app {
   flex: 1;
   width: 100%;
-  padding: 0 var(--space-md) var(--space-2xl);
+  padding: 0 max(var(--space-md), env(safe-area-inset-right)) var(--space-2xl)
+    max(var(--space-md), env(safe-area-inset-left));
   min-width: 0;
 }
 
@@ -123,9 +125,6 @@ a:hover {
 }
 
 .toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 2;
   display: grid;
   gap: var(--space-md);
   padding: var(--space-md) 0;
@@ -248,6 +247,7 @@ a:hover {
 }
 
 .choice {
+  position: relative;
   display: inline-flex;
   align-items: center;
   min-height: var(--thumb);
@@ -269,8 +269,13 @@ a:hover {
 
 .choice input {
   position: absolute;
+  inset: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
   opacity: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .start-bar {
@@ -352,6 +357,7 @@ a:hover {
 }
 
 .sheet {
+  min-width: 0;
   display: grid;
   gap: var(--space-lg);
   width: 100%;
@@ -361,9 +367,6 @@ a:hover {
 }
 
 .sheet-nav {
-  position: sticky;
-  top: 0;
-  z-index: 2;
   margin: 0;
   padding: var(--space-sm) 0;
   background: var(--color-paper);
@@ -418,7 +421,8 @@ a:hover {
 }
 
 .prose {
-  max-width: var(--measure);
+  max-width: min(var(--measure), 100%);
+  min-width: 0;
 }
 
 .prose p {
@@ -433,6 +437,8 @@ a:hover {
 .prose pre {
   margin: 0 0 var(--space-md);
   padding: var(--space-sm);
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   background: var(--color-paper-2);
   border: var(--rule);
@@ -613,6 +619,8 @@ a:hover {
 .colophon {
   margin-top: auto;
   padding: var(--space-md);
+  padding-left: max(var(--space-md), env(safe-area-inset-left));
+  padding-right: max(var(--space-md), env(safe-area-inset-right));
   padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
   border-top: var(--rule);
   display: flex;
@@ -634,6 +642,18 @@ a:hover {
 }
 
 @media (min-width: 40rem) {
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .sheet-nav {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
   .toolbar-controls {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
     align-items: end;
